@@ -28,7 +28,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./assets/fonts/material-icons/material-icons.css",
+              "./node_modules/material-design-icons/iconfont/material-icons.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -86,7 +86,6 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./assets/fonts/material-icons/material-icons.css",
               "src/styles.scss"
             ],
             "scripts": [],
