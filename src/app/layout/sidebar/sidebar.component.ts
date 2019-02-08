@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RestService} from '../../services/rest.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   public showMenu: string;
-  constructor() {}
+  public menuItems: any[] = [];
+
+  constructor(private rest: RestService) {
+    this.loadMenuItems();
+  }
 
   ngOnInit() {
     this.showMenu = '';
@@ -19,5 +24,30 @@ export class SidebarComponent implements OnInit {
     } else {
       this.showMenu = element;
     }
+  }
+
+  loadMenuItems() {
+    this.rest.index('menu_items').subscribe((data: any) => {
+      this.menuItems = data.result;
+    });
+  }
+
+  findChildren(menuItemId) {
+    const items = [];
+    for (const item of this.menuItems) {
+      if (item.parent_id === menuItemId) {
+        items.push(item);
+      }
+    }
+    return items;
+  }
+
+  hasChild(menuItemId) {
+    for (const item of this.menuItems) {
+      if (item.parent_id === menuItemId) {
+        return true;
+      }
+    }
+    return false;
   }
 }

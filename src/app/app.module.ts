@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 import {TranslateModule} from '@ngx-translate/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MasterComponent } from './layout/master/master.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { TopnavComponent } from './layout/topnav/topnav.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { TopnavComponent } from './layout/topnav/topnav.component';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule.withConfig({addFlexToParent: false}),
+    HttpClientModule,
     TranslateModule.forRoot()
   ],
   providers: [],
