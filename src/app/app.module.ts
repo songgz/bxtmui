@@ -12,6 +12,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MasterComponent } from './layout/master/master.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { TopnavComponent } from './layout/topnav/topnav.component';
+import { BlankPageComponent } from './components/blank-page/blank-page.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CollegeComponent } from './components/college/college.component';
+import { CollegeFormComponent } from './components/college/college-form/college-form.component';
+import { DepartmentComponent } from './components/department/department.component';
+import { DepartmentFormComponent } from './components/department/department-form/department-form.component';
+import { GradeComponent } from './components/grade/grade.component';
+import { GradeFormComponent } from './components/grade/grade-form/grade-form.component';
+import { ClassroomComponent } from './components/classroom/classroom.component';
+import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
 
 
 @NgModule({
@@ -20,7 +30,17 @@ import { TopnavComponent } from './layout/topnav/topnav.component';
     LoginComponent,
     MasterComponent,
     SidebarComponent,
-    TopnavComponent
+    TopnavComponent,
+    BlankPageComponent,
+    DashboardComponent,
+    CollegeComponent,
+    CollegeFormComponent,
+    DepartmentComponent,
+    DepartmentFormComponent,
+    GradeComponent,
+    GradeFormComponent,
+    ClassroomComponent,
+    ClassroomFormComponent
   ],
   imports: [
     BrowserModule,
