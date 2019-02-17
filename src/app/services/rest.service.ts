@@ -46,7 +46,9 @@ export class RestService {
   }
 
   errorHandle(error: HttpErrorResponse) {
-    this.errorMsg = error.error ? error.error : error.statusText;
+    console.log(error);
+    // this.errorMsg = error.error ? error.error : error.statusText;
+    this.errorMsg = error;
     this.router.navigate(['bxt', 'error']);
   }
 

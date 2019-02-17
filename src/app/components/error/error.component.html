@@ -4,7 +4,7 @@
     <p>We are sorry for the inconvinience, plese report this error.</p>
   </div>
   <div fxFlex>
-    {{rest.errorMsg?.error}}
+    {{ rest.errorMsg?.error | json}}
   </div>
   <div fxFlex>
     {{rest.errorMsg?.exception}}

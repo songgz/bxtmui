@@ -37,11 +37,11 @@ export class CollegeComponent implements OnInit {
     }
   }
 
-  public redirectToUpdate (id: string)  {
+  public update (id: string)  {
     this.rest.navigate(['/bxt/colleges/', id, 'edit']);
   }
 
-  public redirectToDelete (id: string) {
+  public delete (id: string) {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('colleges/' + id).subscribe(data => {
