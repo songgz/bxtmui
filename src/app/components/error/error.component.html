@@ -1,0 +1,15 @@
+<section fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="30px">
+  <div fxFlex>
+    <p>{{rest.errorMsg?.status}} Error</p>
+    <p>We are sorry for the inconvinience, plese report this error.</p>
+  </div>
+  <div fxFlex>
+    {{rest.errorMsg?.error}}
+  </div>
+  <div fxFlex>
+    {{rest.errorMsg?.exception}}
+  </div>
+  <div fxFlex>
+    <button md-raised-button type="submit" class="btn btn-rose" (click)="rest.goBlank()">返回</button>
+  </div>
+</section>

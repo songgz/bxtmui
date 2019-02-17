@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 
-
 @Component({
   selector: 'app-college',
   templateUrl: './college.component.html',
@@ -39,12 +38,14 @@ export class CollegeComponent implements OnInit {
   }
 
   public redirectToUpdate (id: string)  {
-    this.rest.router.navigate(['/bxt/colleges/', id, 'edit']);
+    this.rest.navigate(['/bxt/colleges/', id, 'edit']);
   }
 
   public redirectToDelete (id: string) {
     this.rest.destory('colleges/' + id).subscribe(data => {
       console.log(data);
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
 

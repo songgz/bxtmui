@@ -12,6 +12,7 @@ import { GradeComponent } from './components/grade/grade.component';
 import { GradeFormComponent } from './components/grade/grade-form/grade-form.component';
 import { ClassroomComponent } from './components/classroom/classroom.component';
 import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
+import {ErrorComponent} from './components/error/error.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'classrooms', component: ClassroomComponent},
       {path: 'classrooms/new', component: ClassroomFormComponent},
       {path: 'classrooms/:id/edit', component: ClassroomFormComponent},
+      {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},
   {path: '**', component: BlankPageComponent}

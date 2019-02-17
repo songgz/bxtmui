@@ -4,6 +4,7 @@ import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import {TranslateModule} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,8 @@ import { GradeComponent } from './components/grade/grade.component';
 import { GradeFormComponent } from './components/grade/grade-form/grade-form.component';
 import { ClassroomComponent } from './components/classroom/classroom.component';
 import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
-
+import { ErrorComponent } from './components/error/error.component';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,12 @@ import { ClassroomFormComponent } from './components/classroom/classroom-form/cl
     GradeComponent,
     GradeFormComponent,
     ClassroomComponent,
-    ClassroomFormComponent
+    ClassroomFormComponent,
+    ErrorComponent,
+    MessageDialogComponent
+  ],
+  entryComponents: [
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,8 @@ import { ClassroomFormComponent } from './components/classroom/classroom-form/cl
     MaterialModule,
     FlexLayoutModule.withConfig({addFlexToParent: false}),
     HttpClientModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
