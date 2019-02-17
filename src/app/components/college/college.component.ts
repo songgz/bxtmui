@@ -42,10 +42,14 @@ export class CollegeComponent implements OnInit {
   }
 
   public redirectToDelete (id: string) {
-    this.rest.destory('colleges/' + id).subscribe(data => {
-      console.log(data);
-    }, error => {
-      this.rest.errorHandle(error);
+    this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
+      if (res) {
+        this.rest.destory('colleges/' + id).subscribe(data => {
+          this.loadColleges();
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
     });
   }
 

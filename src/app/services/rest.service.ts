@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {MatDialog} from '@angular/material';
-import {MessageDialogComponent} from '../components/message-dialog/message-dialog.component';
+import {AlertDialogComponent} from '../components/message-dialog/alert-dialog.component';
+import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,13 @@ export class RestService {
     this.router.navigate(['bxt', 'error']);
   }
 
+  // msgDialog({title: data.status}).afterClosed().subscribe(result => {});
   msgDialog(msg: any) {
-    return this.dialog.open(MessageDialogComponent, msg);
+    return this.dialog.open(AlertDialogComponent, {data: msg});
+  }
+
+  confirm(msg: any) {
+    return this.dialog.open(ConfirmDialogComponent, {data: msg});
   }
 
   goBlank() {

@@ -1,0 +1,10 @@
+<section fxLayout="column" fxLayoutAlign="center center">
+  <h1 mat-dialog-title>{{data.title || '操作完成！'}}</h1>
+  <mat-dialog-content>
+    <p>{{data.desc}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="false">NO</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">YES</button>
+  </mat-dialog-actions>
+</section>

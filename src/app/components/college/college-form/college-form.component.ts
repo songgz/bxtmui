@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-college-form',
@@ -29,10 +29,8 @@ export class CollegeFormComponent implements OnInit {
 
   create() {
     this.rest.create('colleges', this.college).subscribe((data: any) => {
-      this.rest.msgDialog({title: data.status}).afterClosed().subscribe(result => {
-        this.college = data;
-        this.rest.goBlank();
-      });
+      this.college = data;
+      this.rest.goBlank();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -46,10 +44,8 @@ export class CollegeFormComponent implements OnInit {
 
   update() {
     this.rest.update('colleges/' + this.college.id, this.college).subscribe((data: any) => {
-      this.rest.msgDialog({title: data.status}).afterClosed().subscribe(result => {
-        this.college = data;
-        this.rest.goBlank();
-      });
+      this.college = data;
+      this.rest.goBlank();
     }, error => {
       this.rest.errorHandle(error);
     });

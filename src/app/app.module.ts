@@ -24,7 +24,8 @@ import { GradeFormComponent } from './components/grade/grade-form/grade-form.com
 import { ClassroomComponent } from './components/classroom/classroom.component';
 import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
 import { ErrorComponent } from './components/error/error.component';
-import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { AlertDialogComponent } from './components/message-dialog/alert-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +45,12 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     ClassroomComponent,
     ClassroomFormComponent,
     ErrorComponent,
-    MessageDialogComponent
+    AlertDialogComponent,
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    MessageDialogComponent
+    AlertDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

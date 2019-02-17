@@ -1,7 +1,7 @@
 <section fxLayout="column" fxLayoutAlign="center center">
-  <h1 mat-dialog-title>{{msg?.title || '操作完成！'}}</h1>
+  <h1 mat-dialog-title>{{data?.title || '操作完成！'}}</h1>
   <mat-dialog-content>
-    <p>{{msg?.desc}}</p>
+    <p>{{data?.desc}}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button color="warn" (click)="close()">OK</button>
