@@ -56,6 +56,6 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   getColleges() {
-    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
+    this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
 }
