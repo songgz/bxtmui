@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-  displayedColumns = [ 'title', 'updated_at', 'action'];
+  displayedColumns = [ 'title', 'college', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

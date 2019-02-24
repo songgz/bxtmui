@@ -12,7 +12,7 @@
       </mat-form-field>
   </mat-card-content>
   <mat-card-actions align="center">
-    <button mat-raised-button color="primary" [disabled]="!collegeForm.valid">提交</button>
+    <button mat-raised-button color="primary" [disabled]="collegeForm.invalid">提交</button>
     <button mat-raised-button color="warn" (click)="rest.goBlank()">返回</button>
   </mat-card-actions>
 </mat-card>

@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./grade.component.scss']
 })
 export class GradeComponent implements OnInit {
-  displayedColumns = [ 'title', 'updated_at', 'action'];
+  displayedColumns = [ 'title', 'college', 'department', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
@@ -13,7 +13,6 @@ export class GradeFormComponent implements OnInit {
   grade: any = {id: null, department: {id: null, college: {id: null}}};
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
-  college_id: string;
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
@@ -24,6 +23,7 @@ export class GradeFormComponent implements OnInit {
     });
 
     this.getColleges();
+    this.getDepartments();
   }
 
   save() {
@@ -64,10 +64,13 @@ export class GradeFormComponent implements OnInit {
   }
 
   getDepartments() {
-    this.departments = this.rest.index('departments', {college_id: this.grade.department.college.id}).pipe(map((res: any) => res.result));
+    if (this.grade.department.college.id) {
+      this.departments = this.rest.index('departments', {college_id: this.grade.department.college.id}).pipe(map((res: any) => res.result));
+    }
   }
 
   selectCollege() {
     this.getDepartments();
   }
+
 }
