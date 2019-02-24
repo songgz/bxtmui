@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-college-form',
