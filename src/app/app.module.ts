@@ -26,6 +26,14 @@ import { ClassroomFormComponent } from './components/classroom/classroom-form/cl
 import { ErrorComponent } from './components/error/error.component';
 import { AlertDialogComponent } from './components/message-dialog/alert-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { HouseComponent } from './components/house/house.component';
+import { HouseFormComponent } from './components/house/house-form/house-form.component';
+import { FloorComponent } from './components/floor/floor.component';
+import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
+import { RoomComponent } from './components/room/room.component';
+import { RoomFormComponent } from './components/room/room-form/room-form.component';
+import { BedComponent } from './components/bed/bed.component';
+import { BedFormComponent } from './components/bed/bed-form/bed-form.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +54,15 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ClassroomFormComponent,
     ErrorComponent,
     AlertDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    HouseComponent,
+    HouseFormComponent,
+    FloorComponent,
+    FloorFormComponent,
+    RoomComponent,
+    RoomFormComponent,
+    BedComponent,
+    BedFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,

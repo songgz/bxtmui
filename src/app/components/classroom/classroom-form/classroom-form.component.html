@@ -33,7 +33,7 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
-      <button mat-raised-button color="primary" [disabled]="classroomForm.invalid">提交</button>
+      <button mat-raised-button color="primary" [disabled]="classroomForm.pristine || classroomForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>
   </mat-card>

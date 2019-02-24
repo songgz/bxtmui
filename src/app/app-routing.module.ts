@@ -13,6 +13,14 @@ import { GradeFormComponent } from './components/grade/grade-form/grade-form.com
 import { ClassroomComponent } from './components/classroom/classroom.component';
 import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
 import {ErrorComponent} from './components/error/error.component';
+import {HouseComponent} from './components/house/house.component';
+import {HouseFormComponent} from './components/house/house-form/house-form.component';
+import {FloorComponent} from './components/floor/floor.component';
+import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
+import {RoomComponent} from './components/room/room.component';
+import {RoomFormComponent} from './components/room/room-form/room-form.component';
+import {BedComponent} from './components/bed/bed.component';
+import {BedFormComponent} from './components/bed/bed-form/bed-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -30,6 +38,18 @@ const routes: Routes = [
       {path: 'classrooms', component: ClassroomComponent},
       {path: 'classrooms/new', component: ClassroomFormComponent},
       {path: 'classrooms/:id/edit', component: ClassroomFormComponent},
+      {path: 'houses', component: HouseComponent},
+      {path: 'houses/new', component: HouseFormComponent},
+      {path: 'houses/:id/edit', component: HouseFormComponent},
+      {path: 'floors', component: FloorComponent},
+      {path: 'floors/new', component: FloorFormComponent},
+      {path: 'floors/:id/edit', component: FloorFormComponent},
+      {path: 'rooms', component: RoomComponent},
+      {path: 'rooms/new', component: RoomFormComponent},
+      {path: 'rooms/:id/edit', component: RoomFormComponent},
+      {path: 'beds', component: BedComponent},
+      {path: 'beds/new', component: BedFormComponent},
+      {path: 'beds/:id/edit', component: BedFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},
