@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-college-form',
@@ -30,7 +31,7 @@ export class CollegeFormComponent implements OnInit {
   create() {
     this.rest.create('colleges', this.college).subscribe((data: any) => {
       this.college = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -45,10 +46,14 @@ export class CollegeFormComponent implements OnInit {
   update() {
     this.rest.update('colleges/' + this.college.id, this.college).subscribe((data: any) => {
       this.college = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
+  }
+
+  goBack() {
+    this.rest.navigate(['/bxt/colleges']);
   }
 
 

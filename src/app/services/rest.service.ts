@@ -18,7 +18,7 @@ export class RestService {
   };
   baseUrl = 'http://localhost:3000/';
 
-  constructor(private http: HttpClient, private router: Router,  private location: Location, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
   index (path: string, params = {}) {
     return this.http.get(this.baseUrl + path + '.json', {params: params});
@@ -59,10 +59,6 @@ export class RestService {
 
   confirm(msg: any) {
     return this.dialog.open(ConfirmDialogComponent, {data: msg});
-  }
-
-  goBlank() {
-    this.location.back();
   }
 
 }

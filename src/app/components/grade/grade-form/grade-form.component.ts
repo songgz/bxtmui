@@ -37,7 +37,7 @@ export class GradeFormComponent implements OnInit {
   create() {
     this.rest.create('grades', this.grade).subscribe((data: any) => {
       this.grade = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -53,7 +53,7 @@ export class GradeFormComponent implements OnInit {
   update() {
     this.rest.update('grades/' + this.grade.id, this.grade).subscribe((data: any) => {
       this.grade = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -71,6 +71,11 @@ export class GradeFormComponent implements OnInit {
 
   selectCollege() {
     this.getDepartments();
+    this.grade.parent_id = null;
+  }
+
+  goBack() {
+    this.rest.navigate(['/bxt/grades']);
   }
 
 }

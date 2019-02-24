@@ -1,3 +1,40 @@
-<p>
-  classroom-form works!
-</p>
+<form #myForm="ngForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>班级信息</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select placeholder="所属学院" required [(ngModel)]="classroom.grade.department.college.id" (selectionChange)="selectCollege()" name="college">
+          <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+            {{college.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属系部" required [(ngModel)]="classroom.grade.department.id" (selectionChange)="selectDepartment()" name="department">
+          <mat-option *ngFor="let department of departments | async" [value]="department.id">
+            {{department.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属年级" required [(ngModel)]="classroom.parent_id" name="grade">
+          <mat-option *ngFor="let grade of grades | async" [value]="grade.id">
+            {{grade.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="班级" required [(ngModel)]="classroom.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="描述" [(ngModel)]="classroom.desc" name="desc"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="myForm.invalid">提交</button>
+      <button mat-raised-button color="warn" (click)="rest.goBlank()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

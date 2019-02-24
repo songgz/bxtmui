@@ -16,10 +16,10 @@ export class GradeComponent implements OnInit {
   constructor(private rest: RestService) { }
 
   ngOnInit() {
-    this.loadColleges();
+    this.loadGrades();
   }
 
-  loadColleges() {
+  loadGrades() {
     this.rest.index('grades').subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.dataSource.paginator = this.paginator;
@@ -44,7 +44,7 @@ export class GradeComponent implements OnInit {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('grades/' + id).subscribe(data => {
-          this.loadColleges();
+          this.loadGrades();
         }, error => {
           this.rest.errorHandle(error);
         });

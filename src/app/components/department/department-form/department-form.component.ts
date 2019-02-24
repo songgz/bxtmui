@@ -34,7 +34,7 @@ export class DepartmentFormComponent implements OnInit {
   create() {
     this.rest.create('departments', this.department).subscribe((data: any) => {
       this.department = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -49,7 +49,7 @@ export class DepartmentFormComponent implements OnInit {
   update() {
     this.rest.update('departments/' + this.department.id, this.department).subscribe((data: any) => {
       this.department = data;
-      this.rest.goBlank();
+      this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -57,5 +57,9 @@ export class DepartmentFormComponent implements OnInit {
 
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
+  }
+
+  goBack() {
+    this.rest.navigate(['/bxt/departments']);
   }
 }
