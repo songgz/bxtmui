@@ -17,7 +17,7 @@ export class FloorComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loadFloor();
   }
   loadFloor() {
     this.rest.index('floors').subscribe((data: any) => {
