@@ -12,14 +12,14 @@ export class FloorComponent implements OnInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   constructor(private rest: RestService) {
-    this.loadFloor();
   }
 
   ngOnInit() {
-    this.loadFloor();
+    this.loadFloors();
   }
-  loadFloor() {
+  loadFloors() {
     this.rest.index('floors').subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.dataSource.paginator = this.paginator;
@@ -44,7 +44,7 @@ export class FloorComponent implements OnInit {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('floors/' + id).subscribe(data => {
-          this.loadFloor();
+          this.loadFloors();
         }, error => {
           this.rest.errorHandle(error);
         });

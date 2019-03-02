@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
+  books: any[];
 
   constructor() { }
 
