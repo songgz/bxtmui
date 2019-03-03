@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-house-form',
@@ -10,6 +12,9 @@ import {ActivatedRoute} from '@angular/router';
 export class HouseFormComponent implements OnInit {
   house: any = {id: null};
 
+
+
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -18,6 +23,8 @@ export class HouseFormComponent implements OnInit {
       if (this.house.id != null) {this.edit(); }
     });
   }
+
+
 
   save() {
     if (this.house.id != null) {
