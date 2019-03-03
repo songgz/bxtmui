@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
 
   loadMenuItems() {
     this.rest.index('menu_items').subscribe((data: any) => {
-      this.menuItems = data.result;
+      this.menuItems = data;
     });
   }
 
