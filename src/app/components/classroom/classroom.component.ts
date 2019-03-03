@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./classroom.component.scss']
 })
 export class ClassroomComponent implements OnInit {
-  displayedColumns = [ 'title', 'college', 'department', 'updated_at', 'action'];
+  displayedColumns = [ 'title', 'department', 'college', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

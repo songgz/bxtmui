@@ -24,6 +24,8 @@ export class HouseComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data.result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
 

@@ -10,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./classroom-form.component.scss']
 })
 export class ClassroomFormComponent implements OnInit {
-  classroom: any = {id: null, grade: {id: null, parent_id: null, department: {id: null, college: {id: null}}}};
+  classroom: any = {id: null, department: {id: null, college: {id: null}}};
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
   grades: Observable<any[]>;
@@ -25,7 +25,6 @@ export class ClassroomFormComponent implements OnInit {
 
     this.getColleges();
     this.getDepartments();
-    this.getGrades();
   }
 
   save() {
@@ -49,7 +48,6 @@ export class ClassroomFormComponent implements OnInit {
     this.rest.show('classrooms/' + this.classroom.id).subscribe((data: any) => {
       this.classroom = data;
       this.getDepartments();
-      this.getGrades();
     });
   }
 
@@ -67,26 +65,14 @@ export class ClassroomFormComponent implements OnInit {
   }
 
   getDepartments() {
-    if (this.classroom.grade.department.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.classroom.grade.department.college.id})
+    if (this.classroom.department.college.id) {
+      this.departments = this.rest.index('departments', {college_id: this.classroom.department.college.id})
         .pipe(map((res: any) => res.result));
     }
   }
 
-  getGrades() {
-    if (this.classroom.grade.department.id) {
-      this.grades = this.rest.index('grades', {department_id: this.classroom.grade.department.id})
-        .pipe(map((res: any) => res.result));
-   }
-  }
-
   selectCollege() {
     this.getDepartments();
-    this.classroom.grade.department.id = null;
-  }
-
-  selectDepartment() {
-    this.getGrades();
     this.classroom.parent_id = null;
   }
 
