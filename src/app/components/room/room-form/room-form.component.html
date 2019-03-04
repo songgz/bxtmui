@@ -1,3 +1,33 @@
-<p>
-  room-form works!
-</p>
+<form #roomForm="ngForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>房间信息</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select placeholder="楼栋名称" required [(ngModel)]="room.floor.house.id" (selectionChange)="selectHouse()" name="house">
+          <mat-option *ngFor="let house of houses | async" [value]="house.id">
+            {{house.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="楼层名称" required [(ngModel)]="room.parent_id" name="floor">
+          <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+            {{floor.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="房间名称" required [(ngModel)]="room.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="描述" [(ngModel)]="room.desc" name="desc"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="roomForm.pristine || roomForm.invalid">提交</button>
+      <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
