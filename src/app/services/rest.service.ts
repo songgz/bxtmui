@@ -23,6 +23,9 @@ export class RestService {
   index (path: string, params = {}) {
     return this.http.get(this.baseUrl + path + '.json', {params: params});
   }
+  PaginatorIndex (path: string, pagenumber: number, prenumber: number, params = {}) {
+    return this.http.get(this.baseUrl + path + '.json' + '?page=' + pagenumber + '&pre=' + prenumber, {params: params});
+  }
 
   create(path: string, body: any) {
     return this.http.post(this.baseUrl + path + '.json', body);

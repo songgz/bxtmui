@@ -1,3 +1,40 @@
-<p>
-  bed-form works!
-</p>
+<form #bedForm="ngForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>床位信息</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select placeholder="所属楼栋" required [(ngModel)]="bed.room.floor.house.id" (selectionChange)="selectHouse()" name="house">
+          <mat-option *ngFor="let house of houses | async" [value]="house.id">
+            {{house.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属楼层" required [(ngModel)]="bed.room.floor.id" (selectionChange)="selectFloor()" name="floor">
+          <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+            {{floor.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id"  name="room">
+          <mat-option *ngFor="let room of rooms | async" [value]="room.id">
+            {{room.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="床位" required [(ngModel)]="bed.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="描述" [(ngModel)]="bed.desc" name="desc"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="bedForm.pristine || bedForm.invalid">提交</button>
+      <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
