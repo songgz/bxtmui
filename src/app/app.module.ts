@@ -34,6 +34,12 @@ import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
 import { BedComponent } from './components/bed/bed.component';
 import { BedFormComponent } from './components/bed/bed-form/bed-form.component';
+import { StudentComponent } from './components/student/student.component';
+import { TeacherComponent } from './components/teacher/teacher.component';
+import { ManagerComponent } from './components/manager/manager.component';
+import { TrackerComponent } from './components/tracker/tracker.component';
+import { StudentFormComponent } from './components/student/student-form/student-form.component';
+import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-form.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +68,13 @@ import { BedFormComponent } from './components/bed/bed-form/bed-form.component';
     RoomComponent,
     RoomFormComponent,
     BedComponent,
-    BedFormComponent
+    BedFormComponent,
+    StudentComponent,
+    TeacherComponent,
+    ManagerComponent,
+    TrackerComponent,
+    StudentFormComponent,
+    TeacherFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,

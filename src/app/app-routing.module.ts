@@ -21,6 +21,10 @@ import {RoomComponent} from './components/room/room.component';
 import {RoomFormComponent} from './components/room/room-form/room-form.component';
 import {BedComponent} from './components/bed/bed.component';
 import {BedFormComponent} from './components/bed/bed-form/bed-form.component';
+import {StudentComponent} from './components/student/student.component';
+import {StudentFormComponent} from './components/student/student-form/student-form.component';
+import {TeacherComponent} from './components/teacher/teacher.component';
+import {TeacherFormComponent} from './components/teacher/teacher-form/teacher-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -50,6 +54,12 @@ const routes: Routes = [
       {path: 'beds', component: BedComponent},
       {path: 'beds/new', component: BedFormComponent},
       {path: 'beds/:id/edit', component: BedFormComponent},
+      {path: 'students', component: StudentComponent},
+      {path: 'students/new', component: StudentFormComponent},
+      {path: 'students/:id/edit', component: StudentFormComponent},
+      {path: 'teachers', component: TeacherComponent},
+      {path: 'teachers/new', component: TeacherFormComponent},
+      {path: 'teachers/:id/edit', component: TeacherFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},
