@@ -42,6 +42,7 @@ export class RoomFormComponent implements OnInit {
   edit() {
     this.rest.show('rooms/' + this.room.id).subscribe((data: any) => {
       this.room = data;
+      this.getFloors();
     });
   }
 
