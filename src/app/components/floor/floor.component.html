@@ -38,6 +38,7 @@
                  [pageIndex]="pageIndex"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="pageSizeOptions"
-                 (page)="pageEvent = $event">
+                 (page)="switchPage($event)"
+                 >
   </mat-paginator>
 </div>

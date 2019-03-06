@@ -45,6 +45,7 @@ export class TeacherFormComponent implements OnInit {
     this.rest.show('teachers/' + this.teacher.id).subscribe((data: any) => {
       this.teacher = data;
       this.getDepartments();
+
     });
   }
 
@@ -61,8 +62,8 @@ export class TeacherFormComponent implements OnInit {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
   getDepartments() {
-    if (this.teacher.department.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.teacher.department.college.id})
+    if (this.teacher.department.id) {
+      this.departments = this.rest.index('departments', {college_id: this.teacher.department.id})
         .pipe(map((res: any) => res.result));
     }
   }

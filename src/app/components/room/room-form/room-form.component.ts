@@ -13,6 +13,7 @@ export class RoomFormComponent implements OnInit {
   room: any = {id: null, floor: {id: null, house: {id: null}}};
   floors: Observable<any[]>;
   houses: Observable<any[]>;
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
@@ -21,6 +22,7 @@ export class RoomFormComponent implements OnInit {
     });
     this.getHouses();
     this.getFloors();
+
   }
   save() {
     if (this.room.id != null) {
@@ -43,6 +45,7 @@ export class RoomFormComponent implements OnInit {
     this.rest.show('rooms/' + this.room.id).subscribe((data: any) => {
       this.room = data;
       this.getFloors();
+
     });
   }
 
@@ -64,10 +67,13 @@ export class RoomFormComponent implements OnInit {
         .pipe(map((res: any) => res.result));
     }
   }
+
+
   selectHouse() {
     this.getFloors();
-    this.room.parent_id = null;
+    this.room.floor.id = null;
   }
+
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }

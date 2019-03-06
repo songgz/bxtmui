@@ -13,7 +13,23 @@ export interface Gender {
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
-  student: any = {id: null, department: {id: null, college: {id: null}}, tel: null, id_card: null, ic_card: null, gender: null};
+  student: any = {id: null,
+                  classroom: {id: null,
+                              department: {id: null,
+                                          college: {id: null}
+                                          }
+                             },
+                  bed: {id: null,
+                        room: {id: null,
+                                floor: {id: null,
+                                        house: {id: null}
+                                        }
+                              }
+                        },
+                  tel: null,
+                  id_card: null,
+                  ic_card: null,
+                  gender: null};
   genders: Gender[] = [
     {value: '男', viewValue: '男'},
     {value: '女', viewValue: '女'}
@@ -23,7 +39,10 @@ export class StudentFormComponent implements OnInit {
   classrooms: Observable<any[]>;
 
 
-
+  houses: Observable<any[]>;
+  floors: Observable<any[]>;
+  rooms: Observable<any[]>;
+  beds: Observable<any[]>;
 
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
@@ -37,7 +56,10 @@ export class StudentFormComponent implements OnInit {
     this.getDepartments();
     this.getClassrooms();
 
-
+    this.getHouses();
+    this.getFloors();
+    this.getRooms();
+    this.getBeds();
 
 
   }
@@ -45,29 +67,60 @@ export class StudentFormComponent implements OnInit {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
   getDepartments() {
-    if (this.student.department.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.student.department.college.id})
+    if (this.student.classroom.department.college.id) {
+      this.departments = this.rest.index('departments', {college_id: this.student.classroom.department.college.id})
         .pipe(map((res: any) => res.result));
     }
   }
   getClassrooms() {
-    if (this.student.department.college.id) {
-      this.classrooms = this.rest.index('classrooms', {college_id: this.student.department.college.id})
+    if (this.student.classroom.department.college.id) {
+      this.classrooms = this.rest.index('classrooms', {college_id: this.student.classroom.department.college.id})
         .pipe(map((res: any) => res.result));
     }
   }
   selectCollege() {
     this.getDepartments();
-    this.student.department.id = null;
+    this.student.classroom.department.id = null;
   }
   selectDepartment() {
     this.getClassrooms();
-    this.student.parent_id = null;
+    this.student.classroom.id = null;
   }
 
+  getHouses() {
+      this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
 
-
-
+  }
+  getFloors() {
+    if (this.student.bed.room.floor.house.id) {
+      this.floors = this.rest.index('floors', {house_id: this.student.bed.room.floor.house.id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  getRooms() {
+    if (this.student.bed.room.floor.house.id) {
+      this.rooms = this.rest.index('rooms', {house_id: this.student.bed.room.floor.house.id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  getBeds() {
+    if (this.student.bed.room.floor.house.id) {
+      this.beds = this.rest.index('beds', {house_id: this.student.bed.room.floor.house.id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  selectHouse() {
+    this.getFloors();
+    this.student.bed.room.floor.id = null;
+  }
+  selectFloor() {
+    this.getRooms();
+    this.student.bed.room.id = null;
+  }
+  selectRoom() {
+    this.getBeds();
+    this.student.bed.id = null;
+  }
 
 
 

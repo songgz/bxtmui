@@ -5,23 +5,53 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属学院" required [(ngModel)]="student.department.college.id" (selectionChange)="selectCollege()" name="college">
+        <mat-select placeholder="所属学院" required [(ngModel)]="student.classroom.department.college.id" (selectionChange)="selectCollege()" name="college">
           <mat-option *ngFor="let college of colleges | async" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属系部" required [(ngModel)]="student.department.id" (selectionChange)="selectDepartment()"  name="department">
+        <mat-select placeholder="所属系部" required [(ngModel)]="student.classroom.department.id" (selectionChange)="selectDepartment()"  name="department">
           <mat-option *ngFor="let department of departments | async" [value]="department.id">
             {{department.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属班级" required [(ngModel)]="student.parent_id"  name="classroom">
+        <mat-select placeholder="所属班级" required [(ngModel)]="student.classroom.id"  name="classroom">
           <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
             {{classroom.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-select placeholder="所属楼栋" required [(ngModel)]="student.bed.room.floor.house.id" (selectionChange)="selectHouse()" name="house">
+          <mat-option *ngFor="let house of houses | async" [value]="house.id">
+            {{house.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属楼层" required [(ngModel)]="student.bed.room.floor.id" (selectionChange)="selectFloor()" name="floor">
+          <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+            {{floor.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属房间" required [(ngModel)]="student.bed.room.id" (selectionChange)="selectRoom()" name="room">
+          <mat-option *ngFor="let room of rooms | async" [value]="room.id">
+            {{room.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属床位" required [(ngModel)]="student.bed.id"  name="bed">
+          <mat-option *ngFor="let bed of beds | async" [value]="bed.id">
+            {{bed.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
