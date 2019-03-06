@@ -62,15 +62,15 @@ export class TeacherFormComponent implements OnInit {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
   getDepartments() {
-    if (this.teacher.department.id) {
-      this.departments = this.rest.index('departments', {college_id: this.teacher.department.id})
+    if (this.teacher.department.college.id) {
+      this.departments = this.rest.index('departments', {college_id: this.teacher.department.college.id})
         .pipe(map((res: any) => res.result));
     }
   }
 
   selectCollege() {
     this.getDepartments();
-    this.teacher.parent_id = null;
+    this.teacher.department.id = null;
   }
 
   goBack() {
