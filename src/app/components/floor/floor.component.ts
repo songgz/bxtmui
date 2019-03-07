@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-floor',
@@ -8,33 +9,36 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./floor.component.scss']
 })
 
-export class FloorComponent implements OnInit {
+export class FloorComponent implements OnInit, AfterViewInit {
   displayedColumns = ['floor', 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private rest: RestService) {
+    this.dataSource = new MatTableDataSource([]);
   }
-
-  // MatPaginator Inputs
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 50];
-  pageIndex = 1;
-
 
   ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
     this.loadFloors();
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.paginator.page.subscribe(event => {
+      this.loadFloors();
+    });
+  }
+
   loadFloors() {
-    this.rest.index('floors' , {page: this.pageIndex, pre: this.pageSize}).subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.result);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator.length = data.paginate_meta.total_count;
-      this.dataSource.paginator.pageSize = data.paginate_meta.current_per_page;
-      this.dataSource.paginator.pageIndex = data.paginate_meta.current_page;
+    this.rest.index('floors' , {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+      this.dataSource = data.result;
+      this.paginator.length = data.paginate_meta.total_count;
+      this.paginator.pageSize = data.paginate_meta.current_per_page;
+      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
     });
   }
 
@@ -62,13 +66,4 @@ export class FloorComponent implements OnInit {
       }
     });
   }
-
-  switchPage(event: PageEvent) {
-     console.log(event.pageSize);
-     this.pageSize = event.pageSize;
-     this.pageIndex = event.pageIndex + 1;
-    this.loadFloors();
-
-  }
-
 }
