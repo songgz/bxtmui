@@ -73,8 +73,8 @@ export class StudentFormComponent implements OnInit {
     }
   }
   getClassrooms() {
-    if (this.student.classroom.department.college.id) {
-      this.classrooms = this.rest.index('classrooms', {college_id: this.student.classroom.department.college.id})
+    if (this.student.classroom.department.id) {
+      this.classrooms = this.rest.index('classrooms', {college_id: this.student.classroom.department.id})
         .pipe(map((res: any) => res.result));
     }
   }
@@ -98,14 +98,14 @@ export class StudentFormComponent implements OnInit {
     }
   }
   getRooms() {
-    if (this.student.bed.room.floor.house.id) {
-      this.rooms = this.rest.index('rooms', {house_id: this.student.bed.room.floor.house.id})
+    if (this.student.bed.room.floor.id) {
+      this.rooms = this.rest.index('rooms', {floor_id: this.student.bed.room.floor.id})
         .pipe(map((res: any) => res.result));
     }
   }
   getBeds() {
-    if (this.student.bed.room.floor.house.id) {
-      this.beds = this.rest.index('beds', {house_id: this.student.bed.room.floor.house.id})
+    if (this.student.bed.room.id) {
+      this.beds = this.rest.index('beds', {room_id: this.student.bed.room.id})
         .pipe(map((res: any) => res.result));
     }
   }
@@ -144,6 +144,13 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
+      console.log(data);
+      this.getDepartments();
+      this.getClassrooms();
+      this.getHouses();
+      this.getFloors();
+      this.getRooms();
+      this.getBeds();
     });
   }
 
