@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-floor',
@@ -18,30 +19,26 @@ export class FloorComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource([]);
   }
 
-  // MatPaginator Inputs
-  pageEvent: PageEvent;
-  length = 100;
-  pageSize = 5;
-  pageSizeOptions: number[] = [5, 10, 25, 50];
-  pageIndex = 1;
-
-
   ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
     this.loadFloors();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.paginator.page.subscribe(event => {
+      this.loadFloors();
+    });
   }
 
-
   loadFloors() {
-    this.rest.index('floors' , {page: this.pageIndex, pre: this.pageSize}).subscribe((data: any) => {
-      this.dataSource.data = data.result;
-      this.length = data.paginate_meta.total_count;
-      this.pageSize = data.paginate_meta.current_per_page;
-      this.pageIndex = data.paginate_meta.current_page;
+    this.rest.index('floors' , {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+      this.dataSource = data.result;
+      this.paginator.length = data.paginate_meta.total_count;
+      this.paginator.pageSize = data.paginate_meta.current_per_page;
+      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
     });
   }
 
@@ -69,14 +66,4 @@ export class FloorComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  switchPage(event: PageEvent) {
-     console.log(event.pageSize);
-     this.pageSize = event.pageSize;
-     this.pageIndex = event.pageIndex;
-    this.loadFloors();
-    console.log(this.paginator);
-
-  }
-
 }

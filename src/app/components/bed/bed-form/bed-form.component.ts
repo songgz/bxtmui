@@ -73,8 +73,8 @@ export class BedFormComponent implements OnInit {
     }
   }
   getRooms() {
-    if (this.bed.room.floor.house.id) {
-      this.rooms = this.rest.index('rooms', {floors_id: this.bed.room.floor.id})
+    if (this.bed.room.floor.id) {
+      this.rooms = this.rest.index('rooms', {floor_id: this.bed.room.floor.id})
         .pipe(map((res: any) => res.result));
     }
   }
