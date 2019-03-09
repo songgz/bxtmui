@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 
@@ -7,24 +7,36 @@ import {RestService} from '../../services/rest.service';
   templateUrl: './college.component.html',
   styleUrls: ['./college.component.scss']
 })
-export class CollegeComponent implements OnInit {
+export class CollegeComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private rest: RestService) {
-    this.loadColleges();
+    this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
+    this.loadColleges();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.paginator.page.subscribe(event => {
+      this.loadColleges();
+    });
   }
 
   loadColleges() {
-    this.rest.index('colleges').subscribe((data: any) => {
+    this.rest.index('colleges', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.paginator.length = data.paginate_meta.total_count;
+      this.paginator.pageSize = data.paginate_meta.current_per_page;
+      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
     });
   }
 

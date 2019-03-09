@@ -10,6 +10,10 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 菜单 </th>
       <td mat-cell *matCellDef="let row"><span [ngStyle]="{'padding-left': row.depth + 'em'}"> {{row.title}} </span></td>
     </ng-container>
+    <ng-container matColumnDef="path">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 路径 </th>
+      <td mat-cell *matCellDef="let row"> {{row.path}} </td>
+    </ng-container>
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>
       <td mat-cell *matCellDef="let row"> {{row.updated_at | date:'yyyy-MM-dd'}} </td>
