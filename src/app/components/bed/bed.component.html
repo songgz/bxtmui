@@ -16,11 +16,11 @@
     </ng-container>
     <ng-container matColumnDef="floor">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 所属楼层 </th>
-      <td mat-cell *matCellDef="let row"> {{row.room?.floor?.title}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.room?.floor}} </td>
     </ng-container>
     <ng-container matColumnDef="house">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 所属楼栋 </th>
-      <td mat-cell *matCellDef="let row"> {{row.room?.floor?.house?.title}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.room?.house?.title}} </td>
     </ng-container>
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>

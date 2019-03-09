@@ -3,6 +3,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {DictService} from '../../../services/dict.service';
 
 @Component({
   selector: 'app-bed-form',
@@ -11,21 +12,20 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class BedFormComponent implements OnInit {
 
-  bed: any = {id: null, room: {id: null, floor: {id: null, house: {id: null}}}};
+  bed: any = {id: null, room: {id: null, floor: null, house: {id: null}}};
   houses: Observable<any[]>;
   floors: Observable<any[]>;
   rooms: Observable<any[]>;
 
-  constructor(private rest: RestService, private route: ActivatedRoute) { }
+  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.bed.id = params.get('id');
       if (this.bed.id != null) {this.edit(); }
     });
-
+    this.floors = this.dict.getItems('floor_level');
     this.getHouses();
-    this.getFloors();
     this.getRooms();
   }
   save() {
@@ -48,7 +48,6 @@ export class BedFormComponent implements OnInit {
   edit() {
     this.rest.show('beds/' + this.bed.id).subscribe((data: any) => {
       this.bed = data;
-      this.getFloors();
       this.getRooms();
     });
   }
@@ -73,10 +72,14 @@ export class BedFormComponent implements OnInit {
     }
   }
   getRooms() {
-    if (this.bed.room.floor.id) {
-      this.rooms = this.rest.index('rooms', {floor_id: this.bed.room.floor.id})
+    if (this.bed.room.floor && this.bed.room.house.id) {
+      this.rooms = this.rest.index('rooms', {floor: this.bed.room.floor, parent_id: this.bed.room.house.id})
         .pipe(map((res: any) => res.result));
     }
+  }
+
+  filteRooms() {
+    this.getRooms();
   }
 
   selectHouse() {
