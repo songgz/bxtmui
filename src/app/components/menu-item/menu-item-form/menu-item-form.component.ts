@@ -19,6 +19,14 @@ export class MenuItemFormComponent implements OnInit {
     });
   }
 
+  save() {
+    if (this.menuItem.id != null) {
+      this.update();
+    } else {
+      this.create();
+    }
+  }
+
   create() {
     this.rest.create('menu_items', this.menuItem).subscribe((data: any) => {
       this.menuItem = data;
