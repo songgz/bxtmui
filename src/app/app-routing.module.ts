@@ -23,6 +23,8 @@ import {StudentComponent} from './components/student/student.component';
 import {StudentFormComponent} from './components/student/student-form/student-form.component';
 import {TeacherComponent} from './components/teacher/teacher.component';
 import {TeacherFormComponent} from './components/teacher/teacher-form/teacher-form.component';
+import {MenuItemComponent} from './components/menu-item/menu-item.component';
+import {MenuItemFormComponent} from './components/menu-item/menu-item-form/menu-item-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -55,6 +57,9 @@ const routes: Routes = [
       {path: 'teachers', component: TeacherComponent},
       {path: 'teachers/new', component: TeacherFormComponent},
       {path: 'teachers/:id/edit', component: TeacherFormComponent},
+      {path: 'menu_items', component: MenuItemComponent},
+      {path: 'menu_items/new', component: MenuItemFormComponent},
+      {path: 'menu_items/:id/edit', component: MenuItemFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},

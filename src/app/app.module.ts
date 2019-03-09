@@ -38,6 +38,8 @@ import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { StudentFormComponent } from './components/student/student-form/student-form.component';
 import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-form.component';
+import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { MenuItemFormComponent } from './components/menu-item/menu-item-form/menu-item-form.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-
     ManagerComponent,
     TrackerComponent,
     StudentFormComponent,
-    TeacherFormComponent
+    TeacherFormComponent,
+    MenuItemComponent,
+    MenuItemFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,
