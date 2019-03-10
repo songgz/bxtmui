@@ -12,14 +12,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼层" required [(ngModel)]="bed.room.floor" (selectionChange)="filteRooms()"  name="floor">
+        <mat-select placeholder="所属楼层" required [(ngModel)]="bed.room.floor" (selectionChange)="filterRooms()"  name="floor">
           <mat-option *ngFor="let floor of floors | async" [value]="floor.name">
             {{floor.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id" (selectionChange)="filteRooms()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="bed.room.id" (selectionChange)="filterStudents()" name="room">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
@@ -27,6 +27,13 @@
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="床位" required [(ngModel)]="bed.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属学生" required [(ngModel)]="bed.user_id" name="charge_person">
+          <mat-option *ngFor="let student of students | async" [value]="student.id">
+            {{student.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <textarea matInput placeholder="描述" [(ngModel)]="bed.desc" name="desc"></textarea>
