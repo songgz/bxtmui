@@ -8,10 +8,10 @@
         <input matInput placeholder="名称" required [(ngModel)]="menuItem.title" name="title" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="路径" required [(ngModel)]="menuItem.path" name="path" >
+        <input matInput placeholder="路径" [(ngModel)]="menuItem.path" name="path" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="图标" required [(ngModel)]="menuItem.icon" name="icon" >
+        <input matInput placeholder="图标" [(ngModel)]="menuItem.icon" name="icon" >
       </mat-form-field>
       <mat-form-field>
         <textarea matInput placeholder="描述" [(ngModel)]="menuItem.desc" name="desc"></textarea>

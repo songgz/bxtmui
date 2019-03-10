@@ -61,19 +61,6 @@ export class RoomFormComponent implements OnInit {
     this.houses = this.rest.index('houses').pipe(map((res: any) =>  res.result ));
   }
 
-  getFloors() {
-    if (this.room.floor.house.id) {
-      this.floors = this.rest.index('floors', {house_id: this.room.floor.house.id})
-        .pipe(map((res: any) => res.result));
-    }
-  }
-
-
-  selectHouse() {
-    this.getFloors();
-    this.room.floor.id = null;
-  }
-
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }

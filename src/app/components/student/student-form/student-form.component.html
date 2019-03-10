@@ -25,54 +25,43 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
       <mat-form-field>
-        <mat-select placeholder="所属楼栋" required [(ngModel)]="student.bed.room.floor.house.id" (selectionChange)="selectHouse()" name="house">
+        <mat-select placeholder="所属楼栋" required [(ngModel)]="student.room.house.id" (selectionChange)="filterRooms()" name="house">
           <mat-option *ngFor="let house of houses | async" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼层" required [(ngModel)]="student.bed.room.floor.id" (selectionChange)="selectFloor()" name="floor">
-          <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+        <mat-select placeholder="所属楼层" required [(ngModel)]="student.room.floor" (selectionChange)="filterRooms()" name="floor">
+          <mat-option *ngFor="let floor of floors | async" [value]="floor.name">
             {{floor.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="student.bed.room.id" (selectionChange)="selectRoom()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="student.room.id" (selectionChange)="selectRoom()" name="room">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属床位" required [(ngModel)]="student.bed.id"  name="bed">
-          <mat-option *ngFor="let bed of beds | async" [value]="bed.id">
-            {{bed.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-      <mat-form-field>
         <input matInput placeholder="学生姓名" required [(ngModel)]="student.name" name="name" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="电话"  [(ngModel)]="student.tel" name="tel" >
+        <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="身份证号"  [(ngModel)]="student.id_card" name="id_card" >
+        <input matInput placeholder="身份证号" [(ngModel)]="student.id_card" name="id_card" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="卡号"  [(ngModel)]="student.ic_card" name="ic_card" >
+        <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="性别">
-          <mat-option *ngFor="let gender of genders" [value]="gender.value">
-            {{gender.viewValue}}
+        <mat-select placeholder="性别" [(ngModel)]="student.gender" name="gender">
+          <mat-option *ngFor="let gender of genders | async" [value]="gender.name" >
+            {{gender.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
