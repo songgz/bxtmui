@@ -25,8 +25,7 @@ import {TeacherComponent} from './components/teacher/teacher.component';
 import {TeacherFormComponent} from './components/teacher/teacher-form/teacher-form.component';
 import {MenuItemComponent} from './components/menu-item/menu-item.component';
 import {MenuItemFormComponent} from './components/menu-item/menu-item-form/menu-item-form.component';
-import {DictService} from './services/dict.service';
-import {DictsComponent} from './components/dicts/dicts.component';
+import {DictComponent} from './components/dict/dict.component';
 import {DictFormComponent} from './components/dict/dict-form/dict-form.component';
 import {RoleComponent} from './components/role/role.component';
 import {GroupComponent} from './components/group/group.component';
@@ -66,7 +65,7 @@ const routes: Routes = [
       {path: 'menu_items', component: MenuItemComponent},
       {path: 'menu_items/new', component: MenuItemFormComponent},
       {path: 'menu_items/:id/edit', component: MenuItemFormComponent},
-      {path: 'dicts', component: DictsComponent},
+      {path: 'dicts', component: DictComponent},
       {path: 'dicts/new', component: DictFormComponent},
       {path: 'dicts/:id/edit', component: DictFormComponent},
       {path: 'roles', component: RoleComponent},
