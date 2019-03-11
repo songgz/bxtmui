@@ -40,6 +40,12 @@ import { StudentFormComponent } from './components/student/student-form/student-
 import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-form.component';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { MenuItemFormComponent } from './components/menu-item/menu-item-form/menu-item-form.component';
+import { DictsComponent } from './components/dicts/dicts.component';
+import { GroupComponent } from './components/group/group.component';
+import { GroupFormComponent } from './components/group/group-form/group-form.component';
+import { RoleComponent } from './components/role/role.component';
+import { RoleFormComponent } from './components/role/role-form/role-form.component';
+import { DictFormComponent } from './components/dict/dict-form/dict-form.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +80,13 @@ import { MenuItemFormComponent } from './components/menu-item/menu-item-form/men
     StudentFormComponent,
     TeacherFormComponent,
     MenuItemComponent,
-    MenuItemFormComponent
+    MenuItemFormComponent,
+    DictsComponent,
+    GroupComponent,
+    GroupFormComponent,
+    RoleComponent,
+    RoleFormComponent,
+    DictFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,
