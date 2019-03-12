@@ -8,7 +8,16 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 字典 </th>
-      <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+      <td mat-cell *matCellDef="let row">
+        <ul>
+          <li>{{row.title}}</li>
+          <ul>
+          <li *ngFor="let item of row.dict_items">
+            {{ item.title }}
+          </li>
+          </ul>
+        </ul>
+      </td>
     </ng-container>
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>
