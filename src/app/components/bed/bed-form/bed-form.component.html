@@ -19,7 +19,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="bed.room.id" (selectionChange)="filterStudents()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id" (selectionChange)="filterStudents()" name="room">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
