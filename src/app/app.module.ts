@@ -46,6 +46,7 @@ import { RoleComponent } from './components/role/role.component';
 import { RoleFormComponent } from './components/role/role-form/role-form.component';
 import { DictFormComponent } from './components/dict/dict-form/dict-form.component';
 import { DictComponent } from './components/dict/dict.component';
+import { ManagerFormComponent } from './components/manager/manager-form/manager-form.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { DictComponent } from './components/dict/dict.component';
     RoleComponent,
     RoleFormComponent,
     DictFormComponent,
-    DictComponent
+    DictComponent,
+    ManagerFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,

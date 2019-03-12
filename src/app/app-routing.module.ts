@@ -30,6 +30,8 @@ import {DictFormComponent} from './components/dict/dict-form/dict-form.component
 import {RoleComponent} from './components/role/role.component';
 import {GroupComponent} from './components/group/group.component';
 import {GroupFormComponent} from './components/group/group-form/group-form.component';
+import {ManagerComponent} from './components/manager/manager.component';
+import {ManagerFormComponent} from './components/manager/manager-form/manager-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -74,6 +76,9 @@ const routes: Routes = [
       {path: 'groups', component: GroupComponent},
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
+      {path: 'managers', component: ManagerComponent},
+      {path: 'managers/new', component: ManagerFormComponent},
+      {path: 'managers/:id/edit', component: ManagerFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},
