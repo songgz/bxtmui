@@ -14,7 +14,9 @@ export class ManagerComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rest: RestService) { }
+  constructor(private rest: RestService) {
+    this.dataSource = new MatTableDataSource([]);
+  }
 
   ngOnInit() {
     this.paginator.pageSize = 10;

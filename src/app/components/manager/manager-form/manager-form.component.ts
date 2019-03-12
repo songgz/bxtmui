@@ -12,6 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ManagerFormComponent implements OnInit {
   manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null};
 
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -19,6 +20,7 @@ export class ManagerFormComponent implements OnInit {
       this.manager.id = params.get('id');
       if (this.manager.id != null) {this.edit(); }
     });
+
   }
   save() {
     if (this.manager.id != null) {
@@ -40,6 +42,7 @@ export class ManagerFormComponent implements OnInit {
   edit() {
     this.rest.show('managers/' + this.manager.id).subscribe((data: any) => {
       this.manager = data;
+
     });
   }
 
