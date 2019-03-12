@@ -28,8 +28,6 @@ import { AlertDialogComponent } from './components/message-dialog/alert-dialog.c
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { HouseComponent } from './components/house/house.component';
 import { HouseFormComponent } from './components/house/house-form/house-form.component';
-import { FloorComponent } from './components/floor/floor.component';
-import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
 import { BedComponent } from './components/bed/bed.component';
@@ -40,6 +38,15 @@ import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { StudentFormComponent } from './components/student/student-form/student-form.component';
 import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-form.component';
+import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { MenuItemFormComponent } from './components/menu-item/menu-item-form/menu-item-form.component';
+import { GroupComponent } from './components/group/group.component';
+import { GroupFormComponent } from './components/group/group-form/group-form.component';
+import { RoleComponent } from './components/role/role.component';
+import { RoleFormComponent } from './components/role/role-form/role-form.component';
+import { DictFormComponent } from './components/dict/dict-form/dict-form.component';
+import { DictComponent } from './components/dict/dict.component';
+import { ManagerFormComponent } from './components/manager/manager-form/manager-form.component';
 
 @NgModule({
   declarations: [
@@ -63,8 +70,6 @@ import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-
     ConfirmDialogComponent,
     HouseComponent,
     HouseFormComponent,
-    FloorComponent,
-    FloorFormComponent,
     RoomComponent,
     RoomFormComponent,
     BedComponent,
@@ -74,7 +79,16 @@ import { TeacherFormComponent } from './components/teacher/teacher-form/teacher-
     ManagerComponent,
     TrackerComponent,
     StudentFormComponent,
-    TeacherFormComponent
+    TeacherFormComponent,
+    MenuItemComponent,
+    MenuItemFormComponent,
+    GroupComponent,
+    GroupFormComponent,
+    RoleComponent,
+    RoleFormComponent,
+    DictFormComponent,
+    DictComponent,
+    ManagerFormComponent
   ],
   entryComponents: [
     AlertDialogComponent,

@@ -3,6 +3,7 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {DictService} from '../../../services/dict.service';
 
 @Component({
   selector: 'app-room-form',
@@ -10,18 +11,18 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, floor: {id: null, house: {id: null}}};
+  room: any = {id: null, house: {id: null}};
   floors: Observable<any[]>;
   houses: Observable<any[]>;
 
-  constructor(private rest: RestService, private route: ActivatedRoute) { }
+  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.room.id = params.get('id');
       if (this.room.id != null) {this.edit(); }
     });
     this.getHouses();
-    this.getFloors();
+    this.floors = this.dict.getItems('floor_level');
 
   }
   save() {
@@ -44,8 +45,6 @@ export class RoomFormComponent implements OnInit {
   edit() {
     this.rest.show('rooms/' + this.room.id).subscribe((data: any) => {
       this.room = data;
-      this.getFloors();
-
     });
   }
 
@@ -60,18 +59,6 @@ export class RoomFormComponent implements OnInit {
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) =>  res.result ));
-  }
-  getFloors() {
-    if (this.room.floor.house.id) {
-      this.floors = this.rest.index('floors', {house_id: this.room.floor.house.id})
-        .pipe(map((res: any) => res.result));
-    }
-  }
-
-
-  selectHouse() {
-    this.getFloors();
-    this.room.floor.id = null;
   }
 
   goBack() {

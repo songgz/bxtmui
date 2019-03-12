@@ -15,8 +15,6 @@ import { ClassroomFormComponent } from './components/classroom/classroom-form/cl
 import {ErrorComponent} from './components/error/error.component';
 import {HouseComponent} from './components/house/house.component';
 import {HouseFormComponent} from './components/house/house-form/house-form.component';
-import {FloorComponent} from './components/floor/floor.component';
-import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 import {RoomComponent} from './components/room/room.component';
 import {RoomFormComponent} from './components/room/room-form/room-form.component';
 import {BedComponent} from './components/bed/bed.component';
@@ -25,6 +23,15 @@ import {StudentComponent} from './components/student/student.component';
 import {StudentFormComponent} from './components/student/student-form/student-form.component';
 import {TeacherComponent} from './components/teacher/teacher.component';
 import {TeacherFormComponent} from './components/teacher/teacher-form/teacher-form.component';
+import {MenuItemComponent} from './components/menu-item/menu-item.component';
+import {MenuItemFormComponent} from './components/menu-item/menu-item-form/menu-item-form.component';
+import {DictComponent} from './components/dict/dict.component';
+import {DictFormComponent} from './components/dict/dict-form/dict-form.component';
+import {RoleComponent} from './components/role/role.component';
+import {GroupComponent} from './components/group/group.component';
+import {GroupFormComponent} from './components/group/group-form/group-form.component';
+import {ManagerComponent} from './components/manager/manager.component';
+import {ManagerFormComponent} from './components/manager/manager-form/manager-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -45,9 +52,6 @@ const routes: Routes = [
       {path: 'houses', component: HouseComponent},
       {path: 'houses/new', component: HouseFormComponent},
       {path: 'houses/:id/edit', component: HouseFormComponent},
-      {path: 'floors', component: FloorComponent},
-      {path: 'floors/new', component: FloorFormComponent},
-      {path: 'floors/:id/edit', component: FloorFormComponent},
       {path: 'rooms', component: RoomComponent},
       {path: 'rooms/new', component: RoomFormComponent},
       {path: 'rooms/:id/edit', component: RoomFormComponent},
@@ -60,6 +64,21 @@ const routes: Routes = [
       {path: 'teachers', component: TeacherComponent},
       {path: 'teachers/new', component: TeacherFormComponent},
       {path: 'teachers/:id/edit', component: TeacherFormComponent},
+      {path: 'menu_items', component: MenuItemComponent},
+      {path: 'menu_items/new', component: MenuItemFormComponent},
+      {path: 'menu_items/:id/edit', component: MenuItemFormComponent},
+      {path: 'dicts', component: DictComponent},
+      {path: 'dicts/new', component: DictFormComponent},
+      {path: 'dicts/:id/edit', component: DictFormComponent},
+      {path: 'roles', component: RoleComponent},
+      {path: 'roles/new', component: RoomFormComponent},
+      {path: 'roles/:id/edit', component: RoomFormComponent},
+      {path: 'groups', component: GroupComponent},
+      {path: 'groups/new', component: GroupFormComponent},
+      {path: 'groups/:id/edit', component: GroupFormComponent},
+      {path: 'managers', component: ManagerComponent},
+      {path: 'managers/new', component: ManagerFormComponent},
+      {path: 'managers/:id/edit', component: ManagerFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},

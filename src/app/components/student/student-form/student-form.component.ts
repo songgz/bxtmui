@@ -1,48 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-
+import {DictService} from '../../../services/dict.service';
 export interface Gender {
   value: string;
   viewValue: string;
 }
-
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
-  student: any = {
-    id: null,
-    classroom: {
-      id: null,
-      department: {
-        id: null,
-        college: {id: null}
-      }
-    },
-    bed: {
-      id: null,
-      room: {
-        id: null,
-        floor: {
-          id: null,
-          house: {id: null}
-        }
-      }
-    },
-    tel: null,
-    id_card: null,
-    ic_card: null,
-    gender: null
-  };
-  genders: Gender[] = [
-    {value: '男', viewValue: '男'},
-    {value: '女', viewValue: '女'}
-  ];
+  student: any = {id: null,
+                  classroom: {id: null,
+                              department: {id: null,
+                                          college: {id: null}
+                                          }
+                             },
+                  room: {id: null, floor: null, house: {id: null} },
+                  tel: null,
+                  id_card: null,
+                  ic_card: null,
+                  gender: null};
+  genders: Observable<any[]>;
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
   classrooms: Observable<any[]>;
@@ -54,46 +37,39 @@ export class StudentFormComponent implements OnInit {
   beds: Observable<any[]>;
 
 
-  constructor(private rest: RestService, private route: ActivatedRoute) {
-  }
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.student.id = params.get('id');
-      if (this.student.id != null) {
-        this.edit();
-      }
+      if (this.student.id != null) {this.edit(); }
     });
     this.getColleges();
     this.getDepartments();
     this.getClassrooms();
 
     this.getHouses();
-    this.getFloors();
+    this.floors = this.dict.getItems('floor_level');
+    this.genders = this.dict.getItems('gender_type');
     this.getRooms();
-    this.getBeds();
 
 
   }
-
   getColleges() {
-    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
+    this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
-
   getDepartments() {
     if (this.student.classroom.department.college.id) {
       this.departments = this.rest.index('departments', {college_id: this.student.classroom.department.college.id})
         .pipe(map((res: any) => res.result));
     }
   }
-
   getClassrooms() {
     if (this.student.classroom.department.id) {
-      this.classrooms = this.rest.index('classrooms', {college_id: this.student.classroom.department.id})
+      this.classrooms = this.rest.index('classrooms', {department_id: this.student.classroom.department.id})
         .pipe(map((res: any) => res.result));
     }
   }
-
   selectCollege() {
     this.getDepartments();
     this.student.classroom.department.id = null;
@@ -105,46 +81,20 @@ export class StudentFormComponent implements OnInit {
   }
 
   getHouses() {
-    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
-
-  }
-
-  getFloors() {
-    if (this.student.bed.room.floor.house.id) {
-      this.floors = this.rest.index('floors', {house_id: this.student.bed.room.floor.house.id})
-        .pipe(map((res: any) => res.result));
-    }
+      this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
 
   getRooms() {
-    if (this.student.bed.room.floor.id) {
-      this.rooms = this.rest.index('rooms', {floor_id: this.student.bed.room.floor.id})
+    if (this.student.room.floor && this.student.room.house.id) {
+      this.rooms = this.rest.index('rooms', {floor: this.student.room.floor, house_id: this.student.room.house.id})
         .pipe(map((res: any) => res.result));
     }
   }
 
-  getBeds() {
-    if (this.student.bed.room.id) {
-      this.beds = this.rest.index('beds', {room_id: this.student.bed.room.id})
-        .pipe(map((res: any) => res.result));
-    }
-  }
-
-  selectHouse() {
-    this.getFloors();
-    this.student.bed.room.floor.id = null;
-  }
-
-  selectFloor() {
+  filterRooms() {
     this.getRooms();
-    this.student.bed.room.id = null;
+    this.student.room.id = null;
   }
-
-  selectRoom() {
-    this.getBeds();
-    this.student.bed.id = null;
-  }
-
 
   save() {
     if (this.student.id != null) {
@@ -170,9 +120,7 @@ export class StudentFormComponent implements OnInit {
       this.getDepartments();
       this.getClassrooms();
       this.getHouses();
-      this.getFloors();
       this.getRooms();
-      this.getBeds();
     });
   }
 

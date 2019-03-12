@@ -1,16 +1,14 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
-import {tap} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-floor',
-  templateUrl: './floor.component.html',
-  styleUrls: ['./floor.component.scss']
+  selector: 'app-dict',
+  templateUrl: './dict.component.html',
+  styleUrls: ['./dict.component.scss']
 })
-
-export class FloorComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['floor', 'title', 'updated_at', 'action'];
+export class DictComponent implements OnInit, AfterViewInit {
+  displayedColumns = [ 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -22,20 +20,20 @@ export class FloorComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
-    this.loadFloors();
+    this.loadDicts();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this.loadFloors();
+      this.loadDicts();
     });
   }
 
-  loadFloors() {
-    this.rest.index('floors' , {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-      this.dataSource = data.result;
+  loadDicts() {
+    this.rest.index('dicts', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
@@ -51,19 +49,20 @@ export class FloorComponent implements OnInit, AfterViewInit {
     }
   }
 
-  update (id: string)  {
-    this.rest.navigate(['/bxt/floors/', id, 'edit']);
+  public update (id: string)  {
+    this.rest.navigate(['/bxt/dicts/', id, 'edit']);
   }
 
-  delete (id: string) {
+  public delete (id: string) {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
-        this.rest.destory('floors/' + id).subscribe(data => {
-          this.loadFloors();
+        this.rest.destory('dicts/' + id).subscribe(data => {
+          this.loadDicts();
         }, error => {
           this.rest.errorHandle(error);
         });
       }
     });
   }
+
 }

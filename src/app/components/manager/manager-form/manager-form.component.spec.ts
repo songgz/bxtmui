@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FloorFormComponent } from './floor-form.component';
+import { ManagerFormComponent } from './manager-form.component';
 
-describe('FloorFormComponent', () => {
-  let component: FloorFormComponent;
-  let fixture: ComponentFixture<FloorFormComponent>;
+describe('ManagerFormComponent', () => {
+  let component: ManagerFormComponent;
+  let fixture: ComponentFixture<ManagerFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FloorFormComponent ]
+      declarations: [ ManagerFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FloorFormComponent);
+    fixture = TestBed.createComponent(ManagerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
