@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
@@ -15,9 +15,8 @@ export class RoomComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   floors: any = {};
 
-  constructor(private rest: RestService) {
-    this.dataSource = new MatTableDataSource([]);
   constructor(private rest: RestService, private dict: DictService) {
+    this.dataSource = new MatTableDataSource([]);
     this.dict.getItemMap('floor_level').subscribe(data => {
       this.floors = data;
     });
