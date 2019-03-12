@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {DictService} from '../../services/dict.service';
 
 @Component({
   selector: 'app-room',
@@ -12,8 +13,12 @@ export class RoomComponent implements OnInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  floors: any = {};
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, private dict: DictService) {
+    this.dict.getItemMap('floor_level').subscribe(data => {
+      this.floors = data;
+    });
   }
 
   ngOnInit() {
