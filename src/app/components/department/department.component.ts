@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 
@@ -7,23 +7,36 @@ import {RestService} from '../../services/rest.service';
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
-export class DepartmentComponent implements OnInit {
+export class DepartmentComponent implements OnInit , AfterViewInit {
   displayedColumns = [ 'title', 'college', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private rest: RestService) { }
-
-  ngOnInit() {
-    this.loadColleges();
+  constructor(private rest: RestService) {
+    this.dataSource = new MatTableDataSource([]);
   }
 
-  loadColleges() {
-    this.rest.index('departments').subscribe((data: any) => {
+  ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
+    this.loadDepartments();
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.paginator.page.subscribe(event => {
+      this.loadDepartments();
+    });
+  }
+  loadDepartments() {
+    this.rest.index('departments', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.paginator.length = data.paginate_meta.total_count;
+      this.paginator.pageSize = data.paginate_meta.current_per_page;
+      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
 
@@ -44,7 +57,7 @@ export class DepartmentComponent implements OnInit {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('departments/' + id).subscribe(data => {
-          this.loadColleges();
+          this.loadDepartments();
         }, error => {
           this.rest.errorHandle(error);
         });
