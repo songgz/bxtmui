@@ -19,7 +19,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属班级" required [(ngModel)]="student.classroom.id"  name="classroom">
+        <mat-select placeholder="所属班级" required [(ngModel)]="student.org_id"  name="classroom">
           <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
             {{classroom.title}}
           </mat-option>
@@ -33,14 +33,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼层" required [(ngModel)]="student.room.floor" (selectionChange)="filterRooms()" name="floor">
-          <mat-option *ngFor="let floor of floors | async" [value]="floor.name">
-            {{floor.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="student.room.id" (selectionChange)="selectRoom()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="student.facility_id"  name="room">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>

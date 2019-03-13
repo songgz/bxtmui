@@ -15,12 +15,14 @@ export interface Gender {
 })
 export class StudentFormComponent implements OnInit {
   student: any = {id: null,
+                  org_id: null,
                   classroom: {id: null,
                               department: {id: null,
                                           college: {id: null}
                                           }
                              },
-                  room: {id: null, floor: null, house: {id: null} },
+                  room: {id: null, house: {id: null} },
+                  facility_id: null,
                   tel: null,
                   id_card: null,
                   ic_card: null,
@@ -29,10 +31,7 @@ export class StudentFormComponent implements OnInit {
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
   classrooms: Observable<any[]>;
-
-
   houses: Observable<any[]>;
-  floors: Observable<any[]>;
   rooms: Observable<any[]>;
   beds: Observable<any[]>;
 
@@ -49,7 +48,6 @@ export class StudentFormComponent implements OnInit {
     this.getClassrooms();
 
     this.getHouses();
-    this.floors = this.dict.getItems('floor_level');
     this.genders = this.dict.getItems('gender_type');
     this.getRooms();
 
@@ -77,7 +75,7 @@ export class StudentFormComponent implements OnInit {
 
   selectDepartment() {
     this.getClassrooms();
-    this.student.classroom.id = null;
+    this.student.org_id = null;
   }
 
   getHouses() {
@@ -85,15 +83,15 @@ export class StudentFormComponent implements OnInit {
   }
 
   getRooms() {
-    if (this.student.room.floor && this.student.room.house.id) {
-      this.rooms = this.rest.index('rooms', {floor: this.student.room.floor, house_id: this.student.room.house.id})
+    if (this.student.room.house.id) {
+      this.rooms = this.rest.index('rooms', {house_id: this.student.room.house.id})
         .pipe(map((res: any) => res.result));
     }
   }
 
   filterRooms() {
     this.getRooms();
-    this.student.room.id = null;
+    this.student.facility_id = null;
   }
 
   save() {
