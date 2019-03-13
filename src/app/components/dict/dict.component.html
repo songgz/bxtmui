@@ -9,14 +9,12 @@
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 字典 </th>
       <td mat-cell *matCellDef="let row">
-        <ul>
-          <li>{{row.title}}</li>
-          <ul>
-          <li *ngFor="let item of row.dict_items">
-            {{ item.title }}
-          </li>
-          </ul>
-        </ul>
+        <mat-list>
+          <h4 mat-line>{{row.title}}</h4>
+          <mat-list-item *ngFor="let item of row.dict_items">
+            <p mat-line>{{item.title}}</p>
+          </mat-list-item>
+        </mat-list>
       </td>
     </ng-container>
     <ng-container matColumnDef="updated_at">

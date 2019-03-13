@@ -15,7 +15,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   floors: any = {};
 
- constructor(private rest: RestService, private dict: DictService) {
+  constructor(private rest: RestService, private dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItemMap('floor_level').subscribe(data => {
       this.floors = data;
