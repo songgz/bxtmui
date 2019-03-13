@@ -13,7 +13,6 @@ export class ClassroomFormComponent implements OnInit {
   classroom: any = {id: null, department: {id: null, college: {id: null}}};
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
-  grades: Observable<any[]>;
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
@@ -22,7 +21,6 @@ export class ClassroomFormComponent implements OnInit {
       this.classroom.id = params.get('id');
       if (this.classroom.id != null) {this.edit(); }
     });
-
     this.getColleges();
     this.getDepartments();
   }
