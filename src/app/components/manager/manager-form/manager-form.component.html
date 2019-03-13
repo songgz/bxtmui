@@ -17,6 +17,14 @@
       <mat-form-field>
         <input matInput placeholder="卡号"  [(ngModel)]="manager.ic_card" name="ic_card" >
       </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="性别" [(ngModel)]="manager.gender_mark" name="gender">
+          <mat-option *ngFor="let gender of genders | async" [value]="gender.name" >
+            {{gender.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
 
     </mat-card-content>
     <mat-card-actions align="center">

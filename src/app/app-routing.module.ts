@@ -28,6 +28,7 @@ import {MenuItemFormComponent} from './components/menu-item/menu-item-form/menu-
 import {DictComponent} from './components/dict/dict.component';
 import {DictFormComponent} from './components/dict/dict-form/dict-form.component';
 import {RoleComponent} from './components/role/role.component';
+import {RoleFormComponent} from './components/role/role-form/role-form.component';
 import {GroupComponent} from './components/group/group.component';
 import {GroupFormComponent} from './components/group/group-form/group-form.component';
 import {ManagerComponent} from './components/manager/manager.component';
@@ -71,8 +72,8 @@ const routes: Routes = [
       {path: 'dicts/new', component: DictFormComponent},
       {path: 'dicts/:id/edit', component: DictFormComponent},
       {path: 'roles', component: RoleComponent},
-      {path: 'roles/new', component: RoomFormComponent},
-      {path: 'roles/:id/edit', component: RoomFormComponent},
+      {path: 'roles/new', component: RoleFormComponent},
+      {path: 'roles/:id/edit', component: RoleFormComponent},
       {path: 'groups', component: GroupComponent},
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},

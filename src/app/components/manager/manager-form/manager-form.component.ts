@@ -3,6 +3,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {DictService} from '../../../services/dict.service';
 
 @Component({
   selector: 'app-manager-form',
@@ -10,16 +11,17 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./manager-form.component.scss']
 })
 export class ManagerFormComponent implements OnInit {
-  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null};
-
-
-  constructor(private rest: RestService, private route: ActivatedRoute) { }
+  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null, gender_mark: null};
+  genders: Observable<any[]>;
+  roles: Observable<any[]>;
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.manager.id = params.get('id');
       if (this.manager.id != null) {this.edit(); }
     });
+    this.genders = this.dict.getItems('gender_type');
 
   }
   save() {
