@@ -9,15 +9,15 @@ export class DictService {
 
   constructor(private rest: RestService) { }
 
-  getItems(dict_name: string) {
-    return this.rest.index('dicts', {dn: dict_name}).pipe(map((res: any) =>  res.result[0].dict_items));
+  getItems(dict_mark: string) {
+    return this.rest.index('dicts', {dict_mark: dict_mark}).pipe(map((res: any) =>  res.result[0].dict_items));
   }
 
-  getItemMap(dict_name: string) {
-    return this.rest.index('dicts', {dn: dict_name}).pipe(map((res: any) => {
+  getItemMap(dict_mark: string) {
+    return this.rest.index('dicts', {dict_mark: dict_mark}).pipe(map((res: any) => {
       const h = {};
       for (const item of res.result[0].dict_items) {
-        h[item.name] = item.title;
+        h[item.mark] = item.title;
       }
       return h;
     }));

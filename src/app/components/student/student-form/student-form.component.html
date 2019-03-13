@@ -52,8 +52,8 @@
         <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="性别" [(ngModel)]="student.gender" name="gender">
-          <mat-option *ngFor="let gender of genders | async" [value]="gender.name" >
+        <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender">
+          <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
             {{gender.title}}
           </mat-option>
         </mat-select>
