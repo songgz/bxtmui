@@ -11,7 +11,8 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, house: {id: null}};
+  room: any = {id: null, };
+
   floors: Observable<any[]>;
   houses: Observable<any[]>;
 
