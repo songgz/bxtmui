@@ -12,8 +12,8 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="楼层" required [(ngModel)]="room.floor"  name="floor">
-          <mat-option *ngFor="let floor of floors | async" [value]="floor.name">
+        <mat-select placeholder="楼层" required [(ngModel)]="room.floor_mark"  name="floor">
+          <mat-option *ngFor="let floor of room.house?.floors" [value]="floor.mark">
             {{floor.title}}
           </mat-option>
         </mat-select>

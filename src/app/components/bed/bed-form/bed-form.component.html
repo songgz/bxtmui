@@ -5,21 +5,14 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属楼栋" required [(ngModel)]="bed.room.house.id" name="house">
+        <mat-select placeholder="所属楼栋" required [(ngModel)]="bed.room.house.id" (selectionChange)="filterRooms()" name="house">
           <mat-option *ngFor="let house of houses | async" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼层" required [(ngModel)]="bed.room.floor" (selectionChange)="filterRooms()"  name="floor">
-          <mat-option *ngFor="let floor of floors | async" [value]="floor.name">
-            {{floor.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="bed.room.id" (selectionChange)="filterStudents()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id" (selectionChange)="filterStudents()" name="room">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>

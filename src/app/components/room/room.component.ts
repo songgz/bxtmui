@@ -13,13 +13,9 @@ export class RoomComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  floors: any = {};
 
   constructor(private rest: RestService, private dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
-    this.dict.getItemMap('floor_level').subscribe(data => {
-      this.floors = data;
-    });
   }
 
   ngOnInit() {
@@ -52,6 +48,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   public update (id: string)  {
     this.rest.navigate(['/bxt/rooms/', id, 'edit']);
   }
