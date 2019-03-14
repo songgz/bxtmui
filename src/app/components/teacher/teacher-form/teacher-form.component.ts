@@ -3,6 +3,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {DictService} from '../../../services/dict.service';
 
 @Component({
   selector: 'app-teacher-form',
@@ -10,11 +11,12 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./teacher-form.component.scss']
 })
 export class TeacherFormComponent implements OnInit {
-  teacher: any = {id: null, department: {id: null, college: {id: null}}, tel: null, id_card: null, ic_card: null};
+  teacher: any = {id: null, department: {id: null, college: {id: null}}, tel: null, id_card: null, ic_card: null, gender_mark: null};
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
+  genders: Observable<any[]>;
 
-  constructor(private rest: RestService, private route: ActivatedRoute) { }
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
@@ -23,6 +25,7 @@ export class TeacherFormComponent implements OnInit {
     });
     this.getColleges();
     this.getDepartments();
+    this.genders = this.dict.getItems('gender_type');
   }
   save() {
     if (this.teacher.id != null) {

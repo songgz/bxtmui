@@ -26,7 +26,7 @@ export class StudentFormComponent implements OnInit {
                   tel: null,
                   id_card: null,
                   ic_card: null,
-                  gender: null};
+                  gender_mark: null};
   genders: Observable<any[]>;
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
@@ -50,8 +50,6 @@ export class StudentFormComponent implements OnInit {
     this.getHouses();
     this.genders = this.dict.getItems('gender_type');
     this.getRooms();
-
-
   }
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
@@ -114,7 +112,6 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
-      console.log(data);
       this.getDepartments();
       this.getClassrooms();
       this.getHouses();

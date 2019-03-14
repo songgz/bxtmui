@@ -12,7 +12,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属系部" required [(ngModel)]="teacher.department.id"  name="department">
+        <mat-select placeholder="所属系部" required [(ngModel)]="teacher.org_id"  name="department">
           <mat-option *ngFor="let department of departments | async" [value]="department.id">
             {{department.title}}
           </mat-option>
@@ -30,7 +30,13 @@
       <mat-form-field>
         <input matInput placeholder="卡号"  [(ngModel)]="teacher.ic_card" name="ic_card" >
       </mat-form-field>
-
+      <mat-form-field>
+        <mat-select placeholder="性别" [(ngModel)]="teacher.gender_mark" name="gender">
+          <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
+            {{gender.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
       <button mat-raised-button color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">提交</button>

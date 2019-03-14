@@ -11,7 +11,7 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./manager-form.component.scss']
 })
 export class ManagerFormComponent implements OnInit {
-  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null, gender_mark: null};
+  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null, gender: null};
   genders: Observable<any[]>;
   roles: Observable<any[]>;
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }

@@ -19,7 +19,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="性别" [(ngModel)]="manager.gender_mark" name="gender">
-          <mat-option *ngFor="let gender of genders | async" [value]="gender.name" >
+          <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
             {{gender.title}}
           </mat-option>
         </mat-select>

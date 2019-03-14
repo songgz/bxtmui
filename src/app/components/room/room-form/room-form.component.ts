@@ -11,7 +11,7 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, };
+  room: any = {id: null, floor_mark: null };
 
   floors: Observable<any[]>;
   houses: Observable<any[]>;
@@ -61,7 +61,6 @@ export class RoomFormComponent implements OnInit {
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) =>  res.result ));
   }
-
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }
