@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent implements OnInit {
-  displayedColumns = ['title', 'path', 'updated_at', 'action'];
+  displayedColumns = ['title', 'path', 'updated_at', 'action', 'showhidden'];
   dataSource: MatTableDataSource<any[]>;
 
   constructor(private rest: RestService) {
