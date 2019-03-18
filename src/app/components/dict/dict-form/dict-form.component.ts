@@ -11,7 +11,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['./dict-form.component.scss']
 })
 export class DictFormComponent implements OnInit {
-  dict: any = {id: null};
+  dict: any = {id: null, dict_items: []};
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
