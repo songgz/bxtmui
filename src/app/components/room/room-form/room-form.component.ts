@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {DictService} from '../../../services/dict.service';
-import {ɵHttpInterceptingHandler} from '@angular/common/http';
 
 @Component({
   selector: 'app-room-form',
