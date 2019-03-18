@@ -33,7 +33,7 @@
     <ng-container matColumnDef="showhidden">
       <th mat-header-cell *matHeaderCellDef> 显示 </th>
       <td mat-cell *matCellDef="let row">
-        <mat-slide-toggle></mat-slide-toggle>
+        <mat-slide-toggle [checked]="row.checked"></mat-slide-toggle>
       </td>
     </ng-container>
 
