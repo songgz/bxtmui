@@ -31,7 +31,7 @@ export class DictFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('dicts', this.dict).subscribe((data: any) => {
+    this.rest.create('dicts', {dict: this.dict}).subscribe((data: any) => {
       this.dict = data;
       this.goBack();
     }, error => {
@@ -47,7 +47,7 @@ export class DictFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('dicts/' + this.dict.id, this.dict).subscribe((data: any) => {
+    this.rest.update('dicts/' + this.dict.id, {dict: this.dict}).subscribe((data: any) => {
       this.dict = data;
       this.goBack();
     }, error => {
