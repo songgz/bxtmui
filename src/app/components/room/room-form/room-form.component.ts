@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {DictService} from '../../../services/dict.service';
+import {ɵHttpInterceptingHandler} from '@angular/common/http';
 
 @Component({
   selector: 'app-room-form',
@@ -12,9 +13,7 @@ import {DictService} from '../../../services/dict.service';
 })
 export class RoomFormComponent implements OnInit {
   room: any = {id: null, floor_mark: null };
-
-  floors: Observable<any[]>;
-  houses: Observable<any[]>;
+  houses: any[] = [];
 
   constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
   ngOnInit() {
@@ -23,8 +22,6 @@ export class RoomFormComponent implements OnInit {
       if (this.room.id != null) {this.edit(); }
     });
     this.getHouses();
-    this.floors = this.dict.getItems('floor_level');
-
   }
   save() {
     if (this.room.id != null) {
@@ -35,7 +32,7 @@ export class RoomFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('rooms', this.room).subscribe((data: any) => {
+    this.rest.create('rooms', {room: this.room}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -50,7 +47,7 @@ export class RoomFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('rooms/' + this.room.id, this.room).subscribe((data: any) => {
+    this.rest.update('rooms/' + this.room.id, {room: this.room}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -59,8 +56,19 @@ export class RoomFormComponent implements OnInit {
   }
 
   getHouses() {
-    this.houses = this.rest.index('houses').pipe(map((res: any) =>  res.result ));
+    this.rest.index('houses').pipe(map((res: any) =>  res.result )).subscribe(data => {
+      this.houses = data;
+    });
   }
+
+  selectHouse() {
+    for ( const h of this.houses) {
+      if (h.id === this.room.parent_id) {
+        this.room.house = h;
+      }
+    }
+  }
+
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }

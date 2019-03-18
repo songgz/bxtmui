@@ -35,7 +35,7 @@ export class HouseFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('houses', this.house).subscribe((data: any) => {
+    this.rest.create('houses', {house: this.house}).subscribe((data: any) => {
       this.house = data;
       this.goBack();
     }, error => {
@@ -50,7 +50,7 @@ export class HouseFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('houses/' + this.house.id, this.house).subscribe((data: any) => {
+    this.rest.update('houses/' + this.house.id, {house: this.house}).subscribe((data: any) => {
       this.house = data;
       this.goBack();
     }, error => {

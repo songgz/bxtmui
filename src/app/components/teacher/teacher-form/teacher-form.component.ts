@@ -36,7 +36,7 @@ export class TeacherFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('teachers', this.teacher).subscribe((data: any) => {
+    this.rest.create('teachers', {teacher: this.teacher}).subscribe((data: any) => {
       this.teacher = data;
       this.goBack();
     }, error => {
@@ -53,7 +53,7 @@ export class TeacherFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('teachers/' + this.teacher.id, this.teacher).subscribe((data: any) => {
+    this.rest.update('teachers/' + this.teacher.id, {teacher: this.teacher}).subscribe((data: any) => {
       this.teacher = data;
       this.goBack();
     }, error => {

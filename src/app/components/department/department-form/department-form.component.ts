@@ -32,7 +32,7 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('departments', this.department).subscribe((data: any) => {
+    this.rest.create('departments', {department: this.department}).subscribe((data: any) => {
       this.department = data;
       this.goBack();
     }, error => {
@@ -47,7 +47,7 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('departments/' + this.department.id, this.department).subscribe((data: any) => {
+    this.rest.update('departments/' + this.department.id, {department: this.department}).subscribe((data: any) => {
       this.department = data;
       this.goBack();
     }, error => {

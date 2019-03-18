@@ -28,7 +28,7 @@ export class CollegeFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('colleges', this.college).subscribe((data: any) => {
+    this.rest.create('colleges', {college: this.college}).subscribe((data: any) => {
       this.college = data;
       this.goBack();
     }, error => {
@@ -43,7 +43,7 @@ export class CollegeFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('colleges/' + this.college.id, this.college).subscribe((data: any) => {
+    this.rest.update('colleges/' + this.college.id, {college: this.college}).subscribe((data: any) => {
       this.college = data;
       this.goBack();
     }, error => {

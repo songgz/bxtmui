@@ -19,8 +19,6 @@ import { CollegeComponent } from './components/college/college.component';
 import { CollegeFormComponent } from './components/college/college-form/college-form.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { DepartmentFormComponent } from './components/department/department-form/department-form.component';
-import { GradeComponent } from './components/grade/grade.component';
-import { GradeFormComponent } from './components/grade/grade-form/grade-form.component';
 import { ClassroomComponent } from './components/classroom/classroom.component';
 import { ClassroomFormComponent } from './components/classroom/classroom-form/classroom-form.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -61,8 +59,6 @@ import { ManagerFormComponent } from './components/manager/manager-form/manager-
     CollegeFormComponent,
     DepartmentComponent,
     DepartmentFormComponent,
-    GradeComponent,
-    GradeFormComponent,
     ClassroomComponent,
     ClassroomFormComponent,
     ErrorComponent,

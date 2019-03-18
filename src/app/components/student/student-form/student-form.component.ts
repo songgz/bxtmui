@@ -111,7 +111,7 @@ export class StudentFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('students', this.student).subscribe((data: any) => {
+    this.rest.create('students', {student: this.student}).subscribe((data: any) => {
       this.student = data;
       this.goBack();
     }, error => {
@@ -130,7 +130,7 @@ export class StudentFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('students/' + this.student.id, this.student).subscribe((data: any) => {
+    this.rest.update('students/' + this.student.id, {student: this.student}).subscribe((data: any) => {
       this.student = data;
       this.goBack();
     }, error => {

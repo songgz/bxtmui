@@ -12,7 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ClassroomFormComponent implements OnInit {
   classroom: any = {id: null, department: {id: null, college: {id: null}}};
   colleges: Observable<any[]>;
-  departments: Observable<any[]>;
+  departments: any[] = [];
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
@@ -34,7 +34,7 @@ export class ClassroomFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('classrooms', this.classroom).subscribe((data: any) => {
+    this.rest.create('classrooms', {classroom: this.classroom}).subscribe((data: any) => {
       this.classroom = data;
       this.goBack();
     }, error => {
@@ -50,7 +50,7 @@ export class ClassroomFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('classrooms/' + this.classroom.id, this.classroom).subscribe((data: any) => {
+    this.rest.update('classrooms/' + this.classroom.id, {classroom: this.classroom}).subscribe((data: any) => {
       this.classroom = data;
       this.goBack();
     }, error => {
@@ -64,14 +64,25 @@ export class ClassroomFormComponent implements OnInit {
 
   getDepartments() {
     if (this.classroom.department.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.classroom.department.college.id})
-        .pipe(map((res: any) => res.result));
+      this.rest.index('departments', {college_id: this.classroom.department.college.id})
+        .pipe(map((res: any) => res.result)).subscribe(departments => {
+        this.departments = departments;
+      });
     }
   }
 
   selectCollege() {
     this.getDepartments();
     this.classroom.parent_id = null;
+  }
+
+  selectDepartment() {
+    for ( const d of this.departments) {
+        if ( d.id === this.classroom.parent_id) {
+          this.classroom.department = d;
+          break;
+        }
+    }
   }
 
   goBack() {

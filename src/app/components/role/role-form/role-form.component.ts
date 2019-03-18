@@ -35,7 +35,7 @@ export class RoleFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('roles', this.role).subscribe((data: any) => {
+    this.rest.create('roles', {role: this.role}).subscribe((data: any) => {
       this.role = data;
       this.goBack();
     }, error => {
@@ -50,7 +50,7 @@ export class RoleFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('roles/' + this.role.id, this.role).subscribe((data: any) => {
+    this.rest.update('roles/' + this.role.id, {role: this.role}).subscribe((data: any) => {
       this.role = data;
       this.goBack();
     }, error => {

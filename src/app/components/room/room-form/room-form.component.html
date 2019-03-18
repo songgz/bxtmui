@@ -5,8 +5,8 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="楼栋" required [(ngModel)]="room.parent_id"  name="house">
-          <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        <mat-select placeholder="楼栋" required [(ngModel)]="room.parent_id" (selectionChange)="selectHouse()"  name="house">
+          <mat-option *ngFor="let house of houses" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>

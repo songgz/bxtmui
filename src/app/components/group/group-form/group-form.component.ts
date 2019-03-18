@@ -35,7 +35,7 @@ export class GroupFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('groups', this.group).subscribe((data: any) => {
+    this.rest.create('groups', {group: this.group}).subscribe((data: any) => {
       this.group = data;
       this.goBack();
     }, error => {
@@ -50,7 +50,7 @@ export class GroupFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('groups/' + this.group.id, this.group).subscribe((data: any) => {
+    this.rest.update('groups/' + this.group.id, {group: this.group}).subscribe((data: any) => {
       this.group = data;
       this.goBack();
     }, error => {

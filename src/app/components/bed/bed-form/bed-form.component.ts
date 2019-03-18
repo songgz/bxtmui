@@ -36,7 +36,7 @@ export class BedFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('beds', this.bed).subscribe((data: any) => {
+    this.rest.create('beds', {bed: this.bed}).subscribe((data: any) => {
       this.bed = data;
       this.goBack();
     }, error => {
@@ -53,7 +53,7 @@ export class BedFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('beds/' + this.bed.id, this.bed).subscribe((data: any) => {
+    this.rest.update('beds/' + this.bed.id, {bed: this.bed}).subscribe((data: any) => {
       this.bed = data;
       this.goBack();
     }, error => {

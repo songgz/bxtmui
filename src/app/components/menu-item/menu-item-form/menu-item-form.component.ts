@@ -28,7 +28,7 @@ export class MenuItemFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('menu_items', this.menuItem).subscribe((data: any) => {
+    this.rest.create('menu_items', {menu_item: this.menuItem}).subscribe((data: any) => {
       this.menuItem = data;
       this.goBack();
     }, error => {
@@ -43,7 +43,7 @@ export class MenuItemFormComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('menu_items/' + this.menuItem.id, this.menuItem).subscribe((data: any) => {
+    this.rest.update('menu_items/' + this.menuItem.id, {menu_item: this.menuItem}).subscribe((data: any) => {
       this.menuItem = data;
       this.goBack();
     }, error => {
