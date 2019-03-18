@@ -1,3 +1,26 @@
-<p>
-  role-form works!
-</p>
+<form #roleForm="ngForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>群组信息</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="名称" required [(ngModel)]="role.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="描述" [(ngModel)]="role.desc" name="desc"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="所属分组" required [(ngModel)]="role.id"  name="department">
+          <mat-option *ngFor="let item of groups | async" [value]="item.id">
+            {{item.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="roleForm.pristine || roleForm.invalid">提交</button>
+      <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

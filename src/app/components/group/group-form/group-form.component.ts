@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-group-form',
@@ -9,7 +12,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class GroupFormComponent implements OnInit {
   group: any = {id: null};
-
+  roles: Observable<any[]>;
+  formControltest = new FormControl();
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -17,6 +21,10 @@ export class GroupFormComponent implements OnInit {
       this.group.id = params.get('id');
       if (this.group.id != null) {this.edit(); }
     });
+    this.getRoles();
+  }
+  getRoles() {
+    this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
   save() {
     if (this.group.id != null) {
