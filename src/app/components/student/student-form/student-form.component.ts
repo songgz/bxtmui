@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
+import {NgForm} from '@angular/forms';
 
 export interface Gender {
   value: string;
@@ -102,16 +103,16 @@ export class StudentFormComponent implements OnInit {
     this.student.facility_id = null;
   }
 
-  save() {
+  save(f: NgForm) {
     if (this.student.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('students', {student: this.student}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('students', {student: f.value}).subscribe((data: any) => {
       this.student = data;
       this.goBack();
     }, error => {
@@ -129,8 +130,8 @@ export class StudentFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('students/' + this.student.id, {student: this.student}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('students/' + this.student.id, {student: f.value}).subscribe((data: any) => {
       this.student = data;
       this.goBack();
     }, error => {

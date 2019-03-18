@@ -3,6 +3,7 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-house-form',
@@ -11,9 +12,6 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class HouseFormComponent implements OnInit {
   house: any = {id: null};
-
-
-
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
@@ -24,18 +22,16 @@ export class HouseFormComponent implements OnInit {
     });
   }
 
-
-
-  save() {
+  save(f: NgForm) {
     if (this.house.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('houses', {house: this.house}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('houses', {house: f.value}).subscribe((data: any) => {
       this.house = data;
       this.goBack();
     }, error => {
@@ -49,8 +45,8 @@ export class HouseFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('houses/' + this.house.id, {house: this.house}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('houses/' + this.house.id, {house: f.value}).subscribe((data: any) => {
       this.house = data;
       this.goBack();
     }, error => {

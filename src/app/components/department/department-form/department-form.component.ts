@@ -3,6 +3,7 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-department-form',
@@ -23,16 +24,16 @@ export class DepartmentFormComponent implements OnInit {
     this.getColleges();
   }
 
-  save() {
+  save(f: NgForm) {
     if (this.department.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('departments', {department: this.department}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('departments', {department: f.value}).subscribe((data: any) => {
       this.department = data;
       this.goBack();
     }, error => {
@@ -46,8 +47,8 @@ export class DepartmentFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('departments/' + this.department.id, {department: this.department}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('departments/' + this.department.id, {department: f.value}).subscribe((data: any) => {
       this.department = data;
       this.goBack();
     }, error => {

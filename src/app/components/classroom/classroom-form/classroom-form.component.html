@@ -1,25 +1,25 @@
-<form #classroomForm="ngForm" (ngSubmit)="save()">
+<form #classroomForm="ngForm" (ngSubmit)="save(classroomForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>班级信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属学院" required [(ngModel)]="classroom.department.college.id" (selectionChange)="selectCollege()" name="college">
+        <mat-select placeholder="所属学院" required [(value)]="classroom.department.college.id" (selectionChange)="selectCollege()" name="college_id">
           <mat-option *ngFor="let college of colleges | async" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属系部" required [(ngModel)]="classroom.parent_id" (selectionChange)="selectDepartment()"  name="department">
+        <mat-select placeholder="所属系部" required [(ngModel)]="classroom.parent_id" (selectionChange)="selectDepartment()"  name="parent_id">
           <mat-option *ngFor="let department of departments" [value]="department.id">
             {{department.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属年级" required [(ngModel)]="classroom.grade_mark"  name="grade">
+        <mat-select placeholder="所属年级" required [(ngModel)]="classroom.grade_mark"  name="grade_mark">
           <mat-option *ngFor="let grade of classroom.department?.grades" [value]="grade.mark">
             {{grade.title}}
           </mat-option>

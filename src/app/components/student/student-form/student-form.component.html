@@ -1,39 +1,39 @@
-<form #studentForm="ngForm" (ngSubmit)="save()">
+<form #studentForm="ngForm" (ngSubmit)="save(studentForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>学生信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属学院" required [(ngModel)]="student.college.id" (selectionChange)="selectCollege()" name="college">
+        <mat-select placeholder="所属学院" required [(value)]="student.college.id" (selectionChange)="selectCollege()" name="college_id">
           <mat-option *ngFor="let college of colleges | async" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属系部" required [(ngModel)]="student.department.id" (selectionChange)="selectDepartment()"  name="department">
+        <mat-select placeholder="所属系部" required [(value)]="student.department.id" (selectionChange)="selectDepartment()"  name="department_id">
           <mat-option *ngFor="let department of departments | async" [value]="department.id">
             {{department.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属班级" required [(ngModel)]="student.org_id"  name="classroom">
+        <mat-select placeholder="所属班级" required [(ngModel)]="student.org_id"  name="org_id">
           <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
             {{classroom.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼栋" required [(ngModel)]="student.house.id" (selectionChange)="filterRooms()" name="house">
+        <mat-select placeholder="所属楼栋" required [(value)]="student.house.id" (selectionChange)="filterRooms()" name="house_id">
           <mat-option *ngFor="let house of houses | async" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="student.facility_id"  name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="student.facility_id"  name="facility_id">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
@@ -52,7 +52,7 @@
         <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender">
+        <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">
           <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
             {{gender.title}}
           </mat-option>

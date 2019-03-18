@@ -1,18 +1,18 @@
-<form #roomForm="ngForm" (ngSubmit)="save()">
+<form #roomForm="ngForm" (ngSubmit)="save(roomForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>房间信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="楼栋" required [(ngModel)]="room.parent_id" (selectionChange)="selectHouse()"  name="house">
+        <mat-select placeholder="楼栋" required [(ngModel)]="room.parent_id" (selectionChange)="selectHouse()"  name="parent_id">
           <mat-option *ngFor="let house of houses" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="楼层" required [(ngModel)]="room.floor_mark"  name="floor">
+        <mat-select placeholder="楼层" required [(ngModel)]="room.floor_mark"  name="floor_mark">
           <mat-option *ngFor="let floor of room.house?.floors" [value]="floor.mark">
             {{floor.title}}
           </mat-option>

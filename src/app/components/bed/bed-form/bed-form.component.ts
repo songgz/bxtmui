@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-bed-form',
@@ -27,16 +28,16 @@ export class BedFormComponent implements OnInit {
     this.getRooms();
     this.getStudents();
   }
-  save() {
+  save(f: NgForm) {
     if (this.bed.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('beds', {bed: this.bed}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('beds', {bed: f.value}).subscribe((data: any) => {
       this.bed = data;
       this.goBack();
     }, error => {
@@ -52,8 +53,8 @@ export class BedFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('beds/' + this.bed.id, {bed: this.bed}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('beds/' + this.bed.id, {bed: f.value}).subscribe((data: any) => {
       this.bed = data;
       this.goBack();
     }, error => {

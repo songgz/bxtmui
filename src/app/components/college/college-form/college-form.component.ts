@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-college-form',
@@ -19,16 +20,16 @@ export class CollegeFormComponent implements OnInit {
     });
   }
 
-  save() {
+  save(f: NgForm) {
     if (this.college.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('colleges', {college: this.college}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('colleges', {college: f.value}).subscribe((data: any) => {
       this.college = data;
       this.goBack();
     }, error => {
@@ -42,8 +43,8 @@ export class CollegeFormComponent implements OnInit {
       });
   }
 
-  update() {
-    this.rest.update('colleges/' + this.college.id, {college: this.college}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('colleges/' + this.college.id, {college: f.value}).subscribe((data: any) => {
       this.college = data;
       this.goBack();
     }, error => {

@@ -3,6 +3,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-classroom-form',
@@ -25,16 +26,16 @@ export class ClassroomFormComponent implements OnInit {
     this.getDepartments();
   }
 
-  save() {
+  save(f: NgForm) {
     if (this.classroom.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('classrooms', {classroom: this.classroom}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('classrooms', {classroom: f.value}).subscribe((data: any) => {
       this.classroom = data;
       this.goBack();
     }, error => {
@@ -49,8 +50,8 @@ export class ClassroomFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('classrooms/' + this.classroom.id, {classroom: this.classroom}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('classrooms/' + this.classroom.id, {classroom: f.value}).subscribe((data: any) => {
       this.classroom = data;
       this.goBack();
     }, error => {

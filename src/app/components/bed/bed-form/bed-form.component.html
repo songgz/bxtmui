@@ -1,18 +1,18 @@
-<form #bedForm="ngForm" (ngSubmit)="save()">
+<form #bedForm="ngForm" (ngSubmit)="save(bedForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>床位信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属楼栋" required [(ngModel)]="bed.room.house.id" (selectionChange)="filterRooms()" name="house">
+        <mat-select placeholder="所属楼栋" required [(value)]="bed.room.parent_id" (selectionChange)="filterRooms()" name="house_id">
           <mat-option *ngFor="let house of houses | async" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id" (selectionChange)="filterStudents()" name="room">
+        <mat-select placeholder="所属房间" required [(ngModel)]="bed.parent_id" (selectionChange)="filterStudents()" name="parent_id">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
@@ -22,7 +22,7 @@
         <input matInput placeholder="床位" required [(ngModel)]="bed.title" name="title" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属学生" required [(ngModel)]="bed.user_id" name="charge_person">
+        <mat-select placeholder="所属学生" required [(ngModel)]="bed.user_id" name="user_id">
           <mat-option *ngFor="let student of students | async" [value]="student.id">
             {{student.name}}
           </mat-option>

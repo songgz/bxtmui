@@ -3,6 +3,7 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {DictService} from '../../../services/dict.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-room-form',
@@ -10,10 +11,12 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, floor_mark: null };
+  room: any = {id: null, floor_mark: null, parent_id: null};
   houses: any[] = [];
+  house: any = {};
 
   constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.room.id = params.get('id');
@@ -21,16 +24,16 @@ export class RoomFormComponent implements OnInit {
     });
     this.getHouses();
   }
-  save() {
+  save(f: NgForm) {
     if (this.room.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('rooms', {room: this.room}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('rooms', {room: f.value}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -44,8 +47,8 @@ export class RoomFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('rooms/' + this.room.id, {room: this.room}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('rooms/' + this.room.id, {room: f.value}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -65,6 +68,7 @@ export class RoomFormComponent implements OnInit {
         this.room.house = h;
       }
     }
+    this.room.floor_mark = null;
   }
 
   goBack() {
