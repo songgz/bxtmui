@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import any = jasmine.any;
 
 @Component({
   selector: 'app-dict-form',
@@ -13,7 +14,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class DictFormComponent implements OnInit {
   dict: any = {id: null, dict_items: []};
   constructor(private rest: RestService, private route: ActivatedRoute) { }
-  new: any = {};
+  new: any = { title: null, mark: null};
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.dict.id = params.get('id');
@@ -61,10 +62,9 @@ export class DictFormComponent implements OnInit {
   }
 
   newadd() {
-
    this.dict.dict_items.push(this.new);
-   console.log(this.dict.dict_items.length);
-    console.log(this.dict.dict_items);
+   // this.dict.dict_items = this.dict.dict_items.concat(this.new);
+   this.new = { title: null, mark: null};
   }
   ThisDel(i) {
   this.dict.dict_items.splice(i, 1 );

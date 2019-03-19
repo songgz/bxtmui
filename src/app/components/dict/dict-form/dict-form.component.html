@@ -19,14 +19,14 @@
           <button mat-raised-button color="primary" type="button" (click)="newadd()">新增</button>
         </mat-list-item>
         <mat-list-item *ngFor="let item of dict.dict_items; let i = index">
+
           <mat-form-field>
             <input matInput placeholder="字典项标题" [(ngModel)]=" dict.dict_items[i].title" name="dict_item_title_{{i}}" >
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="字典项标识" [(ngModel)]=" dict.dict_items[i].mark" name="dict_item_mark_{{i}}" >
+            <button mat-button color="warn" matSuffix mat-icon-button (click)="ThisDel(i)"><mat-icon>close</mat-icon></button>
           </mat-form-field>
-          <button mat-raised-button color="warn" type="button" (click)="ThisDel(i)">删除</button>
-
         </mat-list-item>
 
       </mat-list>
