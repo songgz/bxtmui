@@ -12,17 +12,28 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-content>
-      <ul>
-        <li *ngFor="let item of dict.dict_items; let i = index">
+
+
+      <mat-list>
+        <mat-list-item>
+          <button mat-raised-button color="primary" type="button" (click)="newadd()">新增</button>
+        </mat-list-item>
+        <mat-list-item *ngFor="let item of dict.dict_items; let i = index">
           <mat-form-field>
-            <input matInput placeholder="字典项标题" [(ngModel)]="dict.dict_items[i].title" name="dict_item_title_{{i}}" >
+            <input matInput placeholder="字典项标题" [(ngModel)]=" dict.dict_items[i].title" name="dict_item_title_{{i}}" >
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="字典项标识" [(ngModel)]="dict.dict_items[i].mark" name="dict_item_mark_{{i}}" >
+            <input matInput placeholder="字典项标识" [(ngModel)]=" dict.dict_items[i].mark" name="dict_item_mark_{{i}}" >
           </mat-form-field>
-        </li>
-      </ul>
+          <button mat-raised-button color="warn" type="button" (click)="ThisDel(i)">删除</button>
+
+        </mat-list-item>
+
+      </mat-list>
+
+
     </mat-card-content>
+
     <mat-card-actions align="center">
       <button mat-raised-button color="primary" [disabled]="dictForm.pristine || dictForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>

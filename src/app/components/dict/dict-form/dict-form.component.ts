@@ -59,4 +59,12 @@ export class DictFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/dicts']);
   }
+
+  newadd() {
+   this.dict.dict_items.push(this.dict.dict_items + 1);
+  }
+  ThisDel(i) {
+  this.dict.dict_items.splice(i, 1 );
+  }
+
 }
