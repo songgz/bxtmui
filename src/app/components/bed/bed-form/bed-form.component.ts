@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./bed-form.component.scss']
 })
 export class BedFormComponent implements OnInit {
-  bed: any = {id: null, user_id: null, parent_id: null, room: {id: null, floor: null, house: {id: null}}};
+  bed: any = {id: null, owner_id: null, parent_id: null, room: {id: null, floor: null, house: {id: null}}};
   houses: Observable<any[]>;
   rooms: Observable<any[]>;
   students: Observable<any[]>;
@@ -87,7 +87,7 @@ export class BedFormComponent implements OnInit {
 
   filterStudents() {
     this.getStudents();
-    this.bed.user_id = null;
+    this.bed.owner_id = null;
   }
 
   goBack() {

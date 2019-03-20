@@ -18,7 +18,14 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 所属楼栋 </th>
       <td mat-cell *matCellDef="let row"> {{row.house?.title}} </td>
     </ng-container>
-
+    <ng-container matColumnDef="total_beds">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 床数 </th>
+      <td mat-cell *matCellDef="let row"> {{row.total_beds}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vacant_beds">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 空床数 </th>
+      <td mat-cell *matCellDef="let row"> {{row.vacant_beds}} </td>
+    </ng-container>
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>
       <td mat-cell *matCellDef="let row"> {{row.updated_at | date:'yyyy-MM-dd'}} </td>

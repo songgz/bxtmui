@@ -22,7 +22,7 @@
         <input matInput placeholder="床位" required [(ngModel)]="bed.title" name="title" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属学生" required [(ngModel)]="bed.user_id" name="user_id">
+        <mat-select placeholder="所属学生" required [(ngModel)]="bed.owner_id" name="user_id">
           <mat-option *ngFor="let student of students | async" [value]="student.id">
             {{student.name}}
           </mat-option>
