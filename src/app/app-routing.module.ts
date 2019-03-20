@@ -31,6 +31,7 @@ import {GroupComponent} from './components/group/group.component';
 import {GroupFormComponent} from './components/group/group-form/group-form.component';
 import {ManagerComponent} from './components/manager/manager.component';
 import {ManagerFormComponent} from './components/manager/manager-form/manager-form.component';
+import {AttendanceComponent} from './components/attendance/attendance.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -75,6 +76,7 @@ const routes: Routes = [
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
+      {path: 'attendances', component: AttendanceComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},

@@ -1,0 +1,141 @@
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px"
+     fxLayoutGap.lt.md="20px">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名</th>
+      <td mat-cell *matCellDef="let row"> {{row.user.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="day1">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 1日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[0].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 2日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[1].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day3">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 3日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[2]?.status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day4">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 4日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[3].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day5">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 5日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[4].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day6">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 6日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[5].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day7">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 7日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[6].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day8">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 8日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[7].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day9">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 9日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[8].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day10">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 10日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[9].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day11">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 11日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[10].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day12">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 12日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[11].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day13">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 13日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[12].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day14">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 14日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[13].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day15">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 15日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[14].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day16">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 16日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[15].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day17">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 17日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[16].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day18">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 18日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[17].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day19">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 19日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[18].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day20">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 20日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[19].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day21">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 21日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[20].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day22">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 22日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[21].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day23">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 23日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[22].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day24">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 24日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[23].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day25">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 25日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[24].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day26">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 26日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[25].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day27">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 27日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[26].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day28">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 28日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[27].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day29">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 29日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[28].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day30">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 30日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[29].status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="day31">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 31日</th>
+      <td mat-cell *matCellDef="let row"> {{row.attendances[30].status}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

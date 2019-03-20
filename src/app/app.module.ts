@@ -45,6 +45,7 @@ import { RoleFormComponent } from './components/role/role-form/role-form.compone
 import { DictFormComponent } from './components/dict/dict-form/dict-form.component';
 import { DictComponent } from './components/dict/dict.component';
 import { ManagerFormComponent } from './components/manager/manager-form/manager-form.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { ManagerFormComponent } from './components/manager/manager-form/manager-
     RoleFormComponent,
     DictFormComponent,
     DictComponent,
-    ManagerFormComponent
+    ManagerFormComponent,
+    AttendanceComponent
   ],
   entryComponents: [
     AlertDialogComponent,
