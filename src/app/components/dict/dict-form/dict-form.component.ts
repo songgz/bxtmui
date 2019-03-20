@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import any = jasmine.any;
+// import any = jasmine.any;
 
 @Component({
   selector: 'app-dict-form',
@@ -62,9 +62,9 @@ export class DictFormComponent implements OnInit {
   }
 
   newadd() {
-   this.dict.dict_items.push(this.new);
-   // this.dict.dict_items = this.dict.dict_items.concat(this.new);
-   this.new = { title: null, mark: null};
+    this.dict.dict_items.push(this.new);
+    // this.dict.dict_items = this.dict.dict_items.concat(this.new);
+    this.new = { title: null, mark: null};
   }
   ThisDel(i) {
   this.dict.dict_items.splice(i, 1 );
