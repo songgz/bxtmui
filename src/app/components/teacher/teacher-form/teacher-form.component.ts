@@ -23,7 +23,7 @@ export class TeacherFormComponent implements OnInit {
   departments: Observable<any[]>;
   genders: Observable<any[]>;
   groups: Observable<any[]>;
-
+  roles: Observable<any[]>;
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
   ngOnInit() {
@@ -35,10 +35,14 @@ export class TeacherFormComponent implements OnInit {
     this.getDepartments();
     this.genders = this.dict.getItems('gender_type');
     this.getGroups();
+    this.getRoles();
   }
 
   getGroups() {
     this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
+  }
+  getRoles() {
+    this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
   save() {
     if (this.teacher.id != null) {
