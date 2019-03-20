@@ -13,8 +13,9 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class DictFormComponent implements OnInit {
   dict: any = {id: null, dict_items: []};
+  new: any = {};
   constructor(private rest: RestService, private route: ActivatedRoute) { }
-  new: any = { title: null, mark: null};
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.dict.id = params.get('id');
@@ -62,10 +63,14 @@ export class DictFormComponent implements OnInit {
   }
 
   newadd() {
+   this.new = { title: null, mark: null};
     this.dict.dict_items.push(this.new);
+    // console.log(this.dict.dict_items);
     // this.dict.dict_items = this.dict.dict_items.concat(this.new);
-    this.new = { title: null, mark: null};
+
   }
+
+
   ThisDel(i) {
   this.dict.dict_items.splice(i, 1 );
   }

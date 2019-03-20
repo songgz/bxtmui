@@ -19,6 +19,20 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
+        <mat-select multiple placeholder="所属分组" [(ngModel)]="teacher.group_ids"  name="group">
+          <mat-option *ngFor="let groupitem of groups | async" [value]="groupitem.id">
+            {{groupitem.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select multiple placeholder="所属角色" [(ngModel)]="teacher.role_ids"  name="role">
+          <mat-option *ngFor="let role of roles | async" [value]="role.id">
+            {{role.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <input matInput placeholder="教师姓名" required [(ngModel)]="teacher.name" name="name" >
       </mat-form-field>
       <mat-form-field>

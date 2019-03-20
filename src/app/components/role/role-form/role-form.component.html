@@ -11,7 +11,7 @@
         <textarea matInput placeholder="描述" [(ngModel)]="role.desc" name="desc"></textarea>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属分组" required [(ngModel)]="role.id"  name="department">
+        <mat-select multiple placeholder="所属分组" required [(ngModel)]="role.group_ids"  name="group">
           <mat-option *ngFor="let item of groups | async" [value]="item.id">
             {{item.title}}
           </mat-option>

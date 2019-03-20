@@ -24,6 +24,20 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field>
+        <mat-select multiple placeholder="所属分组" [(ngModel)]="manager.group_ids"  name="group">
+          <mat-option *ngFor="let item of groups | async" [value]="item.id">
+            {{item.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select multiple placeholder="所属角色" [(ngModel)]="manager.role_ids"  name="role">
+          <mat-option *ngFor="let item of roles | async" [value]="item.id">
+            {{item.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
 
     </mat-card-content>
