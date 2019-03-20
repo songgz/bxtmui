@@ -11,7 +11,7 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./manager-form.component.scss']
 })
 export class ManagerFormComponent implements OnInit {
-  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null, gender: null};
+  manager: any = {id: null, tel: null, id_card: null, ic_card: null, name: null, gender: null, role_ids: null};
   genders: Observable<any[]>;
   roles: Observable<any[]>;
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
@@ -22,7 +22,10 @@ export class ManagerFormComponent implements OnInit {
       if (this.manager.id != null) {this.edit(); }
     });
     this.genders = this.dict.getItems('gender_type');
-
+    this.getRoles();
+  }
+  getRoles() {
+    this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
   save() {
     if (this.manager.id != null) {

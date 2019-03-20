@@ -11,10 +11,18 @@ import {DictService} from '../../../services/dict.service';
   styleUrls: ['./teacher-form.component.scss']
 })
 export class TeacherFormComponent implements OnInit {
-  teacher: any = {id: null, department: {id: null, college: {id: null}}, tel: null, id_card: null, ic_card: null, gender_mark: null};
+  teacher: any = {
+    id: null,
+    department: {id: null, college: {id: null}},
+    tel: null,
+    id_card: null,
+    ic_card: null,
+    gender_mark: null,
+    group_ids: null};
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
   genders: Observable<any[]>;
+  groups: Observable<any[]>;
 
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
@@ -26,6 +34,11 @@ export class TeacherFormComponent implements OnInit {
     this.getColleges();
     this.getDepartments();
     this.genders = this.dict.getItems('gender_type');
+    this.getGroups();
+  }
+
+  getGroups() {
+    this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
   }
   save() {
     if (this.teacher.id != null) {

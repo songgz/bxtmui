@@ -38,8 +38,8 @@ export class StudentFormComponent implements OnInit {
   houses: Observable<any[]>;
   rooms: Observable<any[]>;
   beds: Observable<any[]>;
-
-
+  groups: Observable<any[]>;
+  roles: Observable<any[]>;
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) {
   }
 
@@ -57,8 +57,15 @@ export class StudentFormComponent implements OnInit {
     this.getHouses();
     this.genders = this.dict.getItems('gender_type');
     this.getRooms();
+    this.getGroups();
+    this.getRoles();
   }
-
+  getGroups() {
+    this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
+  }
+  getRoles() {
+    this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
+  }
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
   }
