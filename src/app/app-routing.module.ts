@@ -32,6 +32,11 @@ import {GroupFormComponent} from './components/group/group-form/group-form.compo
 import {ManagerComponent} from './components/manager/manager.component';
 import {ManagerFormComponent} from './components/manager/manager-form/manager-form.component';
 import {AttendanceComponent} from './components/attendance/attendance.component';
+import {AccessComponent} from './components/access/access.component';
+import {WebcamComponent} from './components/webcam/webcam.component';
+import {GateComponent} from './components/gate/gate.component';
+import {GateLogComponent} from './components/gate-log/gate-log.component';
+import {LatecomerComponent} from './components/latecomer/latecomer.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -76,7 +81,12 @@ const routes: Routes = [
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
+      {path: 'access', component: AccessComponent},
+      {path: 'latecomers', component: LatecomerComponent},
       {path: 'attendances', component: AttendanceComponent},
+      {path: 'webcams', component: WebcamComponent},
+      {path: 'gates', component: GateComponent},
+      {path: 'gate-logs', component: GateLogComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
       ]},

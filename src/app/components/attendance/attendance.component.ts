@@ -37,25 +37,7 @@ export class AttendanceComponent implements OnInit {
 
   loadAttendances() {
     this.rest.index('attendances', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-      const ds: any[] = [];
-      for (const atte of data.result) {
-        const r: any = {user: atte.user.name};
-        for (let i = 1; i <= 31;  i++ ) {
-          for (const d of atte.attendances) {
-            const aday: any[] = d.day.split('-');
-            if (aday[2] === i.toString()) {
-              for (const s of this.status) {
-                if (s.mark === d.status) {
-                  r['day' + i] = s.title;
-                }
-              }
-            }
-          }
-        }
-        ds.push(r);
-      }
-
-      this.dataSource = new MatTableDataSource(ds);
+      this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;

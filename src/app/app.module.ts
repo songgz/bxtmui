@@ -46,6 +46,11 @@ import { DictFormComponent } from './components/dict/dict-form/dict-form.compone
 import { DictComponent } from './components/dict/dict.component';
 import { ManagerFormComponent } from './components/manager/manager-form/manager-form.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import { LatecomerComponent } from './components/latecomer/latecomer.component';
+import { AccessComponent } from './components/access/access.component';
+import { GateComponent } from './components/gate/gate.component';
+import { GateLogComponent } from './components/gate-log/gate-log.component';
+import { WebcamComponent } from './components/webcam/webcam.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +91,12 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     DictFormComponent,
     DictComponent,
     ManagerFormComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    LatecomerComponent,
+    AccessComponent,
+    GateComponent,
+    GateLogComponent,
+    WebcamComponent
   ],
   entryComponents: [
     AlertDialogComponent,
