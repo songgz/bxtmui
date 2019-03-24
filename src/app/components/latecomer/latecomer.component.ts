@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RestService} from '../../services/rest.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {OrgService} from '../../services/org.service';
 
 @Component({
   selector: 'app-latecomer',
@@ -13,7 +14,9 @@ export class LatecomerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private rest: RestService) { }
+  constructor(private rest: RestService, public org: OrgService) {
+    org.getOrgs();
+  }
 
   ngOnInit() {
     this.loadLatecomers();

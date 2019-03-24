@@ -26,10 +26,9 @@ import { AlertDialogComponent } from './components/message-dialog/alert-dialog.c
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { HouseComponent } from './components/house/house.component';
 import { HouseFormComponent } from './components/house/house-form/house-form.component';
+import { HouseShowComponent } from './components/house/house-show/house-show.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
-import { BedComponent } from './components/bed/bed.component';
-import { BedFormComponent } from './components/bed/bed-form/bed-form.component';
 import { StudentComponent } from './components/student/student.component';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { ManagerComponent } from './components/manager/manager.component';
@@ -72,10 +71,9 @@ import { WebcamComponent } from './components/webcam/webcam.component';
     ConfirmDialogComponent,
     HouseComponent,
     HouseFormComponent,
+    HouseShowComponent,
     RoomComponent,
     RoomFormComponent,
-    BedComponent,
-    BedFormComponent,
     StudentComponent,
     TeacherComponent,
     ManagerComponent,

@@ -15,8 +15,6 @@ import {HouseComponent} from './components/house/house.component';
 import {HouseFormComponent} from './components/house/house-form/house-form.component';
 import {RoomComponent} from './components/room/room.component';
 import {RoomFormComponent} from './components/room/room-form/room-form.component';
-import {BedComponent} from './components/bed/bed.component';
-import {BedFormComponent} from './components/bed/bed-form/bed-form.component';
 import {StudentComponent} from './components/student/student.component';
 import {StudentFormComponent} from './components/student/student-form/student-form.component';
 import {TeacherComponent} from './components/teacher/teacher.component';
@@ -37,6 +35,7 @@ import {WebcamComponent} from './components/webcam/webcam.component';
 import {GateComponent} from './components/gate/gate.component';
 import {GateLogComponent} from './components/gate-log/gate-log.component';
 import {LatecomerComponent} from './components/latecomer/latecomer.component';
+import {HouseShowComponent} from './components/house/house-show/house-show.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -54,12 +53,10 @@ const routes: Routes = [
       {path: 'houses', component: HouseComponent},
       {path: 'houses/new', component: HouseFormComponent},
       {path: 'houses/:id/edit', component: HouseFormComponent},
+      {path: 'houses/:id', component: HouseShowComponent},
       {path: 'rooms', component: RoomComponent},
       {path: 'rooms/new', component: RoomFormComponent},
       {path: 'rooms/:id/edit', component: RoomFormComponent},
-      {path: 'beds', component: BedComponent},
-      {path: 'beds/new', component: BedFormComponent},
-      {path: 'beds/:id/edit', component: BedFormComponent},
       {path: 'students', component: StudentComponent},
       {path: 'students/new', component: StudentFormComponent},
       {path: 'students/:id/edit', component: StudentFormComponent},

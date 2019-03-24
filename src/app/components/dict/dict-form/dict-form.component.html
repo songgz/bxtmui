@@ -11,15 +11,8 @@
         <textarea matInput placeholder="描述" [(ngModel)]="dict.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>
-    <mat-card-content>
-
-
-
-
-
-
-        <div *ngFor="let item of dict.dict_items; let i = index">
-          <mat-card>
+    <mat-card-content *ngFor="let item of dict.dict_items; let i = index">
+          <mat-card >
             <mat-card-header>
               <mat-card-title>字典项{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
             </mat-card-header>
@@ -30,12 +23,6 @@
               <input matInput placeholder="字典项标识" [(ngModel)]=" dict.dict_items[i].mark" name="dict_item_mark_{{i}}" >
             </mat-form-field>
           </mat-card>
-          <br>
-        </div>
-
-
-
-
     </mat-card-content>
 
     <mat-card-actions align="center">

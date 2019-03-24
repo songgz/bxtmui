@@ -25,6 +25,19 @@
         <textarea matInput placeholder="描述" [(ngModel)]="room.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>
+    <mat-card-content *ngFor="let bed of room.beds; let i = index">
+      <mat-card >
+        <mat-card-header>
+          <mat-card-title>床位{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
+        </mat-card-header>
+        <mat-form-field class="example-form-field">
+          <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].bed_no" name="bed_title_{{i}}" >
+        </mat-form-field>
+        <mat-form-field  class="example-form-field">
+          <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].desc" name="bed_m_mark_{{i}}" >
+        </mat-form-field>
+      </mat-card>
+    </mat-card-content>
     <mat-card-actions align="center">
       <button mat-raised-button color="primary" [disabled]="roomForm.pristine || roomForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>

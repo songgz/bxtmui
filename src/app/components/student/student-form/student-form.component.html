@@ -33,7 +33,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间" required [(ngModel)]="student.facility_id"  name="facility_id">
+        <mat-select placeholder="所属房间" required [(ngModel)]="student.room_id"  name="room_id">
           <mat-option *ngFor="let room of rooms | async" [value]="room.id">
             {{room.title}}
           </mat-option>
