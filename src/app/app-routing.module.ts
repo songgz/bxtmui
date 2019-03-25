@@ -36,6 +36,7 @@ import {GateComponent} from './components/gate/gate.component';
 import {GateLogComponent} from './components/gate-log/gate-log.component';
 import {LatecomerComponent} from './components/latecomer/latecomer.component';
 import {HouseShowComponent} from './components/house/house-show/house-show.component';
+import {AccommodationComponent} from './components/accommodation/accommodation.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -79,6 +80,7 @@ const routes: Routes = [
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
       {path: 'access', component: AccessComponent},
+      {path: 'accommodations', component: AccommodationComponent},
       {path: 'latecomers', component: LatecomerComponent},
       {path: 'attendances', component: AttendanceComponent},
       {path: 'webcams', component: WebcamComponent},

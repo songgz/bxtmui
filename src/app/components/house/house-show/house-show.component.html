@@ -1,0 +1,12 @@
+<div class="mat-elevation-z8">
+<ul>
+  <li *ngFor="let floor of house.floors">
+    {{floor.title}}
+    <ul>
+      <li *ngFor="let room of rooms[floor.mark]" >
+       <app-room-box [room]="room"></app-room-box>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
