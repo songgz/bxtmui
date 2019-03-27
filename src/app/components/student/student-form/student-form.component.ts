@@ -71,27 +71,27 @@ export class StudentFormComponent implements OnInit {
   }
 
   getDepartments() {
-    if (this.student.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.student.college.id})
+    if (this.student.college_id) {
+      this.departments = this.rest.index('departments', {college_id: this.student.college_id})
         .pipe(map((res: any) => res.result));
     }
   }
 
   getClassrooms() {
-    if (this.student.department.id) {
-      this.classrooms = this.rest.index('classrooms', {department_id: this.student.department.id})
+    if (this.student.department_id) {
+      this.classrooms = this.rest.index('classrooms', {department_id: this.student.department_id})
         .pipe(map((res: any) => res.result));
     }
   }
 
   selectCollege() {
     this.getDepartments();
-    this.student.department.id = null;
+    this.student.department_id = null;
   }
 
   selectDepartment() {
     this.getClassrooms();
-    this.student.org_id = null;
+    this.student.classroom_id = null;
   }
 
   getHouses() {
@@ -99,15 +99,15 @@ export class StudentFormComponent implements OnInit {
   }
 
   getRooms() {
-    if (this.student.house.id) {
-      this.rooms = this.rest.index('rooms', {house_id: this.student.house.id})
+    if (this.student.house_id) {
+      this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
         .pipe(map((res: any) => res.result));
     }
   }
 
   filterRooms() {
     this.getRooms();
-    this.student.facility_id = null;
+    this.student.classroom_id = null;
   }
 
   save(f: NgForm) {

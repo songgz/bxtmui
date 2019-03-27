@@ -5,28 +5,28 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属学院" required [(value)]="student.college.id" (selectionChange)="selectCollege()" name="college_id">
+        <mat-select placeholder="所属学院" required [(value)]="student.college_id" (selectionChange)="selectCollege()" name="college_id">
           <mat-option *ngFor="let college of colleges | async" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属系部" required [(value)]="student.department.id" (selectionChange)="selectDepartment()"  name="department_id">
+        <mat-select placeholder="所属系部" required [(value)]="student.department_id" (selectionChange)="selectDepartment()"  name="department_id">
           <mat-option *ngFor="let department of departments | async" [value]="department.id">
             {{department.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属班级" required [(ngModel)]="student.org_id"  name="org_id">
+        <mat-select placeholder="所属班级" required [(ngModel)]="student.classroom_id"  name="classroom_id">
           <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
             {{classroom.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属楼栋" required [(value)]="student.house.id" (selectionChange)="filterRooms()" name="house_id">
+        <mat-select placeholder="所属楼栋" required [(value)]="student.house_id" (selectionChange)="filterRooms()" name="house_id">
           <mat-option *ngFor="let house of houses | async" [value]="house.id">
             {{house.title}}
           </mat-option>
