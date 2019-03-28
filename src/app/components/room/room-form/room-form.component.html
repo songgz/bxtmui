@@ -31,7 +31,7 @@
           <mat-card-title>床位{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
         </mat-card-header>
         <mat-form-field class="example-form-field">
-          <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].bed_no" name="bed_title_{{i}}" >
+          <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].title" name="bed_title_{{i}}" >
         </mat-form-field>
         <mat-form-field  class="example-form-field">
           <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].desc" name="bed_m_mark_{{i}}" >
