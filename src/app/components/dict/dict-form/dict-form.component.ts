@@ -2,9 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-// import any = jasmine.any;
 
 @Component({
   selector: 'app-dict-form',
@@ -13,7 +10,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class DictFormComponent implements OnInit {
   dict: any = {id: null, dict_items: []};
-  new: any = {};
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -63,16 +60,11 @@ export class DictFormComponent implements OnInit {
   }
 
   newadd() {
-   this.new = { title: null, mark: null};
-    this.dict.dict_items.push(this.new);
-    // console.log(this.dict.dict_items);
-    // this.dict.dict_items = this.dict.dict_items.concat(this.new);
-
+    this.dict.dict_items.push({ title: null, mark: null});
   }
 
-
   ThisDel(i) {
-  this.dict.dict_items.splice(i, 1 );
+    this.dict.dict_items.splice(i, 1 );
   }
 
 }
