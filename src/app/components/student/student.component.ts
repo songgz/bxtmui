@@ -18,6 +18,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
     this.loadStudents();
   }
   ngAfterViewInit() {
