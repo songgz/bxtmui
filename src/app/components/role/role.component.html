@@ -2,8 +2,14 @@
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
   </mat-form-field>
-  <a [routerLink]="['/bxt/roles/new']" mat-button color="primary">新建</a>
 </div>
+<mat-toolbar class="mat-elevation-z8">
+  <span>角色管理</span>
+  <span class="bxt-toolbar-spacer"></span>
+  <button mat-icon-button color="accent" [routerLink]="['/bxt/roles/new']"  matTooltip="新建">
+    <mat-icon class="mat-18">add_box</mat-icon>
+  </button>
+</mat-toolbar>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="title">
