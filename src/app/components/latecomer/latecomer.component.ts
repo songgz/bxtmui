@@ -9,7 +9,7 @@ import {OrgService} from '../../services/org.service';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit {
-  displayedColumns = [ 'user_name', 'day', 'status'];
+  displayedColumns = [ 'user_name', 'pass_time', 'status',  'overtime' ];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
