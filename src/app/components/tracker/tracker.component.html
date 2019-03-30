@@ -18,7 +18,11 @@
       <td mat-cell *matCellDef="let row"> {{row.status_at_last}} </td>
     </ng-container>
     <ng-container matColumnDef="overtime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 驻留 </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 超时(时) </th>
+      <td mat-cell *matCellDef="let row"> {{row.overtime}} </td>
+    </ng-container>
+    <ng-container matColumnDef="reside">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 驻留(天)</th>
       <td mat-cell *matCellDef="let row"> {{row.reside}} </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
