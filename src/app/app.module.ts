@@ -52,6 +52,7 @@ import { GateLogComponent } from './components/gate-log/gate-log.component';
 import { WebcamComponent } from './components/webcam/webcam.component';
 import { RoomBoxComponent } from './components/room-box/room-box.component';
 import { AccommodationComponent } from './components/accommodation/accommodation.component';
+import { IncomingComponent } from './components/incoming/incoming.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { AccommodationComponent } from './components/accommodation/accommodation
     GateLogComponent,
     WebcamComponent,
     RoomBoxComponent,
-    AccommodationComponent
+    AccommodationComponent,
+    IncomingComponent
   ],
   entryComponents: [
     AlertDialogComponent,

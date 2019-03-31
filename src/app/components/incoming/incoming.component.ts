@@ -3,12 +3,12 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 
 @Component({
-  selector: 'app-tracker',
-  templateUrl: './tracker.component.html',
-  styleUrls: ['./tracker.component.scss']
+  selector: 'app-incoming',
+  templateUrl: './incoming.component.html',
+  styleUrls: ['./incoming.component.scss']
 })
-export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'pass_time', 'status', 'overtime'];
+export class IncomingComponent implements OnInit, AfterViewInit {
+  displayedColumns = [ 'name', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -17,20 +17,20 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource([]);
   }
 
-  ngOnInit() {
-    this.loadTrackers();
-  }
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this.loadTrackers();
+      this.loadIncomings();
     });
   }
 
-  loadTrackers() {
-    this.rest.index('trackers', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  ngOnInit() {
+    this.loadIncomings();
+  }
+
+  loadIncomings() {
+    this.rest.index('incomings', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;

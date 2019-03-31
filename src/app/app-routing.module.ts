@@ -38,6 +38,7 @@ import {LatecomerComponent} from './components/latecomer/latecomer.component';
 import {HouseShowComponent} from './components/house/house-show/house-show.component';
 import {AccommodationComponent} from './components/accommodation/accommodation.component';
 import {TrackerComponent} from './components/tracker/tracker.component';
+import {IncomingComponent} from './components/incoming/incoming.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -82,6 +83,7 @@ const routes: Routes = [
       {path: 'managers/:id/edit', component: ManagerFormComponent},
       {path: 'accesses', component: AccessComponent},
       {path: 'accommodations', component: AccommodationComponent},
+      {path: 'incomings', component: IncomingComponent},
       {path: 'latecomers', component: LatecomerComponent},
       {path: 'attendances', component: AttendanceComponent},
       {path: 'trackers', component: TrackerComponent},
