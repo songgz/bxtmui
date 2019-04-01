@@ -92,7 +92,7 @@ const routes: Routes = [
       {path: 'gate-logs', component: GateLogComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
-      ]},
+    ]},
   {path: '**', component: BlankPageComponent}
 ];
 

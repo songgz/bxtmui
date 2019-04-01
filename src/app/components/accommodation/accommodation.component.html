@@ -1,19 +1,19 @@
 <div class="mat-elevation-z8">
-  <mat-form-field>
+  <mat-form-field class="sethouse">
     <mat-select placeholder="楼栋" [(value)]="house.id" (selectionChange)="selectHouse()">
       <mat-option *ngFor="let house of houses" [value]="house.id">
         {{house.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <ul>
-    <li *ngFor="let floor of house.floors">
-      {{floor.title}}
-      <ul>
-        <li *ngFor="let room of rooms[floor.mark]" >
-          <app-room-box [room]="room"></app-room-box>
-        </li>
-      </ul>
-    </li>
-  </ul>
+
+  <div class="floorbox" *ngFor="let floor of house.floors" >
+    <div class="floortitle">{{floor.title}}</div>
+    <div class="roombox">
+      <div class="roomitem" *ngFor="let room of rooms[floor.mark]" >
+        <app-room-box [room]="room"></app-room-box>
+      </div>
+    </div>
+  </div>
+
 </div>

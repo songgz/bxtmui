@@ -1,0 +1,29 @@
+.floorbox{
+  width: calc(100% - 40px);
+  margin:20px;
+  box-shadow: 0 0 10px gray;
+  position: relative;
+}
+.floortitle{
+  position: absolute;
+  top: -20px;
+  z-index: 2;
+  display: inline-block;
+  padding: 0 10px;
+  background-color: orangered;
+  color: white;
+}
+.mat-elevation-z8{
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.sethouse{
+  width: calc(100% - 40px);
+  margin: 20px;
+}
+.roombox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
