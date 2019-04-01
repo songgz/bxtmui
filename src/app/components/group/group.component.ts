@@ -52,7 +52,7 @@ export class GroupComponent implements OnInit, AfterViewInit {
   }
 
   delete (id: string) {
-    this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('groups/' + id).subscribe(data => {
           this.loadGroups();

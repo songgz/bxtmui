@@ -5,6 +5,10 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
   </mat-form-field>
 </div>
+<mat-toolbar class="mat-elevation-z8">
+  <span>宿管考勤</span>
+  <span class="bxt-toolbar-spacer"></span>
+</mat-toolbar>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">

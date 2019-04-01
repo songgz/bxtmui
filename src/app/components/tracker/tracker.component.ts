@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'access', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -18,6 +18,8 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.paginator.pageSize = 10;
+    this.paginator.pageIndex = 0;
     this.loadTrackers();
   }
 

@@ -51,7 +51,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
   delete (id: string) {
-    this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('students/' + id).subscribe(data => {
           this.loadStudents();
