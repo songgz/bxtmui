@@ -74,6 +74,13 @@ export class RoomFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }
+  newadd() {
+    this.room.beds.push({ title: null, mark: null});
+  }
+
+  ThisDel(i) {
+    this.room.beds.splice(i, 1 );
+  }
 
 
 }

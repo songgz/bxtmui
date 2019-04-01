@@ -57,5 +57,12 @@ export class HouseFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/houses']);
   }
+  newadd() {
+    this.house.floors.push({ title: null, mark: null});
+  }
+
+  ThisDel(i) {
+    this.house.floors.splice(i, 1 );
+  }
 
 }

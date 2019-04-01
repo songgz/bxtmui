@@ -11,19 +11,21 @@
         <textarea matInput placeholder="描述" [(ngModel)]="house.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>
-    <mat-card-content *ngFor="let floor of house.floors; let i = index">
-      <mat-card >
-        <mat-card-header>
-          <mat-card-title>楼层{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
-        </mat-card-header>
-        <mat-form-field class="example-form-field">
-          <input matInput placeholder="楼层名称" [(ngModel)]=" house.floors[i].title" name="floor_title_{{i}}" >
-        </mat-form-field>
-        <mat-form-field  class="example-form-field">
-          <input matInput placeholder="楼层标识" [(ngModel)]=" house.floors[i].mark" name="floor_m_mark_{{i}}" >
-        </mat-form-field>
-      </mat-card>
+    <div class="floorbox">
+    <mat-card-content  *ngFor="let floor of house.floors; let i = index">
+        <mat-card class="matcard">
+          <mat-card-header>
+            <mat-card-title>楼层{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
+          </mat-card-header>
+          <mat-form-field class="example-form-field">
+            <input matInput placeholder="楼层名称" [(ngModel)]=" house.floors[i].title" name="floor_title_{{i}}" >
+          </mat-form-field>
+          <mat-form-field  class="example-form-field">
+            <input matInput placeholder="楼层标识" [(ngModel)]=" house.floors[i].mark" name="floor_m_mark_{{i}}" >
+          </mat-form-field>
+        </mat-card>
     </mat-card-content>
+    </div>
     <mat-card-actions align="center">
       <button mat-raised-button color="primary" [disabled]="houseForm.pristine || houseForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
