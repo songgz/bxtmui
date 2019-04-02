@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
+  displayedColumns = [ 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,7 +61,5 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  openimg (id: string) {
-    alert( id );
-  }
+
 }
