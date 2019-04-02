@@ -12,6 +12,15 @@
 </mat-toolbar>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="picture">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 照片 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+<!--          <img src="{{row.picture}}">-->
+          <img (click)="openimg('http://img4q.duitang.com/uploads/item/201410/20/20141020100423_aSJer.thumb.700_0.jpeg')" src="http://img4q.duitang.com/uploads/item/201410/20/20141020100423_aSJer.thumb.700_0.jpeg">
+        </div>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>

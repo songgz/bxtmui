@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-teacher',
@@ -8,11 +9,11 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'updated_at', 'action'];
+  displayedColumns = [ 'picture', 'name', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -60,5 +61,8 @@ export class TeacherComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  openimg (id: string) {
+    alert( id );
+  }
 }
+

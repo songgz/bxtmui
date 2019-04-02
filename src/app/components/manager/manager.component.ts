@@ -10,7 +10,7 @@ import {RestService} from '../../services/rest.service';
 })
 export class ManagerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = [ 'name', 'updated_at', 'action'];
+  displayedColumns = ['picture', 'name', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,5 +61,8 @@ export class ManagerComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+  openimg (id: string) {
+    alert( id );
   }
 }
