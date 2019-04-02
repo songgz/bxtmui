@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'pass_time', 'status', 'overtime', 'reside'];
+  displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
