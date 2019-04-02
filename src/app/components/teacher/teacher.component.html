@@ -6,8 +6,14 @@
 <mat-toolbar class="mat-elevation-z8">
   <span>教师管理</span>
   <span class="bxt-toolbar-spacer"></span>
-  <button mat-icon-button color="accent" [routerLink]="['/bxt/teachers/new']"  matTooltip="新建">
+  <button mat-icon-button color="primary" [routerLink]="['/bxt/teachers/new']"  matTooltip="新建">
     <mat-icon class="mat-18">add_box</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" matTooltip="批量导入">
+    <mat-icon class="mat-18">cloud_upload</mat-icon>
+  </button>
+  <button mat-icon-button style="color: green" matTooltip="批量导出">
+    <mat-icon class="mat-18">cloud_download</mat-icon>
   </button>
 </mat-toolbar>
 <div class="mat-elevation-z8">
