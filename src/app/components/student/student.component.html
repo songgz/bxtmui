@@ -30,12 +30,12 @@
       <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
     </ng-container>
     <ng-container matColumnDef="dept">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 系部 </th>
-      <td mat-cell *matCellDef="let row"> {{row.college_title}}>>{{row.department_title}}>>{{row.classroom_title}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 班级 </th>
+      <td mat-cell *matCellDef="let row"> {{row.dept_title}} </td>
     </ng-container>
     <ng-container matColumnDef="bedroom">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 住所 </th>
-      <td mat-cell *matCellDef="let row"> {{row.house_title}}>>{{row.room_title}}>>{{row.bed_title}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室 </th>
+      <td mat-cell *matCellDef="let row"> {{row.dorm_title}} </td>
     </ng-container>
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>

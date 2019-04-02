@@ -8,7 +8,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'user_name', 'pass_time', 'status',  'overtime' ];
+  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime' ];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
