@@ -29,8 +29,8 @@ import { HouseFormComponent } from './components/house/house-form/house-form.com
 import { HouseShowComponent } from './components/house/house-show/house-show.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
-import { StudentComponent } from './components/student/student.component';
-import { TeacherComponent, ImgDialog } from './components/teacher/teacher.component';
+import { StudentComponent, ImgDialogstudent } from './components/student/student.component';
+import { TeacherComponent, ImgDialogteacher } from './components/teacher/teacher.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { StudentFormComponent } from './components/student/student-form/student-form.component';
@@ -103,11 +103,13 @@ import { MenuAccessComponent } from './components/menu-access/menu-access.compon
     RoomBoxComponent,
     AccommodationComponent,
     IncomingComponent,
-    ImgDialog,
-    MenuAccessComponent
+    MenuAccessComponent,
+    ImgDialogteacher,
+    ImgDialogstudent
   ],
   entryComponents: [
-    ImgDialog,
+    ImgDialogteacher,
+    ImgDialogstudent,
     AlertDialogComponent,
     ConfirmDialogComponent
   ],
