@@ -30,7 +30,7 @@ import { HouseShowComponent } from './components/house/house-show/house-show.com
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
 import { StudentComponent } from './components/student/student.component';
-import { TeacherComponent } from './components/teacher/teacher.component';
+import { TeacherComponent, ImgDialog } from './components/teacher/teacher.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { StudentFormComponent } from './components/student/student-form/student-form.component';
@@ -53,6 +53,8 @@ import { WebcamComponent } from './components/webcam/webcam.component';
 import { RoomBoxComponent } from './components/room-box/room-box.component';
 import { AccommodationComponent } from './components/accommodation/accommodation.component';
 import { IncomingComponent } from './components/incoming/incoming.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,9 +101,11 @@ import { IncomingComponent } from './components/incoming/incoming.component';
     WebcamComponent,
     RoomBoxComponent,
     AccommodationComponent,
-    IncomingComponent
+    IncomingComponent,
+    ImgDialog
   ],
   entryComponents: [
+    ImgDialog,
     AlertDialogComponent,
     ConfirmDialogComponent
   ],

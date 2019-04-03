@@ -1,9 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-
+export interface DialogData {
+  dataid: string;
+}
 @Component({
   selector: 'app-teacher',
   templateUrl: './teacher.component.html',
@@ -66,6 +68,13 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   openimg (id: string) {
     alert( id );
   }
+  openDialog(id: string) {
+    this.dialog.open(ImgDialog, {
+      data: {
+        dataid: id
+      }
+    });
+  }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -88,4 +97,10 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 }
-
+@Component({
+  selector: 'ImgDialog',
+  templateUrl: './imgdialog.html',
+})
+export class ImgDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
