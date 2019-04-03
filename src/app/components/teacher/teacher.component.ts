@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-teacher',
@@ -9,8 +10,9 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'picture', 'name', 'updated_at', 'action'];
+  displayedColumns = [ 'select', 'picture', 'name', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
+  selection = new SelectionModel<any[]>(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private rest: RestService, public dialog: MatDialog) {
@@ -63,6 +65,27 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   }
   openimg (id: string) {
     alert( id );
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 }
 
