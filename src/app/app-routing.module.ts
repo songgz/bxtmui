@@ -39,6 +39,7 @@ import {HouseShowComponent} from './components/house/house-show/house-show.compo
 import {AccommodationComponent} from './components/accommodation/accommodation.component';
 import {TrackerComponent} from './components/tracker/tracker.component';
 import {IncomingComponent} from './components/incoming/incoming.component';
+import {MenuAccessComponent} from './components/menu-access/menu-access.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -78,6 +79,7 @@ const routes: Routes = [
       {path: 'groups', component: GroupComponent},
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
+      {path: 'menu-accesses', component: MenuAccessComponent},
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},

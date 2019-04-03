@@ -33,6 +33,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
       this.loadTeachers();
     });
   }
+
   loadTeachers() {
     this.rest.index('teachers', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);

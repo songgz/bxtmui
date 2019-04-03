@@ -53,6 +53,7 @@ import { WebcamComponent } from './components/webcam/webcam.component';
 import { RoomBoxComponent } from './components/room-box/room-box.component';
 import { AccommodationComponent } from './components/accommodation/accommodation.component';
 import { IncomingComponent } from './components/incoming/incoming.component';
+import { MenuAccessComponent } from './components/menu-access/menu-access.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { IncomingComponent } from './components/incoming/incoming.component';
     RoomBoxComponent,
     AccommodationComponent,
     IncomingComponent,
-    ImgDialog
+    ImgDialog,
+    MenuAccessComponent
   ],
   entryComponents: [
     ImgDialog,
