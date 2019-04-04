@@ -54,5 +54,7 @@ export class MenuItemFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/menu_items']);
   }
+  depth() {
+  }
 
 }
