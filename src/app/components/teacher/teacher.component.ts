@@ -3,6 +3,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import {forEach} from '@angular/router/src/utils/collection';
+import {MatSnackBar} from '@angular/material';
 export interface DialogData {
   dataid: string;
 }
@@ -18,7 +19,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   teacher_ids: any[] = [];
 
-  constructor(private rest: RestService, public dialog: MatDialog) {
+  constructor(private rest: RestService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -94,10 +95,10 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   allDel() {
     if ( this.teacher_ids.length === 0) {
       // console.log(this.teacher_ids);
-      // this.snackBar.open('请选择', '', {
-      //   duration: 2000,
-      // });
-      alert('请选择数据');
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
     } else {
       this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
         if (res) {
@@ -108,6 +109,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
 }
 @Component({
   selector: 'ImgDialogteacher',
