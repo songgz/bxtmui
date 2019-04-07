@@ -4,6 +4,7 @@ import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MatSnackBar} from '@angular/material';
+import {UpfileComponent} from '../upfile/upfile.component';
 export interface DialogData {
   dataid: string;
 }
@@ -109,15 +110,15 @@ export class TeacherComponent implements OnInit, AfterViewInit {
       });
     }
   }
-  addFiles() {
+  upfile() {
+    this.dialog.open(UpfileComponent, { });
   }
-
-
 }
 @Component({
   selector: 'app-teacher-imgdialog',
   templateUrl: './imgdialog.html',
 })
 export class ImgDialogTeacherComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
 }
