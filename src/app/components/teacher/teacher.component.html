@@ -16,7 +16,7 @@
   <button mat-icon-button style="color: green" matTooltip="批量导出">
     <mat-icon class="mat-18">cloud_download</mat-icon>
   </button>
-  <button mat-icon-button color="warn" onclick="alert('删除')" matTooltip="批量删除">
+  <button mat-icon-button color="warn" (click)="allDel()" matTooltip="批量删除">
     <mat-icon class="mat-18">delete</mat-icon>
   </button>
 </mat-toolbar>

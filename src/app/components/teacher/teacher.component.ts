@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, Inject, NgModule} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import {forEach} from '@angular/router/src/utils/collection';
 export interface DialogData {
   dataid: string;
 }
@@ -56,14 +57,10 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/teachers/', id, 'edit']);
   }
   delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        this.rest.destory('teachers/' + id).subscribe(data => {
-          this.loadTeachers();
-        }, error => {
-          this.rest.errorHandle(error);
-        });
-      }
+    this.rest.destory('teachers/' + id).subscribe(data => {
+      this.loadTeachers();
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
   openDialog(id: string) {
@@ -93,6 +90,23 @@ export class TeacherComponent implements OnInit, AfterViewInit {
         this.teacher_ids.splice(this.teacher_ids.indexOf(row['id']), 1);
       }
     });
+  }
+  allDel() {
+    if ( this.teacher_ids.length === 0) {
+      // console.log(this.teacher_ids);
+      // this.snackBar.open('请选择', '', {
+      //   duration: 2000,
+      // });
+      alert('请选择数据');
+    } else {
+      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          this.teacher_ids.forEach(row => {
+            this.delete(row);
+          });
+        }
+      });
+    }
   }
 }
 @Component({
