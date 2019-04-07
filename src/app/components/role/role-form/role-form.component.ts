@@ -3,7 +3,7 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {FormControl, NgForm} from '@angular/forms';
 @Component({
   selector: 'app-role-form',
   templateUrl: './role-form.component.html',
@@ -26,16 +26,16 @@ export class RoleFormComponent implements OnInit {
   getGroups() {
     this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
   }
-  save() {
+  save(f: NgForm) {
     if (this.role.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('roles', {role: this.role}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('roles', {role: f.value}).subscribe((data: any) => {
       this.role = data;
       this.goBack();
     }, error => {
@@ -49,8 +49,8 @@ export class RoleFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('roles/' + this.role.id, {role: this.role}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('roles/' + this.role.id, {role: f.value}).subscribe((data: any) => {
       this.role = data;
       this.goBack();
     }, error => {
