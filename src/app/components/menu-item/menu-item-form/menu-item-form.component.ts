@@ -17,6 +17,10 @@ export class MenuItemFormComponent implements OnInit {
       this.menuItem.id = params.get('id');
       if (this.menuItem.id != null) {this.edit(); }
     });
+    const data1 = JSON.parse(sessionStorage.getItem('key'));
+    console.log(data1);
+    this.menuItem.depth = data1.depth + 1;
+    this.menuItem.parent_id = data1.id;
   }
 
   save() {

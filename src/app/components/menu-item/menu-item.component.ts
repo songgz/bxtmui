@@ -28,7 +28,17 @@ export class MenuItemComponent implements OnInit {
   update (id: string)  {
     this.rest.navigate(['/bxt/menu_items/', id, 'edit']);
   }
+  addbox (depth: any , id: string)  {
+    this.rest.navigate(['/bxt/menu_items/new']);
+    // console.log(depth);
+    // console.log(id);
+    const info = {
+      depth: depth,
+      id: id
+    };
+    sessionStorage.setItem('key', JSON.stringify(info));
 
+  }
   delete (id: string) {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {

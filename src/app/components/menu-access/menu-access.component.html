@@ -24,11 +24,13 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> 操作 </th>
       <td mat-cell *matCellDef="let row">
-        <li *ngFor="let mp of menu_privileges | async">
-          <mat-checkbox [(value)]="mp.mark" [checked]="getPermit(row.id, role.id, mp.mark)">
-            {{mp.title}}
-          </mat-checkbox>
-        </li>
+        <div class="flex">
+          <div *ngFor="let mp of menu_privileges | async">
+            <mat-checkbox [(value)]="mp.mark" [checked]="getPermit(row.id, role.id, mp.mark)" >
+              {{mp.title}}
+            </mat-checkbox>
+          </div>
+        </div>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
