@@ -1,3 +1,23 @@
-<p>
-  upfile works!
-</p>
+<mat-card class="wh">
+<form enctype="multipart/form-data" method="post">
+  <div>
+    <div>
+      <input type="file" id="picked" #picked
+             (click)="message=''"
+             (change)="onPicked(picked)">
+    </div>
+  </div>
+  <br>
+  <hr>
+  <br>
+  <div *ngIf="message">{{message}}</div>
+</form>
+<div *ngIf="messageService.messages.length">
+  <h3>上传信息</h3>
+  <button mat-raised-button color="warn" (click)="messageService.clear()">清除</button>
+  <br>
+  <ol>
+    <li *ngFor='let message of messageService.messages'> {{message}} </li>
+  </ol>
+</div>
+</mat-card>
