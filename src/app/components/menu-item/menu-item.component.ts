@@ -17,6 +17,11 @@ export class MenuItemComponent implements OnInit {
 
   ngOnInit() {
     this.loadMenuItems();
+    const info = {
+      depth: 0,
+      id: null
+    };
+    sessionStorage.setItem('key', JSON.stringify(info));
   }
 
   loadMenuItems() {
@@ -33,7 +38,7 @@ export class MenuItemComponent implements OnInit {
     // console.log(depth);
     // console.log(id);
     const info = {
-      depth: depth,
+      depth: depth + 1,
       id: id
     };
     sessionStorage.setItem('key', JSON.stringify(info));
