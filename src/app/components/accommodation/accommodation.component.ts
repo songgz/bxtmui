@@ -31,7 +31,6 @@ export class AccommodationComponent implements OnInit {
     this.rest.index('rooms', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
       this.rooms = {};
       for (const room of data.result) {
-        console.log(this.rooms[room.floor_mark]);
         if (this.rooms[room.floor_mark] == null) {
           this.rooms[room.floor_mark] = [];
         }
