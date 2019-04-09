@@ -2,9 +2,11 @@ html,
 body {
     height: 100%;
     margin: 0;
-    font-family: 'Fontil Sans';
+    font-family: 'Microsoft YaHei';
 }
-
+.mat-toolbar{
+  font-family: 'Microsoft YaHei';
+}
 .main-container {
     position: absolute;
     top: 64px;

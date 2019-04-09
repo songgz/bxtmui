@@ -15,8 +15,12 @@ export class MenuItemFormComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.menuItem.id = params.get('id');
+      console.log(params);
       if (this.menuItem.id != null) {this.edit(); }
     });
+    const data1 = JSON.parse(sessionStorage.getItem('key'));
+    this.menuItem.depth = data1.depth;
+    this.menuItem.parent_id = data1.id;
   }
 
   save() {

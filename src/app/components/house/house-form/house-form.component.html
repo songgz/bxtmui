@@ -13,9 +13,10 @@
     </mat-card-content>
     <div class="floorbox">
     <mat-card-content  *ngFor="let floor of house.floors; let i = index">
-        <mat-card class="matcard">
+        <mat-card>
+          <button class="delete_sweep" mat-icon-button color="warn" (click)="ThisDel(i)"><mat-icon class="mat-18">delete_sweep</mat-icon></button>
           <mat-card-header>
-            <mat-card-title>楼层{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
+            <mat-card-title>楼层{{i+1}} </mat-card-title>
           </mat-card-header>
           <mat-form-field class="example-form-field">
             <input matInput placeholder="楼层名称" [(ngModel)]=" house.floors[i].title" name="floor_title_{{i}}" >
@@ -27,6 +28,7 @@
     </mat-card-content>
     </div>
     <mat-card-actions align="center">
+      <button mat-raised-button color="accent" type="button" (click)="newadd()">新增楼层</button>
       <button mat-raised-button color="primary" [disabled]="houseForm.pristine || houseForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>

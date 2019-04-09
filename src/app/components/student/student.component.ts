@@ -68,7 +68,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
   openDialog(id: string) {
-    this.dialog.open(ImgDialogstudent, {
+    this.dialog.open(ImgDialogStudentComponent, {
       data: {
         dataid: id
       }
@@ -97,9 +97,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 }
 @Component({
-  selector: 'ImgDialogstudent',
+  selector: 'app-student-imgdialog',
   templateUrl: './imgdialog.html',
 })
-export class ImgDialogstudent {
+export class ImgDialogStudentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

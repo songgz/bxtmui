@@ -29,8 +29,8 @@ import { HouseFormComponent } from './components/house/house-form/house-form.com
 import { HouseShowComponent } from './components/house/house-show/house-show.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
-import { StudentComponent, ImgDialogstudent } from './components/student/student.component';
-import { TeacherComponent, ImgDialogteacher } from './components/teacher/teacher.component';
+import { StudentComponent, ImgDialogStudentComponent } from './components/student/student.component';
+import { TeacherComponent, ImgDialogTeacherComponent } from './components/teacher/teacher.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { StudentFormComponent } from './components/student/student-form/student-form.component';
@@ -54,6 +54,7 @@ import { RoomBoxComponent } from './components/room-box/room-box.component';
 import { AccommodationComponent } from './components/accommodation/accommodation.component';
 import { IncomingComponent } from './components/incoming/incoming.component';
 import { MenuAccessComponent } from './components/menu-access/menu-access.component';
+import { UpfileComponent } from './components/upfile/upfile.component';
 
 
 @NgModule({
@@ -104,12 +105,13 @@ import { MenuAccessComponent } from './components/menu-access/menu-access.compon
     AccommodationComponent,
     IncomingComponent,
     MenuAccessComponent,
-    ImgDialogteacher,
-    ImgDialogstudent
+    ImgDialogStudentComponent,
+    ImgDialogTeacherComponent,
+    UpfileComponent
   ],
   entryComponents: [
-    ImgDialogteacher,
-    ImgDialogstudent,
+    ImgDialogStudentComponent,
+    ImgDialogTeacherComponent,
     AlertDialogComponent,
     ConfirmDialogComponent
   ],

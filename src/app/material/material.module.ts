@@ -16,10 +16,10 @@ import {
   MatCardModule,
   MatSelectModule,
   MatFormFieldModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSnackBarModule,
 } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
 @NgModule({
   declarations: [],
   imports: [
@@ -40,7 +40,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatDialogModule,
     MatSlideToggleModule,
-
+    MatSnackBarModule,
   ],
   exports: [
     MatButtonModule,
@@ -61,8 +61,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatDialogModule,
     MatSlideToggleModule,
-
-
+    MatSnackBarModule,
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}

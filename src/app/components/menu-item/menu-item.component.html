@@ -14,12 +14,14 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 菜单 </th>
-      <td mat-cell *matCellDef="let row"><span [ngStyle]="{'padding-left': row.depth + 'em'}"> {{row.title}} </span></td>
+      <td mat-cell *matCellDef="let row">
+        <div class="align-center">
+          <span [ngStyle]="{'padding-left': row.depth + 'em'}"> <mat-icon>{{row.icon}}</mat-icon> </span>
+          <span [ngStyle]="{'padding-left': row.depth + 'em'}"> {{row.title}} </span>
+        </div>
+      </td>
     </ng-container>
-    <ng-container matColumnDef="icon">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 图标 </th>
-      <td mat-cell *matCellDef="let row"><span [ngStyle]="{'padding-left': row.depth + 'em'}"> <mat-icon>{{row.icon}}</mat-icon> </span></td>
-    </ng-container>
+
     <ng-container matColumnDef="path">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 路径 </th>
       <td mat-cell *matCellDef="let row"> {{row.path}} </td>
@@ -34,18 +36,16 @@
         <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="修改">
           <mat-icon class="mat-18">launch</mat-icon>
         </button>
+        <button *ngIf="!row.depth" mat-icon-button color="accent" (click)="addbox(row.depth,row.id)" matTooltip="添加">
+          <mat-icon class="mat-18">add_box</mat-icon>
+        </button>
         <!--<button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">-->
           <!--<mat-icon class="mat-18">delete</mat-icon>-->
         <!--</button>-->
       </td>
 
     </ng-container>
-    <ng-container matColumnDef="showhidden">
-      <th mat-header-cell *matHeaderCellDef> 显示 </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-slide-toggle [checked]="row.checked"></mat-slide-toggle>
-      </td>
-    </ng-container>
+
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

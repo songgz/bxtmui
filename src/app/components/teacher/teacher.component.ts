@@ -1,8 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, Inject, NgModule} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import {forEach} from '@angular/router/src/utils/collection';
+import {MatSnackBar} from '@angular/material';
+import {UpfileComponent} from '../upfile/upfile.component';
 export interface DialogData {
   dataid: string;
 }
@@ -14,10 +16,11 @@ export interface DialogData {
 export class TeacherComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'picture', 'name', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  selection = new SelectionModel<any[]>(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rest: RestService, public dialog: MatDialog) {
+  teacher_ids: any[] = [];
+
+  constructor(private rest: RestService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -56,49 +59,66 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/teachers/', id, 'edit']);
   }
   delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        this.rest.destory('teachers/' + id).subscribe(data => {
-          this.loadTeachers();
-        }, error => {
-          this.rest.errorHandle(error);
-        });
-      }
+    this.rest.destory('teachers/' + id).subscribe(data => {
+      this.loadTeachers();
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
   openDialog(id: string) {
-    this.dialog.open(ImgDialogteacher, {
+    this.dialog.open(ImgDialogTeacherComponent, {
       data: {
         dataid: id
       }
     });
   }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  teacher_selected(teacher_id) {
+    const i = this.teacher_ids.indexOf(teacher_id);
+    if (i > -1) {
+      this.teacher_ids.splice(i, 1);
+    } else {
+      this.teacher_ids.push(teacher_id);
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  allSelect(e) {
+    this.dataSource.data.forEach(row => {
+      if (e.checked) {
+        if (this.teacher_ids.indexOf(row['id']) < 0) {
+          this.teacher_ids.push(row['id']);
+        }
+      } else {
+        this.teacher_ids.splice(this.teacher_ids.indexOf(row['id']), 1);
+      }
+    });
+  }
+  allDel() {
+    if ( this.teacher_ids.length === 0) {
+      // console.log(this.teacher_ids);
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          this.teacher_ids.forEach(row => {
+            this.delete(row);
+          });
+        }
+      });
+    }
+  }
+  upfile() {
+    this.dialog.open(UpfileComponent, { });
   }
 }
 @Component({
-  selector: 'ImgDialogteacher',
+  selector: 'app-teacher-imgdialog',
   templateUrl: './imgdialog.html',
 })
-export class ImgDialogteacher {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+export class ImgDialogTeacherComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
 }

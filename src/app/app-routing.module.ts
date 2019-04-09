@@ -40,6 +40,7 @@ import {AccommodationComponent} from './components/accommodation/accommodation.c
 import {TrackerComponent} from './components/tracker/tracker.component';
 import {IncomingComponent} from './components/incoming/incoming.component';
 import {MenuAccessComponent} from './components/menu-access/menu-access.component';
+import {UpfileComponent} from './components/upfile/upfile.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -62,9 +63,11 @@ const routes: Routes = [
       {path: 'rooms/new', component: RoomFormComponent},
       {path: 'rooms/:id/edit', component: RoomFormComponent},
       {path: 'students', component: StudentComponent},
+      {path: 'students', component: UpfileComponent},
       {path: 'students/new', component: StudentFormComponent},
       {path: 'students/:id/edit', component: StudentFormComponent},
       {path: 'teachers', component: TeacherComponent},
+      {path: 'teachers', component: UpfileComponent},
       {path: 'teachers/new', component: TeacherFormComponent},
       {path: 'teachers/:id/edit', component: TeacherFormComponent},
       {path: 'menu_items', component: MenuItemComponent},

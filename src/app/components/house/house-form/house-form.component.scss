@@ -22,13 +22,28 @@ mat-card {
   margin: 20px;
   box-shadow: 0 0 10px gray;
 }
-@media (min-width: 1024px){
+@media (min-width: 1200px){
+  .floorbox mat-card-content{
+    width: calc(100% / 4 - 40px);
+  }
+} /*>=1200的设备*/
+@media (max-width: 1440px){
   .floorbox mat-card-content{
     width: calc(100% / 3 - 40px);
   }
-} /*>=1024的设备*/
-@media (max-width: 1024px){
+} /*>=1200的设备*/
+@media (max-width: 1200px){
+  .floorbox mat-card-content{
+    width: calc(100% / 2 - 40px);
+  }
+} /*<=1200的设备*/
+@media (max-width: 767px){
   .floorbox mat-card-content{
     width: calc(100% - 40px);
   }
-} /*<=1024的设备*/
+} /*<=768的设备*/
+.delete_sweep{
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}

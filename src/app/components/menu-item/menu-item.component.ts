@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent implements OnInit {
-  displayedColumns = ['title', 'icon', 'path', 'updated_at', 'action', 'showhidden'];
+  displayedColumns = ['title', 'path', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
   constructor(private rest: RestService) {
@@ -17,6 +17,11 @@ export class MenuItemComponent implements OnInit {
 
   ngOnInit() {
     this.loadMenuItems();
+    const info = {
+      depth: 0,
+      id: null
+    };
+    sessionStorage.setItem('key', JSON.stringify(info));
   }
 
   loadMenuItems() {
@@ -28,7 +33,17 @@ export class MenuItemComponent implements OnInit {
   update (id: string)  {
     this.rest.navigate(['/bxt/menu_items/', id, 'edit']);
   }
+  addbox (depth: any , id: string)  {
+    this.rest.navigate(['/bxt/menu_items/new']);
+    // console.log(depth);
+    // console.log(id);
+    const info = {
+      depth: depth + 1,
+      id: id
+    };
+    sessionStorage.setItem('key', JSON.stringify(info));
 
+  }
   delete (id: string) {
     this.rest.confirm({title: 'Are you sure to delete this record?'}).afterClosed().subscribe(res => {
       if (res) {
