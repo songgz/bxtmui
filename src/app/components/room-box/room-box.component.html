@@ -1,7 +1,7 @@
 <div class="room-box">
   <header class="header">{{room.title}}</header>
-  <span class="bed" *ngFor="let bed of room.beds" title="{{bed.owner_name}}">
-    <mat-icon color="{{gendercolor?'primary':'warn'}}" *ngIf="bed.owner_id != null">person</mat-icon>
-    <mat-icon *ngIf="bed.owner_id === null">person_outline</mat-icon>
+  <span class="bed" *ngFor="let bed of room.beds" matTooltip="{{bed.owner_name}}{{bed.id}}">
+    <mat-icon   color="{{gendercolor?'primary':'warn'}}" *ngIf="bed.owner_id != null">person</mat-icon>
+    <mat-icon  *ngIf="bed.owner_id === null">person_outline</mat-icon>
   </span>
 </div>

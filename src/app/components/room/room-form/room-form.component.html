@@ -28,8 +28,9 @@
     <div class="bedbox">
     <mat-card-content *ngFor="let bed of room.beds; let i = index">
       <mat-card >
+        <button class="delete_sweep" mat-icon-button color="warn" (click)="ThisDel(i)"><mat-icon class="mat-18">delete_sweep</mat-icon></button>
         <mat-card-header>
-          <mat-card-title>床位{{i+1}} <button mat-raised-button color="warn" (click)="ThisDel(i)">删除</button></mat-card-title>
+          <mat-card-title>床位{{i+1}}</mat-card-title>
         </mat-card-header>
         <mat-form-field class="example-form-field">
           <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].mark" name="bed_mark_{{i}}" >
@@ -41,6 +42,7 @@
     </mat-card-content>
     </div>
     <mat-card-actions align="center">
+      <button mat-raised-button color="accent" type="button" (click)="newadd()">新增床位</button>
       <button mat-raised-button color="primary" [disabled]="roomForm.pristine || roomForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>

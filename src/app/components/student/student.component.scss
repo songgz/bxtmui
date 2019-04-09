@@ -10,9 +10,13 @@ table {
 //    display: none;
 //  }
 //}
-table td{
-  font-size: 1vw;
+
+@media (max-width: 1200px) {
+  table td{
+    font-size: 1vw;
+  }
 }
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
