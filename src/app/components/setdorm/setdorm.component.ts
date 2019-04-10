@@ -1,15 +1,18 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {RestService} from '../../../services/rest.service';
+import {RestService} from '../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-dict-form',
-  templateUrl: './dict-form.component.html',
-  styleUrls: ['./dict-form.component.scss']
+  selector: 'app-setdorm',
+  templateUrl: './setdorm.component.html',
+  styleUrls: ['./setdorm.component.scss']
 })
-export class DictFormComponent implements OnInit {
+export class SetdormComponent implements OnInit {
   dict: any = {id: null, dict_items: []};
+  public dict_item: any = { title: null, mark: null};
+  public name: any = { username: null, year: null};
+  public list = [];
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -59,11 +62,17 @@ export class DictFormComponent implements OnInit {
   }
 
   newadd() {
-    this.dict.dict_items.push({ title: null, mark: null});
+    // console.log(this.dict.dict_items);
+    this.dict.dict_items.push(this.dict_item);
   }
 
   ThisDel(i) {
     this.dict.dict_items.splice(i, 1 );
   }
-
+  addData() {
+    this.list.push(this.name);   /*向数组推数据*/
+  }
+  deleteData(aaa) {   /* 将索引值i赋给aaa */
+    this.list.splice(aaa, 1);   /*删除数组的数据*/
+  }
 }

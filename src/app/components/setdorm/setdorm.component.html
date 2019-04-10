@@ -1,0 +1,43 @@
+<input type="text" name="111" [(ngModel)]="name.username">
+<input type="text" name="111" [(ngModel)]="name.year">
+<button (click)="addData()">增加</button>
+<ul>
+  <li *ngFor='let item of list ;let i=index;'>
+    {{item.username + '年龄：' + item.year}} ------ <button (click)='deleteData(i)'>删除</button>
+  </li>
+</ul>
+<form #dictForm="ngForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>字典信息</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="名称" required [(ngModel)]="dict.title" name="title" >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="描述" [(ngModel)]="dict.desc" name="desc"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-card *ngFor="let item of dict.dict_items; let i = index">
+        <mat-card-header>
+          <mat-card-title>字典项{{i+1}} <button mat-raised-button color="warn" type="button" (click)="ThisDel(i)">删除</button></mat-card-title>
+        </mat-card-header>
+        <mat-form-field >
+          <input matInput placeholder="字典项标题" [(ngModel)]="item.title" name="dict_item_title_{{i}}" >
+<!--          <p>{{ item | json }}</p>-->
+        </mat-form-field>
+        <mat-form-field >
+          <input matInput placeholder="字典项标识" [(ngModel)]="item.mark" name="dict_item_mark_{{i}}" >
+        </mat-form-field>
+      </mat-card>
+    </mat-card-content>
+
+    <mat-card-actions align="center">
+      <button mat-raised-button color="accent" type="button" (click)="newadd()">新增字典项</button>
+      <button mat-raised-button color="primary" [disabled]="dictForm.pristine || dictForm.invalid">提交</button>
+      <button mat-raised-button color="warn" type="button" (click)="goBack()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
