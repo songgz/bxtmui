@@ -9,9 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SetdormComponent implements OnInit {
   dict: any = {id: null, dict_items: []};
+
   public dict_item: any = { title: null, mark: null};
-  public name: any = { username: null, year: null};
-  public list = [];
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
@@ -62,17 +61,13 @@ export class SetdormComponent implements OnInit {
   }
 
   newadd() {
-    // console.log(this.dict.dict_items);
-    this.dict.dict_items.push(this.dict_item);
+    this.dict.dict_items.push( { });
+    console.log(this.dict.dict_items);
   }
 
   ThisDel(i) {
-    this.dict.dict_items.splice(i, 1 );
-  }
-  addData() {
-    this.list.push(this.name);   /*向数组推数据*/
-  }
-  deleteData(aaa) {   /* 将索引值i赋给aaa */
-    this.list.splice(aaa, 1);   /*删除数组的数据*/
+    // this.dict.dict_items.splice(i, 1 );
+    // console.log(this.dict.dict_items);
+    this.dict.dict_items = this.dict.dict_items.filter() ;
   }
 }
