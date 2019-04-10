@@ -1,3 +1,26 @@
-<p>
-  blank-page works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <div class="msyahei">
+        北讯通系统
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>北讯通公寓管理系统</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      北讯通公寓管理系统，具有组织管理，楼宇管理，人员管理，公寓管理，设备管理等功能。
+    </p>
+    <p>
+      在北讯通的认证设备下可以实现各种信息的增加，删除和修改等功能。
+      可以根据设备实现相应的功能管理。
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <p>
+      快速跳转
+    </p>
+    <button mat-button [routerLink]="['/bxt/accommodations']">入住查询</button>
+    <button mat-button [routerLink]="['/bxt/students']">学生信息管理</button>
+  </mat-card-actions>
+</mat-card>
