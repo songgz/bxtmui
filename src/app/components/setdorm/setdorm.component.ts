@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {RestService} from '../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-setdorm',
@@ -14,9 +16,57 @@ export class SetdormComponent implements OnInit {
   public username: any = '';
   public list = [];
 
+  student: any = {
+    id: null,
+    org_id: null,
+    college: {id: null},
+    department: {id: null},
+    classroom: {id: null},
+    room: {id: null},
+    house: {id: null},
+    facility_id: null,
+    tel: null,
+    id_card: null,
+    ic_card: null,
+    gender_mark: null
+  };
+  colleges: Observable<any[]>;
+  departments: Observable<any[]>;
+  classrooms: Observable<any[]>;
+
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getColleges();
+    this.getDepartments();
+    this.getClassrooms();
+  }
+
+  getColleges() {
+    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
+  }
+
+  getDepartments() {
+    if (this.student.college_id) {
+      this.departments = this.rest.index('departments', {college_id: this.student.college_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+
+  getClassrooms() {
+    if (this.student.department_id) {
+      this.classrooms = this.rest.index('classrooms', {department_id: this.student.department_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  selectCollege() {
+    this.getDepartments();
+    this.student.department_id = null;
+  }
+
+  selectDepartment() {
+    this.getClassrooms();
+    this.student.classroom_id = null;
   }
 
   addData(e) {

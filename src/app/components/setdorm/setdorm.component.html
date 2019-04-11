@@ -2,23 +2,27 @@
  待分寝选择
 </h4>
 <mat-form-field>
-  <mat-label>学院</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  <mat-select placeholder="所属学院" required [(value)]="student.college_id" (selectionChange)="selectCollege()" name="college_id">
+    <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+      {{college.title}}
+    </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field>
-  <mat-label>系部</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  <mat-select placeholder="所属系部" required [(value)]="student.department_id" (selectionChange)="selectDepartment()"  name="department_id">
+    <mat-option *ngFor="let department of departments | async" [value]="department.id">
+      {{department.title}}
+    </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field>
-  <mat-label>班级</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  <mat-select placeholder="所属班级" required [(ngModel)]="student.classroom_id"  name="classroom_id">
+    <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
+      {{classroom.title}}
+    </mat-option>
   </mat-select>
 </mat-form-field>
+<button type="button" (click)="onebtn()">确定</button>
 <h4>
   分配到选择
 </h4>
@@ -40,7 +44,7 @@
     <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
   </mat-select>
 </mat-form-field>
-
+<button>确定</button>
 <hr>
 
 <label>输入框：</label>
