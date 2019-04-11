@@ -65,5 +65,19 @@ export class DictFormComponent implements OnInit {
   ThisDel(i) {
     this.dict.dict_items.splice(i, 1 );
   }
+  // ThisDel(i) {
+  //   this.dict.dict_items.splice(i, 1 );
+  //   this.dict.dict_items.forEach(function(item, index, arr) {
+  //     if ( index === i) {
+  //       arr.splice(i, 1);
+  //     }
+  //   });
+  //   this.dict.dict_items = this.dict.dict_items.filter((value, index) => {
+  //      console.log('index:' + index);
+  //     console.log('i:' + i);
+  //
+  //     return index !== i;
+  //   });
+  // }
 
 }

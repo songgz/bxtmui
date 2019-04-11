@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {RestService} from '../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 
@@ -8,66 +9,36 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./setdorm.component.scss']
 })
 export class SetdormComponent implements OnInit {
-  dict: any = {id: null, dict_items: []};
-
-  public dict_item: any = { title: null, mark: null};
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  public username: any = '';
+  public list = [];
 
   constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: any) => {
-      this.dict.id = params.get('id');
-      if (this.dict.id != null) {this.edit(); }
-    });
-
   }
 
-  save() {
-    if (this.dict.id != null) {
-      this.update();
+  addData(e) {
+
+    const obj = {     /* 定义一个对象 */
+      username: this.username,
+      status: 1
+    }
+    if (e.keyCode === 13) {
+      this.list.push(obj);   /* 向数组中添加对象obj */
+      this.username = '';     /* 清空输入框 */
+    }
+  }
+  changeData(bbb) {   /*改变状态*/
+    if (this.list[bbb].status === 2 ) {
+      this.list[bbb].status = 1;
     } else {
-      this.create();
+    this.list[bbb].status = 2;
     }
   }
 
-  create() {
-    this.rest.create('dicts', {dict: this.dict}).subscribe((data: any) => {
-      this.dict = data;
-      this.goBack();
-    }, error => {
-      this.rest.errorHandle(error);
-    });
-  }
-
-  edit() {
-    this.rest.show('dicts/' + this.dict.id).subscribe((data: any) => {
-      this.dict = data;
-    });
-
-  }
-
-  update() {
-    this.rest.update('dicts/' + this.dict.id, {dict: this.dict}).subscribe((data: any) => {
-      this.dict = data;
-      this.goBack();
-    }, error => {
-      this.rest.errorHandle(error);
-    });
-  }
-
-
-  goBack() {
-    this.rest.navigate(['/bxt/dicts']);
-  }
-
-  newadd() {
-    this.dict.dict_items.push( { });
-    console.log(this.dict.dict_items);
-  }
-
-  ThisDel(i) {
-    // this.dict.dict_items.splice(i, 1 );
-    // console.log(this.dict.dict_items);
-    this.dict.dict_items = this.dict.dict_items.filter() ;
+  deleteData(aaa) {
+    this.list.splice(aaa, 1);   /*删除数组的数据*/
   }
 }
