@@ -15,9 +15,37 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
+    <mat-select placeholder="所属年级" multiple [(ngModel)]="student.grade_mark"  name="grade_mark">
+      <mat-option *ngFor="let grade of student.department?.grades" [value]="grade.mark">
+        {{grade.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
     <mat-select placeholder="所属班级" multiple [(ngModel)]="student.classroom_id"  name="classroom_id">
       <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
         {{classroom.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属楼栋" multiple [(value)]="student.house_id" (selectionChange)="filterRooms()" name="house_id">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属楼栋" multiple [(value)]="student.floor_id"  name="floor_id">
+      <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+        {{floor.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属房间" multiple [(ngModel)]="student.room_id"  name="room_id">
+      <mat-option *ngFor="let room of rooms | async" [value]="room.id">
+        {{room.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -26,6 +54,16 @@
   </mat-form-field>
   <mat-form-field>
      <input matInput placeholder="姓名" [(ngModel)]="student.name" name="name" >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">
+      <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
+        {{gender.title}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <span class="bxt-toolbar-spacer"></span>
   <button mat-flat-button color="primary"> 查询</button>

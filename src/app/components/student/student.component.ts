@@ -5,6 +5,8 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {DictService} from '../../services/dict.service';
+
 export interface DialogData {
   dataid: string;
 }
@@ -35,12 +37,15 @@ export class StudentComponent implements OnInit, AfterViewInit {
   departments: Observable<any[]>;
   classrooms: Observable<any[]>;
 
+  genders: Observable<any[]>;
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
 
 
-  constructor(private rest: RestService, public dialog: MatDialog) {
+  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -51,6 +56,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getColleges();
     this.getDepartments();
     this.getClassrooms();
+    this.genders = this.dict.getItems('gender_type');
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
