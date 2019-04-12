@@ -16,11 +16,21 @@ table {
     font-size: 1vw;
   }
 }
-
-.mat-form-field {
+.searchbox{
+  display: flex;
+  //box-sizing: border-box;
+  //padding: 0 16px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  //white-space: nowrap;
+}
+.search {
   font-size: 14px;
   width: 100%;
 }
+
 .bxt-toolbar-spacer {
   flex: 1 1 auto;
 }

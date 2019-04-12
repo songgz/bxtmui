@@ -1,11 +1,84 @@
-<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+<div class="searchbox">
+<!--  查询-->
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
+    <mat-select placeholder="所属学院" multiple [(value)]="student.college_id" name="college_id">
+      <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+        {{college.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属系部" multiple [(value)]="student.department_id"  name="department_id">
+      <mat-option *ngFor="let department of departments | async" [value]="department.id">
+        {{department.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属年级" multiple [(ngModel)]="student.grade_mark"  name="grade_mark">
+      <mat-option *ngFor="let grade of student.department?.grades" [value]="grade.mark">
+        {{grade.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属班级" multiple [(ngModel)]="student.classroom_id"  name="classroom_id">
+      <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
+        {{classroom.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属楼栋" multiple [(value)]="student.house_id" (selectionChange)="filterRooms()" name="house_id">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属楼栋" multiple [(value)]="student.floor_id"  name="floor_id">
+      <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
+        {{floor.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="所属房间" multiple [(ngModel)]="student.room_id"  name="room_id">
+      <mat-option *ngFor="let room of rooms | async" [value]="room.id">
+        {{room.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="学号" [(ngModel)]="student.id_card" name="id_card" >
+  </mat-form-field>
+  <mat-form-field>
+     <input matInput placeholder="姓名" [(ngModel)]="student.name" name="name" >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">
+      <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
+        {{gender.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <span class="bxt-toolbar-spacer"></span>
+  <button mat-flat-button color="primary"> 查询</button>
+</div>
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+  <mat-form-field class="search">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查找">
   </mat-form-field>
 </div>
 <mat-toolbar class="mat-elevation-z8">
   <span>学生管理</span>
   <span class="bxt-toolbar-spacer"></span>
+  <button mat-icon-button style="color: black" [routerLink]="['/bxt/setdorms']"  matTooltip="调寝">
+    <mat-icon class="mat-18">compare_arrows</mat-icon>
+  </button>
   <button mat-icon-button color="primary" [routerLink]="['/bxt/students/new']"  matTooltip="新建">
     <mat-icon class="mat-18">add_box</mat-icon>
   </button>

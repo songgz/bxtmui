@@ -17,10 +17,10 @@
               <mat-card-title>字典项{{i+1}} <button mat-raised-button color="warn" type="button" (click)="ThisDel(i)">删除</button></mat-card-title>
             </mat-card-header>
             <mat-form-field class="example-form-field">
-              <input matInput placeholder="字典项标题" [(ngModel)]=" dict.dict_items[i].title" name="dict_item_title_{{i}}" >
+              <input matInput placeholder="字典项标题" [(ngModel)]="item.title" name="dict_item_title_{{i}}" >
             </mat-form-field>
             <mat-form-field  class="example-form-field">
-              <input matInput placeholder="字典项标识" [(ngModel)]=" dict.dict_items[i].mark" name="dict_item_mark_{{i}}" >
+              <input matInput placeholder="字典项标识" [(ngModel)]="item.mark" name="dict_item_mark_{{i}}" >
             </mat-form-field>
           </mat-card>
     </mat-card-content>

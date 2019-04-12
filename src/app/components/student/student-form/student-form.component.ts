@@ -6,11 +6,14 @@ import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
 
-export interface Gender {
-  value: string;
-  viewValue: string;
+export interface Grade {
+  title: string;
+  mark: string;
 }
-
+export interface Floor {
+  title: string;
+  mark: string;
+}
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -31,6 +34,16 @@ export class StudentFormComponent implements OnInit {
     ic_card: null,
     gender_mark: null
   };
+  grades: Grade[] = [
+    {title: '大一', mark: '01'},
+    {title: '大二', mark: '02'},
+    {title: '大三', mark: '03'}
+  ];
+  floors: Floor[] = [
+    {title: '一层', mark: '01'},
+    {title: '二层', mark: '02'},
+    {title: '三层', mark: '03'}
+  ];
   genders: Observable<any[]>;
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
@@ -105,10 +118,7 @@ export class StudentFormComponent implements OnInit {
     }
   }
 
-  filterRooms() {
-    this.getRooms();
-    this.student.classroom_id = null;
-  }
+
 
   save(f: NgForm) {
     if (this.student.id != null) {

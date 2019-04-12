@@ -1,0 +1,94 @@
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {RestService} from '../../services/rest.service';
+import {ActivatedRoute} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+
+@Component({
+  selector: 'app-setdorm',
+  templateUrl: './setdorm.component.html',
+  styleUrls: ['./setdorm.component.scss']
+})
+export class SetdormComponent implements OnInit {
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  public username: any = '';
+  public list = [];
+
+  student: any = {
+    id: null,
+    org_id: null,
+    college: {id: null},
+    department: {id: null},
+    classroom: {id: null},
+    room: {id: null},
+    house: {id: null},
+    facility_id: null,
+    tel: null,
+    id_card: null,
+    ic_card: null,
+    gender_mark: null
+  };
+  colleges: Observable<any[]>;
+  departments: Observable<any[]>;
+  classrooms: Observable<any[]>;
+
+  constructor(private rest: RestService, private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.getColleges();
+    this.getDepartments();
+    this.getClassrooms();
+  }
+
+  getColleges() {
+    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
+  }
+
+  getDepartments() {
+    if (this.student.college_id) {
+      this.departments = this.rest.index('departments', {college_id: this.student.college_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+
+  getClassrooms() {
+    if (this.student.department_id) {
+      this.classrooms = this.rest.index('classrooms', {department_id: this.student.department_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  selectCollege() {
+    this.getDepartments();
+    this.student.department_id = null;
+  }
+
+  selectDepartment() {
+    this.getClassrooms();
+    this.student.classroom_id = null;
+  }
+
+  addData(e) {
+
+    const obj = {     /* 定义一个对象 */
+      username: this.username,
+      status: 1
+    }
+    if (e.keyCode === 13) {
+      this.list.push(obj);   /* 向数组中添加对象obj */
+      this.username = '';     /* 清空输入框 */
+    }
+  }
+  changeData(bbb) {   /*改变状态*/
+    if (this.list[bbb].status === 2 ) {
+      this.list[bbb].status = 1;
+    } else {
+    this.list[bbb].status = 2;
+    }
+  }
+
+  deleteData(aaa) {
+    this.list.splice(aaa, 1);   /*删除数组的数据*/
+  }
+}

@@ -1,0 +1,68 @@
+<h4>
+ 待分寝选择
+</h4>
+<mat-form-field>
+  <mat-select placeholder="所属学院" required [(value)]="student.college_id" (selectionChange)="selectCollege()" name="college_id">
+    <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+      {{college.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="所属系部" required [(value)]="student.department_id" (selectionChange)="selectDepartment()"  name="department_id">
+    <mat-option *ngFor="let department of departments | async" [value]="department.id">
+      {{department.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="所属班级" required [(ngModel)]="student.classroom_id"  name="classroom_id">
+    <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
+      {{classroom.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button type="button" (click)="onebtn()">确定</button>
+<h4>
+  分配到选择
+</h4>
+<mat-form-field>
+  <mat-label>楼栋</mat-label>
+  <mat-select  multiple>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>房间</mat-label>
+  <mat-select  multiple>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>床位</mat-label>
+  <mat-select  multiple>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<button>确定</button>
+<hr>
+
+<label>输入框：</label>
+<input type="text" [(ngModel)]="username" (keyup)="addData($event)">
+<h2>待分寝:</h2>
+<ul>
+  <li *ngFor='let item of list ;let i=index;' [hidden]='item.status==2'>   <!-- status=2时隐藏 -->
+    <button (click)='changeData(i)'>改变状态</button>
+    {{item.username}} ----- {{item.status}}   <!-- 获取对象中的username和status -->
+    <button (click)='deleteData(i)'>删除</button>
+  </li>
+</ul>
+
+<h2>已分寝:</h2>
+<ul>
+  <li *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
+    <button (click)='changeData(i)'>改变状态</button>
+    {{item.username}}-----{{item.status}}
+    <button (click)='deleteData(i)'>删除</button>
+  </li>
+</ul>

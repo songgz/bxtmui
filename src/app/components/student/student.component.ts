@@ -3,6 +3,10 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {DictService} from '../../services/dict.service';
+
 export interface DialogData {
   dataid: string;
 }
@@ -14,12 +18,34 @@ export interface DialogData {
 export class StudentComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
+
+  student: any = {
+    id: null,
+    org_id: null,
+    college: {id: null},
+    department: {id: null},
+    classroom: {id: null},
+    room: {id: null},
+    house: {id: null},
+    facility_id: null,
+    tel: null,
+    id_card: null,
+    ic_card: null,
+    gender_mark: null
+  };
+  colleges: Observable<any[]>;
+  departments: Observable<any[]>;
+  classrooms: Observable<any[]>;
+
+  genders: Observable<any[]>;
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
 
 
-  constructor(private rest: RestService, public dialog: MatDialog) {
+  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -27,6 +53,10 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadStudents();
+    this.getColleges();
+    this.getDepartments();
+    this.getClassrooms();
+    this.genders = this.dict.getItems('gender_type');
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -67,6 +97,29 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  getColleges() {
+    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
+  }
+
+  getDepartments() {
+    this.departments = this.rest.index('departments').pipe(map((res: any) => res.result));
+  }
+
+  getClassrooms() {
+    this.classrooms = this.rest.index('classrooms').pipe(map((res: any) => res.result));
+  }
+  // selectCollege() {
+  //   this.getDepartments();
+  //   this.student.department_id = null;
+  // }
+  //
+  // selectDepartment() {
+  //   this.getClassrooms();
+  //   this.student.classroom_id = null;
+  // }
+
+
   openDialog(id: string) {
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
