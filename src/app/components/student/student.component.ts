@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
+import {UpfileComponent} from '../upfile/upfile.component';
 
 export interface DialogData {
   dataid: string;
@@ -18,6 +19,7 @@ export interface DialogData {
 export class StudentComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
+
 
   student: any = {
     id: null,
@@ -43,9 +45,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
+  student_ids: any[] = [];
 
-
-  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService) {
+  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -87,15 +89,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
   delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        this.rest.destory('students/' + id).subscribe(data => {
-          this.loadStudents();
-        }, error => {
-          this.rest.errorHandle(error);
-        });
-      }
-    });
+    this.rest.destory('students/' + id).subscribe(data => {
+      this.loadStudents();
+    }, error => {
+      this.rest.errorHandle(error);
+    })
   }
 
   getColleges() {
@@ -119,6 +117,43 @@ export class StudentComponent implements OnInit, AfterViewInit {
   //   this.student.classroom_id = null;
   // }
 
+
+  teacher_selected(teacher_id) {
+    const i = this.student_ids.indexOf(teacher_id);
+    if (i > -1) {
+      this.student_ids.splice(i, 1);
+    } else {
+      this.student_ids.push(teacher_id);
+    }
+  }
+  allSelect(e) {
+    this.dataSource.data.forEach(row => {
+      if (e.checked) {
+        if (this.student_ids.indexOf(row['id']) < 0) {
+          this.student_ids.push(row['id']);
+        }
+      } else {
+        this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
+      }
+    });
+  }
+  allDel() {
+    if ( this.student_ids.length === 0) {
+      // console.log(this.teacher_ids);
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          this.student_ids.forEach(row => {
+            this.delete(row);
+          });
+        }
+      });
+    }
+  }
 
   openDialog(id: string) {
     this.dialog.open(ImgDialogStudentComponent, {
@@ -147,6 +182,10 @@ export class StudentComponent implements OnInit, AfterViewInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  upfile() {
+    this.dialog.open(UpfileComponent, { });
   }
 }
 @Component({
