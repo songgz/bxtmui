@@ -50,14 +50,48 @@ export class MenuAccessComponent implements OnInit {
     });
   }
 
-  getPermit(aco_id, aro_id, operation) {
+  getPermission(aco_id, aro_id) {
     for (const perm of this.permissions) {
       if (perm.aco_id === aco_id && perm.aro_id === aro_id) {
-        return perm.operations.inddexOf(operation) > 0;
+        return perm;
       }
     }
-    return false;
+    return {aco_id: aco_id, aco_type: 'MenuItem', aro_id: aro_id, operations: []};
   }
 
+  onChangePrivilege(aco_id, aro_id, operation) {
+    const perm = this.getPermission(aco_id, aro_id);
+    const index = perm.operations.indexOf(operation);
+    if (index > -1) {
+      perm.operations.splice(index, 1);
+    } else {
+      perm.operations.push(operation);
+    }
+
+    console.log(perm['id'] === null);
+    if (perm.id === undefined && perm.operations.length > 0 ) {
+      this.rest.create('permissions', {permission: perm}).subscribe((data: any) => {
+        this.permissions.push(data);
+      }, error => {
+        this.rest.errorHandle(error);
+      });
+    }
+
+    if (perm.id != null && perm.operations.length === 0) {
+      this.rest.destory('permissions/' + perm.id).subscribe(data => {
+        this.permissions.splice(this.permissions.indexOf(perm), 1);
+      }, error => {
+        this.rest.errorHandle(error);
+      });
+    }
+
+    if (perm.id != null && perm.operations.length > 0) {
+      this.rest.update('permissions/' + perm.id, {permission: perm}).subscribe((data: any) => {
+      }, error => {
+        this.rest.errorHandle(error);
+      });
+    }
+
+  }
 
 }
