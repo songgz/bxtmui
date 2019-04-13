@@ -29,10 +29,8 @@ export class AttendanceComponent implements OnInit {
   ngOnInit() {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
-    this.dict.getItems('attendance_status').subscribe(data => {
-      this.status = data;
-      this.loadAttendances();
-    });
+    this.status = this.dict.getDictItems('attendance_status');
+    this.loadAttendances();
   }
 
   loadAttendances() {

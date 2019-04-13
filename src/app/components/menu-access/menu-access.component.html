@@ -25,8 +25,8 @@
       <th mat-header-cell *matHeaderCellDef> 操作 </th>
       <td mat-cell *matCellDef="let row">
         <div class="flex">
-          <div *ngFor="let mp of menu_privileges | async">
-            <mat-checkbox [(value)]="mp.mark" [checked]="getPermission(row.id, role.id).operations.indexOf(mp.mark) > -1" (change)="onChangePrivilege(row.id, role.id, mp.mark)">
+          <div *ngFor="let mp of menu_privileges ">
+            <mat-checkbox [value]="mp.mark" [checked]="getPermission(row.id, role.id).operations.indexOf(mp.mark) > -1" (change)="onChangePrivilege(row.id, role.id, mp.mark)">
               {{mp.title}}
             </mat-checkbox>
           </div>

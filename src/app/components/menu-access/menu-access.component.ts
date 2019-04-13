@@ -23,10 +23,12 @@ export class MenuAccessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menu_privileges = this.dict.getItems('menu_privilege');
-    this.loadRoles();
-    this.loadPermissions();
-    this.loadMenuItems();
+    this.dict.getItems('menu_privilege').subscribe((data => {
+      this.menu_privileges = data;
+      this.loadRoles();
+      this.loadPermissions();
+      this.loadMenuItems();
+    }));
   }
 
   loadMenuItems() {
@@ -68,7 +70,6 @@ export class MenuAccessComponent implements OnInit {
       perm.operations.push(operation);
     }
 
-    console.log(perm['id'] === null);
     if (perm.id === undefined && perm.operations.length > 0 ) {
       this.rest.create('permissions', {permission: perm}).subscribe((data: any) => {
         this.permissions.push(data);
@@ -78,8 +79,8 @@ export class MenuAccessComponent implements OnInit {
     }
 
     if (perm.id != null && perm.operations.length === 0) {
+      this.permissions.splice(this.permissions.indexOf(perm), 1);
       this.rest.destory('permissions/' + perm.id).subscribe(data => {
-        this.permissions.splice(this.permissions.indexOf(perm), 1);
       }, error => {
         this.rest.errorHandle(error);
       });
