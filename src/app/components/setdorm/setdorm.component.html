@@ -49,7 +49,7 @@
 
 <label>输入框：</label>
 <input type="text" [(ngModel)]="username" (keyup)="addData($event)">
-<h2>待分寝:</h2>
+<h2>正在进行:</h2>
 <ul>
   <li *ngFor='let item of list ;let i=index;' [hidden]='item.status==2'>   <!-- status=2时隐藏 -->
     <button (click)='changeData(i)'>改变状态</button>
@@ -58,7 +58,7 @@
   </li>
 </ul>
 
-<h2>已分寝:</h2>
+<h2>已经完成:</h2>
 <ul>
   <li *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
     <button (click)='changeData(i)'>改变状态</button>

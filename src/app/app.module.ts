@@ -56,6 +56,7 @@ import { IncomingComponent } from './components/incoming/incoming.component';
 import { MenuAccessComponent } from './components/menu-access/menu-access.component';
 import { UpfileComponent } from './components/upfile/upfile.component';
 import { SetdormComponent } from './components/setdorm/setdorm.component';
+import { AccessFormComponent } from './components/access/access-form/access-form.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { SetdormComponent } from './components/setdorm/setdorm.component';
     ImgDialogStudentComponent,
     ImgDialogTeacherComponent,
     UpfileComponent,
-    SetdormComponent
+    SetdormComponent,
+    AccessFormComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

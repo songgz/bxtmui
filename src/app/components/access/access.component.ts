@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./access.component.scss']
 })
 export class AccessComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'ip', 'status'];
+  displayedColumns = [ 'title', 'ip', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -38,6 +38,9 @@ export class AccessComponent implements OnInit, AfterViewInit {
     }, error => {
       this.rest.errorHandle(error);
     });
+  }
+  update (id: string)  {
+    this.rest.navigate(['/bxt/accesses/', id, 'edit']);
   }
 
 }

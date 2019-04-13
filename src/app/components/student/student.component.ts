@@ -20,7 +20,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
-
+  moreserch: boolean = false;
   student: any = {
     id: null,
     org_id: null,
@@ -41,6 +41,10 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   genders: Observable<any[]>;
 
+  room: any = {id: null, floor_mark: null, parent_id: null};
+  houses: Observable<any[]>;
+  rooms: Observable<any[]>;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -59,6 +63,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getDepartments();
     this.getClassrooms();
     this.genders = this.dict.getItems('gender_type');
+    this.getHouses();
+    this.getRooms();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -93,9 +99,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.loadStudents();
     }, error => {
       this.rest.errorHandle(error);
-    })
+    });
   }
-
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
   }
@@ -116,7 +121,20 @@ export class StudentComponent implements OnInit, AfterViewInit {
   //   this.getClassrooms();
   //   this.student.classroom_id = null;
   // }
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
 
+  getRooms() {
+    if (this.student.house_id) {
+      this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  filterRooms() {
+    this.getRooms();
+    this.student.room_id = null;
+  }
 
   teacher_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
@@ -186,6 +204,31 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   upfile() {
     this.dialog.open(UpfileComponent, { });
+  }
+  moreserchbtn() {
+    if (this.moreserch === false) {
+      this.moreserch = true;
+    } else {
+      this.moreserch = false;
+    }
+  }
+  serchbtn( obj) {
+      console.log( obj);
+    this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+      this.dataSource = this.dataSource;
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+      if (obj.id == null) {
+        this.dataSource = null;
+      }
+      if (obj.house_id != null) {
+        this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+          console.log(data);
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+    }
   }
 }
 @Component({

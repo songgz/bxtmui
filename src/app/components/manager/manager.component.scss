@@ -24,3 +24,11 @@ table {
 tr td:first-of-type{
   width: 50px;
 }
+table td span {
+  border-right: 1px solid grey;
+  padding: 0 8px 0 15px;
+  text-align: center;
+}
+table td span:last-of-type {
+  border-right: none;
+}

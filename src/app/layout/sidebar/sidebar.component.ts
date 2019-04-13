@@ -9,6 +9,7 @@ import {RestService} from '../../services/rest.service';
 export class SidebarComponent implements OnInit {
   public showMenu: string;
   public menuItems: any[] = [];
+  menustyle: string;
 
   constructor(private rest: RestService) {
     this.loadMenuItems();
@@ -16,13 +17,16 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.showMenu = '';
+    this.menustyle = '';
   }
 
   addExpandClass(element: any) {
     if (element === this.showMenu) {
       this.showMenu = '0';
+      this.menustyle = '0';
     } else {
       this.showMenu = element;
+      this.menustyle = element;
     }
   }
 
