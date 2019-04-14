@@ -1,8 +1,8 @@
 <div id="sidebar">
   <mat-nav-list>
     <div class="nested-menu" *ngFor="let mainItem of findChildren(null)">
-      <a mat-list-item (click)="addExpandClass(mainItem.id)">
-        <mat-icon class="sidenav-icon">{{mainItem.icon}}</mat-icon> {{ mainItem.title }}
+      <a mat-list-item [ngClass]="{ 'setmenu': mainItem.id == menustyle }" (click)="addExpandClass(mainItem.id)">
+        <mat-icon class="sidenav-icon" >{{mainItem.icon}}</mat-icon> {{ mainItem.title }}
       </a>
       <ul class="nested submenu" [class.expand]="showMenu === mainItem.id" *ngIf="hasChild(mainItem.id)">
         <li *ngFor="let submenuItem of findChildren(mainItem.id)">

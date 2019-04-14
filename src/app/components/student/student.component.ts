@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
+import {UpfileComponent} from '../upfile/upfile.component';
 
 export interface DialogData {
   dataid: string;
@@ -19,6 +20,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
+  moreserch: boolean = false;
   student: any = {
     id: null,
     org_id: null,
@@ -39,13 +41,17 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   genders: Observable<any[]>;
 
+  room: any = {id: null, floor_mark: null, parent_id: null};
+  houses: Observable<any[]>;
+  rooms: Observable<any[]>;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
+  student_ids: any[] = [];
 
-
-  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService) {
+  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -57,6 +63,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getDepartments();
     this.getClassrooms();
     this.genders = this.dict.getItems('gender_type');
+    this.getHouses();
+    this.getRooms();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -87,17 +95,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
   delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        this.rest.destory('students/' + id).subscribe(data => {
-          this.loadStudents();
-        }, error => {
-          this.rest.errorHandle(error);
-        });
-      }
+    this.rest.destory('students/' + id).subscribe(data => {
+      this.loadStudents();
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
-
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
   }
@@ -118,7 +121,57 @@ export class StudentComponent implements OnInit, AfterViewInit {
   //   this.getClassrooms();
   //   this.student.classroom_id = null;
   // }
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
 
+  getRooms() {
+    if (this.student.house_id) {
+      this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
+        .pipe(map((res: any) => res.result));
+    }
+  }
+  filterRooms() {
+    this.getRooms();
+    this.student.room_id = null;
+  }
+
+  teacher_selected(teacher_id) {
+    const i = this.student_ids.indexOf(teacher_id);
+    if (i > -1) {
+      this.student_ids.splice(i, 1);
+    } else {
+      this.student_ids.push(teacher_id);
+    }
+  }
+  allSelect(e) {
+    this.dataSource.data.forEach(row => {
+      if (e.checked) {
+        if (this.student_ids.indexOf(row['id']) < 0) {
+          this.student_ids.push(row['id']);
+        }
+      } else {
+        this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
+      }
+    });
+  }
+  allDel() {
+    if ( this.student_ids.length === 0) {
+      // console.log(this.teacher_ids);
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          this.student_ids.forEach(row => {
+            this.delete(row);
+          });
+        }
+      });
+    }
+  }
 
   openDialog(id: string) {
     this.dialog.open(ImgDialogStudentComponent, {
@@ -147,6 +200,35 @@ export class StudentComponent implements OnInit, AfterViewInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  upfile() {
+    this.dialog.open(UpfileComponent, { });
+  }
+  moreserchbtn() {
+    if (this.moreserch === false) {
+      this.moreserch = true;
+    } else {
+      this.moreserch = false;
+    }
+  }
+  serchbtn( obj) {
+      console.log( obj);
+    this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+      this.dataSource = this.dataSource;
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+      if (obj.id == null) {
+        this.dataSource = null;
+      }
+      if (obj.house_id != null) {
+        this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+          console.log(data);
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+    }
   }
 }
 @Component({

@@ -17,6 +17,7 @@
       display: block;
     }
   }
+
 }
 .nested-menu {
   .nested {
@@ -45,4 +46,35 @@
   #sidebar {
     left: -250px;
   }
+}
+.active {
+  border-right: 5px solid #3f51b5;
+  font-weight: bolder;
+}
+li>a:hover{
+  font-weight: bolder;
+  transition: border-right 0.5s;
+  border-right: 8px solid #3f51b5;
+}
+.setmenu{
+  color: white;
+  background-color: orangered;
+  transition: color 1s;
+  transition: background-color 1s;
+}
+.setmenu:hover{
+  color: black;
+  background-color: lightsalmon;
+}
+.mat-list-item{
+  font-family: "Microsoft YaHei";
+
+}
+.nested-menu.ng-star-inserted:hover{
+  color: black;
+  background-color: lightsalmon;
+}
+.nested-menu.ng-star-inserted ul:hover{
+  color: black;
+  background-color: white;
 }

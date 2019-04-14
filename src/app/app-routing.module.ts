@@ -42,6 +42,7 @@ import {IncomingComponent} from './components/incoming/incoming.component';
 import {MenuAccessComponent} from './components/menu-access/menu-access.component';
 import {UpfileComponent} from './components/upfile/upfile.component';
 import {SetdormComponent} from './components/setdorm/setdorm.component';
+import {AccessFormComponent} from './components/access/access-form/access-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -88,6 +89,8 @@ const routes: Routes = [
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
       {path: 'accesses', component: AccessComponent},
+      {path: 'accesses/new', component: AccessFormComponent},
+      {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'incomings', component: IncomingComponent},
       {path: 'latecomers', component: LatecomerComponent},
