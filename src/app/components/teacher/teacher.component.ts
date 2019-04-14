@@ -37,8 +37,10 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadTeachers() {
-    this.rest.index('teachers', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadTeachers(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('teachers', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -48,16 +50,13 @@ export class TeacherComponent implements OnInit, AfterViewInit {
     });
   }
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.loadTeachers({key: filterValue.trim()});
   }
+
   update (id: string)  {
     this.rest.navigate(['/bxt/teachers/', id, 'edit']);
   }
+
   delete (id: string) {
     this.rest.destory('teachers/' + id).subscribe(data => {
       this.loadTeachers();
