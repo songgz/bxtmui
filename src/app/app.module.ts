@@ -58,6 +58,9 @@ import { UpfileComponent } from './components/upfile/upfile.component';
 import { SetdormComponent } from './components/setdorm/setdorm.component';
 import { AccessFormComponent } from './components/access/access-form/access-form.component';
 import { VideoRecorderComponent } from './components/video-recorder/video-recorder.component';
+import { GateFormComponent } from './components/gate/gate-form/gate-form.component';
+import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
+import { MenuAccessFormComponent } from './components/menu-access/menu-access-form/menu-access-form.component';
 
 
 @NgModule({
@@ -113,7 +116,10 @@ import { VideoRecorderComponent } from './components/video-recorder/video-record
     UpfileComponent,
     SetdormComponent,
     AccessFormComponent,
-    VideoRecorderComponent
+    VideoRecorderComponent,
+    GateFormComponent,
+    WebcamFormComponent,
+    MenuAccessFormComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

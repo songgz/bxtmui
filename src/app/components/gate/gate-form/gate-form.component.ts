@@ -2,25 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
+
 @Component({
-  selector: 'app-access-form',
-  templateUrl: './access-form.component.html',
-  styleUrls: ['./access-form.component.scss']
+  selector: 'app-gate-form',
+  templateUrl: './gate-form.component.html',
+  styleUrls: ['./gate-form.component.scss']
 })
-export class AccessFormComponent implements OnInit {
-  access: any = {};
+export class GateFormComponent implements OnInit {
+  gate: any = {};
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      this.access.id = params.get('id');
-      if (this.access.id != null) {this.edit(); }
+      this.gate.id = params.get('id');
+      if (this.gate.id != null) {this.edit(); }
     });
   }
 
   save() {
-    if (this.access.id != null) {
+    if (this.gate.id != null) {
       this.update();
     } else {
       this.create();
@@ -28,8 +29,8 @@ export class AccessFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('accesses', {access: this.access}).subscribe((data: any) => {
-      this.access = data;
+    this.rest.create('gates', {gate: this.gate}).subscribe((data: any) => {
+      this.gate = data;
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
@@ -37,21 +38,20 @@ export class AccessFormComponent implements OnInit {
   }
 
   edit() {
-    this.rest.show('accesses/' + this.access.id).subscribe((data: any) => {
-      this.access = data;
+    this.rest.show('gates/' + this.gate.id).subscribe((data: any) => {
+      this.gate = data;
     });
   }
 
   update() {
-    this.rest.update('accesses/' + this.access.id, {access: this.access}).subscribe((data: any) => {
-      this.access = data;
+    this.rest.update('gates/' + this.gate.id, {gate: this.gate}).subscribe((data: any) => {
+      this.gate = data;
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
   }
   goBack() {
-    this.rest.navigate(['/bxt/accesses']);
+    this.rest.navigate(['/bxt/gates']);
   }
-
 }

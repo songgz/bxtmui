@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./webcam.component.scss']
 })
 export class WebcamComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'ip', 'status'];
+  displayedColumns = [ 'title', 'ip', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,5 +40,20 @@ export class WebcamComponent implements OnInit, AfterViewInit {
     });
   }
 
+  update (id: string)  {
+    this.rest.navigate(['/bxt/webcams/', id, 'edit']);
+  }
+
+  delete (id: string) {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        this.rest.destory('webcams/' + id).subscribe(data => {
+          this.loadWebcam();
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
 
 }

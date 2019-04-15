@@ -44,6 +44,9 @@ import {MenuAccessComponent} from './components/menu-access/menu-access.componen
 import {UpfileComponent} from './components/upfile/upfile.component';
 import {SetdormComponent} from './components/setdorm/setdorm.component';
 import {AccessFormComponent} from './components/access/access-form/access-form.component';
+import {GateFormComponent} from './components/gate/gate-form/gate-form.component';
+import {WebcamFormComponent} from './components/webcam/webcam-form/webcam-form.component';
+import {MenuAccessFormComponent} from './components/menu-access/menu-access-form/menu-access-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -86,6 +89,8 @@ const routes: Routes = [
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
       {path: 'menu-accesses', component: MenuAccessComponent},
+      {path: 'menu-accesses/new', component: MenuAccessFormComponent},
+      {path: 'menu-accesses/:id/edit', component: MenuAccessFormComponent},
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
@@ -98,7 +103,11 @@ const routes: Routes = [
       {path: 'attendances', component: AttendanceComponent},
       {path: 'trackers', component: TrackerComponent},
       {path: 'webcams', component: WebcamComponent},
+      {path: 'webcams/new', component: WebcamFormComponent},
+      {path: 'webcams/:id/edit', component: WebcamFormComponent},
       {path: 'gates', component: GateComponent},
+      {path: 'gates/new', component: GateFormComponent},
+      {path: 'gates/:id/edit', component: GateFormComponent},
       {path: 'gate-logs', component: GateLogComponent},
       {path: 'video-recorders', component: VideoRecorderComponent},
       {path: 'setdorms', component: SetdormComponent },

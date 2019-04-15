@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./gate.component.scss']
 })
 export class GateComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'ip', 'status'];
+  displayedColumns = [ 'title', 'ip', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

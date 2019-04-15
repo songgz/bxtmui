@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
-
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 @Component({
   selector: 'app-menu-item',
   templateUrl: './menu-item.component.html',
@@ -10,7 +11,7 @@ import {RestService} from '../../services/rest.service';
 export class MenuItemComponent implements OnInit {
   displayedColumns = ['title', 'path', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-
+  isSelected: boolean = true;
   constructor(private rest: RestService) {
     this.dataSource = new MatTableDataSource([]);
   }
@@ -55,6 +56,14 @@ export class MenuItemComponent implements OnInit {
         });
       }
     });
+  }
+  chevron() {
+    if (this.isSelected) {
+      this.isSelected = false;
+    } else {
+      this.isSelected = true;
+    }
+    console.log(this.isSelected);
   }
 
 }

@@ -4,6 +4,7 @@ import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
 
+
 @Component({
   selector: 'app-menu-access',
   templateUrl: './menu-access.component.html',
