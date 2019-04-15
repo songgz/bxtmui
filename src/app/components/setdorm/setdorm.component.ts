@@ -72,17 +72,6 @@ export class SetdormComponent implements OnInit {
     this.student.classroom_id = null;
   }
 
-  addData(e) {
-
-    const obj = {     /* 定义一个对象 */
-      username: this.username,
-      status: 1
-    }
-    if (e.keyCode === 13) {
-      this.list.push(obj);   /* 向数组中添加对象obj */
-      this.username = '';     /* 清空输入框 */
-    }
-  }
   changeData(bbb) {   /*改变状态*/
     if (this.list[bbb].status === 2 ) {
       this.list[bbb].status = 1;

@@ -1,0 +1,36 @@
+.setbox{
+  width: 300px;
+  height: 400px;
+  overflow: auto;
+  box-shadow: 0 0 5px grey;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.pushdata{
+  height: 400px;
+  display: flex;
+  align-items: center;
+}
+.setboxflex{
+  display: flex;
+  justify-content: space-evenly;
+}
+.li{
+  list-style:none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.li>div{
+  margin: 5px;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+mat-divider{
+  margin: 5px 0;
+}
+button+button{
+  margin-left: 10px;
+}

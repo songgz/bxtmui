@@ -1,6 +1,14 @@
-<h4>
- 待分寝选择
-</h4>
+<mat-card>
+  <div class="header">
+    <h4>
+      选择学生
+    </h4>
+    <div class="searchbox">
+      <span class="bxt-toolbar-spacer"></span>
+      <button mat-flat-button color="warn" (click)="SearchBtn1()"> <mat-icon>search</mat-icon>查询</button>
+      <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>显示更多</button>
+    </div>
+  </div>
 <mat-form-field>
   <mat-select placeholder="所属学院" required [(value)]="student.college_id" (selectionChange)="selectCollege()" name="college_id">
     <mat-option *ngFor="let college of colleges | async" [value]="college.id">
@@ -22,55 +30,80 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-<button type="button" (click)="SearchBtn1()">确定</button>
-<h4>
-  分配到选择
-</h4>
-<mat-form-field>
-  <mat-label>楼栋</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>房间</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>床位</mat-label>
-  <mat-select  multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<button (click)="SearchBtn2()">确定</button>
-<hr>
 
-<label>输入框：</label>
-<input type="text" [(ngModel)]="username" (keyup)="addData($event)">
-<h2>学生:{{studentstest.length}}</h2>
-<ul>
-  <li *ngFor='let item of studentstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
-<!--    <button (click)='changeData(i)'>改变状态</button>-->
-    {{item.name}}
-    <button (click)='deleteData(i)'>删除</button>
-  </li>
-</ul>
+</mat-card>
+<mat-divider></mat-divider>
+<mat-card>
+  <div class="header">
+    <h4>
+      选择床位
+    </h4>
+    <div class="searchbox">
+      <span class="bxt-toolbar-spacer"></span>
+      <button mat-flat-button color="warn" (click)="SearchBtn2()"> <mat-icon>search</mat-icon>查询</button>
+      <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>显示更多</button>
+    </div>
+  </div>
+  <mat-form-field>
+    <mat-label>楼栋</mat-label>
+    <mat-select  multiple>
+      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>房间</mat-label>
+    <mat-select  multiple>
+      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>床位</mat-label>
+    <mat-select  multiple>
+      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
 
-<h2>床位:{{bedstest.length}}</h2>
-<ul>
-  <li *ngFor='let item of bedstest ;let i=index;' [hidden]='item.status==2'>   <!-- status=2时隐藏 -->
-<!--    <button (click)='changeData(i)'>改变状态</button>-->
-    {{item.title}}
-    <button (click)='deleteData(i)'>删除</button>
-  </li>
-</ul>
-<h2>分配详情:</h2><button (click)='pushData(studentstest)'>改变状态</button>
-<ul>
-  <li *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
-<!--    <button (click)='changeData(i)'>改变状态</button>-->
-    {{item.name}}-----{{item.title}}
-    <button (click)='deleteData(i)'>删除</button>
-  </li>
-</ul>
+<mat-divider></mat-divider>
+
+<div class="setboxflex">
+  <div class="setbox">
+    <h4>学生:{{studentstest.length}}</h4>
+
+      <div class="li" *ngFor='let item of studentstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
+    <!--    <button (click)='changeData(i)'>改变状态</button>-->
+        <div>{{item.name}}</div>
+        <button mat-icon-button color="warn" (click)="deleteData(i)" matTooltip="删除">
+          <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+      </div>
+
+  </div>
+
+  <div class="setbox">
+    <h4>床位:{{bedstest.length}}</h4>
+
+      <div class="li" *ngFor='let item of bedstest ;let i=index;' [hidden]='item.status==2'>   <!-- status=2时隐藏 -->
+    <!--    <button (click)='changeData(i)'>改变状态</button>-->
+        {{item.title}}
+        <button (click)='deleteData(i)'>删除</button>
+      </div>
+
+  </div>
+
+  <div class="pushdata">
+    <button mat-flat-button color="primary" (click)='pushData(studentstest)' matTooltip="确定">
+      <mat-icon>forward</mat-icon><span>确定</span>
+    </button>
+  </div>
+  <div class="setbox">
+    <h4>分配详情:</h4>
+
+      <div class="li" *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
+    <!--    <button (click)='changeData(i)'>改变状态</button>-->
+        {{item.name}}-----{{item.title}}
+        <button (click)='deleteData(i)'>删除</button>
+      </div>
+
+  </div>
+</div>
