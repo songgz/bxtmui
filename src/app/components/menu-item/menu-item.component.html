@@ -36,7 +36,7 @@
         <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="修改">
           <mat-icon class="mat-18">launch</mat-icon>
         </button>
-        <button *ngIf="!row.depth" mat-icon-button color="accent" (click)="addbox(row.depth,row.id)" matTooltip="添加">
+        <button *ngIf="!row.depth" mat-icon-button color="accent" (click)="addbox(row.depth,row.id, row.title)" matTooltip="添加">
           <mat-icon class="mat-18">add_box</mat-icon>
         </button>
         <!--<button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">-->

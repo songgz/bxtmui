@@ -33,13 +33,14 @@ export class MenuItemComponent implements OnInit {
   update (id: string)  {
     this.rest.navigate(['/bxt/menu_items/', id, 'edit']);
   }
-  addbox (depth: any , id: string)  {
+  addbox (depth: any , id: string, title: string)  {
     this.rest.navigate(['/bxt/menu_items/new']);
     // console.log(depth);
     // console.log(id);
     const info = {
       depth: depth + 1,
-      id: id
+      id: id,
+      title: title
     };
     sessionStorage.setItem('key', JSON.stringify(info));
 

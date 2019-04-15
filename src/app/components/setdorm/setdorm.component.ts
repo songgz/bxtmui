@@ -4,6 +4,7 @@ import {RestService} from '../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-setdorm',
@@ -14,7 +15,9 @@ export class SetdormComponent implements OnInit {
   toppings = new FormControl();
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   public username: any = '';
-  public list = [];
+  public list: any = [];
+  studentstest = [];
+  bedstest = [];
 
   student: any = {
     id: null,
@@ -87,8 +90,29 @@ export class SetdormComponent implements OnInit {
     this.list[bbb].status = 2;
     }
   }
+  pushData( data: any) {
+    if (this.studentstest.length <= this.bedstest.length) {
+      for ( const i in data) {
+        console.log(i);
+        this.list[i] = Object.assign(this.studentstest[i], this.bedstest[i]);
+      }
+      console.log(this.list);
+    } else {
+      alert('学生数不能大于床数');
+    }
+  }
+  SearchBtn1() {
+    this.studentstest = [
+      {name: '学生1' , id: '学生ID1', status: 0},
+      {name: '学生2' , id: '学生ID2', status: 0},
+      {name: '学生3' , id: '学生ID3', status: 0}
+      ];
+  }
+  SearchBtn2() {
+    this.bedstest = [{title: '1号床', bedid: '1', status: 0}, {title: '2号床', bedid: '2', status: 0}, {title: '3号床', bedid: '3', status: 0}];
+  }
 
   deleteData(aaa) {
-    this.list.splice(aaa, 1);   /*删除数组的数据*/
+    this.studentstest.splice(aaa, 1);   /*删除数组的数据*/
   }
 }

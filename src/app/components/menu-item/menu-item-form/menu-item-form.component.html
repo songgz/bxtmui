@@ -17,11 +17,16 @@
         <textarea matInput placeholder="描述" [(ngModel)]="menuItem.desc" name="desc"></textarea>
       </mat-form-field>
       <mat-form-field>
-        <input matInput type="number" min="0" placeholder="depth" [(ngModel)]="menuItem.depth" name="depth">
+        <input readonly matInput placeholder="上级名称" [(ngModel)]="menuItem.parent_title" name="parent_title">
       </mat-form-field>
-      <mat-form-field *ngIf="menuItem.depth">
-        <input matInput placeholder="parent_id" [(ngModel)]="menuItem.parent_id" name="parent_id">
-      </mat-form-field>
+      <div [hidden]="true">
+        <mat-form-field *ngIf="true">
+          <input readonly matInput type="number" min="0" placeholder="depth" [(ngModel)]="menuItem.depth" name="depth">
+        </mat-form-field>
+        <mat-form-field *ngIf="true">
+          <input readonly matInput placeholder="parent_id" [(ngModel)]="menuItem.parent_id" name="parent_id">
+        </mat-form-field>
+      </div>
     </mat-card-content>
     <mat-card-actions align="center">
       <button mat-raised-button color="primary" [disabled]="menuItemForm.pristine || menuItemForm.invalid">提交</button>
