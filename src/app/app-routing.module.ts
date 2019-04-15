@@ -34,6 +34,7 @@ import {AccessComponent} from './components/access/access.component';
 import {WebcamComponent} from './components/webcam/webcam.component';
 import {GateComponent} from './components/gate/gate.component';
 import {GateLogComponent} from './components/gate-log/gate-log.component';
+import {VideoRecorderComponent} from './components/video-recorder/video-recorder.component';
 import {LatecomerComponent} from './components/latecomer/latecomer.component';
 import {HouseShowComponent} from './components/house/house-show/house-show.component';
 import {AccommodationComponent} from './components/accommodation/accommodation.component';
@@ -99,6 +100,7 @@ const routes: Routes = [
       {path: 'webcams', component: WebcamComponent},
       {path: 'gates', component: GateComponent},
       {path: 'gate-logs', component: GateLogComponent},
+      {path: 'video-recorders', component: VideoRecorderComponent},
       {path: 'setdorms', component: SetdormComponent },
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
