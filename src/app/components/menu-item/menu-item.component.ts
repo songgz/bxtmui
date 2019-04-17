@@ -12,6 +12,7 @@ export class MenuItemComponent implements OnInit {
   displayedColumns = ['title', 'path', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   isSelected: boolean = true;
+  parentid: string = null;
   constructor(private rest: RestService) {
     this.dataSource = new MatTableDataSource([]);
   }
@@ -36,8 +37,6 @@ export class MenuItemComponent implements OnInit {
   }
   addbox (depth: any , id: string, title: string)  {
     this.rest.navigate(['/bxt/menu_items/new']);
-    // console.log(depth);
-    // console.log(id);
     const info = {
       depth: depth + 1,
       id: id,
@@ -57,13 +56,14 @@ export class MenuItemComponent implements OnInit {
       }
     });
   }
-  chevron() {
+  chevron(item: any) {
     if (this.isSelected) {
       this.isSelected = false;
+      this.parentid = item.null;
     } else {
       this.isSelected = true;
+      this.parentid = item.parent_id;
     }
-    console.log(this.isSelected);
   }
 
 }

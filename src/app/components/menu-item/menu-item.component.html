@@ -17,10 +17,10 @@
       <td mat-cell *matCellDef="let row">
         <div class="align-center">
           <span *ngIf="isSelected&&row.depth==0">
-            <button mat-icon-button (click)="chevron()"> <mat-icon>chevron_right</mat-icon> </button>
+            <button  mat-icon-button (click)="chevron(row)"> <mat-icon>chevron_right</mat-icon> </button>
           </span>
           <span [hidden]="isSelected||row.depth!=0">
-            <button mat-icon-button (click)="chevron()"> <mat-icon>expand_more</mat-icon> </button>
+            <button mat-icon-button (click)="chevron(row)"> <mat-icon>expand_more</mat-icon> </button>
           </span>
           <span [ngStyle]="{'padding-left': row.depth + 'em'}"> <mat-icon>{{row.icon}}</mat-icon> </span>
           <span [ngStyle]="{'padding-left': row.depth + 'em'}"> {{row.title}} </span>
@@ -55,7 +55,9 @@
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'show':isSelected==false&&row.depth!=0, 'hide':isSelected==true&&row.depth!=0}"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'show':isSelected==false&&row.depth!=0, 'hide':isSelected==true&&row.depth!=0}">
+    </tr>
 
   </table>
 </div>

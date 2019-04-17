@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import any = jasmine.any;
 
 @Component({
   selector: 'app-incoming',
@@ -34,6 +35,18 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   loadIncomings() {
     this.rest.index('incomings', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
+      // 数据转换
+      for ( const i in this.dataSource.filteredData) {
+        if (this.dataSource.filteredData[i].status_at_last === 'back') {
+          this.dataSource.filteredData[i].status_at_last = '已归';
+        } else if ( this.dataSource.filteredData[i].status_at_last === 'back_late') {
+          this.dataSource.filteredData[i].status_at_last = '晚归';
+        } else {
+          this.dataSource.filteredData[i].status_at_last = this.dataSource.filteredData[i].status_at_last;
+        }
+      }
+
+
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
