@@ -209,6 +209,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.moreserch = false;
     }
   }
+  shuchu(v) {
+    // console.log(v);
+  }
   serchbtn( obj) {
       console.log( obj);
     this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {

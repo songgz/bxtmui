@@ -5,6 +5,8 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {isDate} from 'rxjs/internal-compatibility';
 
 export interface Grade {
   title: string;
@@ -14,6 +16,7 @@ export interface Floor {
   title: string;
   mark: string;
 }
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -160,5 +163,6 @@ export class StudentFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/students']);
   }
+
 
 }

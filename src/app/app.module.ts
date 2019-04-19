@@ -61,6 +61,7 @@ import { VideoRecorderComponent } from './components/video-recorder/video-record
 import { GateFormComponent } from './components/gate/gate-form/gate-form.component';
 import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
 import { MenuAccessFormComponent } from './components/menu-access/menu-access-form/menu-access-form.component';
+import {MatButtonToggleModule} from '@angular/material';
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { MenuAccessFormComponent } from './components/menu-access/menu-access-fo
     FlexLayoutModule.withConfig({addFlexToParent: false}),
     HttpClientModule,
     TranslateModule.forRoot(),
-    FormsModule
+    FormsModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

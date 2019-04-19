@@ -18,8 +18,12 @@ import {
   MatFormFieldModule,
   MatDialogModule,
   MatSnackBarModule,
+  MatGridListModule,
+  MatSlideToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+
 } from '@angular/material';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [],
   imports: [
@@ -41,6 +45,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDialogModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -62,6 +69,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDialogModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule {}
