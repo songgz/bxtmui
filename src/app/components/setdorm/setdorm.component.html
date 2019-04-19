@@ -70,27 +70,25 @@
   <div class="setbox">
     <h4>学生:{{studentstest.length}}</h4>
 
-      <div class="li" *ngFor='let item of studentstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
-    <!--    <button (click)='changeData(i)'>改变状态</button>-->
-        <div>{{item.name}}</div>
-        <button mat-icon-button color="warn" (click)="deleteData(i)" matTooltip="删除">
-          <mat-icon class="mat-18">delete</mat-icon>
-        </button>
-      </div>
-
+    <div class="li" *ngFor='let item of studentstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
+<!--    <button (click)='changeData(i)'>改变状态</button>-->
+      <div>{{item.name}}</div>
+      <button mat-icon-button color="warn" (click)="deleteData(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="setbox">
     <h4>床位:{{bedstest.length}}</h4>
-
-      <div class="li" *ngFor='let item of bedstest ;let i=index;' [hidden]='item.status==2'>   <!-- status=2时隐藏 -->
-    <!--    <button (click)='changeData(i)'>改变状态</button>-->
-        {{item.title}}
-        <button (click)='deleteData(i)'>删除</button>
-      </div>
-
+    <div class="li" *ngFor='let item of bedstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
+      <!--    <button (click)='changeData(i)'>改变状态</button>-->
+      <div>{{item.title}}</div>
+      <button mat-icon-button color="warn" (click)="deleteData2(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
   </div>
-
   <div class="pushdata">
     <button mat-flat-button color="primary" (click)='pushData(studentstest)' matTooltip="确定">
       <mat-icon>forward</mat-icon><span>确定</span>
@@ -98,12 +96,12 @@
   </div>
   <div class="setbox">
     <h4>分配详情:</h4>
-
-      <div class="li" *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
-    <!--    <button (click)='changeData(i)'>改变状态</button>-->
-        {{item.name}}-----{{item.title}}
-        <button (click)='deleteData(i)'>删除</button>
-      </div>
-
+    <div class="li" *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
+  <!--    <button (click)='changeData(i)'>改变状态</button>-->
+      {{item.name}}-----{{item.title}}
+      <button mat-icon-button color="warn" (click)="deleteData3(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

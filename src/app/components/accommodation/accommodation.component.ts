@@ -8,20 +8,13 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./accommodation.component.scss']
 })
 export class AccommodationComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'date', 'action'];
-  dataSource: any;
+
   houses: any[] = [];
   house: any = {id: null};
   rooms: any = {};
-  days: any[] = [
-    {title: '国庆节', date: '2019-10-01'},
-    {title: '劳动节', date: '2019-05-01'},
-    {title: '儿童节', date: '2019-06-01'},
-  ];
 
-  constructor(private rest: RestService) {
-    this.dataSource = new MatTableDataSource(this.days);
-  }
+
+  constructor(private rest: RestService) { }
 
   ngOnInit() {
     this.loadHouses();
@@ -58,19 +51,6 @@ export class AccommodationComponent implements OnInit {
     }
     this.loadRooms();
   }
-  add(name: string , date: string, data2: string): void {
-    this.days.push({title: name, date: date, date2: data2});
-    this.dataSource = new MatTableDataSource(this.days);
-  }
-  delete (i: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        console.log(i);
-        console.log(this.days);
-        this.days.splice(1 , 1);
-        this.dataSource = new MatTableDataSource(this.days);
-      }
-    });
-  }
+
 
 }

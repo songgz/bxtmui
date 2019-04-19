@@ -1,9 +1,16 @@
 <form #teacherForm="ngForm" (ngSubmit)="save()">
+  <div class="p20">
+    <div class="imgbox">
+      <img >
+    </div>
+  </div>
   <mat-card>
     <mat-card-header>
       <mat-card-title>教师信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+
+      <div>组织信息</div>
       <mat-form-field>
         <mat-select placeholder="所属学院" required [(ngModel)]="teacher.department.college.id" (selectionChange)="selectCollege()" name="college">
           <mat-option *ngFor="let college of colleges | async" [value]="college.id">
@@ -18,6 +25,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <br>
+      <div>分组角色</div>
       <mat-form-field>
         <mat-select multiple placeholder="所属分组" [(ngModel)]="teacher.group_ids"  name="group">
           <mat-option *ngFor="let groupitem of groups | async" [value]="groupitem.id">
@@ -32,6 +41,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <br>
+      <div>个人信息</div>
       <mat-form-field>
         <input matInput placeholder="教师姓名" required [(ngModel)]="teacher.name" name="name" >
       </mat-form-field>
@@ -53,6 +64,7 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
+      <button mat-raised-button color="accent" (click)="goBack()">添加照片</button>
       <button mat-raised-button color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>

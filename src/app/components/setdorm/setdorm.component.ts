@@ -101,7 +101,13 @@ export class SetdormComponent implements OnInit {
     this.bedstest = [{title: '1号床', bedid: '1', status: 0}, {title: '2号床', bedid: '2', status: 0}, {title: '3号床', bedid: '3', status: 0}];
   }
 
-  deleteData(aaa) {
-    this.studentstest.splice(aaa, 1);   /*删除数组的数据*/
+  deleteData(i) {
+    this.studentstest.splice(i, 1);   /*删除数组的数据*/
+  }
+  deleteData2(i) {
+    this.bedstest.splice(i, 1);   /*删除数组的数据*/
+  }
+  deleteData3(i) {
+    this.list.splice(i, 1);   /*删除数组的数据*/
   }
 }

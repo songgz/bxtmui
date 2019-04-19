@@ -1,10 +1,15 @@
 <form #managerForm="ngForm" (ngSubmit)="save()">
+  <div class="p20">
+    <div class="imgbox">
+      <img >
+    </div>
+  </div>
   <mat-card>
     <mat-card-header>
       <mat-card-title>管理信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-
+      <div>个人信息</div>
       <mat-form-field>
         <input matInput placeholder="姓名" required [(ngModel)]="manager.name" name="name" >
       </mat-form-field>
@@ -24,6 +29,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <br>
+      <div>分组角色</div>
       <mat-form-field>
         <mat-select multiple placeholder="所属分组" [(ngModel)]="manager.group_ids"  name="group">
           <mat-option *ngFor="let item of groups | async" [value]="item.id">
@@ -42,6 +49,7 @@
 
     </mat-card-content>
     <mat-card-actions align="center">
+      <button mat-raised-button color="accent">添加照片</button>
       <button mat-raised-button color="primary" [disabled]="managerForm.pristine || managerForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>

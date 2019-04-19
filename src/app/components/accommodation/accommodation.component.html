@@ -1,46 +1,4 @@
 <div class="mat-elevation-z8">
-
-  <div class="pt20 pb20 pr20 pl20">
-  <mat-card>
-    <mat-card-header><button   mat-flat-button color="warn">自定义节假日</button></mat-card-header>
-    <div>
-      <mat-form-field >
-        <input matInput placeholder="自定义节假日名称" #heroName >
-      </mat-form-field>
-      <span>从</span>
-      <mat-form-field >
-        <input matInput type="date" #heroDate>
-      </mat-form-field>
-      <span>至</span>
-      <mat-form-field >
-        <input matInput type="date" #heroDate2>
-      </mat-form-field>
-      <button mat-button color="primary" (click)="add(heroName.value, heroDate.value, heroDate2.value); heroName.value=''">确定</button>
-    </div>
-    <mat-card-content>
-      <table mat-table [dataSource]="dataSource" class="festival">
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef> 节日名称 </th>
-          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef> 日期 </th>
-          <td mat-cell *matCellDef="let element"> {{element.date}} - {{element.date2}} </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> 操作 </th>
-          <td mat-cell *matCellDef="let i = index" >
-            <button mat-icon-button color="warn" (click)="delete(i)" matTooltip="删除">
-              <mat-icon class="mat-18">delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
-  </div>
   <mat-form-field class="sethouse">
     <mat-select placeholder="楼栋" [(value)]="house.id" (selectionChange)="selectHouse()">
       <mat-option *ngFor="let house of houses" [value]="house.id">
@@ -48,8 +6,6 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-
   <div class="floorbox" *ngFor="let floor of house.floors" >
     <div class="floortitle">{{floor.title}}</div>
     <div class="roombox">

@@ -11,46 +11,61 @@ import {Observable} from 'rxjs';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
-  displayedColumns = [ 'user',
-    'day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9', 'day10',
-    'day11', 'day12', 'day13', 'day14', 'day15', 'day16', 'day17', 'day18', 'day19', 'day20',
-    'day21', 'day22', 'day23', 'day24', 'day25', 'day26', 'day27', 'day28', 'day29', 'day30', 'day31'];
-  columnsToDisplay = {user: '用户', day1: '1日', day2: '2日', day3: '3日', day4: 'day4',
-    day5: 'day5', day6: 'day6', day7: 'day7', day8: 'day8', day9: 'day9', day10: 'day10' };
-  dataSource: MatTableDataSource<any[]>;
+
+  days: any[] = [
+    {title: '国庆节', date: '2019-10-01' , date2: '2019-10-07'},
+    {title: '劳动节', date: '2019-05-01' , date2: '2019-05-03'},
+    {title: '儿童节', date: '2019-06-01' , date2: '2019-06-01'}
+  ];
+  displayedColumns: string[] = ['title', 'date', 'action'];
+  dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   status: any[];
 
   constructor(private rest: RestService, private dict: DictService) {
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource(this.days);
   }
 
   ngOnInit() {
-    this.paginator.pageSize = 10;
-    this.paginator.pageIndex = 0;
-    this.status = this.dict.getDictItems('attendance_status');
-    this.loadAttendances();
+    // this.paginator.pageSize = 10;
+    // this.paginator.pageIndex = 0;
+    // this.loadAttendances();
   }
 
-  loadAttendances() {
-    this.rest.index('attendances', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.result);
-      this.paginator.length = data.paginate_meta.total_count;
-      this.paginator.pageSize = data.paginate_meta.current_per_page;
-      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
-    }, error => {
-      this.rest.errorHandle(error);
+  // loadAttendances() {
+  //   this.rest.index('attendances', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  //     this.dataSource = new MatTableDataSource(data.result);
+  //     this.paginator.length = data.paginate_meta.total_count;
+  //     this.paginator.pageSize = data.paginate_meta.current_per_page;
+  //     this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+  //   }, error => {
+  //     this.rest.errorHandle(error);
+  //   });
+  // }
+  //
+  // applyFilter(filterValue: string) {
+  //   filterValue = filterValue.trim(); // Remove whitespace
+  //   filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  //   this.dataSource.filter = filterValue;
+  //   if (this.dataSource.paginator) {
+  //     this.dataSource.paginator.firstPage();
+  //   }
+  // }
+
+  add(name: string , date: string, data2: string): void {
+    this.days.push({title: name, date: date, date2: data2});
+    this.dataSource = new MatTableDataSource(this.days);
+  }
+  delete (i: string) {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        console.log(i);
+        console.log(this.days);
+        this.days.splice(1 , 1);
+        this.dataSource = new MatTableDataSource(this.days);
+      }
     });
-  }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
 }
