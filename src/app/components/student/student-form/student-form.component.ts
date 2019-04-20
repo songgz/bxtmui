@@ -56,6 +56,8 @@ export class StudentFormComponent implements OnInit {
   beds: Observable<any[]>;
   groups: Observable<any[]>;
   roles: Observable<any[]>;
+  avatar64: string | ArrayBuffer = '';
+
   constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) {
   }
 
@@ -124,6 +126,7 @@ export class StudentFormComponent implements OnInit {
 
 
   save(f: NgForm) {
+    f.value['avatar'] = this.avatar64;
     if (this.student.id != null) {
       this.update(f);
     } else {
@@ -162,6 +165,18 @@ export class StudentFormComponent implements OnInit {
 
   goBack() {
     this.rest.navigate(['/bxt/students']);
+  }
+
+  getAvatar(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = (e) => {
+        this.avatar64 = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
   }
 
 

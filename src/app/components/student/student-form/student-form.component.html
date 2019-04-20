@@ -1,8 +1,9 @@
 <form #studentForm="ngForm" (ngSubmit)="save(studentForm)">
   <div class="p20">
     <div class="imgbox">
-      <img >
+      <img [src]="'http://127.0.0.1:3000' + student.avatar_url">
     </div>
+    <input type="file"  (change)="getAvatar($event)">
   </div>
   <mat-card>
     <mat-card-header>
@@ -21,13 +22,6 @@
         <mat-select placeholder="所属系部" required [(value)]="student.department_id" (selectionChange)="selectDepartment()"  name="department_id">
           <mat-option *ngFor="let department of departments | async" [value]="department.id">
             {{department.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select placeholder="所属年级" required [(ngModel)]="student.grade_mark"  name="grade_mark">
-          <mat-option *ngFor="let grade of grades" [value]="grade.mark">
-            {{grade.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
