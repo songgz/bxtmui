@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./access.component.scss']
 })
 export class AccessComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'ip', 'status', 'action'];
+  displayedColumns = [ 'title', 'ip', 'direction', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
