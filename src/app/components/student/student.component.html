@@ -1,30 +1,9 @@
 <div class="mat-card pb20 pl20 pr20 pt20 mb-20">
 <!--  查询-->
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="所属学院"  [(value)]="student.college_id" name="college_id">
-      <mat-option *ngFor="let college of colleges | async" [value]="college.id">
-        {{college.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="所属系部"  [(value)]="student.department_id"  name="department_id">
-      <mat-option *ngFor="let department of departments | async" [value]="department.id">
-        {{department.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="所属年级"  [(ngModel)]="student.grade_mark"  name="grade_mark">
-      <mat-option *ngFor="let grade of student.department?.grades" [value]="grade.mark">
-        {{grade.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="所属班级"  [(ngModel)]="student.classroom_id"  name="classroom_id">
-      <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
-        {{classroom.title}}
+    <mat-select placeholder="组织"  [(ngModel)]="student.classroom_id"  name="classroom_id">
+      <mat-option *ngFor="let org of org.orgs" [value]="org.id">
+        {{org.desc}}
       </mat-option>
     </mat-select>
   </mat-form-field>

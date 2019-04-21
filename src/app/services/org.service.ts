@@ -12,13 +12,6 @@ export class OrgService {
 
   getOrgs() {
     this.rest.index('orgs').subscribe((data: any[]) => {
-      let pre: any = {};
-      for (const res of data) {
-        if (pre.depth < res.depth) {
-          res.title = pre.title + '<<' + res.title;
-        }
-        pre = res;
-      }
       this.orgs = data;
     });
   }

@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {UpfileComponent} from '../upfile/upfile.component';
+import {OrgService} from '../../services/org.service';
 
 export interface DialogData {
   dataid: string;
@@ -51,7 +52,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<any[]>(true, []);
   student_ids: any[] = [];
 
-  constructor(private rest: RestService, public dialog: MatDialog, private  dict: DictService, private snackBar: MatSnackBar) {
+  constructor(private rest: RestService,
+              public dialog: MatDialog,
+              private  dict: DictService,
+              private snackBar: MatSnackBar,
+              private org: OrgService) {
+    this.org.getOrgs();
     this.dataSource = new MatTableDataSource([]);
   }
 
