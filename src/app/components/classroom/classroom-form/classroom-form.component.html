@@ -19,13 +19,6 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属年级" required [(ngModel)]="classroom.grade_mark"  name="grade_mark">
-          <mat-option *ngFor="let grade of classroom.department?.grades" [value]="grade.mark">
-            {{grade.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
         <input matInput placeholder="班级" required [(ngModel)]="classroom.title" name="title" >
       </mat-form-field>
       <mat-form-field>
