@@ -30,7 +30,7 @@ export class VideoRecorderComponent implements OnInit, AfterViewInit {
     });
   }
   loadVideoRecorder() {
-    this.rest.index('video-recorders', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+    this.rest.index('video_recorders', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;

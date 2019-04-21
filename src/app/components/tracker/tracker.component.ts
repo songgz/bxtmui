@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'access', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

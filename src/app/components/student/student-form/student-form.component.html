@@ -13,21 +13,21 @@
       <div>学籍信息</div>
       <mat-form-field>
         <mat-select placeholder="所属学院" required [(value)]="student.college_id" (selectionChange)="selectCollege()" name="college_id">
-          <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+          <mat-option *ngFor="let college of colleges" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="所属系部" required [(value)]="student.department_id" (selectionChange)="selectDepartment()"  name="department_id">
-          <mat-option *ngFor="let department of departments | async" [value]="department.id">
+          <mat-option *ngFor="let department of departments" [value]="department.id">
             {{department.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="所属班级"  [(ngModel)]="student.classroom_id"  name="classroom_id">
-          <mat-option *ngFor="let classroom of classrooms | async" [value]="classroom.id">
+          <mat-option *ngFor="let classroom of classrooms" [value]="classroom.id">
             {{classroom.title}}
           </mat-option>
         </mat-select>
@@ -36,13 +36,13 @@
       <div>宿舍信息</div>
       <mat-form-field>
         <mat-select placeholder="所属楼栋"  [(value)]="student.house_id" (selectionChange)="filterRooms()" name="house_id">
-          <mat-option *ngFor="let house of houses | async" [value]="house.id">
+          <mat-option *ngFor="let house of houses" [value]="house.id">
             {{house.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="楼层" [(ngModel)]="student.floor_mark"  name="floor_mark">
+        <mat-select placeholder="楼层" [(value)]="student.room_floor_mark" (selectionChange)="filterRooms()" name="floor_mark">
           <mat-option *ngFor="let floor of floors" [value]="floor.mark">
             {{floor.title}}
           </mat-option>
@@ -50,7 +50,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="所属房间"  [(ngModel)]="student.room_id"  name="room_id">
-          <mat-option *ngFor="let room of rooms | async" [value]="room.id">
+          <mat-option *ngFor="let room of rooms" [value]="room.id">
             {{room.title}}
           </mat-option>
         </mat-select>
@@ -69,6 +69,9 @@
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="学号" [(ngModel)]="student.sno" name="sno" >
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">
