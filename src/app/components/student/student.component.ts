@@ -12,13 +12,14 @@ import {OrgService} from '../../services/org.service';
 export interface DialogData {
   dataid: string;
 }
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
+  displayedColumns = ['select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
   moreserch: boolean = false;
@@ -72,6 +73,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getHouses();
     this.getRooms();
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -79,10 +81,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.loadStudents();
     });
   }
+
   loadStudents(options = {}) {
-        options['page'] = this.paginator.pageIndex + 1;
-        options['pre'] = this.paginator.pageSize;
-    this.rest.index('students',  options).subscribe((data: any) => {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('students', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -91,19 +94,23 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.rest.errorHandle(error);
     });
   }
+
   applyFilter(filterValue: string) {
     this.loadStudents({key: filterValue.trim()});
   }
-  update (id: string)  {
+
+  update(id: string) {
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
-  delete (id: string) {
+
+  delete(id: string) {
     this.rest.destory('students/' + id).subscribe(data => {
       this.loadStudents();
     }, error => {
       this.rest.errorHandle(error);
     });
   }
+
   getColleges() {
     this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
   }
@@ -115,6 +122,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   getClassrooms() {
     this.classrooms = this.rest.index('classrooms').pipe(map((res: any) => res.result));
   }
+
   // selectCollege() {
   //   this.getDepartments();
   //   this.student.department_id = null;
@@ -134,6 +142,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
         .pipe(map((res: any) => res.result));
     }
   }
+
   filterRooms() {
     this.getRooms();
     this.student.room_id = null;
@@ -147,6 +156,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.student_ids.push(teacher_id);
     }
   }
+
   allSelect(e) {
     this.dataSource.data.forEach(row => {
       if (e.checked) {
@@ -158,8 +168,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   allDel() {
-    if ( this.student_ids.length === 0) {
+    if (this.student_ids.length === 0) {
       // console.log(this.teacher_ids);
       this.snackBar.open('请选择数据', '', {
         duration: 2000,
@@ -183,6 +194,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -206,8 +218,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   upfile() {
-    this.dialog.open(UpfileComponent, { });
+    this.dialog.open(UpfileComponent, {});
   }
+
   moreserchbtn() {
     if (this.moreserch === false) {
       this.moreserch = true;
@@ -215,32 +228,36 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.moreserch = false;
     }
   }
+
   shuchu(v) {
     // console.log(v);
   }
-  serchbtn( obj) {
-      console.log( obj);
+
+  serchbtn(obj) {
+    console.log(obj);
     this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
       this.dataSource = this.dataSource;
     }, error => {
       this.rest.errorHandle(error);
     });
-      if (obj.id == null) {
-        this.dataSource = null;
-      }
-      if (obj.house_id != null) {
-        this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-          console.log(data);
-        }, error => {
-          this.rest.errorHandle(error);
-        });
+    if (obj.id == null) {
+      this.dataSource = null;
+    }
+    if (obj.house_id != null) {
+      this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+        console.log(data);
+      }, error => {
+        this.rest.errorHandle(error);
+      });
     }
   }
 }
+
 @Component({
   selector: 'app-student-imgdialog',
   templateUrl: './imgdialog.html',
 })
 export class ImgDialogStudentComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
 }

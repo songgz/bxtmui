@@ -12,6 +12,7 @@ export class AccommodationComponent implements OnInit {
   houses: any[] = [];
   house: any = {id: null};
   rooms: any = {};
+  floors: any[] = []
 
 
   constructor(private rest: RestService) { }
@@ -30,16 +31,21 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
+  loadFloors() {
+    this.rest.index('floors', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
+      this.floors = data.result;
+    });
+  }
+
   loadRooms() {
     this.rest.index('rooms', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
-      this.rooms = {};
-      for (const room of data.result) {
-        if (this.rooms[room.floor_mark] == null) {
-          this.rooms[room.floor_mark] = [];
-        }
-        this.rooms[room.floor_mark].push(room);
-      }
+      this.rooms = data.result;
+      this.loadFloors();
     });
+  }
+
+  getRooms(parent_id) {
+    return this.rooms.filter(x => x.parent_id === parent_id);
   }
 
   selectHouse() {
