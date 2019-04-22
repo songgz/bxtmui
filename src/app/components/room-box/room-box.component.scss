@@ -1,0 +1,26 @@
+.room-box {
+  display: flex;
+  //column-count: 4;
+  //border:1px solid;
+  //width: 8em;
+  margin: 5px;
+  box-shadow: 0 0 5px gray;
+}
+.header{
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: cornflowerblue;
+  padding: 5px;
+  min-width: 20px;
+  justify-content: center;
+}
+.bed{
+  display: flex;
+  align-self: center;
+}
+.bedbox{
+  min-width: 250px;
+  display: flex;
+  justify-content: space-evenly;
+}
