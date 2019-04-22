@@ -1,7 +1,7 @@
 .floorbox{
   width: calc(100% - 40px);
   margin:20px;
-  box-shadow: 0 0 10px gray;
+  box-shadow: 0 0 10px 0 gray;
   position: relative;
 }
 .floortitle{
@@ -25,8 +25,19 @@
 .roombox {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
-.bxt-toolbar-spacer {
-  flex: 1 1 auto;
+.roomitem:last-of-type{
+}
+.notes {
+  display: flex;
+  justify-content: flex-end;
+  width: calc( 100% - 40px );
+  margin: 0 20px;
+  align-items: center;
+}
+.notes span {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
