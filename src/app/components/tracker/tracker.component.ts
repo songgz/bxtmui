@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {DictService} from '../../services/dict.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-tracker',
@@ -10,10 +12,14 @@ import {RestService} from '../../services/rest.service';
 export class TrackerComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'name', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
+  sleep_status: {};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, private  dict: DictService) {
+    this.dict.getItemMap('sleep_status').subscribe(data => {
+      this.sleep_status = data;
+    });
     this.dataSource = new MatTableDataSource([]);
   }
 
