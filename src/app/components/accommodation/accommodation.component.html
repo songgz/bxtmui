@@ -6,6 +6,11 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div class="notes">
+    <span><mat-icon color="primary">person</mat-icon><span>男</span></span>
+    <span><mat-icon color="warn">person</mat-icon><span>女</span></span>
+    <span><mat-icon style="color: gray" >person_outline</mat-icon><span>空</span></span>
+  </div>
   <div class="floorbox" *ngFor="let floor of floors" >
     <div class="floortitle">{{floor.title}}</div>
     <div class="roombox">
