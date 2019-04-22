@@ -80,11 +80,9 @@ export class StudentFormComponent implements OnInit {
   }
 
   getClassrooms() {
-    if (this.student.department_id) {
-      this.rest.index('classrooms', {department_id: this.student.department_id}).subscribe((data: any) => {
+      this.rest.index('classrooms', {pre: 9999}).subscribe((data: any) => {
         this.classrooms = data.result;
       });
-    }
   }
 
   selectCollege() {
@@ -110,11 +108,9 @@ export class StudentFormComponent implements OnInit {
   }
 
   getRooms() {
-    if (this.student.house_id) {
-      this.rest.index('rooms', {house_id: this.student.house_id, floor_mark: this.student.room_floor_mark}).subscribe((data: any) => {
+    this.rest.index('rooms', {pre: 9999}).subscribe((data: any) => {
         this.rooms = data.result;
       });
-    }
   }
 
   filterRooms() {
