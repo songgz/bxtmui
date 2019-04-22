@@ -12,15 +12,15 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>
-      <td mat-cell *matCellDef="let row"> {{row.user.name}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.user_name}} </td>
     </ng-container>
     <ng-container matColumnDef="dept">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 班级 </th>
-      <td mat-cell *matCellDef="let row"> {{row.user.dept_title}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.user_dept_title}} </td>
     </ng-container>
     <ng-container matColumnDef="dorm">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室 </th>
-      <td mat-cell *matCellDef="let row"> {{row.user.dorm_title}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.user_dorm_title}} </td>
     </ng-container>
     <ng-container matColumnDef="access">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 通道</th>
