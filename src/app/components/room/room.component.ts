@@ -9,7 +9,7 @@ import {DictService} from '../../services/dict.service';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['title', 'floor', 'house', 'total_beds', 'vacant_beds', 'updated_at', 'action'];
+  displayedColumns = ['title', 'total_beds', 'vacant_beds', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

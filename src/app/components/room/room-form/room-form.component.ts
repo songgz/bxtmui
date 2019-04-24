@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RoomFormComponent implements OnInit {
   room: any = {id: null, floor_mark: null, parent_id: null};
-  houses: any[] = [];
+  floors: any[] = [];
   house: any = {};
 
   constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
@@ -22,7 +22,7 @@ export class RoomFormComponent implements OnInit {
       this.room.id = params.get('id');
       if (this.room.id != null) {this.edit(); }
     });
-    this.getHouses();
+    this.getFloors();
   }
   save(f: NgForm) {
     if (this.room.id != null) {
@@ -56,19 +56,10 @@ export class RoomFormComponent implements OnInit {
     });
   }
 
-  getHouses() {
-    this.rest.index('houses').pipe(map((res: any) =>  res.result )).subscribe(data => {
-      this.houses = data;
+  getFloors() {
+    this.rest.index('floors').subscribe((data: any) => {
+      this.floors = data.result;
     });
-  }
-
-  selectHouse() {
-    for ( const h of this.houses) {
-      if (h.id === this.room.parent_id) {
-        this.room.house = h;
-      }
-    }
-    this.room.floor_mark = null;
   }
 
   goBack() {

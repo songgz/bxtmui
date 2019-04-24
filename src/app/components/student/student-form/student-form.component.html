@@ -3,7 +3,7 @@
     <div class="imgbox">
       <img [src]="'http://127.0.0.1:3000' + student.avatar_url">
     </div>
-    <input type="file" (change)="getAvatar($event)" name="avatar">
+    <input type="file" [ngModel] (change)="getAvatar($event)" name="avatar" observeFiles >
   </div>
   <mat-card>
     <mat-card-header>
@@ -70,7 +70,6 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
-      <button mat-raised-button color="accent">添加照片</button>
       <button mat-raised-button color="primary" [disabled]="studentForm.pristine || studentForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>

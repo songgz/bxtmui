@@ -47,6 +47,8 @@ import {AccessFormComponent} from './components/access/access-form/access-form.c
 import {GateFormComponent} from './components/gate/gate-form/gate-form.component';
 import {WebcamFormComponent} from './components/webcam/webcam-form/webcam-form.component';
 import {MenuAccessFormComponent} from './components/menu-access/menu-access-form/menu-access-form.component';
+import {FloorComponent} from './components/floor/floor.component';
+import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -65,6 +67,8 @@ const routes: Routes = [
       {path: 'houses/new', component: HouseFormComponent},
       {path: 'houses/:id/edit', component: HouseFormComponent},
       {path: 'houses/:id', component: HouseShowComponent},
+      {path: 'floors', component: FloorComponent},
+      {path: 'floors/:id', component: FloorFormComponent},
       {path: 'rooms', component: RoomComponent},
       {path: 'rooms/new', component: RoomFormComponent},
       {path: 'rooms/:id/edit', component: RoomFormComponent},

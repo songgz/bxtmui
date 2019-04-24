@@ -62,6 +62,8 @@ import { GateFormComponent } from './components/gate/gate-form/gate-form.compone
 import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
 import { MenuAccessFormComponent } from './components/menu-access/menu-access-form/menu-access-form.component';
 import {MatButtonToggleModule} from '@angular/material';
+import { FloorComponent } from './components/floor/floor.component';
+import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 
 
 @NgModule({
@@ -120,7 +122,9 @@ import {MatButtonToggleModule} from '@angular/material';
     VideoRecorderComponent,
     GateFormComponent,
     WebcamFormComponent,
-    MenuAccessFormComponent
+    MenuAccessFormComponent,
+    FloorComponent,
+    FloorFormComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

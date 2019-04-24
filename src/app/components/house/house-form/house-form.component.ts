@@ -1,8 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -56,13 +54,6 @@ export class HouseFormComponent implements OnInit {
 
   goBack() {
     this.rest.navigate(['/bxt/houses']);
-  }
-  newadd() {
-    this.house.floors.push({ title: null, mark: null});
-  }
-
-  ThisDel(i) {
-    this.house.floors.splice(i, 1 );
   }
 
 }
