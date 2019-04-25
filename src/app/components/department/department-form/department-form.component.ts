@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 import {NgForm} from '@angular/forms';
+import {OrgService} from '../../../services/org.service';
 
 @Component({
   selector: 'app-department-form',
@@ -12,16 +11,16 @@ import {NgForm} from '@angular/forms';
 })
 export class DepartmentFormComponent implements OnInit {
   department: any = {id: null};
-  colleges: Observable<any[]>;
 
-  constructor(private rest: RestService, private route: ActivatedRoute) { }
+  constructor(private rest: RestService, private route: ActivatedRoute, private org: OrgService) {
+    this.org.getColleges();
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.department.id = params.get('id');
       if (this.department.id != null) {this.edit(); }
     });
-    this.getColleges();
   }
 
   save(f: NgForm) {
@@ -54,10 +53,6 @@ export class DepartmentFormComponent implements OnInit {
     }, error => {
       this.rest.errorHandle(error);
     });
-  }
-
-  getColleges() {
-    this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
   }
 
   goBack() {

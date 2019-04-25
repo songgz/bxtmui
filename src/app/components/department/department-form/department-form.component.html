@@ -6,7 +6,7 @@
     <mat-card-content>
       <mat-form-field>
         <mat-select placeholder="学院" required [(ngModel)]="department.parent_id" name="parent_id">
-          <mat-option *ngFor="let college of colleges | async" [value]="college.id">
+          <mat-option *ngFor="let college of org.colleges" [value]="college.id">
             {{college.title}}
           </mat-option>
         </mat-select>

@@ -5,16 +5,9 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="所属学院" required [(value)]="classroom.department.college.id" (selectionChange)="selectCollege()" name="college_id">
-          <mat-option *ngFor="let college of colleges | async" [value]="college.id">
-            {{college.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select placeholder="所属系部" required [(ngModel)]="classroom.parent_id" (selectionChange)="selectDepartment()"  name="parent_id">
-          <mat-option *ngFor="let department of departments" [value]="department.id">
-            {{department.title}}
+        <mat-select placeholder="所属系部" required [(ngModel)]="classroom.parent_id" name="parent_id">
+          <mat-option *ngFor="let department of org.departments" [value]="department.id">
+            {{department.full_title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
