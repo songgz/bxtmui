@@ -5,7 +5,8 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import any = jasmine.any;
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -39,7 +40,9 @@ export class StudentFormComponent implements OnInit {
   floors: any[];
   floor_mark = '';
 
-  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) {
+  imgsrc: any;
+
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -162,6 +165,7 @@ export class StudentFormComponent implements OnInit {
 
   getAvatar(event) {
     const file = event.target.files[0];
+    this.imgsrc = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
     if (file) {
       const reader = new FileReader();
       reader.onloadend = (e) => {
@@ -169,7 +173,6 @@ export class StudentFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
-
   }
 
 

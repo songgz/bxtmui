@@ -1,9 +1,13 @@
 <form #studentForm="ngForm" (ngSubmit)="save(studentForm)">
   <div class="p20">
     <div class="imgbox">
-      <img [src]="'http://127.0.0.1:3000' + student.avatar_url">
+<!--      <img [src]="'http://127.0.0.1:3000' + student.avatar_url">-->
+      <img [src]="imgsrc">
     </div>
-    <input type="file" [ngModel] (change)="getAvatar($event)" name="avatar" observeFiles >
+    <div class="file">
+    <input type="file" [ngModel] (change)="getAvatar($event)" accept="image/png, image/jpeg, image/gif, image/jpg" name="avatar" observeFiles >
+      选择文件
+    </div>
   </div>
   <mat-card>
     <mat-card-header>
