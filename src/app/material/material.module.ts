@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import {
   MatButtonModule,
   MatTooltipModule,
@@ -21,9 +22,12 @@ import {
   MatGridListModule,
   MatSlideToggleModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatPaginatorIntl
 
 } from '@angular/material';
+import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -72,6 +76,10 @@ import {
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule
+  ],
+  providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlChinese }
   ]
 })
 export class MaterialModule {}
+

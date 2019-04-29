@@ -143,7 +143,8 @@ import { FloorFormComponent } from './components/floor/floor-form/floor-form.com
     FormsModule,
     MatButtonToggleModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
