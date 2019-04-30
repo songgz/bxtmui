@@ -1,27 +1,32 @@
 .room-box {
-  display: flex;
+  //display: flex;
   //column-count: 4;
   //border:1px solid;
   //width: 8em;
   margin: 5px;
   box-shadow: 0 0 5px gray;
+  overflow: hidden;
+  position: relative;
 }
 .header{
-  display: flex;
-  align-items: center;
+  background-color: orangered;
+  position: absolute;
+  width: 100px;
+  text-align: center;
   color: white;
-  background-color: cornflowerblue;
-  padding: 5px;
-  min-width: 70px;
-  justify-content: center;
+  transform:rotate(-45deg);
+  left: -50px;
+  top:-20px;
+  padding: 30px 0 0 0;
+  font-size: 12px;
 }
 .bed{
   display: flex;
   align-self: center;
 }
 .bedbox{
-  min-width: 200px;
+  margin: 10px 0 5px 20px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
   flex-wrap: wrap;
 }
