@@ -52,9 +52,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadStudents();
-    this.getColleges();
-    this.getDepartments();
-    this.getClassrooms();
+    // this.getColleges();
+    // this.getDepartments();
+    // this.getClassrooms();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
     // this.getRooms();
