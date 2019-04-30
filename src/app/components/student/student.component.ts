@@ -19,24 +19,10 @@ export interface DialogData {
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['select', 'picture', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
+  displayedColumns = ['select', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-
-  moreserch: boolean = false;
-  student: any = {
-    id: null,
-    org_id: null,
-    college: {id: null},
-    department: {id: null},
-    classroom: {id: null},
-    room: {id: null},
-    house: {id: null},
-    facility_id: null,
-    tel: null,
-    id_card: null,
-    ic_card: null,
-    gender_mark: null
-  };
+  query: any = {}
+  moreserch  = false;
   colleges: Observable<any[]>;
   departments: Observable<any[]>;
   classrooms: Observable<any[]>;
@@ -71,7 +57,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getClassrooms();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
-    this.getRooms();
+    // this.getRooms();
   }
 
   ngAfterViewInit() {
@@ -136,19 +122,19 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
 
-  getRooms() {
-    if (this.student.house_id) {
-      this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
-        .pipe(map((res: any) => res.result));
-    }
-  }
+  // getRooms() {
+  //   if (this.student.house_id) {
+  //     this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
+  //       .pipe(map((res: any) => res.result));
+  //   }
+  // }
+  //
+  // filterRooms() {
+  //   this.getRooms();
+  //   this.student.room_id = null;
+  // }
 
-  filterRooms() {
-    this.getRooms();
-    this.student.room_id = null;
-  }
-
-  teacher_selected(teacher_id) {
+  student_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
     if (i > -1) {
       this.student_ids.splice(i, 1);

@@ -1,62 +1,23 @@
 <div class="mat-card pb20 pl20 pr20 pt20 mb-20">
 <!--  查询-->
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="组织"  [(ngModel)]="student.classroom_id"  name="classroom_id">
+    <mat-select placeholder="组织"  [(ngModel)]="query.dept_id"   name="dept_id">
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
-        {{org.desc}}
+        {{org.full_title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field>
-    <mat-select placeholder="所属楼栋"  [(value)]="student.house_id" (selectionChange)="filterRooms()"  name="house_id">
+    <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" name="facility_id">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="所属楼层"  [(value)]="student.floor_id"  name="floor_id">
-      <mat-option *ngFor="let floor of floors | async" [value]="floor.id">
-        {{floor.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="所属房间"  [(ngModel)]="student.room_id"  name="room_id">
-      <mat-option *ngFor="let room of rooms | async" [value]="room.id">
-        {{room.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br [ngClass]="{ 'moreserch' : moreserch === false}">
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <input matInput placeholder="学号" [(ngModel)]="student.id_card" name="id_card" >
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-     <input matInput placeholder="姓名" [(ngModel)]="student.name" name="name" >
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" >
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">
-      <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
-        {{gender.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br [ngClass]="{ 'moreserch' : moreserch === false}">
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <input matInput placeholder="起始日期" (change)="shuchu(this.student.starttime)" type="date" [(ngModel)]="student.starttime" name="starttime" >
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
-    <input matInput placeholder="结束日期" (change)="shuchu(this.student.endtime)" type="date" [(ngModel)]="student.endtime" name="endtime" >
-  </mat-form-field>
-</div>
 <div class="searchbox">
   <span class="bxt-toolbar-spacer"></span>
-  <button mat-flat-button color="warn" (click)="serchbtn()"> <mat-icon>search</mat-icon>查询</button>
+  <button mat-flat-button color="warn" (click)="serchbtn($event)"> <mat-icon>search</mat-icon>查询</button>
   <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'显示更多'}}</button>
 </div>
 
@@ -98,18 +59,15 @@
         </mat-checkbox>
       </td>
     </ng-container>
-    <ng-container matColumnDef="picture">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 照片 </th>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
       <td mat-cell *matCellDef="let row">
         <div class="picbox">
           <!--          <img src="{{row.picture}}">-->
           <img (click)="openDialog('http://img4q.duitang.com/uploads/item/201410/20/20141020100423_aSJer.thumb.700_0.jpeg')" src="http://img4q.duitang.com/uploads/item/201410/20/20141020100423_aSJer.thumb.700_0.jpeg">
         </div>
+        {{row.name}}
       </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 学号 </th>

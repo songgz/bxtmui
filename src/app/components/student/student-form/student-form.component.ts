@@ -6,7 +6,8 @@ import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import any = jasmine.any;
+import {OrgService} from '../../../services/org.service';
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -15,48 +16,35 @@ import any = jasmine.any;
 export class StudentFormComponent implements OnInit {
   student: any = {
     id: null,
-    org_id: null,
-    college: {id: null},
-    department: {id: null},
-    classroom: {id: null},
+    dept_id: null,
     room: {id: null},
-    house: {id: null},
-    facility_id: null,
     tel: null,
     id_card: null,
     ic_card: null,
     gender_mark: null
   };
   genders: Observable<any[]>;
-  colleges: any[];
-  departments: any[];
-  classrooms: any[];
-  houses: any[];
   rooms: any[];
-  beds: any[];
   groups: Observable<any[]>;
   roles: Observable<any[]>;
   avatar64: string | ArrayBuffer = '';
-  floors: any[];
-  floor_mark = '';
-
   imgsrc: any;
 
-  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService, private sanitizer: DomSanitizer) {
+  constructor(private rest: RestService,
+              private route: ActivatedRoute,
+              private  dict: DictService,
+              private org: OrgService,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
+    this.org.getOrgs();
     this.route.paramMap.subscribe((params: any) => {
       this.student.id = params.get('id');
       if (this.student.id != null) {
         this.edit();
       }
     });
-    this.getColleges();
-    this.getDepartments();
-    this.getClassrooms();
-
-    this.getHouses();
     this.genders = this.dict.getItems('gender_type');
     this.getRooms();
     this.getGroups();
@@ -65,60 +53,15 @@ export class StudentFormComponent implements OnInit {
   getGroups() {
     this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
   }
+
   getRoles() {
     this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
-  }
-  getColleges() {
-    this.rest.index('colleges').subscribe((data: any) => {
-      this.colleges = data.result;
-    });
-  }
-
-  getDepartments() {
-    if (this.student.college_id) {
-      this.rest.index('departments', {college_id: this.student.college_id}).subscribe((data: any) => {
-        this.departments = data.result;
-      });
-    }
-  }
-
-  getClassrooms() {
-      this.rest.index('classrooms', {pre: 9999}).subscribe((data: any) => {
-        this.classrooms = data.result;
-      });
-  }
-
-  selectCollege() {
-    this.getDepartments();
-    this.student.department_id = null;
-  }
-
-  selectDepartment() {
-    this.getClassrooms();
-    this.student.classroom_id = null;
-  }
-
-  getHouses() {
-    this.rest.index('houses').subscribe((data: any) => {
-      this.houses = data.result;
-      for ( const h of this.houses ) {
-        if ( h.id === this.student.house_id ) {
-          this.floors = h.floors;
-          break;
-        }
-      }
-    });
   }
 
   getRooms() {
     this.rest.index('rooms', {pre: 9999}).subscribe((data: any) => {
         this.rooms = data.result;
       });
-  }
-
-  filterRooms() {
-    this.getRooms();
-    this.student.room_id = null;
   }
 
   save(f: NgForm) {
@@ -142,10 +85,6 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
-      this.getDepartments();
-      this.getClassrooms();
-      this.getHouses();
-      this.getRooms();
     });
   }
 
