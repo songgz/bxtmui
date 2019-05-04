@@ -20,15 +20,22 @@ table {
   display: flex;
   //box-sizing: border-box;
   //padding: 0 16px;
-  width: 100%;
-  flex-direction: row;
+  //width: 100%;
+  //flex-direction: row;
   align-items: center;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
   //white-space: nowrap;
+  //float: right;
+  overflow: hidden;
 }
 .search {
-  font-size: 14px;
-  width: 100%;
+  //font-size: 14px;
+  width: calc(100% - 206px - 10px);
+}
+.searchbtn{
+  float: right;
+  margin-left: 10px;
+  width: 206px;
 }
 
 .bxt-toolbar-spacer {
@@ -86,6 +93,6 @@ tr td:last-of-type{
   display: none;
 }
 button+button{
-  margin: 0 10px;
+  margin-left: 10px;
 }
 
