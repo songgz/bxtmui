@@ -8,6 +8,7 @@
 .imgbox img{
   width: 100%;
   height: 100%;
+  background-color: snow;
 }
 form {
   display: flex;
@@ -47,4 +48,15 @@ form {
 }
 mat-card-title{
   background-color: grey;
+}
+.title{
+  color: white;
+  padding: 5px 20px;
+  width: calc(100% + 32px - 40px);
+  background-color: #3f51b5;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  position: relative;
+  top: -16px;
+  left: -16px;
 }
