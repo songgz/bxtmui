@@ -38,6 +38,7 @@ export class StudentFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.imgsrc = 'http://127.0.0.1:3000' + this.student.avatar_url;
     this.org.getOrgs();
     this.route.paramMap.subscribe((params: any) => {
       this.student.id = params.get('id');
@@ -113,6 +114,4 @@ export class StudentFormComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
-
 }
