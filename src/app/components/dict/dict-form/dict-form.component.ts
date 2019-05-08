@@ -79,5 +79,9 @@ export class DictFormComponent implements OnInit {
   //     return index !== i;
   //   });
   // }
+  trackByIndex(index, item) {
+    // console.log(index, item)
+    return index;
+  }
 
 }
