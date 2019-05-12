@@ -33,7 +33,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
   houses: Observable<any[]>;
   rooms: Observable<any[]>;
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
@@ -219,17 +218,18 @@ export class StudentComponent implements OnInit, AfterViewInit {
     // console.log(v);
   }
 
-  serchbtn(obj) {
-    console.log(obj);
-    this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  serchbtn(e) {
+    console.log(e);
+    console.log(e.facility_id);
+    this.rest.index('students', e.facility_id).subscribe((data: any) => {
       this.dataSource = this.dataSource;
     }, error => {
       this.rest.errorHandle(error);
     });
-    if (obj.id == null) {
+    if (e.id == null) {
       this.dataSource = null;
     }
-    if (obj.house_id != null) {
+    if (e.house_id != null) {
       this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
         console.log(data);
       }, error => {
