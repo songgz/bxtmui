@@ -23,15 +23,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   query: any = {}
   moreserch  = false;
-  colleges: Observable<any[]>;
-  departments: Observable<any[]>;
-  classrooms: Observable<any[]>;
-
   genders: Observable<any[]>;
-
-  room: any = {id: null, floor_mark: null, parent_id: null};
   houses: Observable<any[]>;
-  rooms: Observable<any[]>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -51,12 +44,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadStudents();
-    // this.getColleges();
-    // this.getDepartments();
-    // this.getClassrooms();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
-    // this.getRooms();
   }
 
   ngAfterViewInit() {
@@ -96,42 +85,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getColleges() {
-    this.colleges = this.rest.index('colleges').pipe(map((res: any) => res.result));
-  }
-
-  getDepartments() {
-    this.departments = this.rest.index('departments').pipe(map((res: any) => res.result));
-  }
-
-  getClassrooms() {
-    this.classrooms = this.rest.index('classrooms').pipe(map((res: any) => res.result));
-  }
-
-  // selectCollege() {
-  //   this.getDepartments();
-  //   this.student.department_id = null;
-  // }
-  //
-  // selectDepartment() {
-  //   this.getClassrooms();
-  //   this.student.classroom_id = null;
-  // }
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
-
-  // getRooms() {
-  //   if (this.student.house_id) {
-  //     this.rooms = this.rest.index('rooms', {house_id: this.student.house_id})
-  //       .pipe(map((res: any) => res.result));
-  //   }
-  // }
-  //
-  // filterRooms() {
-  //   this.getRooms();
-  //   this.student.room_id = null;
-  // }
 
   student_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
@@ -212,10 +168,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
     } else {
       this.moreserch = false;
     }
-  }
-
-  shuchu(v) {
-    // console.log(v);
   }
 
   serchbtn(e) {

@@ -17,7 +17,7 @@
       </div>
       <div>学籍信息</div>
       <mat-form-field>
-        <mat-select placeholder="所属班级"  [(ngModel)]="student.dept_id"  name="dept_id">
+        <mat-select placeholder="所属组织"  [(ngModel)]="student.dept_id"  name="dept_id">
           <mat-option *ngFor="let org of this.org.orgs" [value]="org.id">
             {{org.full_title}}
           </mat-option>
