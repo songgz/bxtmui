@@ -7,6 +7,7 @@ import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import {OrgService} from '../../../services/org.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-form',
@@ -85,7 +86,7 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
-      this.imgsrc = 'http://127.0.0.1:3000' + this.student.avatar_url;
+      this.imgsrc = environment.baseUrl + this.student.avatar_url;
     });
   }
 

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import {MatDialog} from '@angular/material';
 import {AlertDialogComponent} from '../components/message-dialog/alert-dialog.component';
 import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class RestService {
   httpOptions = {
     // headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
