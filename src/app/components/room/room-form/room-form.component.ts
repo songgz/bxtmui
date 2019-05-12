@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-import {map} from 'rxjs/operators';
+
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-room-form',
@@ -11,11 +12,13 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, floor_mark: null, parent_id: null};
+  room: any = {id: null, floor_mark: null, parent_id: null, beds: []};
   floors: any[] = [];
   house: any = {};
 
-  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) { }
+  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
+
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
@@ -65,13 +68,16 @@ export class RoomFormComponent implements OnInit {
   goBack() {
     this.rest.navigate(['/bxt/rooms']);
   }
-  newadd() {
-    this.room.beds.push({ title: null, mark: null});
+  newadd(): void {
+    this.room.beds.push({title: null, mark: null});
   }
 
   ThisDel(i) {
     this.room.beds.splice(i, 1 );
   }
 
-
+  trackByIndex(index, item) {
+    // console.log(index, item)
+    return index;
+  }
 }

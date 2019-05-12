@@ -85,6 +85,7 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
+      this.imgsrc = 'http://127.0.0.1:3000' + this.student.avatar_url;
     });
   }
 
@@ -113,6 +114,4 @@ export class StudentFormComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
-
 }

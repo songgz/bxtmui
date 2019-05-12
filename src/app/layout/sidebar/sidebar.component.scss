@@ -48,13 +48,23 @@
   }
 }
 .active {
-  border-right: 5px solid #3f51b5;
-  font-weight: bolder;
+  //border-right: 5px solid #3f51b5;
+  //font-weight: bolder;
+  text-align: center;
+  margin: 5px 10px;
+  border-radius: 10px;
+  background-color: orangered;
+  color: white;
 }
 li>a:hover{
-  font-weight: bolder;
-  transition: border-right 0.5s;
-  border-right: 8px solid #3f51b5;
+  //font-weight: bolder;
+  transition: background-color 0.5s;
+  //border-right: 8px solid #3f51b5;
+  text-align: center;
+  margin: 5px 10px;
+  border-radius: 10px;
+  background-color: lightsalmon;
+  color: white;
 }
 .setmenu{
   color: white;
@@ -68,13 +78,23 @@ li>a:hover{
 }
 .mat-list-item{
   font-family: "Microsoft YaHei";
-
 }
 .nested-menu.ng-star-inserted:hover{
   color: black;
+  //background-color: lightsalmon;
+}
+.nested-menu.ng-star-inserted>a:hover{
   background-color: lightsalmon;
+  color: white;
 }
 .nested-menu.ng-star-inserted ul:hover{
   color: black;
   background-color: white;
+}
+ul{
+  padding: 0;
+}
+ul li {
+  text-align: center;
+  margin: 5px 10px;
 }
