@@ -17,7 +17,7 @@ export class RestService {
   httpOptions = {
     // headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  baseUrl = environment.baseUrl + '/';
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
