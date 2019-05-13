@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {UpfileComponent} from '../upfile/upfile.component';
 import {OrgService} from '../../services/org.service';
+import {environment} from '../../../environments/environment';
 
 export interface DialogData {
   dataid: string;
@@ -25,6 +26,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   moreserch  = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
+  baseUrl: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -41,6 +43,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadStudents();
