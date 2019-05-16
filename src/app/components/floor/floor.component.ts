@@ -31,8 +31,10 @@ export class FloorComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadFloors() {
-    this.rest.index('floors', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadFloors(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('floors', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -43,12 +45,7 @@ export class FloorComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.loadFloors({key: filterValue.trim()});
   }
 
   public update (id: string)  {

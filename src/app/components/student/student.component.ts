@@ -69,8 +69,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.loadStudents({key: filterValue.trim()});
+  applyFilter(filterValue: string = '') {
+    filterValue = filterValue.trim();
+    if (filterValue.length !== 0) {
+      this.query['key'] = filterValue;
+    }
+    this.loadStudents(this.query);
   }
 
   update(id: string) {
@@ -171,23 +175,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   serchbtn(e) {
-    console.log(e);
-    console.log(e.facility_id);
-    this.rest.index('students', e.facility_id).subscribe((data: any) => {
-      this.dataSource = this.dataSource;
-    }, error => {
-      this.rest.errorHandle(error);
-    });
-    if (e.id == null) {
-      this.dataSource = null;
-    }
-    if (e.house_id != null) {
-      this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-        console.log(data);
-      }, error => {
-        this.rest.errorHandle(error);
-      });
-    }
+    this.loadStudents(this.query);
   }
 }
 

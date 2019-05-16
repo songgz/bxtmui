@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="楼层" required [(ngModel)]="room.parent_id"  name="floor_mark">
+        <mat-select placeholder="楼层" required [(ngModel)]="room.parent_id"  name="parent_id">
           <mat-option *ngFor="let floor of floors" [value]="floor.id">
             {{floor.full_title}}
           </mat-option>
@@ -26,10 +26,10 @@
           <mat-card-title>#{{i+1}}</mat-card-title>
         </mat-card-header>
         <mat-form-field class="example-form-field">
-          <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].mark" name="bed_mark_{{i}}" >
+          <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].mark" name="bed[{{i}}][mark]" >
         </mat-form-field>
         <mat-form-field  class="example-form-field">
-          <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].desc" name="bed_m_desc_{{i}}" >
+          <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].desc" name="bed[{{i}}][desc]" >
         </mat-form-field>
       </mat-card>
     </mat-card-content>

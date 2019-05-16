@@ -12,9 +12,8 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, floor_mark: null, parent_id: null, beds: []};
+  room: any = {parent_id: null, beds: []};
   floors: any[] = [];
-  house: any = {};
 
   constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
 
@@ -22,8 +21,10 @@ export class RoomFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      this.room.id = params.get('id');
-      if (this.room.id != null) {this.edit(); }
+      if (params.get('id')) {
+        this.room.id = params.get('id');
+        this.edit();
+      }
     });
     this.getFloors();
   }
@@ -36,7 +37,7 @@ export class RoomFormComponent implements OnInit {
   }
 
   create(f: NgForm) {
-    this.rest.create('rooms', {room: f.value}).subscribe((data: any) => {
+    this.rest.create('rooms', {room: this.room}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -51,7 +52,7 @@ export class RoomFormComponent implements OnInit {
   }
 
   update(f: NgForm) {
-    this.rest.update('rooms/' + this.room.id, {room: f.value}).subscribe((data: any) => {
+    this.rest.update('rooms/' + this.room.id, {room: this.room}).subscribe((data: any) => {
       this.room = data;
       this.goBack();
     }, error => {
@@ -69,7 +70,7 @@ export class RoomFormComponent implements OnInit {
     this.rest.navigate(['/bxt/rooms']);
   }
   newadd(): void {
-    this.room.beds.push({title: null, mark: null});
+    this.room.beds.push({desc: null, mark: null});
   }
 
   ThisDel(i) {

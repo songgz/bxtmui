@@ -31,8 +31,10 @@ export class CollegeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadColleges() {
-    this.rest.index('colleges', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadColleges(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('colleges', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -43,12 +45,7 @@ export class CollegeComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.loadColleges({key: filterValue.trim()});
   }
 
   public update (id: string)  {
