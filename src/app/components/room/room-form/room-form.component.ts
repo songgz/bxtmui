@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
-
+import {MatSnackBar} from '@angular/material';
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
 
@@ -12,11 +12,11 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./room-form.component.scss']
 })
 export class RoomFormComponent implements OnInit {
-  room: any = {id: null, floor_mark: null, parent_id: null, beds: []};
+  room: any = {id: null, floor_mark: null, parent_id: null, beds: [], total_beds: null};
   floors: any[] = [];
   house: any = {};
 
-  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
+  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService, private snackBar: MatSnackBar) {
 
   }
 
@@ -69,7 +69,15 @@ export class RoomFormComponent implements OnInit {
     this.rest.navigate(['/bxt/rooms']);
   }
   newadd(): void {
-    this.room.beds.push({title: null, mark: null});
+    if (this.room.beds.length < this.room.total_beds) {
+      this.room.beds.push({title: null, mark: this.room.beds.length + 1});
+    } else {
+      this.snackBar.open('空床数不能大于总床数', '', {
+        duration: 2000,
+        // horizontalPosition: 'center',
+      });
+    }
+
   }
 
   ThisDel(i) {
@@ -80,4 +88,5 @@ export class RoomFormComponent implements OnInit {
     // console.log(index, item)
     return index;
   }
+
 }
