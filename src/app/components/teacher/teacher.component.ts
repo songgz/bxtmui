@@ -5,6 +5,8 @@ import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MatSnackBar} from '@angular/material';
 import {UpfileComponent} from '../upfile/upfile.component';
+import {environment} from '../../../environments/environment';
+
 export interface DialogData {
   dataid: string;
 }
@@ -14,17 +16,20 @@ export interface DialogData {
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'select', 'picture', 'name', 'updated_at', 'action'];
+  displayedColumns = [ 'select', 'name', 'dept', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   teacher_ids: any[] = [];
+  baseUrl: any;
 
   constructor(private rest: RestService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
+
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadTeachers();

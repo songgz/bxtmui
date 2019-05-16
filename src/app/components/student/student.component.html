@@ -21,10 +21,10 @@
 <mat-toolbar class="mat-elevation-z8">
   <span>学生管理</span>
   <span class="bxt-toolbar-spacer"></span>
-  <button mat-icon-button style="color: black" [routerLink]="['/bxt/setdorms']" matTooltip="调寝">
+  <button mat-icon-button style="color: black" [routerLink]="['/bxt/setdorms']"  matTooltip="调寝">
     <mat-icon class="mat-18">compare_arrows</mat-icon>
   </button>
-  <button mat-icon-button color="primary" [routerLink]="['/bxt/students/new']" matTooltip="新建">
+  <button mat-icon-button color="primary" [routerLink]="['/bxt/students/new']"  matTooltip="新建">
     <mat-icon class="mat-18">add_box</mat-icon>
   </button>
   <button mat-icon-button color="accent" (click)="upfile()" matTooltip="批量导入">
@@ -39,62 +39,59 @@
 </mat-toolbar>
 <div class="mat-elevation-z8">
   <div class="table-container">
-    <table mat-table [dataSource]="dataSource" matSort>
-      <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="allSelect($event)">
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox (change)="student_selected(row.id)" [value]="row.id"
-                        [checked]="student_ids.indexOf(row.id) > -1">
-          </mat-checkbox>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名</th>
-        <td mat-cell *matCellDef="let row">
-          <div class="picbox">
-            <!--          <img src="{{row.picture}}">-->
-            <img (click)="openDialog('http://127.0.0.1:3000' + row.avatar_url)"
-                 [src]="'http://127.0.0.1:3000' + row.avatar_url">
-          </div>
-          <div class="picname">{{row.name}}</div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="allSelect($event)">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (change)="student_selected(row.id)" [value]="row.id" [checked]="student_ids.indexOf(row.id) > -1">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+          <!--          <img src="{{row.picture}}">-->
+          <img (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">
+        </div>
+        <div class="picname">{{row.name}}</div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="sno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 学号 </th>
+      <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dept">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 班级 </th>
+      <td mat-cell *matCellDef="let row"> {{row.dept_full_title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="bedroom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室 </th>
+      <td mat-cell *matCellDef="let row"> {{row.dorm_full_title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>
+      <td mat-cell *matCellDef="let row"> {{row.updated_at | date:'yyyy-MM-dd'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> 操作 </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="修改">
+          <mat-icon class="mat-18">launch</mat-icon>
+        </button>
 
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="sno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 学号</th>
-        <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
-      </ng-container>
-      <ng-container matColumnDef="dept">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 班级</th>
-        <td mat-cell *matCellDef="let row"> {{row.dept_full_title}} </td>
-      </ng-container>
-      <ng-container matColumnDef="bedroom">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室</th>
-        <td mat-cell *matCellDef="let row"> {{row.dorm_full_title}} </td>
-      </ng-container>
-      <ng-container matColumnDef="updated_at">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新</th>
-        <td mat-cell *matCellDef="let row"> {{row.updated_at | date:'yyyy-MM-dd'}} </td>
-      </ng-container>
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> 操作</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="修改">
-            <mat-icon class="mat-18">launch</mat-icon>
-          </button>
-
-          <!--        <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">-->
-          <!--          <mat-icon class="mat-18">delete</mat-icon>-->
-          <!--        </button>-->
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+<!--        <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">-->
+<!--          <mat-icon class="mat-18">delete</mat-icon>-->
+<!--        </button>-->
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
   </div>
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

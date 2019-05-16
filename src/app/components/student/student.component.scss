@@ -13,7 +13,7 @@ table {
 
 @media (max-width: 1200px) {
   table td{
-    font-size: 1vw;
+    //font-size: 1vw;
   }
 }
 .searchbox{
@@ -51,6 +51,7 @@ table {
   //transform: scale(1.5);
   overflow: hidden;
   vertical-align:middle;
+  cursor:pointer;
 }
 .picbox img{
   width: 100%;

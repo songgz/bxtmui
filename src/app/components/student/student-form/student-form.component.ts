@@ -29,7 +29,7 @@ export class StudentFormComponent implements OnInit {
   groups: Observable<any[]>;
   roles: Observable<any[]>;
   avatar64: string | ArrayBuffer = '';
-  imgsrc: any;
+  imgsrc: any = '/assets/img/imghead.png';
 
   constructor(private rest: RestService,
               private route: ActivatedRoute,
