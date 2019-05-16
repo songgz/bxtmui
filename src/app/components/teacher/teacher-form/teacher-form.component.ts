@@ -4,6 +4,9 @@ import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
+import {NgForm} from '@angular/forms';
+import {environment} from '../../../../environments/environment';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-teacher-form',
@@ -24,7 +27,10 @@ export class TeacherFormComponent implements OnInit {
   genders: Observable<any[]>;
   groups: Observable<any[]>;
   roles: Observable<any[]>;
-  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
+  avatar64: string | ArrayBuffer = '';
+  imgsrc: any = '/assets/img/imghead.png';
+
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService, private sanitizer: DomSanitizer ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
@@ -44,17 +50,18 @@ export class TeacherFormComponent implements OnInit {
   getRoles() {
     this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
-  save() {
+  save(f: NgForm) {
     if (this.teacher.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('teachers', {teacher: this.teacher}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('teachers', this.teacher ).subscribe((data: any) => {
       this.teacher = data;
+
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
@@ -65,13 +72,16 @@ export class TeacherFormComponent implements OnInit {
     this.rest.show('teachers/' + this.teacher.id).subscribe((data: any) => {
       this.teacher = data;
       this.getDepartments();
+      this.imgsrc = environment.baseUrl + this.teacher.avatar_url;
 
     });
   }
 
-  update() {
-    this.rest.update('teachers/' + this.teacher.id, {teacher: this.teacher}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('teachers/' + this.teacher.id, {teacher: f.value}).subscribe((data: any) => {
       this.teacher = data;
+      // console.log(this.teacher);
+
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
@@ -95,6 +105,17 @@ export class TeacherFormComponent implements OnInit {
 
   goBack() {
     this.rest.navigate(['/bxt/teachers']);
+  }
+  getAvatar(event) {
+    const file = event.target.files[0];
+    this.imgsrc = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = (e) => {
+        this.avatar64 = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
 }
