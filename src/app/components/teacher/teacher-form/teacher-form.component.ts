@@ -14,15 +14,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./teacher-form.component.scss']
 })
 export class TeacherFormComponent implements OnInit {
-  teacher: any = {
-    id: null,
-    department: {id: null, college: {id: null}},
-    tel: null,
-    id_card: null,
-    ic_card: null,
-    gender_mark: null,
-    group_ids: null};
-  colleges: Observable<any[]>;
+  teacher: any = {};
   departments: Observable<any[]>;
   genders: Observable<any[]>;
   groups: Observable<any[]>;
@@ -37,7 +29,6 @@ export class TeacherFormComponent implements OnInit {
       this.teacher.id = params.get('id');
       if (this.teacher.id != null) {this.edit(); }
     });
-    this.getColleges();
     this.getDepartments();
     this.genders = this.dict.getItems('gender_type');
     this.getGroups();
@@ -51,6 +42,7 @@ export class TeacherFormComponent implements OnInit {
     this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
   save(f: NgForm) {
+    f.value['avatar'] = this.avatar64;
     if (this.teacher.id != null) {
       this.update(f);
     } else {
@@ -80,32 +72,21 @@ export class TeacherFormComponent implements OnInit {
   update(f: NgForm) {
     this.rest.update('teachers/' + this.teacher.id, {teacher: f.value}).subscribe((data: any) => {
       this.teacher = data;
-      // console.log(this.teacher);
-
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
     });
   }
 
-  getColleges() {
-    this.colleges = this.rest.index('colleges').pipe(map((res: any) =>  res.result ));
-  }
   getDepartments() {
-    if (this.teacher.department.college.id) {
-      this.departments = this.rest.index('departments', {college_id: this.teacher.department.college.id})
+      this.departments = this.rest.index('departments')
         .pipe(map((res: any) => res.result));
-    }
-  }
-
-  selectCollege() {
-    this.getDepartments();
-    this.teacher.department.id = null;
   }
 
   goBack() {
     this.rest.navigate(['/bxt/teachers']);
   }
+
   getAvatar(event) {
     const file = event.target.files[0];
     this.imgsrc = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
