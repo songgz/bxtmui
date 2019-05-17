@@ -55,7 +55,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this.loadStudents();
+      this.loadStudents(this.query);
     });
   }
 

@@ -1,4 +1,4 @@
-<div class="mat-card pb20 pl20 pr20 pt20 mb-20">
+<div class="mat-card pb20 pl20 pr20 pt20 mb-20 searchbox">
   <mat-form-field>
     <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
@@ -13,6 +13,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="输入名或学号">
   </mat-form-field>
