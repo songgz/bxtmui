@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" class="sidebar-background" [style.background-image]="'url(../assets/img/sidebar-3.jpg)'">
   <mat-nav-list>
     <div class="nested-menu" *ngFor="let mainItem of findChildren(null)">
       <a mat-list-item [ngClass]="{ 'setmenu': mainItem.id == menustyle }" (click)="addExpandClass(mainItem.id)">
