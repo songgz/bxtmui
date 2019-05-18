@@ -15,16 +15,9 @@ import {environment} from '../../../../environments/environment';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
-  student: any = {
-    id: null,
-    dept_id: null,
-    room: {id: null},
-    tel: null,
-    id_card: null,
-    ic_card: null,
-    gender_mark: null
-  };
+  student: any = { };
   genders: Observable<any[]>;
+  floors: any[];
   rooms: any[];
   groups: Observable<any[]>;
   roles: Observable<any[]>;
@@ -47,9 +40,9 @@ export class StudentFormComponent implements OnInit {
       }
     });
     this.genders = this.dict.getItems('gender_type');
-    this.getRooms();
     this.getGroups();
     this.getRoles();
+    this.getFloors();
   }
   getGroups() {
     this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
@@ -59,10 +52,20 @@ export class StudentFormComponent implements OnInit {
     this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
   }
 
+  getFloors() {
+    this.rest.index('floors', {pre: 9999}).subscribe((data: any) => {
+      this.floors = data.result;
+    });
+  }
+
   getRooms() {
-    this.rest.index('rooms', {pre: 9999}).subscribe((data: any) => {
+    this.rest.index('rooms', {pre: 9999, parent_id: this.student.dorm_parent_id}).subscribe((data: any) => {
         this.rooms = data.result;
       });
+  }
+
+  selectFloor() {
+    this.getRooms();
   }
 
   save(f: NgForm) {
@@ -86,6 +89,7 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
+      this.getRooms();
       if ( data.avatar_url === null ) {
         this.imgsrc = '/assets/img/imghead.png';
       } else {
