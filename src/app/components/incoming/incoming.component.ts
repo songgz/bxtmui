@@ -18,11 +18,15 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   moreserch = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
+  sleep_status: {};
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
+    this.dict.getItemMap('sleep_status').subscribe(data => {
+      this.sleep_status = data;
+    });
     this.org.getOrgs();
     this.dataSource = new MatTableDataSource([]);
   }
@@ -69,25 +73,6 @@ export class IncomingComponent implements OnInit, AfterViewInit {
       this.moreserch = true;
     } else {
       this.moreserch = false;
-    }
-  }
-
-  serchbtn( obj) {
-    console.log( obj);
-    this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-      // this.dataSource = this.dataSource;
-    }, error => {
-      this.rest.errorHandle(error);
-    });
-    if (obj.id == null) {
-      this.dataSource = null;
-    }
-    if (obj.house_id != null) {
-      this.rest.index('students', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-        console.log(data);
-      }, error => {
-        this.rest.errorHandle(error);
-      });
     }
   }
 

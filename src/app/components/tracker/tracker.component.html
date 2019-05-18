@@ -1,7 +1,27 @@
-<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px"
-     fxLayoutGap.lt.md="20px">
+<div class="mat-card pb20 pl20 pr20 pt20 mb-20 searchbox">
+  <mat-form-field >
+    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let org of org.orgs" [value]="org.id">
+        {{org.full_title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
+    <mat-select placeholder="所属楼栋"  [(value)]="query.facility_id" (selectionChange)="applyFilter()"  name="facility_id">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="状态"  [(value)]="query.status" (selectionChange)="applyFilter()"  name="status">
+      <mat-option *ngFor="let status of sleep_status | keyvalue" [value]="status.key">
+        {{status.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名">
   </mat-form-field>
 </div>
 <mat-toolbar class="mat-elevation-z8">
