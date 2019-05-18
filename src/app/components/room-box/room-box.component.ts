@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class RoomBoxComponent implements OnInit {
   @Input() room: any;
-  gendercolor: boolean = false;
+  gendercolor: boolean = true;
   constructor() { }
   ngOnInit() {
     // if(this.bed.tilte == 0 ){
