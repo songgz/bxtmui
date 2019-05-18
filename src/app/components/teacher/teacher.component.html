@@ -39,8 +39,7 @@
       <td mat-cell *matCellDef="let row">
         <div class="picbox">
           <!--          <img src="{{row.picture}}">-->
-          <img *ngIf="row.avatar_url" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">
-          <img [hidden]="row.avatar_url" (click)="openDialog(imgsrc)" [src]="imgsrc">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">
         </div>
         <div class="picname">{{row.name}}</div>
       </td>
