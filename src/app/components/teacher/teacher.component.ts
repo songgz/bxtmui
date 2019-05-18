@@ -22,6 +22,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   teacher_ids: any[] = [];
   baseUrl: any;
+  imgsrc: any = '/assets/img/imghead.png';
 
   constructor(private rest: RestService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
