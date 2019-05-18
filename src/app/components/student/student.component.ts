@@ -27,6 +27,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   genders: Observable<any[]>;
   houses: Observable<any[]>;
   baseUrl: any;
+  imgsrc: any = '/assets/img/imghead.png';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

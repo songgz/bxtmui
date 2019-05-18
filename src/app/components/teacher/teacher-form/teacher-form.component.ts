@@ -51,9 +51,8 @@ export class TeacherFormComponent implements OnInit {
   }
 
   create(f: NgForm) {
-    this.rest.create('teachers', this.teacher ).subscribe((data: any) => {
+    this.rest.create('teachers', {teacher: f.value} ).subscribe((data: any) => {
       this.teacher = data;
-
       this.goBack();
     }, error => {
       this.rest.errorHandle(error);
@@ -64,8 +63,11 @@ export class TeacherFormComponent implements OnInit {
     this.rest.show('teachers/' + this.teacher.id).subscribe((data: any) => {
       this.teacher = data;
       this.getDepartments();
-      this.imgsrc = environment.baseUrl + this.teacher.avatar_url;
-
+      if ( data.avatar_url === null ) {
+        this.imgsrc = '/assets/img/imghead.png';
+      } else {
+        this.imgsrc = environment.baseUrl + this.teacher.avatar_url;
+      }
     });
   }
 

@@ -86,7 +86,11 @@ export class StudentFormComponent implements OnInit {
   edit() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
-      this.imgsrc = environment.baseUrl + this.student.avatar_url;
+      if ( data.avatar_url === null ) {
+        this.imgsrc = '/assets/img/imghead.png';
+      } else {
+        this.imgsrc = environment.baseUrl + this.student.avatar_url;
+      }
     });
   }
 
