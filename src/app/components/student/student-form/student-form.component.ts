@@ -90,10 +90,13 @@ export class StudentFormComponent implements OnInit {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
       this.getRooms();
-      if ( data.avatar_url === null ) {
-        this.imgsrc = '/assets/img/imghead.png';
-      } else {
+      // 判断图片是否存在
+      const ImgObj = new Image();
+      ImgObj.src = environment.baseUrl + this.student.avatar_url;
+      if ( data.avatar_url != null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
         this.imgsrc = environment.baseUrl + this.student.avatar_url;
+      } else {
+        this.imgsrc = '/assets/img/imghead.png';
       }
     });
   }
