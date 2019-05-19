@@ -53,7 +53,7 @@ import {FloorFormComponent} from './components/floor/floor-form/floor-form.compo
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'bxt', component: MasterComponent, children: [
-      {path: 'dashboard', component: DashboardComponent},
+      {path: '', component: DashboardComponent},
       {path: 'colleges', component: CollegeComponent},
       {path: 'colleges/:id/edit', component: CollegeFormComponent},
       {path: 'colleges/new', component: CollegeFormComponent},
