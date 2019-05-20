@@ -3,6 +3,8 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
+import {OrgService} from '../../services/org.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tracker',
@@ -13,13 +15,18 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'name', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: {};
+  query: any = {};
+  moreserch = false;
+  houses: Observable<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private rest: RestService, private  dict: DictService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
     this.dict.getItemMap('sleep_status').subscribe(data => {
       this.sleep_status = data;
     });
+    this.org.getOrgs();
+    this.getHouses();
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -37,8 +44,10 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadTrackers() {
-    this.rest.index('trackers', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadTrackers(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('trackers', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -47,14 +56,13 @@ export class TrackerComponent implements OnInit, AfterViewInit {
       this.rest.errorHandle(error);
     });
   }
-  // applyFilter test error
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+
+  applyFilter() {
+    this.loadTrackers(this.query);
+  }
+
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="mat-card pb20 pl20 pr20 pt20 mb-20 searchbox">
+<div class="searchbox">
   <mat-form-field>
     <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
