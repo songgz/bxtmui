@@ -1,5 +1,5 @@
-<div id="sidebar" style="background-color: rgb(216, 11, 11);">
-  <div class="sidebar-background" [style.background-image]="'url(../assets/img/sidebar-3.jpg)'">
+<div id="sidebar">
+  <div class="sidebar-background" [style.background-image]="'url(../assets/img/sidebar-3.jpg)'"></div>
   <mat-nav-list>
     <div class="nested-menu" *ngFor="let mainItem of findChildren(null)">
       <a mat-list-item [ngClass]="{ 'setmenu': mainItem.id == menustyle }" (click)="addExpandClass(mainItem.id)">
@@ -12,5 +12,5 @@
       </ul>
     </div>
   </mat-nav-list>
-  </div>
+
 </div>
