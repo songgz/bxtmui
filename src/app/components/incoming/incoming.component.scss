@@ -11,16 +11,6 @@ table {
 button+button{
   margin: 0 10px;
 }
-.searchbox{
-  display: flex;
-  //box-sizing: border-box;
-  //padding: 0 16px;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  //white-space: nowrap;
-}
 .search {
   font-size: 14px;
   width: 100%;
@@ -28,4 +18,18 @@ button+button{
 .bxt-toolbar-spacer {
   flex: 1 1 auto;
 }
-
+.searchbox{
+  display: flex;
+  //box-sizing: border-box;
+  //padding: 0 16px;
+  //width: 100%;
+  //flex-direction: row;
+  align-items: center;
+  //flex-wrap: wrap;
+  //white-space: nowrap;
+  //float: right;
+  overflow: hidden;
+}
+mat-form-field {
+  width: 100%;
+}
