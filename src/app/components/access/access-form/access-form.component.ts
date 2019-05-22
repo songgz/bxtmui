@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
+import {Observable} from 'rxjs';
 @Component({
   selector: 'app-access-form',
   templateUrl: './access-form.component.html',
@@ -9,13 +10,25 @@ import {DictService} from '../../../services/dict.service';
 })
 export class AccessFormComponent implements OnInit {
   access: any = {};
-  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
+  direction_types: Observable<any[]>;
+  houses = [];
 
+  constructor(private rest: RestService, private route: ActivatedRoute, private  dict: DictService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      this.access.id = params.get('id');
-      if (this.access.id != null) {this.edit(); }
+      if (params.get('id') !== null) {
+        this.access.id = params.get('id');
+        this.edit();
+      }
+    });
+    this.direction_types = this.dict.getItems('direction_type');
+    this.getHouses();
+  }
+
+  getHouses() {
+    this.rest.index('houses', {pre: 9999}).subscribe((data: any) => {
+      this.houses = data.result;
     });
   }
 
@@ -50,6 +63,7 @@ export class AccessFormComponent implements OnInit {
       this.rest.errorHandle(error);
     });
   }
+
   goBack() {
     this.rest.navigate(['/bxt/accesses']);
   }

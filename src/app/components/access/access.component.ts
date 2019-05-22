@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {DictService} from '../../services/dict.service';
 
 @Component({
   selector: 'app-access',
@@ -12,9 +13,13 @@ export class AccessComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  direction_types = {};
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, private dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
+    this.dict.getItemMap('direction_type').subscribe(data => {
+      this.direction_types = data;
+    });
   }
 
   ngOnInit() {
