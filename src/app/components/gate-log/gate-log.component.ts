@@ -7,7 +7,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['./gate-log.component.scss']
 })
 export class GateLogComponent implements OnInit {
-  displayedColumns = [ 'title', 'error', 'status'];
+  displayedColumns = [ 'id', 'message', 'status'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

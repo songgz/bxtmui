@@ -65,6 +65,7 @@ import {MatButtonToggleModule} from '@angular/material';
 import { FloorComponent } from './components/floor/floor.component';
 import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
+import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 
 
 @NgModule({
@@ -126,7 +127,8 @@ import { FigurecardComponent } from './components/figurecard/figurecard.componen
     MenuAccessFormComponent,
     FloorComponent,
     FloorFormComponent,
-    FigurecardComponent
+    FigurecardComponent,
+    VideoRecorderFormComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

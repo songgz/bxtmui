@@ -49,6 +49,7 @@ import {WebcamFormComponent} from './components/webcam/webcam-form/webcam-form.c
 import {MenuAccessFormComponent} from './components/menu-access/menu-access-form/menu-access-form.component';
 import {FloorComponent} from './components/floor/floor.component';
 import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
+import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -115,6 +116,8 @@ const routes: Routes = [
       {path: 'gates/:id/edit', component: GateFormComponent},
       {path: 'gate-logs', component: GateLogComponent},
       {path: 'video-recorders', component: VideoRecorderComponent},
+      {path: 'video-recorders/new', component: VideoRecorderFormComponent},
+      {path: 'video-recorders/:id/edit', component: VideoRecorderFormComponent},
       {path: 'setdorms', component: SetdormComponent },
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}

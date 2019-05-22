@@ -14,8 +14,10 @@ export class WebcamFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      this.webcam.id = params.get('id');
-      if (this.webcam.id != null) {this.edit(); }
+      if (params.get('id') != null) {
+        this.webcam.id = params.get('id');
+        this.edit();
+      }
     });
   }
 

@@ -15,8 +15,10 @@ export class GateFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      this.gate.id = params.get('id');
-      if (this.gate.id != null) {this.edit(); }
+      if (params.get('id') != null) {
+        this.gate.id = params.get('id');
+        this.edit();
+      }
     });
   }
 
