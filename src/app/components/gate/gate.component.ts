@@ -39,5 +39,16 @@ export class GateComponent implements OnInit, AfterViewInit {
       this.rest.errorHandle(error);
     });
   }
+  delete (id: string) {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        this.rest.destory('gates/' + id).subscribe(data => {
+          this.loadGate();
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
 
 }

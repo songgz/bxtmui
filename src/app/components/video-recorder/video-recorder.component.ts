@@ -8,7 +8,7 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./video-recorder.component.scss']
 })
 export class VideoRecorderComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'ip', 'status'];
+  displayedColumns = [ 'title', 'ip', 'status','action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,6 +37,17 @@ export class VideoRecorderComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
     }, error => {
       this.rest.errorHandle(error);
+    });
+  }
+  delete (id: string) {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        this.rest.destory('video_recorders/' + id).subscribe(data => {
+          this.loadVideoRecorder();
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
     });
   }
 }

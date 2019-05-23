@@ -66,6 +66,7 @@ import { FloorComponent } from './components/floor/floor.component';
 import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
 import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
+import { ExchangesComponent } from './components/exchanges/exchanges.component';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import { VideoRecorderFormComponent } from './components/video-recorder/video-re
     FloorComponent,
     FloorFormComponent,
     FigurecardComponent,
-    VideoRecorderFormComponent
+    VideoRecorderFormComponent,
+    ExchangesComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,
