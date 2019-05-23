@@ -1,3 +1,89 @@
-<p>
-  exchanges works!
-</p>
+<mat-card>
+  <div class="header">
+    <h4>
+      选择学生
+    </h4>
+<!--    <div class="searchbox">-->
+<!--      <span class="bxt-toolbar-spacer"></span>-->
+<!--      <button mat-flat-button color="warn" (click)="SearchBtn1()"> <mat-icon>search</mat-icon>查询</button>-->
+<!--            <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>显示更多</button>-->
+<!--    </div>-->
+  </div>
+  <mat-form-field>
+    <mat-select placeholder="组织" [(ngModel)]="query1.org_id" name="dept_id" (selectionChange)="applyFilter1()">
+      <mat-option *ngFor="let org of org.orgs" [value]="org.id">
+        {{org.full_title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="楼栋" [(ngModel)]="query1.facility_id" name="facility_id" (selectionChange)="applyFilter1()">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-card>
+<mat-divider></mat-divider>
+<mat-card>
+  <div class="header">
+    <h4>
+      选择床位
+    </h4>
+<!--    <div class="searchbox">-->
+<!--      <span class="bxt-toolbar-spacer"></span>-->
+<!--      <button mat-flat-button color="warn" (click)="SearchBtn2()"> <mat-icon>search</mat-icon>查询</button>-->
+<!--            <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>显示更多</button>-->
+<!--    </div>-->
+  </div>
+  <mat-form-field>
+    <mat-select placeholder="楼栋" [(ngModel)]="query2.facility_id" name="facility_id" (selectionChange)="applyFilter2()">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<div class="setboxflex">
+  <div class="setbox">
+    <h4>学生:{{studentstest.length}}</h4>
+
+    <div class="li" *ngFor='let item of studentstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
+      <!--    <button (click)='changeData(i)'>改变状态</button>-->
+      <div>{{item.name}}</div>
+      <button mat-icon-button color="warn" (click)="deleteData(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="setbox">
+    <h4>床位:{{bedstest.length}}</h4>
+    <div class="li" *ngFor='let item of bedstest ;let i=index;' [hidden]="item.status==2">   <!-- status=2时隐藏 -->
+      <!--    <button (click)='changeData(i)'>改变状态</button>-->
+      <div>{{item.title}}</div>
+      <button mat-icon-button color="warn" (click)="deleteData2(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pushdata">
+    <button mat-flat-button color="primary" (click)='pushData(studentstest)' matTooltip="确定">
+      <mat-icon>forward</mat-icon><span>确定</span>
+    </button>
+  </div>
+  <div class="setbox">
+    <h4>分配详情:</h4>
+    <div class="li" *ngFor='let item of list ;let i=index;' [hidden]='item.status==1'>   <!-- status=1时隐藏 -->
+      <!--    <button (click)='changeData(i)'>改变状态</button>-->
+      {{item.name}}-----{{item.title}}
+      <button mat-icon-button color="warn" (click)="deleteData3(i)" matTooltip="删除">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
