@@ -1,6 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {RestService} from '../../services/rest.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {DictService} from '../../services/dict.service';
+import {OrgService} from '../../services/org.service';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-latecomer',
@@ -12,9 +16,17 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  query: any = {};
+  sleep_status: any = {};
+  houses: Observable<any[]>;
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
     this.dataSource = new MatTableDataSource([]);
+    this.dict.getItemMap('sleep_status').subscribe(data => {
+      this.sleep_status = data;
+    });
+    this.org.getOrgs();
+    this.getHouses();
   }
 
   ngOnInit() {
@@ -26,19 +38,21 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this.loadLatecomers();
+      this.loadLatecomers(this.query);
     });
   }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  applyFilter() {
+    this.loadLatecomers(this.query);
   }
-  loadLatecomers() {
-    this.rest.index('latecomers', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+
+  loadLatecomers(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('latecomers', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;

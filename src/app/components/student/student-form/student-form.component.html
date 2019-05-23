@@ -26,7 +26,7 @@
       <br>
       <div>宿舍信息</div>
       <mat-form-field>
-        <mat-select placeholder="所属楼层"  [(ngModel)]="student.dorm_parent_id"  name="dorm_parent_id" (selectionChange)="selectFloor()">
+        <mat-select placeholder="所属楼层"  [(value)]="student.dorm_parent_id"  name="dorm_parent_id" (selectionChange)="selectFloor()">
           <mat-option *ngFor="let floor of floors" [value]="floor.id">
             {{floor.full_title}}
           </mat-option>
