@@ -47,5 +47,15 @@ export class AccessComponent implements OnInit, AfterViewInit {
   update (id: string)  {
     this.rest.navigate(['/bxt/accesses/', id, 'edit']);
   }
-
+  delete (id: string) {
+    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        this.rest.destory('accesses/' + id).subscribe(data => {
+          this.loadAccess();
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
 }
