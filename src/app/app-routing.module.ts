@@ -50,6 +50,7 @@ import {MenuAccessFormComponent} from './components/menu-access/menu-access-form
 import {FloorComponent} from './components/floor/floor.component';
 import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
+import {ExchangesComponent} from './components/exchanges/exchanges.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -119,6 +120,7 @@ const routes: Routes = [
       {path: 'video-recorders/new', component: VideoRecorderFormComponent},
       {path: 'video-recorders/:id/edit', component: VideoRecorderFormComponent},
       {path: 'setdorms', component: SetdormComponent },
+      {path: 'exchanges', component: ExchangesComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
     ]},
