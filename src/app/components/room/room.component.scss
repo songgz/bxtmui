@@ -9,3 +9,8 @@ table {
 .bxt-toolbar-spacer {
   flex: 1 1 auto;
 }
+.searchbox{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}

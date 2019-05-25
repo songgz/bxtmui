@@ -1,6 +1,15 @@
-<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+<!--<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">-->
+<!--  <mat-form-field>-->
+<!--    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">-->
+<!--  </mat-form-field>-->
+<!--</div>-->
+<div class="searchbox">
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="查询">
+    <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" name="facility_id" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
 <mat-toolbar class="mat-elevation-z8">

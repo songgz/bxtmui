@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RestService} from '../../services/rest.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-floor',
@@ -10,6 +12,10 @@ import {RestService} from '../../services/rest.service';
 export class FloorComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
+
+  query: any = {};
+  houses: Observable<any[]>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -21,6 +27,7 @@ export class FloorComponent implements OnInit, AfterViewInit {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
     this.loadFloors();
+    this.getHouses();
   }
 
   ngAfterViewInit() {
@@ -43,9 +50,15 @@ export class FloorComponent implements OnInit, AfterViewInit {
       this.rest.errorHandle(error);
     });
   }
-
-  applyFilter(filterValue: string) {
-    this.loadFloors({key: filterValue.trim()});
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+  applyFilter(filterValue: string = '') {
+    filterValue = filterValue.trim();
+    if (filterValue.length !== 0) {
+      this.query['key'] = filterValue;
+    }
+    this.loadFloors(this.query);
   }
 
   public update (id: string)  {
