@@ -51,6 +51,7 @@ import {FloorComponent} from './components/floor/floor.component';
 import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import {ExchangesComponent} from './components/exchanges/exchanges.component';
+import {LatecomerFormComponent} from './components/latecomer/latecomer-form/latecomer-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -107,6 +108,7 @@ const routes: Routes = [
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'incomings', component: IncomingComponent},
       {path: 'latecomers', component: LatecomerComponent},
+      {path: 'latecomers/:id/edit', component: LatecomerFormComponent},
       {path: 'attendances', component: AttendanceComponent},
       {path: 'trackers', component: TrackerComponent},
       {path: 'webcams', component: WebcamComponent},

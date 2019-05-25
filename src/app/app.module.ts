@@ -67,6 +67,7 @@ import { FloorFormComponent } from './components/floor/floor-form/floor-form.com
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
 import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import { ExchangesComponent } from './components/exchanges/exchanges.component';
+import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
 
 
 @NgModule({
@@ -130,7 +131,8 @@ import { ExchangesComponent } from './components/exchanges/exchanges.component';
     FloorFormComponent,
     FigurecardComponent,
     VideoRecorderFormComponent,
-    ExchangesComponent
+    ExchangesComponent,
+    LatecomerFormComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

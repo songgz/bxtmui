@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime' ];
+  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime', 'action' ];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -58,6 +58,10 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
     });
+  }
+
+  public update (id: string)  {
+    this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
   }
 
 }
