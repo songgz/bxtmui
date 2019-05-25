@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {RestService} from '../../../services/rest.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-latecomer-form',
@@ -10,9 +11,19 @@ import {RestService} from '../../../services/rest.service';
 export class LatecomerFormComponent implements OnInit {
   latecomer: any = {};
 
-  constructor(private rest: RestService) { }
+  constructor(private rest: RestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe((params: any) => {
+      this.latecomer.id = params.get('id');
+      if (this.latecomer.id != null) {this.edit(); }
+    });
+  }
+s
+  edit() {
+    this.rest.show('latecomers/' + this.latecomer.id).subscribe((data: any) => {
+      this.latecomer = data;
+    });
   }
 
   update(f: NgForm) {
