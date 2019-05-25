@@ -18,12 +18,16 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   query: any = {};
   sleep_status: any = {};
+  color_status: any = {};
   houses: Observable<any[]>;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
     this.dataSource = new MatTableDataSource([]);
-    this.dict.getItemMap('sleep_status').subscribe(data => {
-      this.sleep_status = data;
+    this.dict.getItems('sleep_status').subscribe(data => {
+      for (const item of data) {
+        this.sleep_status[item.mark] = item.title;
+        this.color_status[item.mark] = item.color;
+      }
     });
     this.org.getOrgs();
     this.getHouses();

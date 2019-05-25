@@ -61,7 +61,7 @@ import { VideoRecorderComponent } from './components/video-recorder/video-record
 import { GateFormComponent } from './components/gate/gate-form/gate-form.component';
 import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
 import { MenuAccessFormComponent } from './components/menu-access/menu-access-form/menu-access-form.component';
-import {MatButtonToggleModule} from '@angular/material';
+import {MatButtonToggleModule, MatChipsModule} from '@angular/material';
 import { FloorComponent } from './components/floor/floor.component';
 import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
@@ -149,7 +149,8 @@ import { LatecomerFormComponent } from './components/latecomer/latecomer-form/la
     HttpClientModule,
     TranslateModule.forRoot(),
     FormsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatChipsModule
   ],
   providers: [
   ],

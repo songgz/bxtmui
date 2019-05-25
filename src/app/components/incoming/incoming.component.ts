@@ -18,14 +18,18 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   moreserch = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
-  sleep_status: {};
+  sleep_status: any = {};
+  color_status: any = {};
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
-    this.dict.getItemMap('sleep_status').subscribe(data => {
-      this.sleep_status = data;
+    this.dict.getItems('sleep_status').subscribe(data => {
+      for (const item of data) {
+        this.sleep_status[item.mark] = item.title;
+        this.color_status[item.mark] = item.color;
+      }
     });
     this.org.getOrgs();
     this.dataSource = new MatTableDataSource([]);

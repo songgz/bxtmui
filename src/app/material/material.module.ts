@@ -23,7 +23,8 @@ import {
   MatSlideToggleModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatPaginatorIntl
+  MatPaginatorIntl,
+  MatChipsModule
 
 } from '@angular/material';
 import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
@@ -51,7 +52,8 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
     MatSnackBarModule,
     MatGridListModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule
   ],
   exports: [
     MatButtonModule,
@@ -75,7 +77,8 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
     MatSnackBarModule,
     MatGridListModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: MatPaginatorIntlChinese }
