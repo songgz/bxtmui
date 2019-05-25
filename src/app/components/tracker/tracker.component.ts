@@ -12,9 +12,10 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'sno', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
-  sleep_status: {};
+  sleep_status: any = {};
+  color_status: any = {};
   query: any = {};
   moreserch = false;
   houses: Observable<any[]>;
@@ -22,8 +23,11 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
-    this.dict.getItemMap('sleep_status').subscribe(data => {
-      this.sleep_status = data;
+    this.dict.getItems('sleep_status').subscribe(data => {
+      for (const item of data) {
+        this.sleep_status[item.mark] = item.title;
+        this.color_status[item.mark] = item.color;
+      }
     });
     this.org.getOrgs();
     this.getHouses();
