@@ -12,7 +12,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dept', 'dorm', 'access', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'sno', 'dept', 'dorm', 'pass_time', 'status', 'overtime'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   color_status: any = {};
