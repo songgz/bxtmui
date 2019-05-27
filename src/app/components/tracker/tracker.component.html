@@ -7,7 +7,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="出入楼栋"  [(value)]="query.facility_access_id" (selectionChange)="applyFilter()"  name="facility_access_id">
+    <mat-select placeholder="出入楼栋"  [(value)]="query.access_id" (selectionChange)="applyFilter()"  name="access_id">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>
