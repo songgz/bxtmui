@@ -34,8 +34,10 @@ export class AccessComponent implements OnInit, AfterViewInit {
       this.loadAccess();
     });
   }
-  loadAccess() {
-    this.rest.index('accesses', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadAccess(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('accesses', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -57,5 +59,8 @@ export class AccessComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+  applyFilter(filterValue: string) {
+    this.loadAccess({key: filterValue.trim()});
   }
 }

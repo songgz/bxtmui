@@ -20,17 +20,19 @@ export class WebcamComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.paginator.pageSize = 10;
     this.paginator.pageIndex = 0;
-    this.loadWebcam();
+    this.loadWebcams();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this.loadWebcam();
+      this.loadWebcams();
     });
   }
-  loadWebcam() {
-    this.rest.index('webcams', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
+  loadWebcams(options = {}) {
+    options['page'] = this.paginator.pageIndex + 1;
+    options['pre'] = this.paginator.pageSize;
+    this.rest.index('webcams', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
@@ -48,12 +50,16 @@ export class WebcamComponent implements OnInit, AfterViewInit {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('webcams/' + id).subscribe(data => {
-          this.loadWebcam();
+          this.loadWebcams();
         }, error => {
           this.rest.errorHandle(error);
         });
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.loadWebcams({key: filterValue.trim()});
   }
 
 }
