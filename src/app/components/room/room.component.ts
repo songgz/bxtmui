@@ -16,7 +16,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
 
   query: any = {};
   houses: Observable<any[]>;
-
+  floors: Observable<any[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -29,12 +29,13 @@ export class RoomComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0;
     this.loadRooms();
     this.getHouses();
+    this.getFloors();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(event => {
-      this. loadRooms();
+      this. loadRooms(this.query);
     });
   }
   loadRooms(options = {}) {
@@ -51,6 +52,11 @@ export class RoomComponent implements OnInit, AfterViewInit {
   }
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+  getFloors() {
+    this.rest.index('floors').subscribe((data: any) => {
+      this.floors = data.result;
+    });
   }
 
   applyFilter(filterValue: string = '') {

@@ -5,7 +5,7 @@
 <!--</div>-->
 <div class="searchbox">
   <mat-form-field>
-    <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" name="facility_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="楼栋" [(ngModel)]="query.parent_id" name="parent_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>
