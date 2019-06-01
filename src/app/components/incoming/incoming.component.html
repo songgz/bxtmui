@@ -34,13 +34,15 @@
   </mat-form-field>
 </div>
 <div class="searchbox">
+  <div class="status-style">
+    <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_statistics[s.key] || 0)}}</span>
+  </div>
   <span class="bxt-toolbar-spacer"></span>
-  <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'显示更多'}}</button>
+  <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'查找更多'}}</button>
 </div>
-
-<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center"  fxLayoutGap.lt.md="20px">
-<span *ngFor="let s of sleep_status | keyvalue">{{s.value + (status_statistics[s.key] || 0)}}</span>
-</div>
+<!--<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center"  fxLayoutGap.lt.md="20px">-->
+<!--<span *ngFor="let s of sleep_status | keyvalue">{{s.value + (status_statistics[s.key] || 0)}}</span>-->
+<!--</div>-->
 <mat-toolbar class="mat-elevation-z8">
   <span>出入管理</span>
   <span class="bxt-toolbar-spacer"></span>

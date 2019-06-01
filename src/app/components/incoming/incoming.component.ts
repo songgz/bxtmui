@@ -12,7 +12,8 @@ import {OrgService} from '../../services/org.service';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
+  // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {}
   moreserch = false;
