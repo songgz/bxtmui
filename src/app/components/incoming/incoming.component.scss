@@ -19,15 +19,10 @@ button+button{
   flex: 1 1 auto;
 }
 .searchbox{
-  display: flex;
-  align-items: center;
   overflow: hidden;
-}
-mat-form-field {
-  width: 100%;
 }
 .status-style{
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  align-items: center;
 }

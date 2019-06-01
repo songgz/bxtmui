@@ -1,12 +1,6 @@
 <div class="searchbox">
   <!--  查询-->
-  <mat-form-field >
-    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
-      <mat-option *ngFor="let org of org.orgs" [value]="org.id">
-        {{org.full_title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
   <mat-form-field>
     <mat-select placeholder="所属楼栋"  [(value)]="query.facility_id" (selectionChange)="applyFilter()"  name="facility_id">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
@@ -24,7 +18,14 @@
   <mat-form-field>
     <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名或学号">
   </mat-form-field>
-
+  <br [ngClass]="{ 'moreserch' : moreserch === false}">
+  <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
+    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let org of org.orgs" [value]="org.id">
+        {{org.full_title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}">
     <input matInput placeholder="超时（时）" [(ngModel)]="query.overtime" name="overtime" (keyup)="applyFilter()">
@@ -36,9 +37,8 @@
 <div class="searchbox">
   <div class="status-style">
     <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_statistics[s.key] || 0)}}</span>
+    <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'查找更多'}}</button>
   </div>
-  <span class="bxt-toolbar-spacer"></span>
-  <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'查找更多'}}</button>
 </div>
 <!--<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center"  fxLayoutGap.lt.md="20px">-->
 <!--<span *ngFor="let s of sleep_status | keyvalue">{{s.value + (status_statistics[s.key] || 0)}}</span>-->
