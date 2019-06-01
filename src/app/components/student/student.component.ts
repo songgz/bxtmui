@@ -13,6 +13,9 @@ import {environment} from '../../../environments/environment';
 export interface DialogData {
   dataid: string;
 }
+export interface ListDialogData {
+
+}
 
 @Component({
   selector: 'app-student',
@@ -22,12 +25,11 @@ export interface DialogData {
 export class StudentComponent implements OnInit, AfterViewInit {
   displayedColumns = ['select', 'name', 'sno', 'dept', 'bedroom', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  query: any = {}
+  query: any = {};
   moreserch  = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
   baseUrl: any;
-  imgsrc: any = '/assets/img/imghead.png';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -143,6 +145,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  openDialogList() {
+    this.dialog.open(ListDialogStudentComponent, {
+      width: '250px',
+      data: {}
+    });
+  }
+
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -189,5 +198,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
 })
 export class ImgDialogStudentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
+}
+@Component({
+  selector: 'app-student-listdialog',
+  templateUrl: './listdialog.html',
+})
+export class ListDialogStudentComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ListDialogData) {
   }
 }

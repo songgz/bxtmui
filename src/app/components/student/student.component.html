@@ -7,12 +7,12 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" name="facility_id" (selectionChange)="applyFilter()">
-      <mat-option *ngFor="let house of houses | async" [value]="house.id">
-        {{house.title}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" name="facility_id" (selectionChange)="applyFilter()">
+    <mat-option *ngFor="let house of houses | async" [value]="house.id">
+      {{house.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="输入名或学号">
@@ -22,6 +22,9 @@
 <mat-toolbar class="mat-elevation-z8">
   <span>学生管理</span>
   <span class="bxt-toolbar-spacer"></span>
+  <button mat-icon-button style="color: black" (click)="openDialogList()"  matTooltip="调寝">
+    <mat-icon class="mat-18">list</mat-icon>
+  </button>
   <button mat-icon-button style="color: black" [routerLink]="['/bxt/setdorms']"  matTooltip="调寝">
     <mat-icon class="mat-18">compare_arrows</mat-icon>
   </button>

@@ -29,7 +29,7 @@ import { HouseFormComponent } from './components/house/house-form/house-form.com
 import { HouseShowComponent } from './components/house/house-show/house-show.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomFormComponent } from './components/room/room-form/room-form.component';
-import { StudentComponent, ImgDialogStudentComponent } from './components/student/student.component';
+import { StudentComponent, ImgDialogStudentComponent, ListDialogStudentComponent } from './components/student/student.component';
 import { TeacherComponent, ImgDialogTeacherComponent } from './components/teacher/teacher.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
@@ -119,6 +119,7 @@ import { LatecomerFormComponent } from './components/latecomer/latecomer-form/la
     IncomingComponent,
     MenuAccessComponent,
     ImgDialogStudentComponent,
+    ListDialogStudentComponent,
     ImgDialogTeacherComponent,
     UpfileComponent,
     SetdormComponent,
@@ -136,6 +137,7 @@ import { LatecomerFormComponent } from './components/latecomer/latecomer-form/la
   ],
   entryComponents: [
     ImgDialogStudentComponent,
+    ListDialogStudentComponent,
     ImgDialogTeacherComponent,
     AlertDialogComponent,
     ConfirmDialogComponent
