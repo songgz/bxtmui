@@ -17,6 +17,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   query: any = {};
   houses: Observable<any[]>;
   floors: Observable<any[]>;
+  bed_stats: any = {};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -46,6 +47,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+      this.bed_stats = data.bed_stats;
     }, error => {
       this.rest.errorHandle(error);
     });

@@ -36,7 +36,7 @@
 </div>
 <div class="searchbox">
   <div class="status-style">
-    <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_statistics[s.key] || 0)}}</span>
+    <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_stats[s.key] || 0)}}</span>
     <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'查找更多'}}</button>
   </div>
 </div>

@@ -1,4 +1,5 @@
 <div class="mat-elevation-z8">
+  <div>总床数：{{bed_stats.total}} 入住数：{{bed_stats.owners}} 空床数： {{bed_stats.total - bed_stats.owners}}</div>
   <mat-form-field class="sethouse">
     <mat-select placeholder="楼栋" [(value)]="house.id" (selectionChange)="selectHouse()">
       <mat-option *ngFor="let house of houses" [value]="house.id">

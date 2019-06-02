@@ -21,7 +21,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   houses: Observable<any[]>;
   sleep_status: any = {};
   color_status: any = {};
-  status_statistics: any = {};
+  status_stats: any = {};
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,7 +61,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
       this.paginator.length = data.paginate_meta.total_count;
       this.paginator.pageSize = data.paginate_meta.current_per_page;
       this.paginator.pageIndex = data.paginate_meta.current_page - 1;
-      this.status_statistics = data.status_statistics;
+      this.status_stats = data.status_stats;
     }, error => {
       this.rest.errorHandle(error);
     });

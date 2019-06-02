@@ -13,7 +13,7 @@ export class AccommodationComponent implements OnInit {
   house: any = {id: null};
   rooms: any = {};
   floors: any[] = []
-
+  bed_stats: any = {};
 
   constructor(private rest: RestService) { }
 
@@ -40,6 +40,7 @@ export class AccommodationComponent implements OnInit {
   loadRooms() {
     this.rest.index('rooms', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
       this.rooms = data.result;
+      this.bed_stats = data.bed_stats;
       this.loadFloors();
     });
   }
