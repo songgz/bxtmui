@@ -11,8 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class GateLogComponent implements OnInit {
   displayedColumns = [ 'id', 'message', 'status'];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
 
   constructor() { }
 

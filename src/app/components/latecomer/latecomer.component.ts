@@ -16,12 +16,15 @@ import {Observable} from 'rxjs';
 export class LatecomerComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime', 'action' ];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   query: any = {};
   sleep_status: any = {};
   color_status: any = {};
   houses: Observable<any[]>;
+  pageIndex = 0;
+  pageSize = 10;
+  pageLength = 0;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
     this.dataSource = new MatTableDataSource([]);
@@ -36,16 +39,16 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.paginator.pageSize = 10;
-    this.paginator.pageIndex = 0;
     this.loadLatecomers();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator.page.subscribe(event => {
-      this.loadLatecomers(this.query);
-    });
+  }
+  paginate(event) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadLatecomers();
   }
   applyFilter() {
     this.loadLatecomers(this.query);
@@ -56,13 +59,13 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   loadLatecomers(options = {}) {
-    options['page'] = this.paginator.pageIndex + 1;
-    options['pre'] = this.paginator.pageSize;
+    options['page'] = this.pageIndex + 1;
+    options['pre'] = this.pageSize;
     this.rest.index('latecomers', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
-      this.paginator.length = data.paginate_meta.total_count;
-      this.paginator.pageSize = data.paginate_meta.current_per_page;
-      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+      this.pageLength = data.paginate_meta.total_count;
+      this.pageSize = data.paginate_meta.current_per_page;
+      this.pageIndex = data.paginate_meta.current_page - 1;
     });
   }
 

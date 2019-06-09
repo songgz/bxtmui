@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {forEach} from '@angular/router/src/utils/collection';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {UpfileComponent} from '../upfile/upfile.component';
 import {environment} from '../../../environments/environment';
@@ -20,11 +19,14 @@ export interface DialogData {
 export class TeacherComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'name', 'dept', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   teacher_ids: any[] = [];
   baseUrl: any;
   imgsrc: any = '/assets/img/imghead.png';
+  pageIndex = 0;
+  pageSize = 10;
+  pageLength = 0;
 
   constructor(private rest: RestService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
@@ -32,27 +34,26 @@ export class TeacherComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
-
-    this.paginator.pageSize = 10;
-    this.paginator.pageIndex = 0;
     this.loadTeachers();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator.page.subscribe(event => {
-      this.loadTeachers();
-    });
+  }
+  paginate(event) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadTeachers();
   }
 
   loadTeachers(options = {}) {
-    options['page'] = this.paginator.pageIndex + 1;
-    options['pre'] = this.paginator.pageSize;
+    options['page'] = this.pageIndex + 1;
+    options['pre'] = this.pageSize;
     this.rest.index('teachers', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
-      this.paginator.length = data.paginate_meta.total_count;
-      this.paginator.pageSize = data.paginate_meta.current_per_page;
-      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+      this.pageLength = data.paginate_meta.total_count;
+      this.pageSize = data.paginate_meta.current_per_page;
+      this.pageIndex = data.paginate_meta.current_page - 1;
     }, error => {
       this.rest.errorHandle(error);
     });

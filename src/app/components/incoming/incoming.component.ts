@@ -25,8 +25,11 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   color_status: any = {};
   status_stats: any = {};
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  pageIndex = 0;
+  pageSize = 10;
+  pageLength = 0;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
     this.dict.getItems('sleep_status').subscribe(data => {
@@ -42,27 +45,27 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator.page.subscribe(event => {
-      this.loadIncomings();
-    });
+  }
+  paginate(event) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadIncomings();
   }
 
   ngOnInit() {
-    this.paginator.pageSize = 10;
-    this.paginator.pageIndex = 0;
     this.loadIncomings();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
   }
 
   loadIncomings(options = {}) {
-    options['page'] = this.paginator.pageIndex + 1;
-    options['pre'] = this.paginator.pageSize;
+    options['page'] = this.pageIndex + 1;
+    options['pre'] = this.pageSize;
     this.rest.index('incomings', options).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
-      this.paginator.length = data.paginate_meta.total_count;
-      this.paginator.pageSize = data.paginate_meta.current_per_page;
-      this.paginator.pageIndex = data.paginate_meta.current_page - 1;
+      this.pageLength = data.paginate_meta.total_count;
+      this.pageSize = data.paginate_meta.current_per_page;
+      this.pageIndex = data.paginate_meta.current_page - 1;
       this.status_stats = data.status_stats;
     }, error => {
       this.rest.errorHandle(error);

@@ -4,7 +4,6 @@ import {RestService} from '../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-setdorm',
