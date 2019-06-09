@@ -14,19 +14,16 @@ import {environment} from '../../environments/environment';
 export class RestService {
   errorMsg: any;
 
-  httpOptions = {
-    // headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
   index (path: string, params = {}) {
-    return this.http.get(this.baseUrl + path + '.json', {params: params});
+    return this.http.get(this.baseUrl + path + '.json', {headers: this.getHttpOptions(), params: params});
   }
 
   create(path: string, body: any) {
-    return this.http.post(this.baseUrl + path + '.json', body);
+    return this.http.post(this.baseUrl + path + '.json', body, {headers: this.getHttpOptions()});
 
   }
 
@@ -60,6 +57,14 @@ export class RestService {
 
   confirm(msg: any) {
     return this.dialog.open(ConfirmDialogComponent, {data: msg});
+  }
+
+  getHttpOptions() {
+    const token = localStorage.getItem('access_token');
+    return {
+      // headers: new HttpHeaders({'Content-Type': 'application/json'})
+      'Authorization': 'Bearer ' + token
+    };
   }
 
 }

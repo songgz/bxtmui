@@ -1,35 +1,35 @@
 <div class="login-page">
   <div class="content">
     <!-- <h1 class="app-name">Sb Admin Material</h1> -->
-    <form class="login-form" fxFlex  >
+    <form class="login-form" fxFlex  #loginForm="ngForm" (ngSubmit)="onLogin()">
       <div class="text-center">
-        <h2 class="app-name">Sb Admin Material</h2>
+        <h2 class="app-name">北讯通公寓管理系统</h2>
       </div>
       <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
         <div fxFlexFill>
           <mat-form-field class="w-100">
-            <input matInput placeholder="Email">
+            <input matInput placeholder="登录名" [(ngModel)]="username" name="username">
           </mat-form-field>
         </div>
       </div>
       <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
         <div fxFlexFill>
           <mat-form-field class="w-100">
-            <input matInput type="password" placeholder="Password">
+            <input matInput type="password" placeholder="密码" [(ngModel)]="password" name="password">
           </mat-form-field>
         </div>
       </div>
       <div fxFlex  fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 30px 0">
         <div fxFlex>
-          <mat-checkbox color="primary">Remember Me</mat-checkbox>
+          <mat-checkbox color="primary">记住我</mat-checkbox>
         </div>
         <div fxFlex  fxLayoutAlign="end">
-          <a href="javascript:void(0)">Forget Password</a>
+          <a href="javascript:void(0)">忘记密码？</a>
         </div>
       </div>
       <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
         <div fxFlexFill>
-          <button mat-raised-button color="primary" class="w-100" (click)="onLogin()">Login</button>
+          <button mat-raised-button color="primary" class="w-100" [disabled]="loginForm.pristine || loginForm.invalid">登录</button>
         </div>
       </div>
 

@@ -68,7 +68,7 @@ import { FigurecardComponent } from './components/figurecard/figurecard.componen
 import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import { ExchangesComponent } from './components/exchanges/exchanges.component';
 import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
-
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -152,7 +152,15 @@ import { LatecomerFormComponent } from './components/latecomer/latecomer-form/la
     TranslateModule.forRoot(),
     FormsModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function  tokenGetter() {
+          return     localStorage.getItem('access_token'); },
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['http://localhost:3000/sessions']
+      }
+    })
   ],
   providers: [
   ],

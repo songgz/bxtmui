@@ -52,12 +52,14 @@ import {FloorFormComponent} from './components/floor/floor-form/floor-form.compo
 import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import {ExchangesComponent} from './components/exchanges/exchanges.component';
 import {LatecomerFormComponent} from './components/latecomer/latecomer-form/latecomer-form.component';
+import {AuthGuardService} from './services/auth-guard.service';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'login/:username/:password', component: LoginComponent},
   {path: 'bxt', component: MasterComponent, children: [
       {path: '', component: DashboardComponent},
-      {path: 'colleges', component: CollegeComponent},
+      {path: 'colleges', component: CollegeComponent, canActivate: [AuthGuardService]},
       {path: 'colleges/:id/edit', component: CollegeFormComponent},
       {path: 'colleges/new', component: CollegeFormComponent},
       {path: 'departments', component: DepartmentComponent},
