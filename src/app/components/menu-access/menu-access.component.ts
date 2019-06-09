@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';

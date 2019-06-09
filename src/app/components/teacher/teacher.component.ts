@@ -1,9 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Inject, NgModule} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
-import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {forEach} from '@angular/router/src/utils/collection';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {UpfileComponent} from '../upfile/upfile.component';
 import {environment} from '../../../environments/environment';
 

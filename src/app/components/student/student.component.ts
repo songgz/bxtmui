@@ -1,7 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';

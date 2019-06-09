@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../services/rest.service';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-accommodation',

@@ -1,4 +1,4 @@
-import {MatPaginatorIntl} from '@angular/material';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 export class MatPaginatorIntlChinese extends MatPaginatorIntl  {
   /** A label for the page size selector. */

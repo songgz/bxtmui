@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {AlertDialogComponent} from '../components/message-dialog/alert-dialog.component';
 import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
 import {environment} from '../../environments/environment';
