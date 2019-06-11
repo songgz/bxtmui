@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
-      console.log(params.get('username'));
       this.username = params.get('username');
       this.password = params.get('password');
       if ( this.username != null && this.password != null) {
