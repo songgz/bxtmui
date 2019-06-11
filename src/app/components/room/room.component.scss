@@ -1,3 +1,4 @@
+$var : 0;
 table {
   width: 100%;
 }
@@ -13,4 +14,19 @@ table {
   display: flex;
   align-items: center;
   overflow: hidden;
+}
+.status-style{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5px 0;
+}
+.status-style>div:first-of-type{
+  color: royalblue;
+}
+.status-style>div:nth-of-type(2){
+  color: orangered;
+}
+.status-style>div:last-of-type{
+  color: gray;
 }

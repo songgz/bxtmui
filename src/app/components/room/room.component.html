@@ -12,7 +12,9 @@
     </mat-select>
   </mat-form-field>
 </div>
-<div>总床数：{{bed_stats.total}} 入住数：{{bed_stats.owners}} 空床数： {{bed_stats.total - bed_stats.owners}}</div>
+<div class="status-style" >
+  <div>总床数：{{bed_stats.total}} </div><div>入住数：{{bed_stats.owners}} </div><div>空床数： {{bed_stats.total - bed_stats.owners}}</div>
+</div>
 <mat-toolbar class="mat-elevation-z8">
   <span>房间管理</span>
   <span class="bxt-toolbar-spacer"></span>

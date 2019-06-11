@@ -44,6 +44,7 @@ export class StudentFormComponent implements OnInit {
     this.getRoles();
     this.getFloors();
   }
+
   getGroups() {
     this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
   }
