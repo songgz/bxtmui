@@ -3,7 +3,7 @@
 
   <mat-form-field>
     <mat-select placeholder="所属楼栋"  [(value)]="query.facility_id" (selectionChange)="applyFilter()"  name="facility_id">
-      <mat-option>（空）</mat-option>
+      <mat-option value="">（全部）</mat-option>
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>
@@ -11,7 +11,7 @@
   </mat-form-field>
   <mat-form-field>
     <mat-select placeholder="状态"  [(value)]="query.status" (selectionChange)="applyFilter()"  name="status">
-      <mat-option>（空）</mat-option>
+      <mat-option value="">（全部）</mat-option>
       <mat-option *ngFor="let status of sleep_status | keyvalue" [value]="status.key">
         {{status.value}}
       </mat-option>
@@ -23,7 +23,7 @@
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}" style="width: 540px">
     <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
-      <mat-option>（空）</mat-option>
+      <mat-option value="">（全部）</mat-option>
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
         {{org.full_title}}
       </mat-option>

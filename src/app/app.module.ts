@@ -157,9 +157,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     JwtModule.forRoot({
       config: {
         tokenGetter: function  tokenGetter() {
-          return     localStorage.getItem('access_token'); },
-        whitelistedDomains: ['localhost:3000'],
-        blacklistedRoutes: ['http://localhost:3000/sessions']
+          return     localStorage.getItem('access_token'); }
       }
     })
   ],
