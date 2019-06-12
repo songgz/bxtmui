@@ -7,6 +7,8 @@ import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {map} from 'rxjs/operators';
 import {OrgService} from '../../services/org.service';
+import {DialogData, ImgDialogStudentComponent} from "../student/student.component";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-incoming',
@@ -15,7 +17,7 @@ import {OrgService} from '../../services/org.service';
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
   // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
-  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
+  displayedColumns = [ 'snap', 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {}
   moreserch = false;
@@ -24,14 +26,14 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   sleep_status: any = {};
   color_status: any = {};
   status_stats: any = {};
-
+  baseUrl: any;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog,) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -87,5 +89,12 @@ export class IncomingComponent implements OnInit, AfterViewInit {
       this.moreserch = false;
     }
   }
-
+  openDialog(id: string) {
+    console.log(id)
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: id
+      }
+    });
+  }
 }

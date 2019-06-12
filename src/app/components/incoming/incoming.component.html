@@ -54,6 +54,15 @@
 </mat-toolbar>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="snap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 抓拍 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+          <!--          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">-->
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog('https://www.baidu.com/img/bd_logo1.png')" [src]="'https://www.baidu.com/img/bd_logo1.png'">
+        </div>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
@@ -78,6 +87,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 状态 </th>
       <td mat-cell *matCellDef="let row" [style.color]="color_status[row.status_at_last]"> {{ sleep_status[row.status_at_last] }} </td>
     </ng-container>
+
     <ng-container matColumnDef="overtime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 超时(时) </th>
       <td mat-cell *matCellDef="let row"> {{row.overtime_at_last}} </td>
