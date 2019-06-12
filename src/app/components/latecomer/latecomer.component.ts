@@ -7,6 +7,7 @@ import {DictService} from '../../services/dict.service';
 import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {ExcelService} from '../../services/excel.service';
 
 @Component({
   selector: 'app-latecomer',
@@ -26,7 +27,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
@@ -69,8 +70,12 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public update (id: string)  {
+  update (id: string)  {
     this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
+  }
+
+  export_excel() {
+    this.excel.to_excel();
   }
 
 }
