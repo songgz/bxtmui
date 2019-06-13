@@ -75,7 +75,18 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   export_excel() {
-    this.excel.to_excel();
+    // this.excel.to_excel();
+    const tempData:any = document.getElementById('export_excel').getElementsByTagName( 'tr');
+    for (let item of tempData) {
+      item.cells[0].remove();
+      // console.log(item)
+    }
+    // console.log(tempData);
+    const blob:any = new Blob([ document.getElementById('export_excel').innerHTML ], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+    });
+    saveAs(blob, '数据表.xls');
+    this.loadLatecomers(this.query);
   }
 
 }
