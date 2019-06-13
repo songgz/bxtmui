@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 import {OrgService} from '../../services/org.service';
 import {DialogData, ImgDialogStudentComponent} from "../student/student.component";
 import { MatDialog } from '@angular/material/dialog';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-incoming',
@@ -51,7 +52,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadIncomings();
+    this.loadIncomings(this.query);
   }
 
   ngOnInit() {
@@ -96,5 +97,21 @@ export class IncomingComponent implements OnInit, AfterViewInit {
         dataid: id
       }
     });
+  }
+  export_excel() {
+    // const file = new File([document.getElementById('export_excel').innerHTML], "数据表.xls", {type: "text/plain;charset=utf-8"});
+    // alert(file);
+    // saveAs(file);
+    const tempData:any = document.getElementById('export_excel').getElementsByTagName( 'tr');
+    for (let item of tempData) {
+      item.cells[0].remove();
+      // console.log(item)
+    }
+    // console.log(tempData);
+    const blob:any = new Blob([ document.getElementById('export_excel').innerHTML ], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+    });
+    saveAs(blob, '数据表.xls');
+    this.loadIncomings(this.query);
   }
 }
