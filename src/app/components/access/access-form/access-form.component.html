@@ -18,6 +18,9 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
+        <input matInput placeholder="关寝"  [(ngModel)]="access.closing_at" name="closing_at" >
+      </mat-form-field>
+      <mat-form-field>
         <mat-select placeholder="楼栋" [(ngModel)]="access.parent_id" name="parent_id">
           <mat-option *ngFor="let house of houses" [value]="house.id" >
             {{house.title}}
