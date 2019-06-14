@@ -75,14 +75,21 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   export_excel() {
-
     this.query['pre'] = 99999
     this.rest.index('latecomers', this.query).subscribe((data: any) => {
-      this.excel.to_excel({user_name: '姓名', user_sno: '学号', user_dorm_title: '公寓', user_dept_title: '组织', pass_time: '时间',  status: '状态', overtime: '超时'}, data);
-    });    
-
-   
-
+      this.excel.to_excel({
+        user_name: '姓名',
+        user_sno: '学号',
+        user_dorm_title: '公寓',
+        user_dept_title: '组织',
+        pass_time: '时间',
+        status: '状态',
+        overtime: '超时'},
+        data.result, (k: string, d: any) => {
+          if (k === 'status') { return this.sleep_status[d[k]]; }
+          return d[k];
+        });
+    });
   }
 
 }
