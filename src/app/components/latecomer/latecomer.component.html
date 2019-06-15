@@ -23,6 +23,16 @@
   <mat-form-field>
     <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名">
   </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (keyup)="applyFilter()" placeholder="开始日期">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="query.end_at" (keyup)="applyFilter()" placeholder="结束日期">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
 </div>
 <mat-toolbar class="mat-elevation-z8">
   <span>出入异常</span>

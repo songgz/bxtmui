@@ -86,6 +86,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
         status: '状态',
         overtime: '超时'},
         data.result, (k: string, d: any) => {
+          // if (k === 'pass_time') {return new Date(d[k]).toLocaleString(); }
           if (k === 'status') { return this.sleep_status[d[k]]; }
           return d[k];
         });
