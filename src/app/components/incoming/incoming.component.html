@@ -17,8 +17,16 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
   <mat-form-field>
     <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名或学号">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="date" (keyup)="applyFilter()" [(value)]="query.startdata" placeholder="输入开始时间" >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="date" (keyup)="applyFilter()" [(value)]="query.enddata" placeholder="请输入结束时间" >
   </mat-form-field>
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}" style="width: 540px">
