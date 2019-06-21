@@ -23,10 +23,14 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="date" (keyup)="applyFilter()" [(value)]="query.startdata" placeholder="输入开始时间" >
+    <input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (keyup)="applyFilter()" placeholder="开始日期">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="date" (keyup)="applyFilter()" [(value)]="query.enddata" placeholder="请输入结束时间" >
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="query.end_at" (keyup)="applyFilter()" placeholder="结束日期">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
   </mat-form-field>
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}" style="width: 540px">
@@ -45,7 +49,7 @@
     <input matInput placeholder="驻留（天）" [(ngModel)]="query.reside" name="reside" (keyup)="applyFilter()">
   </mat-form-field>
 
-  <button mat-flat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'隐藏更多':'查找更多'}}</button>
+  <button mat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'':''}}</button>
 
 </div>
 <div class="searchbox">

@@ -65,7 +65,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadStudents();
+    this.loadStudents(this.query);
   }
 
   loadStudents(options = {}) {
@@ -143,6 +143,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
 
   openDialog(id: string) {
     this.dialog.open(ImgDialogStudentComponent, {

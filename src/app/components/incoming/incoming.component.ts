@@ -36,7 +36,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog,) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -114,7 +114,5 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     saveAs(blob, '数据表.xls');
     this.loadIncomings(this.query);
   }
-  conlg( val: any) {
-      console.log(val)
-  }
+
 }
