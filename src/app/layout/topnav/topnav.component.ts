@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
+import {MatDialog} from '@angular/material';
+import {PasswordDialogComponent} from '../../components/password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-topnav',
@@ -9,7 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class TopnavComponent implements OnInit {
   public pushRightClass: string;
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private dialog: MatDialog) {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
         this.toggleSidebar();
@@ -37,5 +40,12 @@ export class TopnavComponent implements OnInit {
   }
 
   changeLang(language: string) {
+  }
+
+  modify_password() {
+    // msgDialog({title: data.status}).afterClosed().subscribe(result => {});
+    this.dialog.open(PasswordDialogComponent, {data: {}}).afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

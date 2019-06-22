@@ -70,6 +70,7 @@ import { VideoRecorderFormComponent } from './components/video-recorder/video-re
 import { ExchangesComponent } from './components/exchanges/exchanges.component';
 import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -134,14 +135,16 @@ import { JwtModule } from '@auth0/angular-jwt';
     FigurecardComponent,
     VideoRecorderFormComponent,
     ExchangesComponent,
-    LatecomerFormComponent
+    LatecomerFormComponent,
+    PasswordDialogComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,
     ListDialogStudentComponent,
     ImgDialogTeacherComponent,
     AlertDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PasswordDialogComponent
   ],
   imports: [
     BrowserModule,
