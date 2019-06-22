@@ -20,7 +20,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   displayedColumns = [ 'snap', 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
-  query: any = {}
+  query: any = {};
   moreserch = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
@@ -28,13 +28,15 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   color_status: any = {};
   status_stats: any = {};
   baseUrl: any;
+  enddata: any;
+  startdata: any;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog,) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -105,13 +107,12 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     const tempData:any = document.getElementById('export_excel').getElementsByTagName( 'tr');
     for (let item of tempData) {
       item.cells[0].remove();
-      // console.log(item)
     }
-    // console.log(tempData);
     const blob:any = new Blob([ document.getElementById('export_excel').innerHTML ], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
     });
     saveAs(blob, '数据表.xls');
     this.loadIncomings(this.query);
   }
+
 }

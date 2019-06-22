@@ -91,6 +91,11 @@ export class StudentFormComponent implements OnInit {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
       this.getRooms();
+      this.inspection();
+    });
+  }
+  inspection() {
+    this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       // 判断图片是否存在
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
@@ -100,6 +105,9 @@ export class StudentFormComponent implements OnInit {
         this.imgsrc = '/assets/img/imghead.png';
       }
     });
+  }
+  ngAfterViewInit() {
+    this.inspection();
   }
 
   update(f: NgForm) {

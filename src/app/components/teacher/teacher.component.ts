@@ -23,6 +23,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   teacher_ids: any[] = [];
   baseUrl: any;
+  query: any = {};
   imgsrc: any = '/assets/img/imghead.png';
   pageIndex = 0;
   pageSize = 10;
@@ -43,7 +44,7 @@ export class TeacherComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadTeachers();
+    this.loadTeachers(this.query);
   }
 
   loadTeachers(options = {}) {
