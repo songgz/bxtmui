@@ -9,7 +9,9 @@ import {map} from 'rxjs/operators';
 import {OrgService} from '../../services/org.service';
 import {DialogData, ImgDialogStudentComponent} from "../student/student.component";
 import { MatDialog } from '@angular/material/dialog';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
+import { SheetService} from "../../services/excel.service";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-incoming',
@@ -18,7 +20,7 @@ import { saveAs } from 'file-saver';
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
   // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
-  displayedColumns = [ 'snap', 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside', 'snap'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
@@ -36,7 +38,13 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService,  public dialog: MatDialog) {
+  constructor(
+    private rest: RestService,
+    private  dict: DictService,
+    private org: OrgService,
+    public dialog: MatDialog,
+    private sheetService: SheetService,
+    private _snackBar: MatSnackBar) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -93,26 +101,79 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     }
   }
   openDialog(id: string) {
-    console.log(id)
+    // console.log(id)
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
         dataid: id
       }
     });
   }
+  // export_excel() {
+  //   // const file = new File([document.getElementById('export_excel').innerHTML], "数据表.xls", {type: "text/plain;charset=utf-8"});
+  //   // alert(file);
+  //   // saveAs(file);
+  //   const tempData:any = document.getElementById('export_excel').getElementsByTagName( 'tr');
+  //   for (let item of tempData) {
+  //     item.cells[0].remove();
+  //   }
+  //   const blob:any = new Blob([ document.getElementById('export_excel').innerHTML ], {
+  //     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+  //   });
+  //   saveAs(blob, '数据表.xls');
+  //   this.loadIncomings(this.query);
+  // }
+  // export_excel() {
+  //   this.query['pre'] = 99999;
+  //   this.rest.index('incomings', this.query).subscribe((data: any) => {
+  //     this.excel.to_excel(
+  //       {
+  //         user_name: '姓名',
+  //         user_sno: '学号',
+  //         user_dorm_title: '公寓',
+  //         user_dept_title: '组织',
+  //         pass_time: '时间',
+  //         status: '状态',
+  //         overtime: '超时'},
+  //       data.result ,
+  //       (k: string, d: any) => {
+  //         // if (k === 'pass_time') {return new Date(d[k]).toLocaleString(); }
+  //         if (k === 'status') { return this.status_stats[d[k]]; }
+  //         return d[k];
+  //       });
+  //
+  //   });
+  // }
   export_excel() {
-    // const file = new File([document.getElementById('export_excel').innerHTML], "数据表.xls", {type: "text/plain;charset=utf-8"});
-    // alert(file);
-    // saveAs(file);
-    const tempData:any = document.getElementById('export_excel').getElementsByTagName( 'tr');
-    for (let item of tempData) {
-      item.cells[0].remove();
-    }
-    const blob:any = new Blob([ document.getElementById('export_excel').innerHTML ], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-    });
-    saveAs(blob, '数据表.xls');
-    this.loadIncomings(this.query);
-  }
+    if( !this.query.facility_id ) {
+      this._snackBar.open('请选择楼栋', '', {
+          duration: 2000,
+      });
+    } else {
+      this.query['pre'] = 9;
+      this.rest.index('incomings', this.query).subscribe((data: any) => {
+       const json = data.result.map( function (item) {
+         if (item.status_at_last == 'back_late'){
+           item.status_at_last = '晚归';
+         }else if (item.status_at_last == 'back'){
+           item.status_at_last = '已归';
+         }else if (item.status_at_last == 'night_out'){
+           item.status_at_last = '夜出';
+         }else if (item.status_at_last == 'go_out'){
+           item.status_at_last = '未归';
+         }else  item.status_at_last = '异常';
+         item.pass_time_at_last = new Date(item.pass_time_at_last).toLocaleString();
+         return {
+           '姓名':item.name,
+           '学号':item.sno,
+           '状态':item.status_at_last,
+           '寝室':item.dorm_full_title,
+           '时间':item.pass_time_at_last
+         }
+        });
+        // console.log(json);
 
+        this.sheetService.jsontToSheet(json,  'sheet1' + Date.parse(new Date().toString()) + '.xlsx');
+      });
+    }
+  }
 }
