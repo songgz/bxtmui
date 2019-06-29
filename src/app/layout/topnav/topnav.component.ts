@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material';
 import {PasswordDialogComponent} from '../../components/password-dialog/password-dialog.component';
+import {JwtAuthService} from '../../services/jwt-auth.service';
 
 @Component({
   selector: 'app-topnav',
@@ -12,7 +12,7 @@ import {PasswordDialogComponent} from '../../components/password-dialog/password
 export class TopnavComponent implements OnInit {
   public pushRightClass: string;
 
-  constructor(public router: Router, private dialog: MatDialog) {
+  constructor(public router: Router, private dialog: MatDialog, private auth: JwtAuthService) {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
         this.toggleSidebar();
@@ -35,8 +35,13 @@ export class TopnavComponent implements OnInit {
   }
 
   onLoggedout() {
-    localStorage.removeItem('access_token');
+    this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  refresh() {
+    console.log('ss');
+    this.auth.refresh();
   }
 
   changeLang(language: string) {

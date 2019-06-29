@@ -24,7 +24,7 @@
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #profile="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="refresh()">
       <mat-icon>person</mat-icon>
       <span>{{ 'Profile' }}</span>
     </button>

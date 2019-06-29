@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 
@@ -69,8 +69,8 @@ import { FigurecardComponent } from './components/figurecard/figurecard.componen
 import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import { ExchangesComponent } from './components/exchanges/exchanges.component';
 import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
-import { JwtModule } from '@auth0/angular-jwt';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
+import {JwtInterceptor} from './interceptors/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -156,15 +156,14 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
     TranslateModule.forRoot(),
     FormsModule,
     MatButtonToggleModule,
-    MatChipsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: function  tokenGetter() {
-          return     localStorage.getItem('access_token'); }
-      }
-    })
+    MatChipsModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

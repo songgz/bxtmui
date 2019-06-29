@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import {AlertDialogComponent} from '../components/message-dialog/alert-dialog.component';
 import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
@@ -17,6 +15,10 @@ export class RestService {
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
+
+  refresh(path: string, options: {}) {
+    return this.http.post(this.baseUrl + path + '.json', {}, {headers: options});
+  }
 
   index (path: string, params = {}) {
     return this.http.get(this.baseUrl + path + '.json', {headers: this.getHttpOptions(), params: params});
@@ -60,10 +62,10 @@ export class RestService {
   }
 
   getHttpOptions() {
-    const token = localStorage.getItem('access_token');
+    // const token = localStorage.getItem('access_token');
     return {
       // headers: new HttpHeaders({'Content-Type': 'application/json'})
-      'Authorization': 'Bearer ' + token
+      // 'Authorization': 'Bearer ' + token
     };
   }
 

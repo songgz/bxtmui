@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {JwtService} from '../services/jwt.service';
+import {JwtAuthService} from '../services/jwt-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
 
-  constructor(private router: Router, private jwt: JwtService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private jwt: JwtAuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
