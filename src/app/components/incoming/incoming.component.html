@@ -69,15 +69,7 @@
 </mat-toolbar>
 <div class="mat-elevation-z8" id="export_excel">
   <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="snap">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 抓拍 </th>
-      <td mat-cell *matCellDef="let row">
-        <div class="picbox">
-          <!--          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">-->
-          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog('https://www.baidu.com/img/bd_logo1.png')" [src]="'https://www.baidu.com/img/bd_logo1.png'">
-        </div>
-      </td>
-    </ng-container>
+
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
@@ -110,6 +102,16 @@
     <ng-container matColumnDef="reside">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 驻留(天)</th>
       <td mat-cell *matCellDef="let row"> {{row.reside}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="snap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 抓拍 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+          <!--          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">-->
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog('https://www.baidu.com/img/bd_logo1.png')" [src]="'https://www.baidu.com/img/bd_logo1.png'">
+        </div>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
