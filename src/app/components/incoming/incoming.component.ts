@@ -11,6 +11,10 @@ import { MatDialog } from '@angular/material/dialog';
 import {ExcelService} from '../../services/excel.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ImgDialogStudentComponent} from '../student/student.component';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
+import {ExcelFileService} from '../../services/excel-file.service';
+import {forkJoin} from 'rxjs/internal/observable/forkJoin';
 
 @Component({
   selector: 'app-incoming',
@@ -36,6 +40,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  file: ExcelFileService = null;
 
   constructor(
     private rest: RestService,
@@ -108,33 +113,27 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadPage(page = 0) {
-    this.rest.index('incomings', this.query).subscribe((data: any) => {
-
-    });
-  }
-
-  export_excel() {
-    this.query['pre'] = 99999;
-    this.rest.index('incomings', this.query).subscribe((data: any) => {
-      this.excel.to_excel(
-        {
-          name: '姓名',
-          sno: '学号',
-          dorm_full_title: '公寓',
-          dept_full_title: '组织',
-          pass_time_at_last: '时间',
-          status_at_last: '状态',
-          overtime_at_last: '超时',
-          reside: '驻留'
-        },
-        data.result ,
-        (k: string, d: any) => {
-          // if (k === 'pass_time') {return new Date(d[k]).toLocaleString(); }
-          if (k === 'status_at_last') { return this.sleep_status[d[k]]; }
-          return d[k];
-        });
-
-    });
+  async export_excel() {
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '驻留']);
+    this.query['pre'] = 100;
+    const len = this.pageLength / 100 ;
+    for (let i = 0; i <= len; i++ ) {
+      this.query['page'] = i + 1;
+      const data1: any = await this.rest.index('incomings', this.query).toPromise();
+      console.log(data1);
+      data1.result.forEach(d => {
+        this.file.addRow([
+          d.name,
+          d.sno,
+          d.dorm_full_title,
+          d.dept_full_title,
+          new Date(d.pass_time_at_last).toLocaleString(),
+          this.sleep_status[d.status_at_last],
+          d.overtime_at_last,
+          d.reside
+        ]);
+      });
+    }
+    this.file.save('sheet1');
   }
 }
