@@ -71,6 +71,7 @@ import { ExchangesComponent } from './components/exchanges/exchanges.component';
 import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import {JwtInterceptor} from './interceptors/jwt-interceptor';
+import { FaceComponent } from './components/face/face.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import {JwtInterceptor} from './interceptors/jwt-interceptor';
     VideoRecorderFormComponent,
     ExchangesComponent,
     LatecomerFormComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    FaceComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,
