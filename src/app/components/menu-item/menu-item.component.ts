@@ -29,6 +29,12 @@ export class MenuItemComponent implements OnInit {
   loadMenuItems() {
     this.rest.index('menu_items').subscribe((data: any) => {
       this.dataSource = data;
+      let newData = data;
+      for (let item of newData) {
+        console.log(item)
+
+
+      }
     });
   }
 

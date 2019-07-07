@@ -57,6 +57,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     options['page'] = this.pageIndex + 1;
     options['pre'] = this.pageSize;
     this.rest.index('trackers', options).subscribe((data: any) => {
+      console.log(data);
       this.dataSource = new MatTableDataSource(data.result);
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;

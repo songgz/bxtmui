@@ -1,24 +1,12 @@
 table {
   width: 100%;
 }
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
 .bxt-toolbar-spacer {
   flex: 1 1 auto;
 }
-
 .searchbox{
-  display: flex;
-  //box-sizing: border-box;
-  //padding: 0 16px;
-  //width: 100%;
-  //flex-direction: row;
-  align-items: center;
-  //flex-wrap: wrap;
-  //white-space: nowrap;
-  //float: right;
   overflow: hidden;
+  box-shadow: 0 0 5px gray;
+  padding: 10px;
+  margin: 10px 0;
 }

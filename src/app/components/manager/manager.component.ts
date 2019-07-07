@@ -3,7 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
-
+import { ImgDialogStudentComponent} from "../student/student.component";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manager',
@@ -20,7 +21,7 @@ export class ManagerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -65,7 +66,12 @@ export class ManagerComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  openimg (id: string) {
-    alert( id );
+  openDialog(id: string) {
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: id
+      }
+    });
   }
 }
+

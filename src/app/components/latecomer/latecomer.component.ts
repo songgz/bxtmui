@@ -7,8 +7,9 @@ import {DictService} from '../../services/dict.service';
 import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+// import {SheetService} from "../../services/excel.service";
 import {ExcelService} from '../../services/excel.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-latecomer',
   templateUrl: './latecomer.component.html',
@@ -27,7 +28,8 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService,
+              private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
@@ -92,5 +94,37 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
         });
     });
   }
-
+  // export_excel() {
+  //   if( !this.query.facility_id ) {
+  //     this._snackBar.open('请选择楼栋', '', {
+  //       duration: 2000,
+  //     });
+  //   } else {
+  //     this.query['pre'] = 9;
+  //     this.rest.index('incomings', this.query).subscribe((data: any) => {
+  //       const json = data.result.map( function (item) {
+  //         if (item.status_at_last == 'back_late'){
+  //           item.status_at_last = '晚归';
+  //         }else if (item.status_at_last == 'back'){
+  //           item.status_at_last = '已归';
+  //         }else if (item.status_at_last == 'night_out'){
+  //           item.status_at_last = '夜出';
+  //         }else if (item.status_at_last == 'go_out'){
+  //           item.status_at_last = '未归';
+  //         }else  item.status_at_last = '异常';
+  //         item.pass_time_at_last = new Date(item.pass_time_at_last).toLocaleString();
+  //         return {
+  //           '姓名':item.name,
+  //           '学号':item.sno,
+  //           '状态':item.status_at_last,
+  //           '寝室':item.dorm_full_title,
+  //           '时间':item.pass_time_at_last
+  //         }
+  //       });
+  //       // console.log(json);
+  //
+  //       this.sheetService.jsontToSheet(json,  'sheet1' + Date.parse(new Date().toString()) + '.xlsx');
+  //     });
+  //   }
+  // }
 }
