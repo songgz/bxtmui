@@ -23,7 +23,7 @@ import {forkJoin} from 'rxjs/internal/observable/forkJoin';
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
   // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
-  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside', 'snap'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
@@ -41,6 +41,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
   file: ExcelFileService = null;
+  progressbar = 0;
 
   constructor(
     private rest: RestService,
@@ -104,16 +105,29 @@ export class IncomingComponent implements OnInit, AfterViewInit {
       this.moreserch = false;
     }
   }
-  openDialog(id: string) {
-    // console.log(id)
-    this.dialog.open(ImgDialogStudentComponent, {
-      data: {
-        dataid: id
-      }
-    });
+
+  //判断查询条件有没有选择楼栋和日期
+  screenData (){
+    if (this.query.facility_id == null){
+        this._snackBar.open('请选择楼栋', '', {
+          duration: 2000,
+        });
+    }else if (this.query.start_at == null){
+      this._snackBar.open('请选择开始时间', '', {
+        duration: 2000,
+      });
+    }else if (this.query.end_at == null){
+      this._snackBar.open('请选择结束时间', '', {
+        duration: 2000,
+      });
+    }else {
+      this.export_excel();
+    }
+
   }
 
   async export_excel() {
+    this.progressbar = 1;
     this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '驻留']);
     this.query['pre'] = 100;
     const len = this.pageLength / 100 ;
@@ -132,6 +146,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
           d.reside
         ]);
       });
+      this.progressbar = (i+1)/len * 100;
     }
     this.file.save('sheet1');
   }

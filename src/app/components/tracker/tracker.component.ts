@@ -7,6 +7,8 @@ import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
 import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
+import {ImgDialogStudentComponent} from "../student/student.component";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tracker',
@@ -14,7 +16,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dept', 'dorm', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime','snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   color_status: any = {};
@@ -26,8 +28,9 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  baseUrl: any;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, public dialog: MatDialog) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -73,6 +76,14 @@ export class TrackerComponent implements OnInit, AfterViewInit {
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+  openDialog(id: string) {
+    // console.log(id)
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: id
+      }
+    });
   }
 
 }

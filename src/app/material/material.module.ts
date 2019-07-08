@@ -24,6 +24,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -49,7 +51,9 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -74,7 +78,9 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: MatPaginatorIntlChinese }

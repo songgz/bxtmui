@@ -29,6 +29,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
   file: ExcelFileService = null;
+  progressbar: number;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService,
               private _snackBar: MatSnackBar) {
@@ -79,6 +80,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   async export_excel() {
+    this.progressbar = 1;
     this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '确认']);
     this.query['pre'] = 100;
     const len = this.pageLength / 100 ;
@@ -97,6 +99,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
           d.confirmed
         ]);
       });
+      this.progressbar = (i+1)/len * 100;
     }
     this.file.save('sheet1');
   }
