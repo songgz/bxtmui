@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 // import {SheetService} from "../../services/excel.service";
 import {ExcelService} from '../../services/excel.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ExcelFileService} from "../../services/excel-file.service";
 @Component({
   selector: 'app-latecomer',
   templateUrl: './latecomer.component.html',
@@ -27,6 +28,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  file: ExcelFileService = null;
 
   constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService,
               private _snackBar: MatSnackBar) {
@@ -76,55 +78,26 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
   }
 
-  export_excel() {
-    this.query['pre'] = 99999
-    this.rest.index('latecomers', this.query).subscribe((data: any) => {
-      this.excel.to_excel({
-        user_name: '姓名',
-        user_sno: '学号',
-        user_dorm_title: '公寓',
-        user_dept_title: '组织',
-        pass_time: '时间',
-        status: '状态',
-        overtime: '超时'},
-        data.result, (k: string, d: any) => {
-          // if (k === 'pass_time') {return new Date(d[k]).toLocaleString(); }
-          if (k === 'status') { return this.sleep_status[d[k]]; }
-          return d[k];
-        });
-    });
+  async export_excel() {
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '确认']);
+    this.query['pre'] = 100;
+    const len = this.pageLength / 100 ;
+    for (let i = 0; i <= len; i++ ) {
+      this.query['page'] = i + 1;
+      const data1: any = await this.rest.index('latecomers', this.query).toPromise();
+      data1.result.forEach(d => {
+        this.file.addRow([
+          d.user_name,
+          d.user_sno,
+          d.user_dorm_title,
+          d.user_dept_title,
+          new Date(d.pass_time).toLocaleString(),
+          this.sleep_status[d.status],
+          d.overtime,
+          d.confirmed
+        ]);
+      });
+    }
+    this.file.save('sheet1');
   }
-  // export_excel() {
-  //   if( !this.query.facility_id ) {
-  //     this._snackBar.open('请选择楼栋', '', {
-  //       duration: 2000,
-  //     });
-  //   } else {
-  //     this.query['pre'] = 9;
-  //     this.rest.index('incomings', this.query).subscribe((data: any) => {
-  //       const json = data.result.map( function (item) {
-  //         if (item.status_at_last == 'back_late'){
-  //           item.status_at_last = '晚归';
-  //         }else if (item.status_at_last == 'back'){
-  //           item.status_at_last = '已归';
-  //         }else if (item.status_at_last == 'night_out'){
-  //           item.status_at_last = '夜出';
-  //         }else if (item.status_at_last == 'go_out'){
-  //           item.status_at_last = '未归';
-  //         }else  item.status_at_last = '异常';
-  //         item.pass_time_at_last = new Date(item.pass_time_at_last).toLocaleString();
-  //         return {
-  //           '姓名':item.name,
-  //           '学号':item.sno,
-  //           '状态':item.status_at_last,
-  //           '寝室':item.dorm_full_title,
-  //           '时间':item.pass_time_at_last
-  //         }
-  //       });
-  //       // console.log(json);
-  //
-  //       this.sheetService.jsontToSheet(json,  'sheet1' + Date.parse(new Date().toString()) + '.xlsx');
-  //     });
-  //   }
-  // }
 }

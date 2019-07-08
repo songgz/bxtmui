@@ -11,8 +11,8 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 export class MenuItemComponent implements OnInit {
   displayedColumns = ['title', 'path', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  isSelected: boolean = true;
-  parentid: string = null;
+  item_selected: any = {id: undefined};
+
   constructor(private rest: RestService) {
     this.dataSource = new MatTableDataSource([]);
   }
@@ -29,12 +29,6 @@ export class MenuItemComponent implements OnInit {
   loadMenuItems() {
     this.rest.index('menu_items').subscribe((data: any) => {
       this.dataSource = data;
-      let newData = data;
-      for (let item of newData) {
-        console.log(item)
-
-
-      }
     });
   }
 
@@ -63,13 +57,7 @@ export class MenuItemComponent implements OnInit {
     });
   }
   chevron(item: any) {
-    if (this.isSelected) {
-      this.isSelected = false;
-      this.parentid = item.null;
-    } else {
-      this.isSelected = true;
-      this.parentid = item.parent_id;
-    }
+    this.item_selected = item;
   }
 
 }
