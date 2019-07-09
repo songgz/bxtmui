@@ -15,6 +15,13 @@
         <input matInput placeholder="房间" required [(ngModel)]="room.title" name="title" >
       </mat-form-field>
       <mat-form-field>
+        <mat-select placeholder="朝向" [(ngModel)]="orientation"  name="orientation">
+          <mat-option *ngFor="let orientation of orientations" [value]="orientation">
+            {{orientation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <textarea matInput placeholder="描述" [(ngModel)]="room.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>
