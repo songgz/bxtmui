@@ -12,7 +12,7 @@ import {OrgService} from '../../../services/org.service';
 export class DepartmentFormComponent implements OnInit {
   department: any = {id: null};
 
-  constructor(private rest: RestService, private route: ActivatedRoute, private org: OrgService) {
+  constructor(private rest: RestService, private route: ActivatedRoute, public org: OrgService) {
     this.org.getColleges();
   }
 

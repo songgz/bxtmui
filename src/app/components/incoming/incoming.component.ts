@@ -45,7 +45,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   constructor(
     private rest: RestService,
     private  dict: DictService,
-    private org: OrgService,
+    public org: OrgService,
     public dialog: MatDialog,
     private excel: ExcelService,
     private _snackBar: MatSnackBar) {

@@ -29,7 +29,7 @@ export class ExchangesComponent implements OnInit {
   houses: Observable<any[]>;
   constructor(private rest: RestService,
               private route: ActivatedRoute,
-              private org: OrgService) {
+              public org: OrgService) {
     this.org.getOrgs();
   }
 

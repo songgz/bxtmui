@@ -46,7 +46,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
               public dialog: MatDialog,
               private  dict: DictService,
               private snackBar: MatSnackBar,
-              private org: OrgService) {
+              public org: OrgService) {
     this.org.getOrgs();
     this.dataSource = new MatTableDataSource([]);
   }

@@ -19,4 +19,8 @@ export class GateLogComponent implements OnInit {
   ngOnInit() {
   }
 
+  applyFilter() {
+
+  }
+
 }

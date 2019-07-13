@@ -109,4 +109,8 @@ export class SetdormComponent implements OnInit {
   deleteData3(i) {
     this.list.splice(i, 1);   /*删除数组的数据*/
   }
+
+  moreserchbtn() {
+
+  }
 }

@@ -27,7 +27,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService) {
+  constructor(private rest: RestService, private  dict: DictService, public org: OrgService, private excel: ExcelService) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {

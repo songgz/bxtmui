@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {AlertDialogComponent} from '../components/message-dialog/alert-dialog.component';
 import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
 import {environment} from '../../environments/environment';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RestService {
 
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private router: Router, private location: Location, private dialog: MatDialog) { }
 
   refresh(path: string, options: {}) {
     return this.http.post(this.baseUrl + path + '.json', {}, {headers: options});
@@ -43,6 +44,10 @@ export class RestService {
 
   navigate(path: any[]) {
     this.router.navigate(path);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   errorHandle(error: HttpErrorResponse) {

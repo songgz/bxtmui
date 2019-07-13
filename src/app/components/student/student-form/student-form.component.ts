@@ -27,7 +27,7 @@ export class StudentFormComponent implements OnInit {
   constructor(private rest: RestService,
               private route: ActivatedRoute,
               private  dict: DictService,
-              private org: OrgService,
+              public org: OrgService,
               private sanitizer: DomSanitizer) {
   }
 

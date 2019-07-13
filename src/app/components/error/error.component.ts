@@ -8,7 +8,7 @@ import { RestService } from '../../services/rest.service';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor(private rest: RestService) { }
+  constructor(public rest: RestService) { }
 
   ngOnInit() {
   }
