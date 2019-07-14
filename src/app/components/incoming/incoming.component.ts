@@ -8,13 +8,8 @@ import {DictService} from '../../services/dict.service';
 import {map} from 'rxjs/operators';
 import {OrgService} from '../../services/org.service';
 import { MatDialog } from '@angular/material/dialog';
-import {ExcelService} from '../../services/excel.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ImgDialogStudentComponent} from '../student/student.component';
-import { Workbook } from 'exceljs';
-import * as fs from 'file-saver';
 import {ExcelFileService} from '../../services/excel-file.service';
-import {forkJoin} from 'rxjs/internal/observable/forkJoin';
 
 @Component({
   selector: 'app-incoming',
@@ -22,7 +17,6 @@ import {forkJoin} from 'rxjs/internal/observable/forkJoin';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  // displayedColumns = [ 'name', 'sno', 'dept_title', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
@@ -48,7 +42,6 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     private  dict: DictService,
     public org: OrgService,
     public dialog: MatDialog,
-    private excel: ExcelService,
     private _snackBar: MatSnackBar) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
@@ -106,21 +99,20 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  //判断查询条件有没有选择楼栋和日期
-  screenData (){
-    if (this.query.facility_id == null){
+  screenData () {
+    if (this.query.facility_id == null) {
         this._snackBar.open('请选择楼栋', '', {
           duration: 2000,
         });
-    }else if (this.query.start_at == null){
+    } else if (this.query.start_at == null) {
       this._snackBar.open('请选择开始时间', '', {
         duration: 2000,
       });
-    }else if (this.query.end_at == null){
+    } else if (this.query.end_at == null) {
       this._snackBar.open('请选择结束时间', '', {
         duration: 2000,
       });
-    }else {
+    } else {
       this.export_excel();
     }
 
@@ -129,8 +121,8 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   async export_excel() {
     this.progressbar = 1;
     this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '驻留']);
-    this.query['pre'] = 100;
-    const len = this.pageLength / 100 ;
+    this.query['pre'] = 200;
+    const len = this.pageLength / 200 ;
     for (let i = 0; i <= len; i++ ) {
       this.query['page'] = i + 1;
       const data1: any = await this.rest.index('incomings', this.query).toPromise();
@@ -146,7 +138,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
           d.reside
         ]);
       });
-      this.progressbar = (i+1)/len * 100;
+      this.progressbar = (i + 1) / len * 200;
     }
     this.file.save('sheet1');
   }

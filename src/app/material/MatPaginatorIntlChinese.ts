@@ -1,5 +1,9 @@
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class MatPaginatorIntlChinese extends MatPaginatorIntl  {
   /** A label for the page size selector. */
   itemsPerPageLabel = '每页条数: ';
