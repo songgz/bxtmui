@@ -66,9 +66,10 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     options['pre'] = this.pageSize;
     this.rest.index('trackers', options).subscribe((data: any) => {
       // 门禁重命名
-      data.result.forEach( data1 => {
-        data.access_id = this.accesses.find( item => item.id === data1.access_id).title;
+      data.result.forEach( trackersData => {
+        trackersData.access_title = this.accesses.find( item => item.id === trackersData.access_id).title;
       });
+      // console.log( data.result)
 
       this.dataSource = new MatTableDataSource(data.result);
       this.pageLength = data.paginate_meta.total_count;
@@ -86,6 +87,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     options['pre'] = 9999;
     this.rest.index('accesses', options).subscribe((data: any) => {
       this.accesses =  data.result;
+      // console.log(this.accesses);
     }, error => {
     this.rest.errorHandle(error);
     });
