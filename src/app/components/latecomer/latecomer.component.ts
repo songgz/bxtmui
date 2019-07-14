@@ -30,7 +30,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   file: ExcelFileService = null;
   progressbar: number;
 
-  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService,
+  constructor(private rest: RestService, private  dict: DictService, public org: OrgService, private excel: ExcelService,
               private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItems('sleep_status').subscribe(data => {
