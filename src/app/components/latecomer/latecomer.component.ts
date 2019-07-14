@@ -8,7 +8,8 @@ import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ExcelService} from '../../services/excel.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ExcelFileService} from '../../services/excel-file.service';
 @Component({
   selector: 'app-latecomer',
   templateUrl: './latecomer.component.html',
@@ -26,8 +27,11 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  file: ExcelFileService = null;
+  progressbar: number;
 
-  constructor(private rest: RestService, private  dict: DictService, public org: OrgService, private excel: ExcelService) {
+  constructor(private rest: RestService, private  dict: DictService, private org: OrgService, private excel: ExcelService,
+              private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
@@ -74,23 +78,28 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
   }
 
-  export_excel() {
-    this.query['pre'] = 99999
-    this.rest.index('latecomers', this.query).subscribe((data: any) => {
-      this.excel.to_excel({
-        user_name: '姓名',
-        user_sno: '学号',
-        user_dorm_title: '公寓',
-        user_dept_title: '组织',
-        pass_time: '时间',
-        status: '状态',
-        overtime: '超时'},
-        data.result, (k: string, d: any) => {
-          // if (k === 'pass_time') {return new Date(d[k]).toLocaleString(); }
-          if (k === 'status') { return this.sleep_status[d[k]]; }
-          return d[k];
-        });
-    });
+  async export_excel() {
+    this.progressbar = 1;
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '确认']);
+    this.query['pre'] = 100;
+    const len = this.pageLength / 100 ;
+    for (let i = 0; i <= len; i++ ) {
+      this.query['page'] = i + 1;
+      const data1: any = await this.rest.index('latecomers', this.query).toPromise();
+      data1.result.forEach(d => {
+        this.file.addRow([
+          d.user_name,
+          d.user_sno,
+          d.user_dorm_title,
+          d.user_dept_title,
+          new Date(d.pass_time).toLocaleString(),
+          this.sleep_status[d.status],
+          d.overtime,
+          d.confirmed
+        ]);
+      });
+      this.progressbar = (i + 1) / len * 100;
+    }
+    this.file.save('sheet1');
   }
-
 }

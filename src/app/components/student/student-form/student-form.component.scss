@@ -62,3 +62,7 @@ mat-card-title{
 mat-form-field:first-of-type{
   width: 540px;
 }
+mat-card-content{
+  padding-right: 140px;
+  width: calc(100% - 140px);
+}

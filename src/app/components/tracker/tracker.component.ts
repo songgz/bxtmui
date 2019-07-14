@@ -7,6 +7,9 @@ import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
 import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
+import {ImgDialogStudentComponent} from "../student/student.component";
+import { MatDialog } from '@angular/material/dialog';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-tracker',
@@ -14,20 +17,23 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dept', 'dorm', 'pass_time', 'status', 'overtime'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime', 'access_id', 'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   color_status: any = {};
   query: any = {};
   moreserch = false;
   houses: Observable<any[]>;
+  accesses = [];
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  baseUrl: any;
 
-  constructor(private rest: RestService, private  dict: DictService, public org: OrgService) {
+
+  constructor(private rest: RestService, private  dict: DictService, public org: OrgService, public dialog: MatDialog) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -36,10 +42,12 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     });
     this.org.getOrgs();
     this.getHouses();
+    this.getAccesses();
     this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
     this.loadTrackers();
   }
 
@@ -50,13 +58,18 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadTrackers();
+    this.loadTrackers(this.query);
   }
 
   loadTrackers(options = {}) {
     options['page'] = this.pageIndex + 1;
     options['pre'] = this.pageSize;
     this.rest.index('trackers', options).subscribe((data: any) => {
+      // 门禁重命名
+      data.result.forEach( data1 => {
+        data.access_id = this.accesses.find( item => item.id === data1.access_id).title;
+      });
+
       this.dataSource = new MatTableDataSource(data.result);
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
@@ -69,9 +82,25 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   applyFilter() {
     this.loadTrackers(this.query);
   }
+  getAccesses(options = {}) {
+    options['pre'] = 9999;
+    this.rest.index('accesses', options).subscribe((data: any) => {
+      this.accesses =  data.result;
+    }, error => {
+    this.rest.errorHandle(error);
+    });
+  }
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+  openDialog(id: string) {
+    // console.log(id)
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: id
+      }
+    });
   }
 
 }

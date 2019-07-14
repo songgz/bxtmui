@@ -1,4 +1,4 @@
-<div class="mat-card pb20 pl20 pr20 pt20 mb-20 searchbox">
+<div class="searchbox">
   <mat-form-field >
     <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
@@ -23,6 +23,17 @@
   <mat-form-field>
     <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名">
   </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (dateChange)="applyFilter()" placeholder="开始日期">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="query.end_at" (dateChange)="applyFilter()" placeholder="结束日期">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
 </div>
 <mat-toolbar class="mat-elevation-z8">
   <span>出入记录</span>
@@ -31,17 +42,26 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>
-      <td mat-cell *matCellDef="let row"> {{row.user_name}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.user_avatar_url)" [src]="baseUrl + row.user_avatar_url">
+        </div>
+        <div class="picname">{{row.user_name}}</div>
+      </td>
     </ng-container>
+<!--    <ng-container matColumnDef="name">-->
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>-->
+<!--      <td mat-cell *matCellDef="let row"> {{row.user_name}} </td>-->
+<!--    </ng-container>-->
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 学号 </th>
       <td mat-cell *matCellDef="let row"> {{row.user_sno}} </td>
     </ng-container>
-    <ng-container matColumnDef="dept">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 组织 </th>
-      <td mat-cell *matCellDef="let row"> {{row.user_dept_title}} </td>
-    </ng-container>
+<!--    <ng-container matColumnDef="dept">-->
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> 组织 </th>-->
+<!--      <td mat-cell *matCellDef="let row"> {{row.user_dept_title}} </td>-->
+<!--    </ng-container>-->
     <ng-container matColumnDef="dorm">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室 </th>
       <td mat-cell *matCellDef="let row"> {{row.user_dorm_title}} </td>
@@ -57,6 +77,18 @@
     <ng-container matColumnDef="overtime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 超时(时)</th>
       <td mat-cell *matCellDef="let row"> {{row.overtime}} </td>
+    </ng-container>
+    <ng-container matColumnDef="access_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 门禁</th>
+      <td mat-cell *matCellDef="let row"> {{row.access_id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="snap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 抓拍 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="snapbox">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.user_snapshot_url)" [src]="baseUrl + row.user_snapshot_url">
+        </div>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

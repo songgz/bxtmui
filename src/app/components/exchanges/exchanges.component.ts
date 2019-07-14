@@ -81,6 +81,8 @@ export class ExchangesComponent implements OnInit {
 
   applyFilter1(filterValue: string = '') {
     filterValue = filterValue.trim();
+    this.query1['pre'] = 100;
+
     if (filterValue.length !== 0) {
       this.query1['key'] = filterValue;
     }
@@ -88,6 +90,7 @@ export class ExchangesComponent implements OnInit {
   }
   applyFilter2(filterValue: string = '') {
     filterValue = filterValue.trim();
+    this.query2['pre'] = 100;
     if (filterValue.length !== 0) {
       this.query2['key'] = filterValue;
     }

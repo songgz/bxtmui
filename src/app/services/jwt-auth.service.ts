@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {RestService} from './rest.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,21 @@ import {RestService} from './rest.service';
 export class JwtAuthService {
   private readonly ACCESS_TOKEN = 'access_token';
   private readonly REFRESH_TOKEN = 'refresh_token';
-  private readonly CSRF_TOKEN = 'csrf_token'; // 'X-CSRF-Token';
+  private readonly CSRF_TOKEN = 'csrf_token';
+  private $window: any;
+
+  // 'X-CSRF-Token';
 
   constructor(private rest: RestService) { }
 
   login(username: string, password: string) {
     return this.rest.create('sessions', {username: username, password: password}).subscribe((data: any) => {
+      const helper = new JwtHelperService();
+
+      const decodedToken = helper.decodeToken(data.access);
+      localStorage.setItem('user_id', decodedToken.user_id);
+      // const expirationDate = helper.getTokenExpirationDate(data.access);
+      // const isExpired = helper.isTokenExpired(data.access);
       this.setToken(this.ACCESS_TOKEN, data.access);
       this.setToken(this.REFRESH_TOKEN, data.refresh);
       this.setToken(this.CSRF_TOKEN, data.csrf);
@@ -64,6 +74,7 @@ export class JwtAuthService {
     localStorage.removeItem(this.ACCESS_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
     localStorage.removeItem(this.CSRF_TOKEN);
+    localStorage.removeItem('user_id');
   }
 
   public get loggedIn(): boolean {

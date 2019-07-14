@@ -14,7 +14,7 @@ import {NgForm} from '@angular/forms';
 export class RoomFormComponent implements OnInit {
   room: any = {parent_id: null, beds: []};
   floors: any[] = [];
-
+  orientations: any[] = ['南北','东西','东','南','西','北'];
   constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
 
   }

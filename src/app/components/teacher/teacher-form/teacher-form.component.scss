@@ -53,3 +53,7 @@ mat-card-title{
   left: -30px;
   top: -20px;
 }
+mat-card-content{
+  padding-right: 140px;
+  width: calc(100% - 140px);
+}

@@ -1,14 +1,18 @@
-<form #managerForm="ngForm" (ngSubmit)="save()">
-  <div class="p20">
-    <div class="imgbox">
-      <img >
-    </div>
-  </div>
+<form #managerForm="ngForm" (ngSubmit)="save(managerForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>管理信息</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <div class="fileupdata">
+        <div class="imgbox">
+          <img [src]="imgsrc">
+        </div>
+        <div class="file">
+          <span>上传照片</span>
+          <input type="file" [ngModel] (change)="getAvatar($event)" accept="image/png, image/jpeg, image/gif, image/jpg" name="avatar" observeFiles >
+        </div>
+      </div>
       <div>个人信息</div>
       <mat-form-field>
         <input matInput placeholder="姓名" required [(ngModel)]="manager.name" name="name" >
@@ -49,7 +53,6 @@
 
     </mat-card-content>
     <mat-card-actions align="center">
-      <button mat-raised-button color="accent">添加照片</button>
       <button mat-raised-button color="primary" [disabled]="managerForm.pristine || managerForm.invalid">提交</button>
       <button mat-raised-button color="warn" (click)="goBack()">返回</button>
     </mat-card-actions>
