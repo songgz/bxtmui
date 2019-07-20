@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.jwt.login(this.username, this.password);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/bxt']);
   }
 
 }
