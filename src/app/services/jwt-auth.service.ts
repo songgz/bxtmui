@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestService } from './rest.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class JwtAuthService {
 
   // 'X-CSRF-Token';
 
-  constructor(private rest: RestService) { }
+  constructor(private rest: RestService, private router: Router) { }
 
   login(username: string, password: string) {
     return this.rest.create('sessions', {username: username, password: password}).subscribe((data: any) => {
@@ -27,6 +28,7 @@ export class JwtAuthService {
       this.setToken(this.ACCESS_TOKEN, data.access);
       this.setToken(this.REFRESH_TOKEN, data.refresh);
       this.setToken(this.CSRF_TOKEN, data.csrf);
+      this.router.navigate(['/bxt']);
     });
   }
 

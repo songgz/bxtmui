@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
 
-  constructor(private router: Router, private jwt: JwtAuthService, private route: ActivatedRoute) { }
+  constructor(private jwt: JwtAuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.jwt.login(this.username, this.password);
-    this.router.navigate(['/bxt']);
   }
 
 }
