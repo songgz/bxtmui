@@ -40,7 +40,6 @@ export class TopnavComponent implements OnInit {
   }
 
   refresh() {
-    console.log('ss');
     this.auth.refresh().subscribe();
   }
 

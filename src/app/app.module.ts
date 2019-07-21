@@ -60,7 +60,6 @@ import { AccessFormComponent } from './components/access/access-form/access-form
 import { VideoRecorderComponent } from './components/video-recorder/video-recorder.component';
 import { GateFormComponent } from './components/gate/gate-form/gate-form.component';
 import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
-import { MenuAccessFormComponent } from './components/menu-access/menu-access-form/menu-access-form.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { FloorComponent } from './components/floor/floor.component';
@@ -68,10 +67,11 @@ import { FloorFormComponent } from './components/floor/floor-form/floor-form.com
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
 import { VideoRecorderFormComponent } from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import { ExchangesComponent } from './components/exchanges/exchanges.component';
-import { LatecomerFormComponent } from './components/latecomer/latecomer-form/latecomer-form.component';
+import { IncomingFormComponent } from './components/incoming/incoming-form/incoming-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import {JwtInterceptor} from './interceptors/jwt-interceptor';
 import { FaceComponent } from './components/face/face.component';
+import { HouseAccessComponent } from './components/house-access/house-access.component';
 
 @NgModule({
   declarations: [
@@ -130,15 +130,15 @@ import { FaceComponent } from './components/face/face.component';
     VideoRecorderComponent,
     GateFormComponent,
     WebcamFormComponent,
-    MenuAccessFormComponent,
     FloorComponent,
     FloorFormComponent,
     FigurecardComponent,
     VideoRecorderFormComponent,
     ExchangesComponent,
-    LatecomerFormComponent,
+    IncomingFormComponent,
     PasswordDialogComponent,
-    FaceComponent
+    FaceComponent,
+    HouseAccessComponent
   ],
   entryComponents: [
     ImgDialogStudentComponent,

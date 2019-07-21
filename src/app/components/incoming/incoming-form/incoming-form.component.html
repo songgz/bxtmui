@@ -1,0 +1,23 @@
+<form #incomingForm="ngForm" (ngSubmit)="update(incomingForm)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>预警确认</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="原因" required [(ngModel)]="user.cause_at_last" name="cause_at_last" >
+        <input hidden name="confirmed" value="true">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-radio-group aria-label="是否确认" [(ngModel)]="user.confirmed_at_last" name="confirmed_at_last">
+        <mat-radio-button value="false">未确认</mat-radio-button>
+        <mat-radio-button value="true">已确认</mat-radio-button>
+      </mat-radio-group>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="incomingForm.pristine || incomingForm.invalid">提交</button>
+      <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

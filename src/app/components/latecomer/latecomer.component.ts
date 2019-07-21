@@ -15,7 +15,7 @@ import {ExcelFileService} from '../../services/excel-file.service';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime', 'action' ];
+  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
@@ -73,9 +73,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  update (id: string)  {
-    this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
-  }
+
 
   async export_excel() {
     this.progressbar = 1;

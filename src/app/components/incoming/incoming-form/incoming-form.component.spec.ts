@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LatecomerFormComponent } from './latecomer-form.component';
+import { IncomingFormComponent } from './incoming-form.component';
 
-describe('LatecomerFormComponent', () => {
-  let component: LatecomerFormComponent;
-  let fixture: ComponentFixture<LatecomerFormComponent>;
+describe('IncomingFormComponent', () => {
+  let component: IncomingFormComponent;
+  let fixture: ComponentFixture<IncomingFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LatecomerFormComponent ]
+      declarations: [ IncomingFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LatecomerFormComponent);
+    fixture = TestBed.createComponent(IncomingFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

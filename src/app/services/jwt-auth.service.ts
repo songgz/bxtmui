@@ -3,6 +3,7 @@ import { RestService } from './rest.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {tap} from 'rxjs/internal/operators/tap';
 
 @Injectable({
   providedIn: 'root'
@@ -39,11 +40,11 @@ export class JwtAuthService {
   }
 
   refresh() {
-    return this.rest.refresh('refreshs', {
-      'X-Refresh-Token': this.getRefreshToken()}).pipe(map((data: any) => {
+    return this.rest.refresh('refreshs', {'X-Refresh-Token': this.getRefreshToken()}).pipe(
+      tap((data: any) => {
         this.setToken(this.ACCESS_TOKEN, data.access);
-        return data;
-    }));
+      })
+    );
   }
 
   logout() {
@@ -79,7 +80,7 @@ export class JwtAuthService {
     localStorage.removeItem('user_id');
   }
 
-  public get loggedIn(): boolean {
-    return this.getAccessToken() !==  null;
+  public relogin() {
+    this.router.navigate(['/login']);
   }
 }

@@ -46,12 +46,11 @@ import {SetdormComponent} from './components/setdorm/setdorm.component';
 import {AccessFormComponent} from './components/access/access-form/access-form.component';
 import {GateFormComponent} from './components/gate/gate-form/gate-form.component';
 import {WebcamFormComponent} from './components/webcam/webcam-form/webcam-form.component';
-import {MenuAccessFormComponent} from './components/menu-access/menu-access-form/menu-access-form.component';
 import {FloorComponent} from './components/floor/floor.component';
 import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import {ExchangesComponent} from './components/exchanges/exchanges.component';
-import {LatecomerFormComponent} from './components/latecomer/latecomer-form/latecomer-form.component';
+import {IncomingFormComponent} from './components/incoming/incoming-form/incoming-form.component';
 import {AuthGuardService} from './services/auth-guard.service';
 
 const routes: Routes = [
@@ -100,8 +99,6 @@ const routes: Routes = [
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
       {path: 'menu-accesses', component: MenuAccessComponent},
-      {path: 'menu-accesses/new', component: MenuAccessFormComponent},
-      {path: 'menu-accesses/:id/edit', component: MenuAccessFormComponent},
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
@@ -110,8 +107,8 @@ const routes: Routes = [
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'incomings', component: IncomingComponent},
+      {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
-      {path: 'latecomers/:id/edit', component: LatecomerFormComponent},
       {path: 'attendances', component: AttendanceComponent},
       {path: 'trackers', component: TrackerComponent},
       {path: 'webcams', component: WebcamComponent},
