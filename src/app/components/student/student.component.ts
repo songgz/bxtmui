@@ -17,7 +17,7 @@ export interface DialogData {
   dataid: string;
 }
 export interface ListDialogData {
-
+  list: any;
 }
 
 @Component({
@@ -152,10 +152,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  openDialogList() {
+
+  openDialogList(displayedColumns: string[]) {
     this.dialog.open(ListDialogStudentComponent, {
       width: '250px',
-      data: {}
+      data: { list: displayedColumns }
     });
   }
 
@@ -207,11 +208,21 @@ export class ImgDialogStudentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
 }
+
 @Component({
   selector: 'app-student-listdialog',
   templateUrl: './listdialog.html',
 })
+
 export class ListDialogStudentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: ListDialogData) {
+  }
+  listBtn( str: any) {
+    if ( this.data.list.indexOf(str) === -1 ) {
+      this.data.list.splice(this.data.list.length - 1, 0, str);
+      console.log( this.data.list);
+    } else {
+      this.data.list.splice(this.data.list.indexOf(str), 1);
+    }
   }
 }

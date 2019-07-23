@@ -33,6 +33,7 @@ export class JwtAuthService {
       // console.log(err.status);
       if ( err.status === 401 ) {
         alert('用户名或密码错误');
+      } else { alert('错误:' + err.status);
       }
     });
   }
