@@ -73,6 +73,7 @@ import {JwtInterceptor} from './interceptors/jwt-interceptor';
 import { FaceComponent } from './components/face/face.component';
 import { HouseAccessComponent } from './components/house-access/house-access.component';
 import { StudentViewComponent } from './components/accommodation/student-view/student-view.component';
+import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
 
 
 @NgModule({
@@ -142,6 +143,7 @@ import { StudentViewComponent } from './components/accommodation/student-view/st
     FaceComponent,
     HouseAccessComponent,
     StudentViewComponent,
+    PersonDialogComponent,
 
   ],
   entryComponents: [
@@ -150,7 +152,8 @@ import { StudentViewComponent } from './components/accommodation/student-view/st
     ImgDialogTeacherComponent,
     AlertDialogComponent,
     ConfirmDialogComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    PersonDialogComponent,
   ],
   imports: [
     BrowserModule,

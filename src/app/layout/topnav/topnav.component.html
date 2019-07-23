@@ -13,11 +13,8 @@
     <button mat-menu-item (click)="changeLang('en')">
       <span>{{ 'English' }}</span>
     </button>
-    <button mat-menu-item (click)="changeLang('fr')">
-      <span>{{ 'French' }}</span>
-    </button>
-    <button mat-menu-item (click)="changeLang('ur')">
-      <span>{{ 'Urdu' }}s</span>
+    <button mat-menu-item (click)="changeLang('cn')">
+      <span>{{ '中文' }}</span>
     </button>
   </mat-menu>
   <button class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
@@ -26,7 +23,7 @@
   <mat-menu #profile="matMenu">
     <button mat-menu-item (click)="refresh()">
       <mat-icon>person</mat-icon>
-      <span>{{ 'Profile' }}</span>
+      <span>{{ '个人信息' }}</span>
     </button>
     <button mat-menu-item (click)="modify_password()">
       <mat-icon>inbox</mat-icon>
