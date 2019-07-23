@@ -1,0 +1,20 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.bxt-toolbar-spacer {
+  flex: 1 1 auto;
+}
+.flex{
+  display: flex;
+}
+.flex>div{
+  margin-right: 20px;
+}
+.flex>div:last-of-type{
+  margin-right: 0;
+}

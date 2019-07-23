@@ -53,6 +53,7 @@ import {VideoRecorderFormComponent} from './components/video-recorder/video-reco
 import {ExchangesComponent} from './components/exchanges/exchanges.component';
 import {IncomingFormComponent} from './components/incoming/incoming-form/incoming-form.component';
 import {AuthGuardService} from './services/auth-guard.service';
+import {HouseAccessComponent} from './components/house-access/house-access.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -69,6 +70,7 @@ const routes: Routes = [
       {path: 'classrooms', component: ClassroomComponent},
       {path: 'classrooms/new', component: ClassroomFormComponent},
       {path: 'classrooms/:id/edit', component: ClassroomFormComponent},
+      {path: 'house-access', component: HouseAccessComponent},
       {path: 'houses', component: HouseComponent},
       {path: 'houses/new', component: HouseFormComponent},
       {path: 'houses/:id/edit', component: HouseFormComponent},
@@ -108,7 +110,6 @@ const routes: Routes = [
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'accommodations/:id/view', component: StudentViewComponent},
-
       {path: 'incomings', component: IncomingComponent},
       {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
