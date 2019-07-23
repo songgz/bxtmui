@@ -102,6 +102,7 @@ const routes: Routes = [
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
       {path: 'menu-accesses', component: MenuAccessComponent},
+      {path: 'house-accesses', component: HouseAccessComponent},
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},

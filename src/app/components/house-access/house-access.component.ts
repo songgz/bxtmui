@@ -61,7 +61,7 @@ export class HouseAccessComponent implements OnInit {
         return perm;
       }
     }
-    return {aco_id: aco_id, aco_type: 'MenuItem', aro_id: aro_id, operations: []};
+    return {aco_id: aco_id, aco_type: 'House', aro_id: aro_id, operations: []};
   }
 
   onChangePrivilege(aco_id, aro_id, operation) {
@@ -83,6 +83,7 @@ export class HouseAccessComponent implements OnInit {
 
     if (perm.id != null && perm.operations.length === 0) {
       this.permissions.splice(this.permissions.indexOf(perm), 1);
+      console.log(perm);
       this.rest.destory('permissions/' + perm.id).subscribe(data => {
       }, error => {
         this.rest.errorHandle(error);
