@@ -72,6 +72,8 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
 import {JwtInterceptor} from './interceptors/jwt-interceptor';
 import { FaceComponent } from './components/face/face.component';
 import { HouseAccessComponent } from './components/house-access/house-access.component';
+import { StudentViewComponent } from './components/accommodation/student-view/student-view.component';
+
 
 @NgModule({
   declarations: [
@@ -138,7 +140,9 @@ import { HouseAccessComponent } from './components/house-access/house-access.com
     IncomingFormComponent,
     PasswordDialogComponent,
     FaceComponent,
-    HouseAccessComponent
+    HouseAccessComponent,
+    StudentViewComponent,
+
   ],
   entryComponents: [
     ImgDialogStudentComponent,

@@ -15,6 +15,9 @@
       </div>
       <div>个人信息</div>
       <mat-form-field>
+        <input matInput placeholder="登录账号" required [(ngModel)]="manager.login" name="login" >
+      </mat-form-field>
+      <mat-form-field>
         <input matInput placeholder="姓名" required [(ngModel)]="manager.name" name="name" >
       </mat-form-field>
       <mat-form-field>

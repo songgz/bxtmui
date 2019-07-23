@@ -38,6 +38,7 @@ import {VideoRecorderComponent} from './components/video-recorder/video-recorder
 import {LatecomerComponent} from './components/latecomer/latecomer.component';
 import {HouseShowComponent} from './components/house/house-show/house-show.component';
 import {AccommodationComponent} from './components/accommodation/accommodation.component';
+import {StudentViewComponent} from './components/accommodation/student-view/student-view.component';
 import {TrackerComponent} from './components/tracker/tracker.component';
 import {IncomingComponent} from './components/incoming/incoming.component';
 import {MenuAccessComponent} from './components/menu-access/menu-access.component';
@@ -106,6 +107,8 @@ const routes: Routes = [
       {path: 'accesses/new', component: AccessFormComponent},
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
+      {path: 'accommodations/:id/view', component: StudentViewComponent},
+
       {path: 'incomings', component: IncomingComponent},
       {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
