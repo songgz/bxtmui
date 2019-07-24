@@ -146,4 +146,12 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   update (id: string)  {
     this.rest.navigate(['/bxt/incomings/', id, 'edit']);
   }
+
+  color_confirmed_at_last( e: any) {
+    if (e === 'true') {
+      return 'green';
+    } else {
+      return 'red';
+    }
+  }
 }
