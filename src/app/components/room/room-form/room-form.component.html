@@ -15,9 +15,16 @@
         <input matInput placeholder="房间" required [(ngModel)]="room.title" name="title" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="朝向" [(ngModel)]="orientation"  name="orientation">
-          <mat-option *ngFor="let orientation of orientations" [value]="orientation">
-            {{orientation}}
+        <mat-select placeholder="朝向" [(ngModel)]="room.dorm_toward"  name="dorm_toward">
+          <mat-option *ngFor="let dorm_toward of dorm_towards | async" [value]="dorm_toward.mark">
+            {{dorm_toward.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="房间类型" [(ngModel)]="room.dorm_type"  name="dorm_type">
+          <mat-option *ngFor="let dorm_type of dorm_types | async" [value]="dorm_type.mark">
+            {{dorm_type.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>

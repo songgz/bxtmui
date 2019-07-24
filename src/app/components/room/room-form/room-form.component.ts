@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 
 import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -14,10 +15,12 @@ import {NgForm} from '@angular/forms';
 export class RoomFormComponent implements OnInit {
   room: any = {parent_id: null, beds: []};
   floors: any[] = [];
-  orientations: any[] = ['南北', '东西', '东', '南', '西', '北'];
-  orientation = '';
-  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
+  dorm_types: Observable<any[]>;
+  dorm_towards: Observable<any[]>;
 
+  constructor(private rest: RestService, private route: ActivatedRoute, private dict: DictService) {
+    this.dorm_types = this.dict.getItems('dorm_type');
+    this.dorm_towards = this.dict.getItems('dorm_toward');
   }
 
   ngOnInit() {
