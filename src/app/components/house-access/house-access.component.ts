@@ -26,7 +26,7 @@ export class HouseAccessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dict.getItems('menu_privilege').subscribe((data => {
+    this.dict.getItems('house_privilege').subscribe((data => {
       this.menu_privileges = data;
       this.loadRoles();
       this.loadPermissions();
