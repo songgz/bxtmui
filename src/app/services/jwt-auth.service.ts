@@ -21,6 +21,7 @@ export class JwtAuthService {
 
   login(username: string, password: string) {
     return this.rest.create('sessions', {username: username, password: password}).subscribe((data: any) => {
+
       const helper = new JwtHelperService();
       const decodedToken = helper.decodeToken(data.access);
       localStorage.setItem('user_id', decodedToken.user_id);
@@ -29,12 +30,6 @@ export class JwtAuthService {
       this.setToken(this.REFRESH_TOKEN, data.refresh);
       this.setToken(this.CSRF_TOKEN, data.csrf);
       this.router.navigate(['/bxt']);
-    }, ( err: any ) => {
-      // console.log(err.status);
-      if ( err.status === 401 ) {
-        alert('用户名或密码错误');
-      } else { alert('错误:' + err.status);
-      }
     });
   }
 
