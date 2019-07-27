@@ -17,7 +17,7 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime', 'access_id', 'snap'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime',  'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   color_status: any = {};
@@ -42,7 +42,6 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     });
     this.org.getOrgs();
     this.getHouses();
-    this.getAccesses();
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -66,9 +65,9 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     options['pre'] = this.pageSize;
     this.rest.index('trackers', options).subscribe((data: any) => {
       // 门禁重命名
-      data.result.forEach( trackersData => {
-        trackersData.access_title = this.accesses.find( item => item.id === trackersData.access_id).title;
-      });
+      // data.result.forEach( trackersData => {
+      //   trackersData.access_title = this.accesses.find( item => item.id === trackersData.access_id).title;
+      // });
       // console.log( data.result)
 
       this.dataSource = new MatTableDataSource(data.result);
@@ -83,15 +82,14 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   applyFilter() {
     this.loadTrackers(this.query);
   }
-  getAccesses(options = {}) {
-    options['pre'] = 9999;
-    this.rest.index('accesses', options).subscribe((data: any) => {
-      this.accesses =  data.result;
-      // console.log(this.accesses);
-    }, error => {
-    this.rest.errorHandle(error);
-    });
-  }
+  // getAccesses(options = {}) {
+  //   options['pre'] = 9999;
+  //   this.rest.index('accesses', options).subscribe((data: any) => {
+  //     this.accesses =  data.result;
+  //   }, error => {
+  //   this.rest.errorHandle(error);
+  //   });
+  // }
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
