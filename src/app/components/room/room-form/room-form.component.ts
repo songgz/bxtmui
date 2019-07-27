@@ -77,8 +77,9 @@ export class RoomFormComponent implements OnInit {
     this.room.beds.push({desc: null, mark: null});
   }
 
-  ThisDel(i) {
+  ThisDel(i , roomForm) {
     this.room.beds.splice(i, 1 );
+    roomForm.form.pristine = false;
   }
 
   trackByIndex(index, item) {
