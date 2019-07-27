@@ -1,13 +1,9 @@
 <mat-card>
   <mat-card-subtitle>显示列表</mat-card-subtitle>
   <mat-card-content>
-<div><mat-checkbox>姓名</mat-checkbox></div>
-<div><mat-checkbox>学号</mat-checkbox></div>
-<div><mat-checkbox>班级</mat-checkbox></div>
-<div><mat-checkbox>寝室</mat-checkbox></div>
-<div><mat-checkbox>操作</mat-checkbox></div>
+    <div><mat-checkbox (change)="listBtn('name')" [checked]="data.list.indexOf('name') > -1">姓名</mat-checkbox></div>
+    <div><mat-checkbox (change)="listBtn('sno')" [checked]="data.list.indexOf('sno') > -1">学号</mat-checkbox></div>
+    <div><mat-checkbox (change)="listBtn('dept')" [checked]="data.list.indexOf('dept') > -1">班级</mat-checkbox></div>
+    <div><mat-checkbox (change)="listBtn('bedroom')" [checked]="data.list.indexOf('bedroom') > -1">寝室</mat-checkbox></div>
   </mat-card-content>
-<!--  <mat-card-footer>-->
-<!--    <button mat-button [mat-dialog-close]="data">确认</button>-->
-<!--  </mat-card-footer>-->
 </mat-card>

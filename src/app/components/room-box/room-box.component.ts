@@ -16,6 +16,6 @@ export class RoomBoxComponent implements OnInit {
     // }
   }
   selfHref(bed: any) {
-    this.rest.navigate(['/bxt/students/'+ bed.owner_id + '/edit']);
+    this.rest.navigate(['/bxt/accommodations/' + bed.owner_id + '/view']);
   }
 }

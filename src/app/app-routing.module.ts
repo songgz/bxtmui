@@ -38,6 +38,7 @@ import {VideoRecorderComponent} from './components/video-recorder/video-recorder
 import {LatecomerComponent} from './components/latecomer/latecomer.component';
 import {HouseShowComponent} from './components/house/house-show/house-show.component';
 import {AccommodationComponent} from './components/accommodation/accommodation.component';
+import {StudentViewComponent} from './components/accommodation/student-view/student-view.component';
 import {TrackerComponent} from './components/tracker/tracker.component';
 import {IncomingComponent} from './components/incoming/incoming.component';
 import {MenuAccessComponent} from './components/menu-access/menu-access.component';
@@ -46,13 +47,13 @@ import {SetdormComponent} from './components/setdorm/setdorm.component';
 import {AccessFormComponent} from './components/access/access-form/access-form.component';
 import {GateFormComponent} from './components/gate/gate-form/gate-form.component';
 import {WebcamFormComponent} from './components/webcam/webcam-form/webcam-form.component';
-import {MenuAccessFormComponent} from './components/menu-access/menu-access-form/menu-access-form.component';
 import {FloorComponent} from './components/floor/floor.component';
 import {FloorFormComponent} from './components/floor/floor-form/floor-form.component';
 import {VideoRecorderFormComponent} from './components/video-recorder/video-recorder-form/video-recorder-form.component';
 import {ExchangesComponent} from './components/exchanges/exchanges.component';
-import {LatecomerFormComponent} from './components/latecomer/latecomer-form/latecomer-form.component';
+import {IncomingFormComponent} from './components/incoming/incoming-form/incoming-form.component';
 import {AuthGuardService} from './services/auth-guard.service';
+import {HouseAccessComponent} from './components/house-access/house-access.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -69,6 +70,7 @@ const routes: Routes = [
       {path: 'classrooms', component: ClassroomComponent},
       {path: 'classrooms/new', component: ClassroomFormComponent},
       {path: 'classrooms/:id/edit', component: ClassroomFormComponent},
+      {path: 'house-access', component: HouseAccessComponent},
       {path: 'houses', component: HouseComponent},
       {path: 'houses/new', component: HouseFormComponent},
       {path: 'houses/:id/edit', component: HouseFormComponent},
@@ -100,8 +102,7 @@ const routes: Routes = [
       {path: 'groups/new', component: GroupFormComponent},
       {path: 'groups/:id/edit', component: GroupFormComponent},
       {path: 'menu-accesses', component: MenuAccessComponent},
-      {path: 'menu-accesses/new', component: MenuAccessFormComponent},
-      {path: 'menu-accesses/:id/edit', component: MenuAccessFormComponent},
+      {path: 'house-accesses', component: HouseAccessComponent},
       {path: 'managers', component: ManagerComponent},
       {path: 'managers/new', component: ManagerFormComponent},
       {path: 'managers/:id/edit', component: ManagerFormComponent},
@@ -109,9 +110,10 @@ const routes: Routes = [
       {path: 'accesses/new', component: AccessFormComponent},
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
+      {path: 'accommodations/:id/view', component: StudentViewComponent},
       {path: 'incomings', component: IncomingComponent},
+      {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
-      {path: 'latecomers/:id/edit', component: LatecomerFormComponent},
       {path: 'attendances', component: AttendanceComponent},
       {path: 'trackers', component: TrackerComponent},
       {path: 'webcams', component: WebcamComponent},

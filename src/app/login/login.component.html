@@ -8,14 +8,14 @@
       <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
         <div fxFlexFill>
           <mat-form-field class="w-100">
-            <input matInput placeholder="登录名" [(ngModel)]="username" name="username">
+            <input required matInput placeholder="登录名" [(ngModel)]="username" name="username">
           </mat-form-field>
         </div>
       </div>
       <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
         <div fxFlexFill>
           <mat-form-field class="w-100">
-            <input matInput type="password" placeholder="密码" [(ngModel)]="password" name="password">
+            <input matInput required type="password" placeholder="密码" [(ngModel)]="password" name="password">
           </mat-form-field>
         </div>
       </div>

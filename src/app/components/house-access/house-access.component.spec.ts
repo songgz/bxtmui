@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LatecomerFormComponent } from './latecomer-form.component';
+import { HouseAccessComponent } from './house-access.component';
 
-describe('LatecomerFormComponent', () => {
-  let component: LatecomerFormComponent;
-  let fixture: ComponentFixture<LatecomerFormComponent>;
+describe('HouseAccessComponent', () => {
+  let component: HouseAccessComponent;
+  let fixture: ComponentFixture<HouseAccessComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LatecomerFormComponent ]
+      declarations: [ HouseAccessComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LatecomerFormComponent);
+    fixture = TestBed.createComponent(HouseAccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

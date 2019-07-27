@@ -1,0 +1,36 @@
+
+<mat-form-field>
+  <mat-select placeholder="角色" [(value)]="role.id" >
+    <mat-option *ngFor="let role of roles" [value]="role.id">
+      {{role.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-toolbar class="mat-elevation-z8">
+  <span>公寓访问权限</span>
+  <span class="bxt-toolbar-spacer"></span>
+</mat-toolbar>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 菜单 </th>
+      <td mat-cell *matCellDef="let row"><span> {{row.title}} </span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> 操作 </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="flex">
+          <div *ngFor="let mp of menu_privileges ">
+            <mat-checkbox [value]="mp.mark" [checked]="getPermission(row.id, role.id).operations.indexOf(mp.mark) > -1" (change)="onChangePrivilege(row.id, role.id, mp.mark)">
+              {{mp.title}}
+            </mat-checkbox>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

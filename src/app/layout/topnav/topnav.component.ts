@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {PasswordDialogComponent} from '../../components/password-dialog/password-dialog.component';
 import {JwtAuthService} from '../../services/jwt-auth.service';
-
+import {PersonDialogComponent} from '../../components/person-dialog/person-dialog.component';
 @Component({
   selector: 'app-topnav',
   templateUrl: './topnav.component.html',
@@ -40,8 +40,10 @@ export class TopnavComponent implements OnInit {
   }
 
   refresh() {
-    console.log('ss');
-    this.auth.refresh();
+    // this.auth.refresh().subscribe();
+    this.dialog.open(PersonDialogComponent, {data: {}}).afterClosed().subscribe(result => {
+      // console.log(result);
+    });
   }
 
   changeLang(language: string) {
@@ -50,7 +52,7 @@ export class TopnavComponent implements OnInit {
   modify_password() {
     // msgDialog({title: data.status}).afterClosed().subscribe(result => {});
     this.dialog.open(PasswordDialogComponent, {data: {}}).afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 }

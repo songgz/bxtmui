@@ -17,7 +17,7 @@ import {ExcelFileService} from '../../services/excel-file.service';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside', 'action'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
@@ -141,5 +141,17 @@ export class IncomingComponent implements OnInit, AfterViewInit {
       this.progressbar = (i + 1) / len * 200;
     }
     this.file.save('sheet1');
+  }
+
+  update (id: string)  {
+    this.rest.navigate(['/bxt/incomings/', id, 'edit']);
+  }
+
+  color_confirmed_at_last( e: any) {
+    if (e === 'true') {
+      return 'green';
+    } else {
+      return 'red';
+    }
   }
 }

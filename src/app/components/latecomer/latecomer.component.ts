@@ -15,7 +15,7 @@ import {ExcelFileService} from '../../services/excel-file.service';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime', 'action' ];
+  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
@@ -73,15 +73,13 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  update (id: string)  {
-    this.rest.navigate(['/bxt/latecomers/', id, 'edit']);
-  }
+
 
   async export_excel() {
     this.progressbar = 1;
     this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '确认']);
-    this.query['pre'] = 200;
-    const len = this.pageLength / 200 ;
+    this.query['pre'] = 100;
+    const len = this.pageLength / 100 ;
     for (let i = 0; i <= len; i++ ) {
       this.query['page'] = i + 1;
       const data1: any = await this.rest.index('latecomers', this.query).toPromise();
@@ -97,7 +95,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
           d.confirmed
         ]);
       });
-      this.progressbar = (i + 1) / len * 200;
+      this.progressbar = (i + 1) / len * 100;
     }
     this.file.save('sheet1');
   }
