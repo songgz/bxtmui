@@ -35,7 +35,7 @@
     <div class="bedbox">
     <mat-card-content *ngFor="let bed of room.beds; let i = index;trackBy: trackByIndex;">
       <mat-card >
-        <button class="delete_sweep" mat-icon-button color="warn" type="button" (click)="ThisDel(i)"><mat-icon class="mat-18">delete_sweep</mat-icon></button>
+        <button class="delete_sweep" mat-icon-button color="warn" type="button" (click)="ThisDel(i , roomForm)"><mat-icon class="mat-18">delete_sweep</mat-icon></button>
         <mat-card-header>
           <mat-card-title>#{{i+1}}</mat-card-title>
         </mat-card-header>
