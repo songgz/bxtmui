@@ -108,18 +108,9 @@ export class IncomingComponent implements OnInit, AfterViewInit {
         this._snackBar.open('请选择楼栋', '', {
           duration: 2000,
         });
-    } else if (this.query.start_at == null) {
-      this._snackBar.open('请选择开始时间', '', {
-        duration: 2000,
-      });
-    } else if (this.query.end_at == null) {
-      this._snackBar.open('请选择结束时间', '', {
-        duration: 2000,
-      });
     } else {
       this.export_excel();
     }
-
   }
 
   async export_excel() {
