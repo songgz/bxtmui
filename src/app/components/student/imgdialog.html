@@ -1,17 +1,27 @@
 <!--  <h1 mat-dialog-title>头像标题</h1>-->
+  <style>
+    .imgdialogstyle{
+      max-height: 60vh;
+      width: auto;
+    }
+    .imgDialogBtn{
+      position: absolute;
+      top: -24px;
+      right: -24px;
+    }
+    @media screen and (max-width: 768px) {
+      .imgdialogstyle {
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+      }
+    }
+  </style>
+<div style="position: relative;padding-top: 24px;">
+  <button class="imgDialogBtn"  color="warn" mat-icon-button aria-label="关闭" mat-dialog-close>
+    <mat-icon>cancel</mat-icon>
+  </button>
   <div mat-dialog-content>
-    <style>
-      .imgdialogstyle{
-        max-height: 60vh;
-        width: auto;
-      }
-      @media screen and (max-width: 768px) {
-        .imgdialogstyle {
-          max-width: 100%;
-          height: auto;
-          max-height: none;
-        }
-      }
-    </style>
     <img class="imgdialogstyle" src="{{data.dataid}}">
   </div>
+</div>

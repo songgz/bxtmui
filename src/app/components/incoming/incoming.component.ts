@@ -10,6 +10,7 @@ import {OrgService} from '../../services/org.service';
 import { MatDialog } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExcelFileService} from '../../services/excel-file.service';
+import {DialogData, ImgDialogStudentComponent} from '../student/student.component';
 
 @Component({
   selector: 'app-incoming',
@@ -147,11 +148,11 @@ export class IncomingComponent implements OnInit, AfterViewInit {
     this.rest.navigate(['/bxt/incomings/', id, 'edit']);
   }
 
-  color_confirmed_at_last( e: any) {
-    if (e === 'true') {
-      return 'green';
-    } else {
-      return 'red';
-    }
+  openDialog(id: string) {
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: id
+      }
+    });
   }
 }
