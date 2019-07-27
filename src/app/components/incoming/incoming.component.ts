@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExcelFileService} from '../../services/excel-file.service';
 import {ImgDialogStudentComponent} from '../student/student.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-incoming',
@@ -65,6 +66,8 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
+
     this.loadIncomings();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();

@@ -73,7 +73,7 @@
   <table mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 学生 </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 140px"> 学生 </th>
       <td mat-cell *matCellDef="let row">
         <div class="picbox">
           <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">
