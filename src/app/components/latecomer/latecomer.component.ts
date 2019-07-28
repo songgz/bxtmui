@@ -52,7 +52,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadLatecomers();
+    this.loadLatecomers(this.query);
   }
   applyFilter() {
     this.loadLatecomers(this.query);
