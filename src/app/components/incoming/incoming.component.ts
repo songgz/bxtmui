@@ -10,7 +10,8 @@ import {OrgService} from '../../services/org.service';
 import { MatDialog } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExcelFileService} from '../../services/excel-file.service';
-import {DialogData, ImgDialogStudentComponent} from '../student/student.component';
+import {ImgDialogStudentComponent} from '../student/student.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-incoming',
@@ -65,6 +66,8 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
+
     this.loadIncomings();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
@@ -105,18 +108,9 @@ export class IncomingComponent implements OnInit, AfterViewInit {
         this._snackBar.open('请选择楼栋', '', {
           duration: 2000,
         });
-    } else if (this.query.start_at == null) {
-      this._snackBar.open('请选择开始时间', '', {
-        duration: 2000,
-      });
-    } else if (this.query.end_at == null) {
-      this._snackBar.open('请选择结束时间', '', {
-        duration: 2000,
-      });
     } else {
       this.export_excel();
     }
-
   }
 
   async export_excel() {

@@ -25,21 +25,31 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (dateChange)="applyFilter()" placeholder="开始日期">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <input matInput type="datetime-local" [(ngModel)]="query.start_at" (change)="applyFilter()" placeholder="开始日期">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker2" [(ngModel)]="query.end_at" (dateChange)="applyFilter()" placeholder="结束日期">
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
+    <input matInput type="datetime-local" [(ngModel)]="query.end_at" (change)="applyFilter()" placeholder="结束日期">
   </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (dateChange)="applyFilter()" placeholder="开始日期">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker #picker></mat-datepicker>-->
+  <!--</mat-form-field>-->
+  <!--<mat-form-field>-->
+    <!--<input matInput [matDatepicker]="picker2" [(ngModel)]="query.end_at" (dateChange)="applyFilter()" placeholder="结束日期">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker #picker2></mat-datepicker>-->
+  <!--</mat-form-field>-->
 </div>
 <mat-toolbar class="mat-elevation-z8">
   <span>门禁记录</span>
   <span class="bxt-toolbar-spacer"></span>
+  <button mat-icon-button style="color: green" matTooltip="批量导出" (click)="screenData()">
+    <mat-icon class="mat-18">cloud_download</mat-icon>
+  </button>
 </mat-toolbar>
-<div class="mat-elevation-z8">
+<mat-progress-bar mode="determinate" [value]="progressbar"></mat-progress-bar>
+<div class="mat-elevation-z8"  id="export_excel">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>

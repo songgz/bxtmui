@@ -30,6 +30,8 @@ export class JwtAuthService {
       this.setToken(this.REFRESH_TOKEN, data.refresh);
       this.setToken(this.CSRF_TOKEN, data.csrf);
       this.router.navigate(['/bxt']);
+    }, error => {
+      alert('错误代码：' + error.status);
     });
   }
 

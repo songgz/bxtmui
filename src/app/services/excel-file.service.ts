@@ -9,6 +9,7 @@ export class ExcelFileService {
   workbook: Workbook = null;
   worksheet: Worksheet = null;
 
+
   constructor(header: any[]) {
     this.workbook = new Workbook();
     this.worksheet = this.workbook.addWorksheet('Sheet1');
@@ -19,11 +20,16 @@ export class ExcelFileService {
     this.worksheet.addRow(cells);
   }
 
-  save(name: string) {
-    this.workbook.xlsx.writeBuffer().then((data) => {
-      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  async save(name: string) {
+    console.log(this.workbook.xlsx.writeBuffer());
+    await this.workbook.xlsx.writeBuffer().then(async (data) => {
+      console.log(data);
+      const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      console.log(blob);
       console.log(fs);
       fs.saveAs(blob, name + Date.parse(new Date().toString()) + '.xlsx');
+    }, function (err: any) {
+      console.log(err);
     });
   }
 }

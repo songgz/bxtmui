@@ -28,7 +28,6 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   pageLength = 0;
   file: ExcelFileService = null;
   progressbar: number;
-
   constructor(private rest: RestService, private  dict: DictService, public org: OrgService,
               private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
@@ -43,7 +42,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loadLatecomers();
+    this.loadLatecomers(this.query);
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -52,7 +51,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadLatecomers();
+    this.loadLatecomers(this.query);
   }
   applyFilter() {
     this.loadLatecomers(this.query);
@@ -84,6 +83,11 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
       this.query['page'] = i + 1;
       const data1: any = await this.rest.index('latecomers', this.query).toPromise();
       data1.result.forEach(d => {
+        if (d.confirmed) {
+          d.confirmed = d.cause;
+        } else {
+          d.confirmed = '未确认';
+        }
         this.file.addRow([
           d.user_name,
           d.user_sno,

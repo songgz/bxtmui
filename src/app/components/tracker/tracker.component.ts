@@ -10,6 +10,8 @@ import {map} from 'rxjs/operators';
 import {ImgDialogStudentComponent} from "../student/student.component";
 import { MatDialog } from '@angular/material/dialog';
 import {environment} from '../../../environments/environment';
+import {ExcelFileService} from '../../services/excel-file.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-tracker',
@@ -17,7 +19,7 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime', 'access_id', 'snap'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime',  'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   color_status: any = {};
@@ -31,9 +33,15 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
   baseUrl: any;
+  progressbar = 0;
+  file: ExcelFileService = null;
 
-
-  constructor(private rest: RestService, private  dict: DictService, public org: OrgService, public dialog: MatDialog) {
+  constructor(
+    private rest: RestService,
+    private  dict: DictService,
+    public org: OrgService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) {
     this.dict.getItems('sleep_status').subscribe(data => {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
@@ -42,7 +50,6 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     });
     this.org.getOrgs();
     this.getHouses();
-    this.getAccesses();
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -66,9 +73,9 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     options['pre'] = this.pageSize;
     this.rest.index('trackers', options).subscribe((data: any) => {
       // 门禁重命名
-      data.result.forEach( trackersData => {
-        trackersData.access_title = this.accesses.find( item => item.id === trackersData.access_id).title;
-      });
+      // data.result.forEach( trackersData => {
+      //   trackersData.access_title = this.accesses.find( item => item.id === trackersData.access_id).title;
+      // });
       // console.log( data.result)
 
       this.dataSource = new MatTableDataSource(data.result);
@@ -83,15 +90,14 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   applyFilter() {
     this.loadTrackers(this.query);
   }
-  getAccesses(options = {}) {
-    options['pre'] = 9999;
-    this.rest.index('accesses', options).subscribe((data: any) => {
-      this.accesses =  data.result;
-      // console.log(this.accesses);
-    }, error => {
-    this.rest.errorHandle(error);
-    });
-  }
+  // getAccesses(options = {}) {
+  //   options['pre'] = 9999;
+  //   this.rest.index('accesses', options).subscribe((data: any) => {
+  //     this.accesses =  data.result;
+  //   }, error => {
+  //   this.rest.errorHandle(error);
+  //   });
+  // }
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
@@ -105,4 +111,37 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     });
   }
 
+  screenData () {
+    if (this.query.access_id == null) {
+      this._snackBar.open('请选择楼栋', '', {
+        duration: 2000,
+      });
+    } else {
+      this.export_excel();
+    }
+  }
+  async export_excel() {
+    this.progressbar = 1;
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '时间', '状态']);
+    this.query['pre'] = 200;
+    const len = this.pageLength / 200 ;
+    for (let i = 0; i <= len; i++ ) {
+      this.query['page'] = i + 1;
+      const data1: any = await this.rest.index('trackers', this.query).toPromise();
+      console.log(data1.result)
+      data1.result.forEach(d => {
+        this.file.addRow([
+          d.user_name,
+          d.user_sno,
+          d.user_dorm_title,
+          // d.pass_time,
+          // d.status,
+          new Date(d.pass_time).toLocaleString(),
+          this.sleep_status[d.status]
+        ]);
+      });
+      this.progressbar = (i + 1) / len * 200;
+    }
+    this.file.save('sheet1');
+  }
 }
