@@ -19,9 +19,10 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'status', 'overtime',  'snap'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'status', 'overtime',  'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
+  direction_type: any = {};
   color_status: any = {};
   query: any = {};
   moreserch = false;
@@ -46,6 +47,11 @@ export class TrackerComponent implements OnInit, AfterViewInit {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
         this.color_status[item.mark] = item.color;
+      }
+    });
+    this.dict.getItems('direction_type').subscribe(data => {
+      for (const item of data) {
+        this.direction_type[item.mark] = item.title;
       }
     });
     this.org.getOrgs();
@@ -122,13 +128,16 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   }
   async export_excel() {
     this.progressbar = 1;
-    this.file = new ExcelFileService(['姓名', '学号', '公寓', '时间', '状态']);
+    this.file = new ExcelFileService(
+      ['姓名', '学号', '公寓', '进出时间', '进/出'],
+      [{width: 10}, {width: 15}, {width: 25}, {width: 25}, {width: 5}]
+    );
     this.query['pre'] = 200;
     const len = this.pageLength / 200 ;
     for (let i = 0; i <= len; i++ ) {
       this.query['page'] = i + 1;
       const data1: any = await this.rest.index('trackers', this.query).toPromise();
-      console.log(data1.result)
+      // console.log(data1.result)
       data1.result.forEach(d => {
         this.file.addRow([
           d.user_name,
@@ -137,11 +146,11 @@ export class TrackerComponent implements OnInit, AfterViewInit {
           // d.pass_time,
           // d.status,
           new Date(d.pass_time).toLocaleString(),
-          this.sleep_status[d.status]
+          this.direction_type[d.direction]
         ]);
       });
       this.progressbar = (i + 1) / len * 200;
     }
-    this.file.save('sheet1');
+    this.file.save('出入记录');
   }
 }

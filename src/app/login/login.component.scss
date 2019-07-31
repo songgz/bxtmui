@@ -28,7 +28,11 @@
 
   &:after {
     content: '';
-    background: #fff;
+    background: #3f51b5;
+    background-image: url("~src/assets/img/xxzm-b.jpg");
+    background-repeat:no-repeat;
+    background-size:100%;
+    -moz-background-size:100%;
     position: absolute;
     top: 0;
     left: 0;
