@@ -11,11 +11,11 @@ export class ExcelFileService {
   workbook: Workbook = null;
   worksheet: Worksheet = null;
 
-  constructor(header: any[], width: any[]) {
+  constructor(header: any[]) {
     this.workbook = new Workbook();
     this.worksheet = this.workbook.addWorksheet('Sheet1');
     this.worksheet.addRow(header);
-    this.worksheet.columns = width;
+    // this.worksheet.columns = width;
     // console.log();
   }
 

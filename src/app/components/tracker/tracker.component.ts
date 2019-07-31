@@ -24,6 +24,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   sleep_status: any = {};
   direction_type: any = {};
   color_status: any = {};
+  color_direction: any = {};
   query: any = {};
   moreserch = false;
   houses: Observable<any[]>;
@@ -52,6 +53,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     this.dict.getItems('direction_type').subscribe(data => {
       for (const item of data) {
         this.direction_type[item.mark] = item.title;
+        this.color_direction[item.mark] = item.color;
       }
     });
     this.org.getOrgs();
@@ -129,8 +131,8 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   async export_excel() {
     this.progressbar = 1;
     this.file = new ExcelFileService(
-      ['姓名', '学号', '公寓', '进出时间', '进/出'],
-      [{width: 10}, {width: 15}, {width: 25}, {width: 25}, {width: 5}]
+      ['姓名', '学号', '公寓', '进出时间', '进/出']
+      // ,[{width: 10}, {width: 15}, {width: 25}, {width: 25}, {width: 5}]
     );
     this.query['pre'] = 200;
     const len = this.pageLength / 200 ;
