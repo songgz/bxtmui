@@ -13,16 +13,24 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="状态"  [(value)]="query.status" (selectionChange)="applyFilter()"  name="status">
-      <mat-option >
-       （全部）
-      </mat-option>
-      <mat-option *ngFor="let status of sleep_status | keyvalue" [value]="status.key">
-        {{status.value}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<!--  <mat-form-field>-->
+<!--    <mat-select placeholder="出/入"  [(value)]="query.direction" (selectionChange)="applyFilter()"  name="direction">-->
+<!--      <mat-option *ngFor="let direction of direction_type | keyvalue" [value]="direction.key">-->
+<!--        {{direction.value}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-form-field>-->
+<!--    <mat-select placeholder="状态"  [(value)]="query.status" (selectionChange)="applyFilter()"  name="status">-->
+<!--      <mat-option >-->
+<!--       （全部）-->
+<!--      </mat-option>-->
+<!--      <mat-option *ngFor="let status of sleep_status | keyvalue" [value]="status.key">-->
+<!--        {{status.value}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
   <mat-form-field>
     <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名">
   </mat-form-field>

@@ -19,7 +19,8 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'status', 'overtime',  'snap'];
+  // displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'status', 'overtime',  'snap'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'overtime',  'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   direction_type: any = {};
@@ -130,10 +131,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
   }
   async export_excel() {
     this.progressbar = 1;
-    this.file = new ExcelFileService(
-      ['姓名', '学号', '公寓', '进出时间', '进/出']
-      // ,[{width: 10}, {width: 15}, {width: 25}, {width: 25}, {width: 5}]
-    );
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '进出时间', '进/出']);
     this.query['pre'] = 200;
     const len = this.pageLength / 200 ;
     for (let i = 0; i <= len; i++ ) {

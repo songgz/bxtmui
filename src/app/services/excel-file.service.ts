@@ -15,8 +15,6 @@ export class ExcelFileService {
     this.workbook = new Workbook();
     this.worksheet = this.workbook.addWorksheet('Sheet1');
     this.worksheet.addRow(header);
-    // this.worksheet.columns = width;
-    // console.log();
   }
 
   addRow(cells: any[]) {
