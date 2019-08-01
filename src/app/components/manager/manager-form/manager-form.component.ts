@@ -50,7 +50,7 @@ export class ManagerFormComponent implements OnInit {
   }
 
   create(f: NgForm) {
-    this.rest.create('managers/' + this.manager.id, {manager: f.value}).subscribe((data: any) => {
+    this.rest.create('managers', {manager: f.value}).subscribe((data: any) => {
       this.manager = data;
       this.goBack();
     }, error => {
