@@ -30,7 +30,7 @@
         <input matInput placeholder="卡号"  [(ngModel)]="manager.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="性别" [(ngModel)]="manager.gender_mark" name="gender">
+        <mat-select placeholder="性别" [(ngModel)]="manager.gender_mark" name="gender_mark">
           <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
             {{gender.title}}
           </mat-option>
@@ -39,14 +39,14 @@
       <br>
       <div>分组角色</div>
       <mat-form-field>
-        <mat-select multiple placeholder="所属分组" [(ngModel)]="manager.group_ids"  name="group">
+        <mat-select multiple placeholder="所属分组" [(ngModel)]="manager.group_ids"  name="group_ids">
           <mat-option *ngFor="let item of groups | async" [value]="item.id">
             {{item.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select multiple placeholder="所属角色" [(ngModel)]="manager.role_ids"  name="role">
+        <mat-select multiple placeholder="所属角色" [(ngModel)]="manager.role_ids"  name="role_ids">
           <mat-option *ngFor="let item of roles | async" [value]="item.id">
             {{item.title}}
           </mat-option>
