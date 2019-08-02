@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
-
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -12,7 +12,6 @@ import {Observable} from 'rxjs';
   styleUrls: ['./house-access.component.scss']
 })
 export class HouseAccessComponent implements OnInit {
-
   displayedColumns = ['title', 'action'];
   dataSource: MatTableDataSource<any[]>;
   roles: any[] = [];
@@ -20,6 +19,7 @@ export class HouseAccessComponent implements OnInit {
   role: any = {id: null};
   menu_privileges: Observable<any[]>;
   tests: any[] = ['aa', 'bb'];
+  private checkboxSW: boolean;
 
   constructor(private rest: RestService, private dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
@@ -43,9 +43,9 @@ export class HouseAccessComponent implements OnInit {
   loadRoles() {
     this.rest.index('roles').subscribe((data: any) => {
       this.roles = data.result;
-      if (this.roles.length > 0) {
-        this.role = this.roles[0];
-      }
+      // if (this.roles.length > 0) {
+      //   this.role = this.roles[0];
+      // }
     });
   }
 
@@ -63,7 +63,21 @@ export class HouseAccessComponent implements OnInit {
     }
     return {aco_id: aco_id, aco_type: 'House', aro_id: aro_id, operations: []};
   }
-
+  setRole() {
+    if (this.role.id) {
+      this.checkboxSW = true;
+      this.loadPermissions();
+    } else {
+      this.checkboxSW = false;
+    }
+  }
+  onClick() {
+    if (this.role.id) {
+    } else {
+      this.checkboxSW = false;
+      this.rest.msgDialog({title: '请选择角色'}).afterClosed();
+    }
+  }
   onChangePrivilege(aco_id, aro_id, operation) {
     const perm = this.getPermission(aco_id, aro_id);
     const index = perm.operations.indexOf(operation);

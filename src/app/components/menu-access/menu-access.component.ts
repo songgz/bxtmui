@@ -18,6 +18,7 @@ export class MenuAccessComponent implements OnInit {
   role: any = {id: null};
   menu_privileges: Observable<any[]>;
   tests: any[] = ['aa', 'bb'];
+  checkboxSW: boolean;
 
   constructor(private rest: RestService, private dict: DictService) {
     this.dataSource = new MatTableDataSource([]);
@@ -41,9 +42,9 @@ export class MenuAccessComponent implements OnInit {
   loadRoles() {
     this.rest.index('roles').subscribe((data: any) => {
       this.roles = data.result;
-      if (this.roles.length > 0) {
-        this.role = this.roles[0];
-      }
+      // if (this.roles.length > 0) {
+      //   this.role = this.roles[0];
+      // }
     });
   }
 
@@ -54,46 +55,61 @@ export class MenuAccessComponent implements OnInit {
   }
 
   getPermission(aco_id, aro_id) {
-    for (const perm of this.permissions) {
-      if (perm.aco_id === aco_id && perm.aro_id === aro_id) {
-        return perm;
+      for (const perm of this.permissions) {
+        if (perm.aco_id === aco_id && perm.aro_id === aro_id) {
+          return perm;
+        }
       }
+      return {aco_id: aco_id, aco_type: 'MenuItem', aro_id: aro_id, operations: []};
+  }
+  setRole() {
+    if (this.role.id) {
+      this.checkboxSW = true;
+      this.loadPermissions();
+    } else {
+      this.checkboxSW = false;
     }
-    return {aco_id: aco_id, aco_type: 'MenuItem', aro_id: aro_id, operations: []};
+  }
+  onClick() {
+    if (this.role.id) {
+    } else {
+      this.checkboxSW = false;
+      this.rest.msgDialog({title: '请选择角色'}).afterClosed();
+    }
   }
 
   onChangePrivilege(aco_id, aro_id, operation) {
-    const perm = this.getPermission(aco_id, aro_id);
-    const index = perm.operations.indexOf(operation);
-    if (index > -1) {
-      perm.operations.splice(index, 1);
-    } else {
-      perm.operations.push(operation);
-    }
+    if (this.checkboxSW) {
+      const perm = this.getPermission(aco_id, aro_id);
+      const index = perm.operations.indexOf(operation);
+      if (index > -1) {
+        perm.operations.splice(index, 1);
+      } else {
+        perm.operations.push(operation);
+      }
 
-    if (perm.id === undefined && perm.operations.length > 0 ) {
-      this.rest.create('permissions', {permission: perm}).subscribe((data: any) => {
-        this.permissions.push(data);
-      }, error => {
-        this.rest.errorHandle(error);
-      });
-    }
+      if (perm.id === undefined && perm.operations.length > 0 ) {
+        this.rest.create('permissions', {permission: perm}).subscribe((data: any) => {
+          this.permissions.push(data);
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
 
-    if (perm.id != null && perm.operations.length === 0) {
-      this.permissions.splice(this.permissions.indexOf(perm), 1);
-      this.rest.destory('permissions/' + perm.id).subscribe(data => {
-      }, error => {
-        this.rest.errorHandle(error);
-      });
-    }
+      if (perm.id != null && perm.operations.length === 0) {
+        this.permissions.splice(this.permissions.indexOf(perm), 1);
+        this.rest.destory('permissions/' + perm.id).subscribe(data => {
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
 
-    if (perm.id != null && perm.operations.length > 0) {
-      this.rest.update('permissions/' + perm.id, {permission: perm}).subscribe((data: any) => {
-      }, error => {
-        this.rest.errorHandle(error);
-      });
+      if (perm.id != null && perm.operations.length > 0) {
+        this.rest.update('permissions/' + perm.id, {permission: perm}).subscribe((data: any) => {
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
     }
-
   }
-
 }

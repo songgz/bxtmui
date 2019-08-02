@@ -19,10 +19,13 @@ export class StudentFormComponent implements OnInit {
   genders: Observable<any[]>;
   floors: any[];
   rooms: any[];
+  room: any;
+  beds: any[];
   groups: Observable<any[]>;
   roles: Observable<any[]>;
   avatar64: string | ArrayBuffer = '';
   imgsrc: any = '/assets/img/imghead.png';
+
 
   constructor(private rest: RestService,
               private route: ActivatedRoute,
@@ -43,6 +46,7 @@ export class StudentFormComponent implements OnInit {
     this.getGroups();
     this.getRoles();
     this.getFloors();
+
   }
 
   getGroups() {
@@ -64,9 +68,18 @@ export class StudentFormComponent implements OnInit {
         this.rooms = data.result;
       });
   }
+  getBeds() {
+    // this.room = this.rooms.find( data => data.id === this.student.bed_id);
+    console.log(this.student);
+    // this.beds = this.student.bed_mark;
+  }
 
   selectFloor() {
     this.getRooms();
+  }
+  selectRoom(e: any) {
+   this.room = this.rooms.find( data => data.id === e.value);
+   this.beds = this.room.beds;
   }
 
   save(f: NgForm) {
@@ -92,6 +105,7 @@ export class StudentFormComponent implements OnInit {
       this.student = data;
       this.getRooms();
       this.inspection();
+      this.getBeds();
     });
   }
   inspection() {
