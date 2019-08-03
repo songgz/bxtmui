@@ -19,11 +19,11 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'overtime', 'reside', 'action'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'reside', 'action'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
-  genders: Observable<any[]>;
+  genders: Observable<any[]>
   houses: Observable<any[]>;
   sleep_status: any = {};
   color_status: any = {};
@@ -115,7 +115,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
 
   async export_excel() {
     this.progressbar = 1;
-    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '驻留']);
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '驻留']);
     this.query['pre'] = 200;
     const len = this.pageLength / 200 ;
     for (let i = 0; i <= len; i++ ) {
@@ -129,7 +129,6 @@ export class IncomingComponent implements OnInit, AfterViewInit {
           d.dept_full_title,
           new Date(d.pass_time_at_last).toLocaleString(),
           this.sleep_status[d.status_at_last],
-          d.overtime_at_last,
           d.reside
         ]);
       });
