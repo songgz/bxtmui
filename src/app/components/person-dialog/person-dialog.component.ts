@@ -10,10 +10,20 @@ import {RestService} from '../../services/rest.service';
 export class PersonDialogComponent implements OnInit, AfterViewInit {
   manager: any = { };
   imgsrc: any = '/assets/img/imghead.png';
+  user_id = '';
+  data: any = {};
+  manager: any = { };
 
-  constructor(private rest: RestService) { }
+  constructor(private rest: RestService) {
+    this.user_id = localStorage.getItem('user_id');
+  }
 
   ngOnInit() {
+    this.manager.id = this.user_id;
+    if (this.manager.id != null) { this.edit();
+    } else {
+      alert('请先登录');
+    }
   }
   inspection() {
     this.rest.show('managers/' + this.manager.id).subscribe((data: any) => {
@@ -25,6 +35,13 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
       } else {
         this.imgsrc = '/assets/img/imghead.png';
       }
+    });
+  }
+
+  edit() {
+    this.rest.show('managers/' + this.manager.id).subscribe((data: any) => {
+      this.manager = data;
+
     });
   }
 

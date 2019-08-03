@@ -50,7 +50,7 @@ export class HouseAccessComponent implements OnInit {
   }
 
   loadPermissions() {
-    this.rest.index('permissions').subscribe((data: any) => {
+    this.rest.index('permissions', { pre: 99999}).subscribe((data: any) => {
       this.permissions = data.result;
     });
   }

@@ -49,7 +49,7 @@ export class MenuAccessComponent implements OnInit {
   }
 
   loadPermissions() {
-    this.rest.index('permissions').subscribe((data: any) => {
+    this.rest.index('permissions', {pre: 99999}).subscribe((data: any) => {
       this.permissions = data.result;
     });
   }
@@ -78,7 +78,8 @@ export class MenuAccessComponent implements OnInit {
     }
   }
 
-  onChangePrivilege(aco_id, aro_id, operation) {
+  onChangePrivilege(aco_id, aro_id, operation, row) {
+    // console.log(row)
     if (this.checkboxSW) {
       const perm = this.getPermission(aco_id, aro_id);
       const index = perm.operations.indexOf(operation);
@@ -109,6 +110,10 @@ export class MenuAccessComponent implements OnInit {
         }, error => {
           this.rest.errorHandle(error);
         });
+      }
+      if (row.depth === 0) {
+        const abc = this.dataSource;
+        // console.log(abc);
       }
     }
   }

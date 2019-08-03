@@ -29,7 +29,7 @@
       <td mat-cell *matCellDef="let row">
         <div class="flex">
           <div *ngFor="let mp of menu_privileges " (click)="onClick()">
-            <mat-checkbox [disabled]="!checkboxSW" [value]="mp.mark" [checked]="getPermission(row.id, role.id).operations.indexOf(mp.mark) > -1" (change)="onChangePrivilege(row.id, role.id, mp.mark)">
+            <mat-checkbox [disabled]="!checkboxSW" [value]="mp.mark" [checked]="getPermission(row.id, role.id).operations.indexOf(mp.mark) > -1" (change)="onChangePrivilege(row.id, role.id, mp.mark, row)">
               {{mp.title}}
             </mat-checkbox>
           </div>

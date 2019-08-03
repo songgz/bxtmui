@@ -9,40 +9,40 @@
       </div>
     </div>
     <mat-form-field>
-      <input matInput placeholder="登录账号" disabled name="login" >
+      <input matInput placeholder="登录账号" required [(ngModel)]="manager.login" disabled name="login" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="卡号" name="ic_card" disabled>
+      <input matInput placeholder="卡号"  [(ngModel)]="manager.ic_card" name="ic_card" disabled>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="姓名" required  name="name" >
+      <input matInput placeholder="姓名" required [(ngModel)]="manager.name"  name="name" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="电话"  name="tel" >
+      <input matInput placeholder="电话"  [(ngModel)]="manager.tel" name="tel" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="身份证号"  name="id_card" >
+      <input matInput placeholder="身份证号" [(ngModel)]="manager.id_card"  name="id_card" >
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="性别" name="gender">
-        <mat-option>
-          性别
+      <mat-select placeholder="性别" name="gender" [(ngModel)]="manager.gender_mark">
+        <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
+          {{gender.title}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-select multiple placeholder="所属分组"  name="group" disabled>
-        <mat-option >
-          所属分组
+      <mat-select multiple placeholder="所属分组" [(ngModel)]="manager.group_ids" name="group" disabled>
+        <mat-option *ngFor="let item of groups | async" [value]="item.id" >
+          {{item.title}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select multiple placeholder="所属角色"  name="role" disabled>
-        <mat-option >
-          所属角色
+      <mat-select multiple placeholder="所属角色" [(ngModel)]="manager.role_ids" name="role" disabled>
+        <mat-option *ngFor="let item of roles | async" [value]="item.id" >
+          {{item.title}}
         </mat-option>
       </mat-select>
     </mat-form-field>
