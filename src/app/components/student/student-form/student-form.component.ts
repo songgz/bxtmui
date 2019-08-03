@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
@@ -14,7 +14,7 @@ import {environment} from '../../../../environments/environment';
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.scss']
 })
-export class StudentFormComponent implements OnInit {
+export class StudentFormComponent implements OnInit, AfterViewInit {
   student: any = { };
   genders: Observable<any[]>;
   floors: any[];
@@ -65,21 +65,19 @@ export class StudentFormComponent implements OnInit {
 
   getRooms() {
     this.rest.index('rooms', {pre: 9999, parent_id: this.student.dorm_parent_id}).subscribe((data: any) => {
-        this.rooms = data.result;
-      });
+      this.rooms = data.result;
+      this.room = this.rooms.find( roomData => roomData.id === this.student.dorm_id);
+      this.beds = this.room.beds;
+    });
   }
-  getBeds() {
-    // this.room = this.rooms.find( data => data.id === this.student.bed_id);
-    console.log(this.student);
-    // this.beds = this.student.bed_mark;
-  }
+
 
   selectFloor() {
     this.getRooms();
   }
   selectRoom(e: any) {
-   this.room = this.rooms.find( data => data.id === e.value);
-   this.beds = this.room.beds;
+    this.room = this.rooms.find( roomData => roomData.id === e);
+    this.beds = this.room.beds;
   }
 
   save(f: NgForm) {
@@ -105,7 +103,6 @@ export class StudentFormComponent implements OnInit {
       this.student = data;
       this.getRooms();
       this.inspection();
-      this.getBeds();
     });
   }
   inspection() {
