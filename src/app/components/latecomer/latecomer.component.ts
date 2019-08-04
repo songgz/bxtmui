@@ -84,7 +84,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
 
   async export_excel() {
     this.progressbar = 1;
-    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '超时', '确认']);
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '出入时间', '状态', '确认']);
     this.query['pre'] = 100;
     const len = this.pageLength / 100 ;
     for (let i = 0; i <= len; i++ ) {
@@ -103,7 +103,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
           d.user_dept_title,
           new Date(d.pass_time).toLocaleString(),
           this.sleep_status[d.status],
-          d.overtime,
+          // d.overtime,
           d.confirmed
         ]);
       });
