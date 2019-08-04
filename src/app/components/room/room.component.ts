@@ -42,7 +42,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadRooms();
+    this.loadRooms(this.query);
   }
   loadRooms(options = {}) {
     options['page'] = this.pageIndex + 1;
@@ -66,11 +66,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyFilter(filterValue: string = '') {
-    filterValue = filterValue.trim();
-    if (filterValue.length !== 0) {
-      this.query['key'] = filterValue;
-    }
+  applyFilter() {
     this.loadRooms(this.query);
   }
 
