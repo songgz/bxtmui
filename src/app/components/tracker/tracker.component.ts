@@ -56,6 +56,8 @@ export class TrackerComponent implements OnInit, AfterViewInit {
         this.direction_type[item.mark] = item.title;
         this.color_direction[item.mark] = item.color;
       }
+      console.log(this.direction_type);
+      console.log(this.color_direction);
     });
     this.org.getOrgs();
     this.getHouses();

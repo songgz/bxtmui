@@ -15,13 +15,15 @@ import {ExcelFileService} from '../../services/excel-file.service';
   styleUrls: ['./latecomer.component.scss']
 })
 export class LatecomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'status',  'overtime', 'reside'];
+  displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'direction', 'status',  'overtime', 'reside'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
   query: any = {};
   sleep_status: any = {};
+  direction_type: any = {};
   color_status: any = {};
+  color_direction: any = {};
   houses: Observable<any[]>;
   pageIndex = 0;
   pageSize = 10;
@@ -35,6 +37,12 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
       for (const item of data) {
         this.sleep_status[item.mark] = item.title;
         this.color_status[item.mark] = item.color;
+      }
+    });
+    this.dict.getItems('direction_type').subscribe(data => {
+      for (const item of data) {
+        this.direction_type[item.mark] = item.title;
+        this.color_direction[item.mark] = item.color;
       }
     });
     this.org.getOrgs();

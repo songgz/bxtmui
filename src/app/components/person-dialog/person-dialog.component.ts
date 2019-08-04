@@ -12,7 +12,6 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
   imgsrc: any = '/assets/img/imghead.png';
   user_id = '';
   data: any = {};
-  manager: any = { };
 
   constructor(private rest: RestService) {
     this.user_id = localStorage.getItem('user_id');
