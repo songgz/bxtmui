@@ -52,11 +52,11 @@
   <button mat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'':''}}</button>
 
 </div>
-<div class="searchbox">
-  <div class="status-style">
-    <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_stats[s.key] || 0)}}</span>
-  </div>
-</div>
+<!--<div class="searchbox">-->
+<!--  <div class="status-style">-->
+<!--    <span  *ngFor="let s of sleep_status | keyvalue"  [style.color]="color_status[s.key]">{{s.value + '：' + (status_stats[s.key] || 0)}}</span>-->
+<!--  </div>-->
+<!--</div>-->
 <!--<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center"  fxLayoutGap.lt.md="20px">-->
 <!--<span *ngFor="let s of sleep_status | keyvalue">{{s.value + (status_statistics[s.key] || 0)}}</span>-->
 <!--</div>-->
@@ -98,13 +98,9 @@
     </ng-container>
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 状态 </th>
-      <td mat-cell *matCellDef="let row" [style.color]="color_status[row.status_at_last]"> {{ sleep_status[row.status_at_last] }} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="color_status[row.status]"> {{ sleep_status[row.status] }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="overtime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 超时(时) </th>
-      <td mat-cell *matCellDef="let row"> {{row.overtime_at_last}} </td>
-    </ng-container>
     <ng-container matColumnDef="reside">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 驻留(天)</th>
       <td mat-cell *matCellDef="let row"> {{row.reside}} </td>
@@ -112,7 +108,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> 操作 </th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="确认">
+        <button mat-icon-button color="{{row.confirmed_at_last == 'true' ? 'green' : 'accent'}}" (click)="update(row.id)" matTooltip="确认">
           <mat-icon class="mat-18">launch</mat-icon>
         </button>
       </td>
