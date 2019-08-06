@@ -33,19 +33,20 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="所属房间"  [(ngModel)]="student.dorm_id"  name="dorm_id" (selectionChange)="selectRoom($event)">
+        <mat-select placeholder="所属房间"  [(ngModel)]="student.dorm_id"  name="dorm_id" (selectionChange)="selectRoom($event.value)">
           <mat-option *ngFor="let room of rooms" [value]="room.id">
             {{room.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="床号"  [(ngModel)]="student.bed_id"  name="bed_id">
-          <mat-option *ngFor="let bed of beds" [value]="bed.id">
+        <mat-select placeholder="床号"  [(ngModel)]="student.bed_mark"  name="bed_mark">
+          <mat-option *ngFor="let bed of beds" [value]="bed.mark">
             {{bed.mark}}----{{bed.owner_name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <br>
       <div>个人信息</div>
 
