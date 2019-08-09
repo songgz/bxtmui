@@ -19,7 +19,7 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./incoming.component.scss']
 })
 export class IncomingComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'status', 'reside', 'action'];
+  displayedColumns = [ 'name', 'sno', 'dorm_title', 'pass_time', 'direction' , 'status', 'reside', 'action'];
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
@@ -27,6 +27,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   houses: Observable<any[]>;
   sleep_status: any = {};
   color_status: any = {};
+  color_direction: any = {};
   status_stats: any = {};
   baseUrl: any;
   enddata: any;
@@ -38,6 +39,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   pageLength = 0;
   file: ExcelFileService = null;
   progressbar = 0;
+  direction_type: any = {};
 
   constructor(
     private rest: RestService,
@@ -51,6 +53,15 @@ export class IncomingComponent implements OnInit, AfterViewInit {
         this.color_status[item.mark] = item.color;
       }
     });
+    this.dict.getItems('direction_type').subscribe(data => {
+      for ( const item of data ) {
+        this.direction_type[item.mark] = item.title;
+        this.color_direction[item.mark] = item.color;
+      }
+      console.log(this.direction_type);
+      console.log(this.color_direction);
+    });
+
     this.org.getOrgs();
     this.dataSource = new MatTableDataSource([]);
   }
@@ -115,7 +126,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
 
   async export_excel() {
     this.progressbar = 1;
-    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '驻留']);
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '组织', '时间', '状态', '驻留（时）']);
     this.query['pre'] = 200;
     const len = this.pageLength / 200 ;
     for (let i = 0; i <= len; i++ ) {
@@ -139,6 +150,11 @@ export class IncomingComponent implements OnInit, AfterViewInit {
 
   update (id: string)  {
     this.rest.navigate(['/bxt/incomings/', id, 'edit']);
+  }
+  confirmed_at_last( b: any) {
+    if (b === 'true') {
+      return 'green';
+    } else { return 'red'; }
   }
 
   openDialog(id: string) {

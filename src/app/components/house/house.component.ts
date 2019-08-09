@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-house',
@@ -10,6 +12,8 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./house.component.scss']
 })
 export class HouseComponent implements OnInit, AfterViewInit {
+  query: any = {};
+  houses: Observable<any[]>;
   displayedColumns = [ 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
@@ -18,11 +22,13 @@ export class HouseComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   pageLength = 0;
 
+
   constructor(private rest: RestService) {
     this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
+    this.getHouses();
     this.loadHouse();
   }
 
@@ -33,7 +39,7 @@ export class HouseComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadHouse();
+    this.loadHouse(this.query );
   }
 
   loadHouse(options = {}) {
@@ -49,14 +55,16 @@ export class HouseComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.loadHouse({key: filterValue.trim()});
+  applyFilter() {
+    this.loadHouse(this.query);
   }
 
   public update (id: string)  {
     this.rest.navigate(['/bxt/houses/', id, 'edit']);
   }
-
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
   public delete (id: string) {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {

@@ -20,7 +20,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class TrackerComponent implements OnInit, AfterViewInit {
   // displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'status', 'overtime',  'snap'];
-  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'overtime',  'snap'];
+  displayedColumns = [ 'name', 'sno',  'dorm', 'pass_time', 'direction', 'snap'];
   dataSource: MatTableDataSource<any[]>;
   sleep_status: any = {};
   direction_type: any = {};
@@ -56,6 +56,8 @@ export class TrackerComponent implements OnInit, AfterViewInit {
         this.direction_type[item.mark] = item.title;
         this.color_direction[item.mark] = item.color;
       }
+      console.log(this.direction_type);
+      console.log(this.color_direction);
     });
     this.org.getOrgs();
     this.getHouses();
