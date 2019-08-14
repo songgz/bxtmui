@@ -37,13 +37,13 @@
       <mat-card >
         <button class="delete_sweep" mat-icon-button color="warn" type="button" (click)="ThisDel(i , roomForm)"><mat-icon class="mat-18">delete_sweep</mat-icon></button>
         <mat-card-header>
-          <mat-card-title>#{{i+1}}</mat-card-title>
+          <mat-card-title>#{{i+1}} {{room.beds[i].owner_name}}</mat-card-title>
         </mat-card-header>
         <mat-form-field class="example-form-field">
           <input matInput placeholder="床位编号" [(ngModel)]=" room.beds[i].mark" name="bed[{{i}}][mark]" >
         </mat-form-field>
         <mat-form-field  class="example-form-field">
-          <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].owner_name" name="bed[{{i}}][owner_name]" >
+          <input matInput placeholder="床位描述" [(ngModel)]=" room.beds[i].desc" name="bed[{{i}}][owner_name]" >
         </mat-form-field>
       </mat-card>
     </mat-card-content>
