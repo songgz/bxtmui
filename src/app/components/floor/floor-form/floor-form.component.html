@@ -15,6 +15,9 @@
         <input matInput placeholder="名称" required [(ngModel)]="floor.title" name="title" >
       </mat-form-field>
       <mat-form-field>
+        <input matInput type="number" placeholder="排序" [(ngModel)]="floor.seq" name="seq">
+      </mat-form-field>
+      <mat-form-field>
         <textarea matInput placeholder="描述" [(ngModel)]="floor.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>

@@ -29,6 +29,9 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
+        <input matInput type="number" placeholder="排序" [(ngModel)]="room.seq" name="seq">
+      </mat-form-field>
+      <mat-form-field>
         <textarea matInput placeholder="描述" [(ngModel)]="room.desc" name="desc"></textarea>
       </mat-form-field>
     </mat-card-content>
