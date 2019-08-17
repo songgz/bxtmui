@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {RestService} from '../../services/rest.service';
-
+import {DictService} from '../../services/dict.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 @Component({
   selector: 'app-person-dialog',
   templateUrl: './person-dialog.component.html',
@@ -12,8 +14,12 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
   imgsrc: any = '/assets/img/imghead.png';
   user_id = '';
   data: any = {};
-
-  constructor(private rest: RestService) {
+  genders: Observable<any[]>;
+  groups: Observable<any[]>;
+  roles: Observable<any[]>;
+  constructor(private rest: RestService,
+              private  dict: DictService
+  ) {
     this.user_id = localStorage.getItem('user_id');
   }
 
@@ -23,6 +29,9 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
     } else {
       alert('请先登录');
     }
+    this.genders = this.dict.getItems('gender_type');
+    this.getGroups();
+    this.getRoles();
   }
   inspection() {
     this.rest.show('managers/' + this.manager.id).subscribe((data: any) => {
@@ -36,7 +45,13 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  getGroups() {
+    this.groups = this.rest.index('groups').pipe(map((res: any) =>  res.result ));
+  }
 
+  getRoles() {
+    this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
+  }
   edit() {
     this.rest.show('managers/' + this.manager.id).subscribe((data: any) => {
       this.manager = data;

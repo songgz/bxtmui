@@ -7,7 +7,6 @@
   box-shadow: 0 0 5px gray;
   overflow: hidden;
   position: relative;
-  height:63px;
 }
 .header{
   background-color: orangered;
@@ -24,10 +23,21 @@
 .bed{
   display: flex;
   align-self: center;
+  margin: 3px;
 }
 .bedbox{
   margin: 10px 0 5px 20px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+}
+.inHouse{
+  background-color: orangered;
+  color: white;
+  padding: 0 5px;
+}
+.outHouse{
+  background-color: green;
+  color: white;
+  padding: 0 5px;
 }
