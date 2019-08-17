@@ -23,11 +23,9 @@ export class ExcelFileService {
 
   save(name: string) {
     this.workbook.xlsx.writeBuffer().then((data) => {
-      console.log(data);
       const blob = new Blob([ data ], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
       fs.saveAs(blob, name + Date.parse(new Date().toString()) + '.xlsx');
     }, function (err: any) {
-      console.log(err);
     });
   }
 }
