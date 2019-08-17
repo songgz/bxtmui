@@ -7,7 +7,7 @@ import {RestService} from '../../services/rest.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {UpfileComponent} from '../upfile/upfile.component';
 import {OrgService} from '../../services/org.service';
@@ -32,6 +32,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   moreserch  = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
+  rooms: Observable<any[]>;
   baseUrl: any;
 
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
@@ -41,6 +42,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  room_id: any;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -53,7 +55,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
-    this.loadStudents();
+    // this.loadStudents();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
   }
@@ -81,12 +83,15 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+
   applyFilter(filterValue: string = '') {
     filterValue = filterValue.trim();
     if (filterValue.length !== 0) {
       this.query['key'] = filterValue;
     }
     this.loadStudents(this.query);
+    this.getRooms(this.query.facility_id);
   }
 
   update(id: string) {
@@ -103,6 +108,27 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+
+  getRooms(houseId: string) {
+    const options = {};
+    options['pre'] = 9999;
+    options['parent_id'] = houseId;
+
+    // this.rooms = this.rest.index('rooms').pipe(map((res: any) => res.result));
+    // console.log(houseId);
+    this.rest.index('rooms', options ).subscribe((data: any) => {
+      this.rooms = data.result;
+    });
+  }
+  setRoom() {
+    const options = {};
+    options['dorm_id'] = this.room_id;
+    this.rest.index('students', options).subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data.result);
+    }, error => {
+      this.rest.errorHandle(error);
+    });
   }
 
   student_selected(teacher_id) {
@@ -220,7 +246,7 @@ export class ListDialogStudentComponent {
   listBtn( str: any) {
     if ( this.data.list.indexOf(str) === -1 ) {
       this.data.list.splice(this.data.list.length - 1, 0, str);
-      console.log( this.data.list);
+      // console.log( this.data.list);
     } else {
       this.data.list.splice(this.data.list.indexOf(str), 1);
     }

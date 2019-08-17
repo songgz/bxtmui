@@ -31,7 +31,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loadRooms();
+    // this.loadRooms();
     this.getHouses();
     this.getFloors();
   }

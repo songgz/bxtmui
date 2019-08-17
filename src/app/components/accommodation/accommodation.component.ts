@@ -18,17 +18,7 @@ export class AccommodationComponent implements OnInit {
   constructor(private rest: RestService) { }
 
   ngOnInit() {
-    this.loadHouses();
-  }
-
-  loadHouses() {
-    this.rest.index('houses', {pre: 999}).subscribe((data: any) => {
-      this.houses = data.result;
-      if (this.houses.length > 0) {
-        this.house = this.houses[0];
-        this.loadRooms();
-      }
-    });
+    this.getHouse();
   }
 
   loadFloors() {
@@ -42,6 +32,11 @@ export class AccommodationComponent implements OnInit {
       this.rooms = data.result;
       this.bed_stats = data.bed_stats;
       this.loadFloors();
+    });
+  }
+  getHouse() {
+    this.rest.index('houses', {pre: 999}).subscribe((data: any) => {
+      this.houses = data.result;
     });
   }
 

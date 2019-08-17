@@ -58,8 +58,8 @@ export class IncomingComponent implements OnInit, AfterViewInit {
         this.direction_type[item.mark] = item.title;
         this.color_direction[item.mark] = item.color;
       }
-      console.log(this.direction_type);
-      console.log(this.color_direction);
+      // console.log(this.direction_type);
+      // console.log(this.color_direction);
     });
 
     this.org.getOrgs();
@@ -79,7 +79,7 @@ export class IncomingComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
 
-    this.loadIncomings();
+    // this.loadIncomings();
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
   }

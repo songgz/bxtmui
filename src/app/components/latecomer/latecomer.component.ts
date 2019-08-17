@@ -50,7 +50,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loadLatecomers(this.query);
+    // this.loadLatecomers(this.query);
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

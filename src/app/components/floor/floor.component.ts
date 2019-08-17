@@ -29,7 +29,7 @@ export class FloorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loadFloors();
+    // this.loadFloors();
     this.getHouses();
   }
 

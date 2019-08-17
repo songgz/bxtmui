@@ -30,7 +30,8 @@ export class SetdormComponent implements OnInit {
     tel: null,
     id_card: null,
     ic_card: null,
-    gender_mark: null
+    gender_mark: null,
+    nationality: null
   };
   colleges: Observable<any[]>;
   departments: Observable<any[]>;

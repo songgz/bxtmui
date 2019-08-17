@@ -66,7 +66,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
-    this.loadTrackers();
+    // this.loadTrackers();
   }
 
   ngAfterViewInit() {

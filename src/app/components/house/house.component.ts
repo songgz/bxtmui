@@ -29,7 +29,7 @@ export class HouseComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getHouses();
-    this.loadHouse();
+    // this.loadHouse();
   }
 
   ngAfterViewInit() {
