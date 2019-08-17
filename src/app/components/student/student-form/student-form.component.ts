@@ -16,11 +16,11 @@ import {environment} from '../../../../environments/environment';
 })
 export class StudentFormComponent implements OnInit, AfterViewInit {
   student: any = { };
-  genders: Observable<any[]>;
   floors: any[];
   rooms: any[];
   room: any;
   beds: any[];
+  genders: Observable<any[]>;
   groups: Observable<any[]>;
   roles: Observable<any[]>;
   avatar64: string | ArrayBuffer = '';

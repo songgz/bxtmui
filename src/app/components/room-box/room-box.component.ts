@@ -9,11 +9,9 @@ import {RestService} from '../../services/rest.service';
 export class RoomBoxComponent implements OnInit {
   @Input() room: any;
   gendercolor: boolean = true;
+  IO: any;
   constructor( private rest: RestService) { }
   ngOnInit() {
-    // if(this.bed.tilte == 0 ){
-    //   this.bedcolor = 'primary';
-    // }
   }
   selfHref(bed: any) {
     this.rest.navigate(['/bxt/accommodations/' + bed.owner_id + '/view']);
