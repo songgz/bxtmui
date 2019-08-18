@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Workbook, Worksheet} from 'exceljs';
+// import {Workbook, Worksheet} from 'exceljs';
+import * as XLSX from 'xlsx';
 import * as fs from 'file-saver';
 
 // @ts-ignore
@@ -8,24 +9,22 @@ import * as fs from 'file-saver';
 // })
 
 export class ExcelFileService {
-  workbook: Workbook = null;
-  worksheet: Worksheet = null;
+  data = [];
 
   constructor(header: any[]) {
-    this.workbook = new Workbook();
-    this.worksheet = this.workbook.addWorksheet('Sheet1');
-    this.worksheet.addRow(header);
+    this.data.push(header);
   }
 
   addRow(cells: any[]) {
-    this.worksheet.addRow(cells);
+    this.data.push(cells);
   }
 
   save(name: string) {
-    this.workbook.xlsx.writeBuffer().then((data) => {
-      const blob = new Blob([ data ], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
-      fs.saveAs(blob, name + Date.parse(new Date().toString()) + '.xlsx');
-    }, function (err: any) {
-    });
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([ excelBuffer ], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
+    fs.saveAs(blob, name + Date.parse(new Date().toString()) + '.xlsx');
   }
 }
