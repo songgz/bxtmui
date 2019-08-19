@@ -27,6 +27,7 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -52,10 +53,12 @@ import {MatRadioModule} from '@angular/material/radio';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+
   ],
   exports: [
     MatButtonModule,
@@ -83,7 +86,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatChipsModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule,
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: MatPaginatorIntlChinese }

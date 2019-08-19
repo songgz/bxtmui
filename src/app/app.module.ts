@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,8 +61,6 @@ import { AccessFormComponent } from './components/access/access-form/access-form
 import { VideoRecorderComponent } from './components/video-recorder/video-recorder.component';
 import { GateFormComponent } from './components/gate/gate-form/gate-form.component';
 import { WebcamFormComponent } from './components/webcam/webcam-form/webcam-form.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatChipsModule } from '@angular/material/chips';
 import { FloorComponent } from './components/floor/floor.component';
 import { FloorFormComponent } from './components/floor/floor-form/floor-form.component';
 import { FigurecardComponent } from './components/figurecard/figurecard.component';
@@ -74,6 +73,7 @@ import { FaceComponent } from './components/face/face.component';
 import { HouseAccessComponent } from './components/house-access/house-access.component';
 import { StudentViewComponent } from './components/accommodation/student-view/student-view.component';
 import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
+import { ImportAvatarComponent } from './components/import-avatar/import-avatar.component';
 
 
 @NgModule({
@@ -144,6 +144,7 @@ import { PersonDialogComponent } from './components/person-dialog/person-dialog.
     HouseAccessComponent,
     StudentViewComponent,
     PersonDialogComponent,
+    ImportAvatarComponent,
 
   ],
   entryComponents: [
@@ -164,8 +165,7 @@ import { PersonDialogComponent } from './components/person-dialog/person-dialog.
     HttpClientModule,
     TranslateModule.forRoot(),
     FormsModule,
-    MatButtonToggleModule,
-    MatChipsModule
+    FileUploadModule
   ],
   providers: [
     {
