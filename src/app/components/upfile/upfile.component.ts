@@ -25,7 +25,6 @@ export class UpfileComponent implements OnInit {
       }, error => {
         this.rest.errorHandle(error);
       });
-      console.log(data[0]);
     });
   }
 

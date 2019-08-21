@@ -74,6 +74,7 @@ import { HouseAccessComponent } from './components/house-access/house-access.com
 import { StudentViewComponent } from './components/accommodation/student-view/student-view.component';
 import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
 import { ImportAvatarComponent } from './components/import-avatar/import-avatar.component';
+import { ImportStudentComponent } from './components/import-student/import-student.component';
 
 
 @NgModule({
@@ -145,6 +146,7 @@ import { ImportAvatarComponent } from './components/import-avatar/import-avatar.
     StudentViewComponent,
     PersonDialogComponent,
     ImportAvatarComponent,
+    ImportStudentComponent,
 
   ],
   entryComponents: [
@@ -155,6 +157,7 @@ import { ImportAvatarComponent } from './components/import-avatar/import-avatar.
     ConfirmDialogComponent,
     PasswordDialogComponent,
     PersonDialogComponent,
+    ImportStudentComponent
   ],
   imports: [
     BrowserModule,

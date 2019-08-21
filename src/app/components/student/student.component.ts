@@ -9,9 +9,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
 import {Observable, Subscription} from 'rxjs';
 import {DictService} from '../../services/dict.service';
-import {UpfileComponent} from '../upfile/upfile.component';
 import {OrgService} from '../../services/org.service';
 import {environment} from '../../../environments/environment';
+import {ImportStudentComponent} from '../import-student/import-student.component';
 
 export interface DialogData {
   dataid: string;
@@ -210,7 +210,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   upfile() {
-    this.dialog.open(UpfileComponent, {});
+    this.dialog.open(ImportStudentComponent, {});
   }
 
   moreserchbtn() {
