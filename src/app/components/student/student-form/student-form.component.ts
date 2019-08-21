@@ -106,16 +106,20 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
     });
   }
   inspection() {
-    this.rest.show('students/' + this.student.id).subscribe((data: any) => {
-      // 判断图片是否存在
-      const ImgObj = new Image();
-      ImgObj.src = environment.baseUrl + this.student.avatar_url;
-      if ( data.avatar_url != null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
-        this.imgsrc = environment.baseUrl + this.student.avatar_url;
-      } else {
-        this.imgsrc = '/assets/img/imghead.png';
-      }
-    });
+    if (this.student.id != null) {
+      this.rest.show('students/' + this.student.id).subscribe((data: any) => {
+        // 判断图片是否存在
+        const ImgObj = new Image();
+        ImgObj.src = environment.baseUrl + this.student.avatar_url;
+        if ( data.avatar_url != null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
+          this.imgsrc = environment.baseUrl + this.student.avatar_url;
+        } else {
+          this.imgsrc = '/assets/img/imghead.png';
+        }
+      });
+    } else {
+      this.imgsrc = '/assets/img/imghead.png';
+    }
   }
   ngAfterViewInit() {
     this.inspection();

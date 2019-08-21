@@ -1,6 +1,6 @@
 <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
   <mat-form-field>
-    <mat-select placeholder="楼栋" [(ngModel)]="query.parent_id" name="parent_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="楼栋" [(ngModel)]="query.id" name="parent_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>

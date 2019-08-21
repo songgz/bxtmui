@@ -27,6 +27,7 @@ export class SetdormComponent implements OnInit {
     room: {id: null},
     house: {id: null},
     facility_id: null,
+    dorm_parent_id: null,
     tel: null,
     id_card: null,
     ic_card: null,

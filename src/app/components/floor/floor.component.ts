@@ -40,7 +40,7 @@ export class FloorComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadFloors();
+    this.loadFloors(this.query);
   }
 
   loadFloors(options = {}) {

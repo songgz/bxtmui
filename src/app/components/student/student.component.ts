@@ -32,6 +32,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   moreserch  = false;
   genders: Observable<any[]>;
   houses: Observable<any[]>;
+  floors:  Observable<any[]>;
   rooms: Observable<any[]>;
   baseUrl: any;
 
@@ -42,7 +43,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-  room_id: any;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -90,8 +90,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (filterValue.length !== 0) {
       this.query['key'] = filterValue;
     }
+    if (this.query.facility_id) {
+      this.getFloors(this.query.facility_id);
+    }
+    // this.getRooms(this.query.facility_id);
     this.loadStudents(this.query);
-    this.getRooms(this.query.facility_id);
   }
 
   update(id: string) {
@@ -110,26 +113,33 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
 
-  getRooms(houseId: string) {
+  getFloors(houseId: string) {
+    // console.log(houseId);
+    const options = {};
+    options['pre'] = 999;
+    options['parent_id'] = houseId;
+    this.rest.index('floors', options ).subscribe((data: any) => {
+      this.floors = data.result;
+    });
+  }
+
+  getRooms(floorId: string) {
     const options = {};
     options['pre'] = 9999;
-    options['parent_id'] = houseId;
-
-    // this.rooms = this.rest.index('rooms').pipe(map((res: any) => res.result));
-    // console.log(houseId);
+    options['parent_id'] = floorId;
     this.rest.index('rooms', options ).subscribe((data: any) => {
+      console.log(data.result);
       this.rooms = data.result;
     });
   }
-  setRoom() {
-    const options = {};
-    options['dorm_id'] = this.room_id;
-    this.rest.index('students', options).subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.result);
-    }, error => {
-      this.rest.errorHandle(error);
-    });
+  setFloor() {
+    this.getRooms(this.query.dorm_parent_id);
+    this.loadStudents(this.query);
   }
+  setRoom() {
+    this.loadStudents(this.query);
+  }
+
 
   student_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
