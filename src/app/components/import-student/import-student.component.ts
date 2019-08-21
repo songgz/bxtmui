@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ExcelReaderService} from '../../services/excel-reader.service';
 import {RestService} from '../../services/rest.service';
-import {async} from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-import-student',
