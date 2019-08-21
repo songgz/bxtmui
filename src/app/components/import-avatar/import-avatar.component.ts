@@ -8,7 +8,12 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class ImportAvatarComponent implements OnInit {
   URL = 'path_to_api';
-  public uploader: FileUploader = new FileUploader({ url: this.URL});
+  uploader: FileUploader = new FileUploader({
+    url: 'http://www.download.com:80/uploadFile',
+    method: 'POST',
+    itemAlias: 'uploadedfile'
+  });
+  public hasBaseDropZoneOver = false;
   constructor() { }
 
   ngOnInit() {
@@ -31,6 +36,22 @@ export class ImportAvatarComponent implements OnInit {
   }
 
   selectedFileOnChanged() {
-    // 这里是文件选择完成后的操作处理
+    this.uploader.queue.forEach((val, i, array) => {
+      this.uploader.queue[0].onSuccess = (response, status, headers) => {
+        if (status === 200) {
+
+        } else {
+
+        }
+      };
+      this.uploader.queue[0].upload();
+    });
+  }
+
+  fileOverBase(event) {
+    this.hasBaseDropZoneOver = event;
+  }
+  fileDropOver(event) {
+    // 文件拖拽完成的回调函数
   }
 }

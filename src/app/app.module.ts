@@ -75,6 +75,7 @@ import { StudentViewComponent } from './components/accommodation/student-view/st
 import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
 import { ImportAvatarComponent } from './components/import-avatar/import-avatar.component';
 import { ImportStudentComponent } from './components/import-student/import-student.component';
+import {CommonModule} from '@angular/common';
 
 
 @NgModule({
@@ -157,7 +158,8 @@ import { ImportStudentComponent } from './components/import-student/import-stude
     ConfirmDialogComponent,
     PasswordDialogComponent,
     PersonDialogComponent,
-    ImportStudentComponent
+    ImportStudentComponent,
+    ImportAvatarComponent
   ],
   imports: [
     BrowserModule,
@@ -168,7 +170,8 @@ import { ImportStudentComponent } from './components/import-student/import-stude
     HttpClientModule,
     TranslateModule.forRoot(),
     FormsModule,
-    FileUploadModule
+    FileUploadModule,
+    CommonModule
   ],
   providers: [
     {

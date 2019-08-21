@@ -12,6 +12,7 @@ import {DictService} from '../../services/dict.service';
 import {OrgService} from '../../services/org.service';
 import {environment} from '../../../environments/environment';
 import {ImportStudentComponent} from '../import-student/import-student.component';
+import {ImportAvatarComponent} from '../import-avatar/import-avatar.component';
 
 export interface DialogData {
   dataid: string;
@@ -219,8 +220,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-  upfile() {
+  import_student() {
     this.dialog.open(ImportStudentComponent, {});
+  }
+
+  import_avatar() {
+    this.dialog.open(ImportAvatarComponent, {});
   }
 
   moreserchbtn() {
