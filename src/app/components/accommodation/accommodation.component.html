@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
 
   <mat-form-field class="sethouse">
-    <mat-select placeholder="楼栋" [(value)]="house.id" (selectionChange)="selectHouse()">
+    <mat-select placeholder="楼栋" [(ngModel)]="house.id" (selectionChange)="selectHouse()">
       <mat-option *ngFor="let house of houses" [value]="house.id">
         {{house.title}}
       </mat-option>

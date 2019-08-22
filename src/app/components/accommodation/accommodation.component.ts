@@ -45,12 +45,13 @@ export class AccommodationComponent implements OnInit {
   }
 
   selectHouse() {
-    for (const h of this.houses) {
-      if (h.id === this.house.id) {
-        this.house = h;
-        break;
-      }
-    }
+    // for (const h of this.houses) {
+    //   if (h.id === this.house.id) {
+    //     this.house = h;
+    //     break;
+    //   }
+    // }
+    // console.log(this.house)
     this.loadRooms();
   }
 
