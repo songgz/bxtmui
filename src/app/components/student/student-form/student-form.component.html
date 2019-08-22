@@ -51,7 +51,7 @@
       <div>个人信息</div>
 
       <mat-form-field>
-        <input matInput placeholder="学生姓名" required [(ngModel)]="student.name" name="name" >
+        <input matInput placeholder="学生姓名" [(ngModel)]="student.name" name="name" required >
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" >
@@ -63,7 +63,7 @@
         <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="学号" [(ngModel)]="student.sno" name="sno" >
+        <input matInput placeholder="学号" [(ngModel)]="student.sno" name="sno" required >
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark">

@@ -89,7 +89,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('rooms/' + id).subscribe(data => {
-          this.loadRooms();
+          this.loadRooms(this.query);
         }, error => {
           this.rest.errorHandle(error);
         });

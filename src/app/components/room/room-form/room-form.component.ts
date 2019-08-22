@@ -65,7 +65,7 @@ export class RoomFormComponent implements OnInit {
   }
 
   getFloors() {
-    this.rest.index('floors').subscribe((data: any) => {
+    this.rest.index('floors', { pre: 9999 }).subscribe((data: any) => {
       this.floors = data.result;
     });
   }

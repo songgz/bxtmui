@@ -23,7 +23,7 @@ table {
   //width: 100%;
   //flex-direction: row;
   align-items: center;
-  //flex-wrap: wrap;
+  flex-wrap: wrap;
   //white-space: nowrap;
   //float: right;
   overflow: hidden;
@@ -107,5 +107,5 @@ button+button{
   margin-left: 10px;
 }
 mat-form-field {
-  width: 100%;
+  width: 20%;
 }

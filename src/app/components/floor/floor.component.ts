@@ -74,7 +74,7 @@ export class FloorComponent implements OnInit, AfterViewInit {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('floors/' + id).subscribe(data => {
-          this.loadFloors();
+          this.loadFloors(this.query);
         }, error => {
           this.rest.errorHandle(error);
         });

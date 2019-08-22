@@ -104,7 +104,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   delete(id: string) {
     this.rest.destory('students/' + id).subscribe(data => {
-      this.loadStudents();
+      this.loadStudents(this.query);
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -129,7 +129,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     options['pre'] = 9999;
     options['parent_id'] = floorId;
     this.rest.index('rooms', options ).subscribe((data: any) => {
-      console.log(data.result);
+      // console.log(data.result);
       this.rooms = data.result;
     });
   }
