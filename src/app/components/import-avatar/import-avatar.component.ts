@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
@@ -6,18 +6,32 @@ import { FileUploader } from 'ng2-file-upload';
   templateUrl: './import-avatar.component.html',
   styleUrls: ['./import-avatar.component.scss']
 })
-export class ImportAvatarComponent implements OnInit {
+export class ImportAvatarComponent implements OnInit, AfterViewInit {
   URL = 'path_to_api';
   uploader: FileUploader = new FileUploader({
-    url: 'http://www.download.com:80/uploadFile',
+    url: 'http://localhost:3000/import_avatars',
     method: 'POST',
-    itemAlias: 'uploadedfile'
+    itemAlias: 'avatar',
+    disableMultipart: true
   });
   public hasBaseDropZoneOver = false;
-  constructor() { }
+  constructor() {
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+    };
+  }
 
   ngOnInit() {
   }
+
+  ngAfterViewInit() {
+    // upload image on aws
+    this.uploader.onAfterAddingFile = (item => {
+      // Here S3 image upload code.
+      console.log(item);
+    });
+  }
+
   saveImages() {
     const fileCount: number = this.uploader.queue.length;
     if (fileCount > 0) {
