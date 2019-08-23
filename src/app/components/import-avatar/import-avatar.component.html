@@ -1,69 +1,78 @@
-<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />
-<div ng2FileDrop
-     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-     (fileOver)="fileOverBase($event)"
-     [uploader]="uploader"
-     class="well my-drop-zone">
-  Base drop zone
-</div>
-  <table class="table">
-    <thead>
-    <tr>
-      <th width="50%">Name</th>
-      <th>Size</th>
-      <th>Progress</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of uploader.queue">
-      <td><strong>{{ item?.file?.name }}</strong></td>
-
-      <td>
-        <div class="progress" style="margin-bottom: 0;">
-          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-        </div>
-      </td>
-      <td class="text-center">
-        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-      </td>
-      <td nowrap>
-        <button type="button" class="btn btn-success btn-xs"
-                (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-          <span class="glyphicon glyphicon-upload"></span> Upload
-        </button>
-        <button type="button" class="btn btn-warning btn-xs"
-                (click)="item.cancel()" [disabled]="!item.isUploading">
-          <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-        </button>
-        <button type="button" class="btn btn-danger btn-xs"
-                (click)="item.remove()">
-          <span class="glyphicon glyphicon-trash"></span> Remove
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-<div>
-  <div>
-    Queue progress:
-    <div class="progress" style="">
-      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+<div class="">
+  <mat-card>
+    <mat-card-subtitle>照片导入</mat-card-subtitle>
+    <mat-toolbar>
+      <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />
+      <span class="bxt-toolbar-spacer"></span>
+      <button mat-raised-button color="accent" type="button"
+              (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <span class="glyphicon glyphicon-upload"></span> 全部上传
+      </button>
+      <button mat-raised-button color="primary" type="button"
+              (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
+      </button>
+      <button mat-raised-button color="warn" type="button"
+              (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+        <span class="glyphicon glyphicon-trash"></span> 全部删除
+      </button>
+    </mat-toolbar>
+    <div>
+      <!--进度条-->
+      <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+      </div>
     </div>
-  </div>
-  <button type="button" class="btn btn-success btn-s"
-          (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-    <span class="glyphicon glyphicon-upload"></span> Upload all
-  </button>
-  <button type="button" class="btn btn-warning btn-s"
-          (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-  </button>
-  <button type="button" class="btn btn-danger btn-s"
-          (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-    <span class="glyphicon glyphicon-trash"></span> Remove all
-  </button>
+    <div ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploader"
+         class="well my-drop-zone">
+      将文件拖入此区域或选择文件
+    </div>
+
+    <div style="height: 400px; width: 600px; overflow: auto">
+      <table class="table">
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th width="50%">名称</th>-->
+          <!--<th>大小</th>-->
+          <!--<th>进度</th>-->
+          <!--<th>状态</th>-->
+          <!--<th>操作</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+
+          <td>
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+          <td class="text-center">
+            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+          </td>
+          <td nowrap>
+            <button mat-raised-button color="accent" type="button" class="small"
+                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> 上传
+            </button>
+            <button mat-raised-button color="primary" type="button" class="small"
+                    (click)="item.cancel()" [disabled]="!item.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span> 取消
+            </button>
+            <button mat-raised-button color="warn" type="button" class="small"
+                    (click)="item.remove()">
+              <span class="glyphicon glyphicon-trash"></span> 删除
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
 </div>

@@ -1,2 +1,11 @@
-.my-drop-zone { border: dotted 3px lightgray; }
+.my-drop-zone { border: dotted 3px lightgray; padding: 10px;text-align: center;}
 .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.bxt-toolbar-spacer {
+  flex: 1 1 auto;
+}
+.table {
+  width: 100%;
+}
+.small{
+  font-size: smaller;
+}

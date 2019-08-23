@@ -1,14 +1,18 @@
 <form #importStudentForm="ngForm" >
-
-<input type="file" id="fileUpload" name="fileUpload" multiple="multiple" accept="{{accept}}" (change)="onLoad($event)" placeholder="导入学生数据"/>
-<div style="height: 400px; width: 600px; overflow: auto">
-  <mat-list role="list">
-    <mat-list-item *ngFor="let student of students; let i = index">
-      <mat-icon matListIcon [id]="'s' + i">folder</mat-icon>
-      <h3 matLine> {{student[0]}} -- {{student[1]}} -- {{student[2]}}</h3>
-    </mat-list-item>
-  </mat-list>
-  <button (click)="onImport()">导入</button>
-</div>
-
+  <mat-card>
+    <mat-card-subtitle>照片导入</mat-card-subtitle>
+    <mat-toolbar>
+      <input type="file" id="fileUpload" name="fileUpload" multiple="multiple" accept="{{accept}}" (change)="onLoad($event)" placeholder="导入学生数据"/>
+      <span class="bxt-toolbar-spacer"></span>
+      <button  mat-raised-button color="accent" (click)="onImport()">上传</button>
+    </mat-toolbar>
+    <div style="height: 400px; width: 600px; overflow: auto">
+      <mat-list role="list">
+        <mat-list-item *ngFor="let student of students; let i = index">
+          <mat-icon matListIcon [id]="'s' + i">folder</mat-icon>
+          <h3 matLine> {{student[0]}} -- {{student[1]}} -- {{student[2]}}</h3>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card>
 </form>
