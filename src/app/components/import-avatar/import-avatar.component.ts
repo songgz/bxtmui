@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
+import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 
 @Component({
   selector: 'app-import-avatar',
@@ -7,29 +7,56 @@ import { FileUploader } from 'ng2-file-upload';
   styleUrls: ['./import-avatar.component.scss']
 })
 export class ImportAvatarComponent implements OnInit, AfterViewInit {
-  URL = 'path_to_api';
-  uploader: FileUploader = new FileUploader({
-    url: 'http://localhost:3000/import_avatars',
-    method: 'POST',
-    itemAlias: 'avatar',
-    disableMultipart: true
-  });
-  public hasBaseDropZoneOver = false;
+  uploader: FileUploader;
+  hasBaseDropZoneOver: boolean;
+  hasAnotherDropZoneOver: boolean;
+  response: string;
+
   constructor() {
+  }
+
+  ngOnInit() {
+    this.uploader = new FileUploader({
+      url: 'http://localhost:3000/import_avatars',
+      headers: [{name: 'Accept', value: 'application/json'}],
+      autoUpload: true,
+      method: 'POST',
+      itemAlias: 'import_avatar',
+      // disableMultipart: true,
+      // formatDataFunctionIsAsync: true,
+      // formatDataFunction: async (item) => {
+      //   return new Promise( (resolve, reject) => {
+      //     resolve({
+      //       name: item._file.name,
+      //       length: item._file.size,
+      //       contentType: item._file.type,
+      //       date: new Date()
+      //     });
+      //   });
+      // }
+    });
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     };
   }
 
-  ngOnInit() {
-  }
-
   ngAfterViewInit() {
-    // upload image on aws
     this.uploader.onAfterAddingFile = (item => {
-      // Here S3 image upload code.
       console.log(item);
     });
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+    // this.uploader.uploadItem = (f) => {
+    //   console.log('sdfdfdf');
+    // };
+  }
+
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const data = JSON.parse(response);
+  }
+
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const error = JSON.parse(response);
   }
 
   saveImages() {
@@ -43,7 +70,7 @@ export class ImportAvatarComponent implements OnInit, AfterViewInit {
           if (rawData.length > 1) {
             rawData = rawData[1];
           }
-        }
+        };
         fileReader.readAsDataURL(val._file);
       });
     }
