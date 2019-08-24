@@ -8,7 +8,7 @@
     </mat-select>
   </mat-form-field>
   <div class="notes">
-    <div class="status-style" >
+    <div class="status-style" *ngIf="bed_stats">
       <div>总床数：{{bed_stats.total}} </div><div>入住数：{{bed_stats.owners}} </div><div>空床数：{{bed_stats.total - bed_stats.owners}}</div>
     </div>
     <span><mat-icon color="primary">person</mat-icon><span>男</span></span>

@@ -10,7 +10,6 @@ import {environment} from '../../../environments/environment';
 export class ImportAvatarComponent implements OnInit, AfterViewInit {
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
-  hasAnotherDropZoneOver: boolean;
   response: string;
   baseUrl: string;
 
