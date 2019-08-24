@@ -19,19 +19,13 @@ export class ImportStudentComponent implements OnInit {
 
   onLoad(evt: any) {
     this.excel.read(evt, (data) => {
+      const head = data.shift();
       this.students = data;
     });
   }
 
   onImport() {
-    // this.send(1);
-    const sources = concat(from(this.students));
-    sources.subscribe((student: any) => {
-      this.rest.create('import_students', {import_student: {name: student[0], sno: student[1]}}).subscribe(data => {
-        // const greetDiv: HTMLElement = this.el.nativeElement.querySelector('#s' + student[1]);
-        // greetDiv.style.color = 'red';
-      });
-    });
+    this.send(0);
   }
 
   send(index) {
