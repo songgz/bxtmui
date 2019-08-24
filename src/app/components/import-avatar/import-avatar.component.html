@@ -1,8 +1,7 @@
 <div class="">
   <mat-card>
-    <mat-card-subtitle>照片导入</mat-card-subtitle>
     <mat-toolbar>
-      <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />
+      <mat-card-subtitle>照片导入</mat-card-subtitle>
       <span class="bxt-toolbar-spacer"></span>
       <button mat-raised-button color="accent" type="button"
               (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
@@ -17,12 +16,20 @@
         <span class="glyphicon glyphicon-trash"></span> 全部删除
       </button>
     </mat-toolbar>
+    <!--<div>-->
+      <!--进度条-->
+      <!--<div class="progress">-->
+        <!--<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>-->
+      <!--</div>-->
+    <!--</div>-->
     <div>
       <!--进度条-->
-      <div class="progress" style="">
-        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-      </div>
+      <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar>
     </div>
+    <mat-toolbar>
+      <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />
+    </mat-toolbar>
+
     <div ng2FileDrop
          [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
          (fileOver)="fileOverBase($event)"
