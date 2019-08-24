@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-import-avatar',
@@ -11,29 +12,19 @@ export class ImportAvatarComponent implements OnInit, AfterViewInit {
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
   response: string;
+  baseUrl: string;
 
   constructor() {
+    this.baseUrl = environment.baseUrl;
   }
 
   ngOnInit() {
     this.uploader = new FileUploader({
-      url: 'http://localhost:3000/import_avatars',
-      headers: [{name: 'Accept', value: 'application/json'}],
-      autoUpload: true,
+      url: this.baseUrl + 'import_avatars',
+      // headers: [{name: 'Accept', value: 'application/json'}],
+      // autoUpload: true,
       method: 'POST',
-      itemAlias: 'import_avatar',
-      // disableMultipart: true,
-      // formatDataFunctionIsAsync: true,
-      // formatDataFunction: async (item) => {
-      //   return new Promise( (resolve, reject) => {
-      //     resolve({
-      //       name: item._file.name,
-      //       length: item._file.size,
-      //       contentType: item._file.type,
-      //       date: new Date()
-      //     });
-      //   });
-      // }
+      itemAlias: 'avatar'
     });
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -42,13 +33,9 @@ export class ImportAvatarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.uploader.onAfterAddingFile = (item => {
-      console.log(item);
     });
     this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-    // this.uploader.uploadItem = (f) => {
-    //   console.log('sdfdfdf');
-    // };
   }
 
   onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {

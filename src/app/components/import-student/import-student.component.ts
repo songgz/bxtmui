@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ExcelReaderService} from '../../services/excel-reader.service';
 import {RestService} from '../../services/rest.service';
+import {concat, from} from 'rxjs';
 
 @Component({
   selector: 'app-import-student',
@@ -23,7 +24,14 @@ export class ImportStudentComponent implements OnInit {
   }
 
   onImport() {
-    this.send(1);
+    // this.send(1);
+    const sources = concat(from(this.students));
+    sources.subscribe((student: any) => {
+      this.rest.create('import_students', {import_student: {name: student[0], sno: student[1]}}).subscribe(data => {
+        // const greetDiv: HTMLElement = this.el.nativeElement.querySelector('#s' + student[1]);
+        // greetDiv.style.color = 'red';
+      });
+    });
   }
 
   send(index) {
