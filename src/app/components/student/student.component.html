@@ -14,7 +14,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼层" [(ngModel)]="query.dorm_parent_id" name="dorm_parent_id" (selectionChange)="setFloor()">
+    <mat-select placeholder="楼层" [(ngModel)]="query.floor_id" name="floor_id" (selectionChange)="setFloor()">
       <mat-option *ngFor="let floor of floors" [value]="floor.id">
         {{floor.title}}
       </mat-option>
