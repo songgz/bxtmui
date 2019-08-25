@@ -38,7 +38,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
 
-    if(!this.isRefreshingToken) {
+    if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
 
       // Reset here so that the following requests wait until the token
@@ -50,7 +50,7 @@ export class JwtInterceptor implements HttpInterceptor {
           switchMap((user: CurrentUser) => {
             if (user) {
               this.tokenSubject.next(user.access);;
-              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.auth.setCurrentUser(user);
               return next.handle(this.addTokenToRequest(request, user.access));
             }
 

@@ -26,10 +26,7 @@ export class JwtAuthService {
       .pipe(
         map((user: CurrentUser) => {
           if (user && user.access) {
-            const helper = new JwtHelperService();
-            const decodedToken = helper.decodeToken(user.access);
-            user.user_id = decodedToken.user_id;
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.setCurrentUser(user);
           }
           return <CurrentUser>user;
         }));
@@ -38,6 +35,17 @@ export class JwtAuthService {
   logout() {
     localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
+  }
+
+  getCurrentUser(): CurrentUser {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  setCurrentUser(user: CurrentUser) {
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(user.access);
+    user.user_id = decodedToken.user_id;
+    localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
 
@@ -86,18 +94,23 @@ export class JwtAuthService {
   }
 
   getAuthToken(): string {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = this.getCurrentUser();
     if (currentUser != null) {
       return currentUser.access;
     }
     return '';
   }
 
+  isAuthenticated(): boolean {
+    const currentUser = this.getCurrentUser();
+    return currentUser && Date.parse(currentUser.access_expires_at).valueOf() >  new Date().valueOf();
+  }
+
   logout1() {
     this.removeTokens();
   }
 
-  isAuthenticated(): boolean {
+  isAuthenticated1(): boolean {
     // console.log(Date.parse(localStorage.getItem(this.ACCESS_EXPIRES)));
     return this.getAccessToken() && Date.parse(localStorage.getItem(this.ACCESS_EXPIRES)).valueOf() >  new Date().valueOf();
   }
