@@ -26,6 +26,9 @@ export class JwtAuthService {
       .pipe(
         map((user: CurrentUser) => {
           if (user && user.access) {
+            const helper = new JwtHelperService();
+            const decodedToken = helper.decodeToken(user.access);
+            user.user_id = decodedToken.user_id;
             localStorage.setItem('currentUser', JSON.stringify(user));
           }
           return <CurrentUser>user;
