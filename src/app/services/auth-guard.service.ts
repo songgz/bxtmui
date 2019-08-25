@@ -10,17 +10,9 @@ export class AuthGuardService implements CanActivate {
   constructor(public auth: JwtAuthService, public router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (localStorage.getItem('currentUser')) {
+    if (this.auth.isAuthenticated()) {
       return true;
     }
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-  }
-
-  canActivate1(): boolean {
-    if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['login']);
-      return false;
-    }
-    return true;
   }
 }
