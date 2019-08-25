@@ -3,7 +3,6 @@ import { RestService } from './rest.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {tap} from 'rxjs/internal/operators/tap';
 import {CurrentUser} from '../models/current-user';
 import {Observable} from 'rxjs';
 
