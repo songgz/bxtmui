@@ -7,12 +7,13 @@ import {RestService} from '../../services/rest.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {map} from 'rxjs/operators';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {OrgService} from '../../services/org.service';
 import {environment} from '../../../environments/environment';
 import {ImportStudentComponent} from '../import-student/import-student.component';
 import {ImportAvatarComponent} from '../import-avatar/import-avatar.component';
+import {of} from 'rxjs/internal/observable/of';
 
 export interface DialogData {
   dataid: string;
@@ -44,6 +45,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  house_id = null;
+  floor_id = null;
+  dorm_id = null;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -91,10 +95,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (filterValue.length !== 0) {
       this.query['key'] = filterValue;
     }
-    if (this.query.facility_id) {
-      this.getFloors(this.query.facility_id);
+    if (this.house_id.length > 0) {
+      this.query.facility_id = this.house_id;
+      this.dorm_id = null;
+      this.floor_id = null;
+      this.getFloors(this.house_id);
     }
-    // this.getRooms(this.query.facility_id);
+    this.getRooms(this.floor_id);
     this.loadStudents(this.query);
   }
 
@@ -134,10 +141,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
   setFloor() {
-    this.getRooms(this.query.floor_id);
+    this.query.facility_id = this.floor_id;
+    this.getRooms(this.floor_id);
     this.loadStudents(this.query);
   }
   setRoom() {
+    this.query.facility_id = this.dorm_id;
     this.loadStudents(this.query);
   }
 
