@@ -4,6 +4,7 @@ import {RestService} from '../../services/rest.service';
 import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {JwtAuthService} from '../../services/jwt-auth.service';
 @Component({
   selector: 'app-person-dialog',
   templateUrl: './person-dialog.component.html',
@@ -18,9 +19,10 @@ export class PersonDialogComponent implements OnInit, AfterViewInit {
   groups: Observable<any[]>;
   roles: Observable<any[]>;
   constructor(private rest: RestService,
-              private  dict: DictService
+              private  dict: DictService,
+              private auth: JwtAuthService
   ) {
-    this.user_id = localStorage.getItem('user_id');
+    this.user_id = this.auth.getCurrentUser().user_id;
   }
 
   ngOnInit() {

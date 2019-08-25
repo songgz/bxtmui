@@ -40,7 +40,7 @@ export class TopnavComponent implements OnInit {
   }
 
   refresh() {
-    // this.auth.refresh().subscribe();
+    // this.auth.refreshToken().subscribe();
     this.dialog.open(PersonDialogComponent, {data: {}}).afterClosed().subscribe(result => {
       // console.log(result);
     });

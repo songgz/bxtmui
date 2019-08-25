@@ -95,7 +95,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (filterValue.length !== 0) {
       this.query['key'] = filterValue;
     }
-    if (this.house_id.length > 0) {
+    if (this.house_id) {
       this.query.facility_id = this.house_id;
       this.dorm_id = null;
       this.floor_id = null;

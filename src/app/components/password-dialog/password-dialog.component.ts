@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {RestService} from '../../services/rest.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {JwtAuthService} from '../../services/jwt-auth.service';
 
 @Component({
   selector: 'app-password-dialog',
@@ -7,11 +10,10 @@ import {RestService} from '../../services/rest.service';
   styleUrls: ['./password-dialog.component.scss']
 })
 export class PasswordDialogComponent implements OnInit {
-  data: any = {};
-  user_id = '';
+  model: any = {};
 
-  constructor(private rest: RestService) {
-    this.user_id = localStorage.getItem('user_id');
+  constructor(private rest: RestService, @Inject(MAT_DIALOG_DATA) public data: any, private auth: JwtAuthService) {
+
   }
 
   ngOnInit() {
@@ -19,7 +21,8 @@ export class PasswordDialogComponent implements OnInit {
   }
 
   update() {
-    this.rest.update('sessions/' + this.user_id, this.data).subscribe();
+    const user_id = this.auth.getCurrentUser().user_id
+    this.rest.update('sessions/' + user_id, this.model).subscribe();
   }
 
 }

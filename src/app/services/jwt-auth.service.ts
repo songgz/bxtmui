@@ -60,11 +60,11 @@ export class JwtAuthService {
     const currentUser = this.getCurrentUser();
     const token = currentUser.refresh;
 
-    return this.rest.refresh('refreshs', {'X-Refresh-Token': this.getAuthToken()})
+    return this.rest.refresh('refreshs', {'X-Refresh-Token': token})
       .pipe(
         map((user: CurrentUser) => {
           if (user && user.access) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.setCurrentUser(user);
           }
           return <CurrentUser>user;
         }));
@@ -74,6 +74,14 @@ export class JwtAuthService {
     const currentUser = this.getCurrentUser();
     if (currentUser != null) {
       return currentUser.access;
+    }
+    return '';
+  }
+
+  getRefreshToken(): string {
+    const currentUser = this.getCurrentUser();
+    if (currentUser != null) {
+      return currentUser.refresh;
     }
     return '';
   }
