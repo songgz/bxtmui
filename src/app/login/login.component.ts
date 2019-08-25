@@ -11,10 +11,10 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
 
-  constructor(private jwt: JwtAuthService, private route: ActivatedRoute) { }
+  constructor(private jwt: JwtAuthService, private activeRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: any) => {
+    this.activeRoute.paramMap.subscribe((params: any) => {
       this.username = params.get('username');
       this.password = params.get('password');
       if ( this.username != null && this.password != null) {
@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.jwt.login(this.username, this.password);
+    this.jwt.login(this.username, this.password).subscribe(data => {
+      this.router.navigate(['/bxt']);
+    });
   }
 
 }

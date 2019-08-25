@@ -4,6 +4,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/internal/operators/tap';
+import {CurrentUser} from '../models/current-user';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,24 @@ export class JwtAuthService {
 
   constructor(private rest: RestService, private router: Router) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<CurrentUser> {
+    return this.rest.create('sessions', {username: username, password: password})
+      .pipe(
+        map((user: CurrentUser) => {
+          if (user && user.access) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+          }
+          return <CurrentUser>user;
+        }));
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+  }
+
+
+  login1(username: string, password: string) {
     return this.rest.create('sessions', {username: username, password: password}).subscribe((data: any) => {
 
       const helper = new JwtHelperService();
@@ -49,7 +68,29 @@ export class JwtAuthService {
     );
   }
 
-  logout() {
+  refreshToken(): Observable<CurrentUser> {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const token = currentUser.refreshToken;
+
+    return this.rest.refresh('refreshs', {'X-Refresh-Token': this.getAuthToken()})
+      .pipe(
+        map((user: CurrentUser) => {
+          if (user && user.access) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+          }
+          return <CurrentUser>user;
+        }));
+  }
+
+  getAuthToken(): string {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser != null) {
+      return currentUser.access;
+    }
+    return '';
+  }
+
+  logout1() {
     this.removeTokens();
   }
 

@@ -101,7 +101,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.floor_id = null;
       this.getFloors(this.house_id);
     }
-    this.getRooms(this.floor_id);
+    // this.getRooms(this.floor_id);
     this.loadStudents(this.query);
   }
 
