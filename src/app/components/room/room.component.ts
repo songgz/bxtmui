@@ -68,13 +68,14 @@ export class RoomComponent implements OnInit, AfterViewInit {
   }
   setFloor() {
     if (this.query.floor_id) {
-      this.query = JSON.parse(JSON.stringify(this.query).replace(/floor_id/g, 'parent_id'));
+      this.query.parent_id = this.query.floor_id;
       this.loadRooms(this.query);
     }
   }
 
   applyFilter() {
     if (this.query.house_id) {
+      this.query.parent_id = this.query.house_id;
       this.getFloors(this.query.house_id);
     }
     this.loadRooms(this.query);
