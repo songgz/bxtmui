@@ -29,7 +29,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="输入名或学号">
+    <input matInput  [(ngModel)]="query.key" (keyup)="applyFilter($event.target.value)" placeholder="输入名或学号">
   </mat-form-field>
 </div>
 
@@ -39,6 +39,9 @@
   <button mat-icon-button style="color: black" (click)="openDialogList(displayedColumns)"  matTooltip="列表">
     <mat-icon class="mat-18">list</mat-icon>
   </button>
+  <!--<button mat-icon-button style="color: purple" (click)="face()" matTooltip="照片失败列表">-->
+    <!--<mat-icon class="mat-18">portrait</mat-icon>-->
+  <!--</button>-->
   <button mat-icon-button style="color: purple" (click)="import_avatar()" matTooltip="导入照片">
     <mat-icon class="mat-18">portrait</mat-icon>
   </button>
@@ -110,5 +113,11 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   </div>
-  <mat-paginator [length]="pageLength"  [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginate($event)"></mat-paginator>
+  <mat-paginator
+    [length]="pageLength"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="paginate($event)">
+  </mat-paginator>
 </div>

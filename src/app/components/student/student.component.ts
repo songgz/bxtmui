@@ -59,8 +59,15 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    if ( sessionStorage.getItem('query') ) {
+      this.query = JSON.parse(sessionStorage.getItem('query'));
+      this.pageSize = this.query.pre;
+      this.pageIndex = this.query.page - 1;
+    }
     this.baseUrl = environment.baseUrl;
-    // this.loadStudents();
+    if ( this.query ) {
+      this.loadStudents(this.query);
+    }
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
   }
@@ -106,6 +113,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   update(id: string) {
+    // this.query.facility_id
+    sessionStorage.setItem('query', JSON.stringify(this.query));
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
 
@@ -236,7 +245,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
   import_avatar() {
     this.dialog.open(ImportAvatarComponent, {});
   }
-
+  face() {
+    this.rest.index('faces' ).subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data.result);
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+  }
   moreserchbtn() {
     if (this.moreserch === false) {
       this.moreserch = true;
