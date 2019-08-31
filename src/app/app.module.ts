@@ -78,9 +78,6 @@ import { ImportStudentComponent } from './components/import-student/import-stude
 import {CommonModule} from '@angular/common';
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
-import zh from '@angular/common/locales/zh';
-import {registerLocaleData} from '@angular/common';
-registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -180,7 +177,6 @@ registerLocaleData(zh);
     CommonModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'zh-Hans' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
