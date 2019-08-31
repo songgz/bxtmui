@@ -2,70 +2,21 @@
   <div fxFlex>
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Bar Chart</mat-card-title>
+        <mat-card-title>异常分布</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Doughnut Chart</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+        <canvas baseChart width="300" height="200" [data]="[status_stats.days_in, status_stats.days_out, status_stats.normal, status_stats.go_out, status_stats.back_late]" [labels]="['多日未出','多日未归','正常', '未归', '晚归']" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
       </mat-card-content>
     </mat-card>
   </div>
-</div>
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
   <div fxFlex>
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Radar Chart</mat-card-title>
+        <mat-card-title>床位分布</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <canvas baseChart width="500" height="200" [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"
-                (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Pie Chart</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <canvas baseChart width="500" height="200" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
-  <div fxFlex>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Polar Area Chart</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <canvas baseChart width="500" height="200" [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend"
-                [chartType]="polarAreaChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Line Chart</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <canvas baseChart width="500" height="200" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+        <canvas baseChart width="300px" height="200px" [data]="[bed_stats.owners, bed_stats.empties]" [labels]="['入住数','空床数']" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
       </mat-card-content>
     </mat-card>

@@ -61,7 +61,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'login/:username/:password', component: LoginComponent},
   {path: 'bxt', component: MasterComponent, children: [
-      {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+      {path: 'dashboards', component: DashboardComponent, canActivate: [AuthGuardService]},
       {path: '', component: DashboardComponent, canActivate: [AuthGuardService]},
       {path: 'colleges', component: CollegeComponent, canActivate: [AuthGuardService]},
       {path: 'colleges/:id/edit', component: CollegeFormComponent},

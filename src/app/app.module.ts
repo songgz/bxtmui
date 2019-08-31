@@ -75,9 +75,9 @@ import { StudentViewComponent } from './components/accommodation/student-view/st
 import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
 import { ImportAvatarComponent } from './components/import-avatar/import-avatar.component';
 import { ImportStudentComponent } from './components/import-student/import-student.component';
-import {CommonModule} from '@angular/common';
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -174,7 +174,7 @@ import { HomingComponent } from './components/homing/homing.component';
     TranslateModule.forRoot(),
     FormsModule,
     FileUploadModule,
-    CommonModule
+    ChartsModule
   ],
   providers: [
     {
