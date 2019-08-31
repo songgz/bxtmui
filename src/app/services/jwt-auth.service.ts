@@ -27,6 +27,7 @@ export class JwtAuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('refreshToken');
     this.router.navigate(['/login']);
   }
 
