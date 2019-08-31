@@ -22,6 +22,9 @@
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <button mat-button color="primary" (click)="moreserchbtn()"> <mat-icon>more_vert</mat-icon>{{moreserch?'':''}}</button>
 </div>
+<div class="status-style" >
+  <div>总人数：{{direct_stats.in + direct_stats.out}} </div><div>入寝数：{{direct_stats.in}} </div><div>出寝数： {{direct_stats.out}}</div>
+</div>
 <mat-toolbar class="mat-elevation-z8">
   <span>归寝统计</span>
   <span class="bxt-toolbar-spacer"></span>

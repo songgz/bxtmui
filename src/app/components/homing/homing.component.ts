@@ -16,12 +16,12 @@ export class HomingComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any[]>;
   query: any = {};
   moreserch = false;
-  genders: Observable<any[]>
+  genders: Observable<any[]>;
   houses: Observable<any[]>;
   sleep_status: any = {};
   color_status: any = {};
   color_direction: any = {};
-  status_stats: any = {};
+  direct_stats: any = {};
   baseUrl: any;
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
@@ -76,7 +76,7 @@ export class HomingComponent implements OnInit, AfterViewInit {
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
       this.pageIndex = data.paginate_meta.current_page - 1;
-      this.status_stats = data.status_stats;
+      this.direct_stats = data.direct_stats;
     }, error => {
       this.rest.errorHandle(error);
     });
