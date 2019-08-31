@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
   houses: any[] = [];
   house: any = {};
   bed_stats: any = {};
-  status_stats: any[] = [];
+  status_stats: any = {};
   status_values: number[] = [];
   object = Object;
   // Doughnut
