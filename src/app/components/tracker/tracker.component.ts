@@ -139,7 +139,6 @@ export class TrackerComponent implements OnInit, AfterViewInit {
     for (let i = 0; i <= len; i++ ) {
       this.query['page'] = i + 1;
       const data1: any = await this.rest.index('trackers', this.query).toPromise();
-      console.log(data1.result)
       data1.result.forEach(d => {
         this.file.addRow([
           d.user_name,
