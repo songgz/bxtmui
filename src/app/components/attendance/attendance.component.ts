@@ -3,9 +3,7 @@ import {RestService} from '../../services/rest.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {map} from 'rxjs/operators';
 import {DictService} from '../../services/dict.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-attendance',
@@ -62,8 +60,6 @@ export class AttendanceComponent implements OnInit {
   delete (i: string) {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
-        console.log(i);
-        console.log(this.days);
         this.days.splice(1 , 1);
         this.dataSource = new MatTableDataSource(this.days);
       }
