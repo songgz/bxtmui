@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
+import {HttpRequest, HttpHandler, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {JwtAuthService} from '../services/jwt-auth.service';
 import {catchError, filter, finalize, take} from 'rxjs/operators';
@@ -46,8 +46,8 @@ export class JwtInterceptor implements HttpInterceptor {
       return this.auth.refreshToken()
         .pipe(
           switchMap((user: CurrentUser) => {
-            if (user.access) {
-              this.tokenSubject.next(user.access);;
+            if (user && user.access) {
+              this.tokenSubject.next(user.access);
               this.auth.setCurrentUser(user);
               return next.handle(this.addTokenToRequest(request, user.access));
             }
@@ -63,12 +63,13 @@ export class JwtInterceptor implements HttpInterceptor {
     } else {
       this.isRefreshingToken = false;
 
-      return this.tokenSubject
-        .pipe(filter(token => token != null),
-          take(1),
-          switchMap(token => {
+      return this.tokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(token => {
             return next.handle(this.addTokenToRequest(request, token));
-          }));
+        })
+      );
     }
   }
 }

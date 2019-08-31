@@ -77,7 +77,10 @@ import { ImportAvatarComponent } from './components/import-avatar/import-avatar.
 import { ImportStudentComponent } from './components/import-student/import-student.component';
 import {CommonModule} from '@angular/common';
 import { HolidayComponent } from './components/holiday/holiday.component';
-
+import { HomingComponent } from './components/homing/homing.component';
+import zh from '@angular/common/locales/zh';
+import {registerLocaleData} from '@angular/common';
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -150,6 +153,7 @@ import { HolidayComponent } from './components/holiday/holiday.component';
     ImportAvatarComponent,
     ImportStudentComponent,
     HolidayComponent,
+    HomingComponent,
 
   ],
   entryComponents: [

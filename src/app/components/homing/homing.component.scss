@@ -1,0 +1,60 @@
+table {
+  width: 100%;
+}
+table tr td:first-of-type{
+  width: 80px;
+}
+
+.bxt-toolbar-spacer {
+  flex: 1 1 auto;
+}
+.moreserch{
+  display: none;
+}
+button+button{
+  margin: 0 10px;
+}
+.search {
+  font-size: 14px;
+  width: 100%;
+}
+.bxt-toolbar-spacer {
+  flex: 1 1 auto;
+}
+.searchbox{
+  overflow: hidden;
+  box-shadow: 0 0 5px gray;
+  padding: 10px 50px 10px 10px;
+  margin: 10px 0;
+}
+.searchbox button{
+  position: absolute;
+  top: 50px;
+  right: 30px;
+}
+.status-style{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.picbox{
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  box-shadow: 0 0 5px black;
+  //transform: scale(1.5);
+  overflow: hidden;
+  vertical-align:middle;
+  cursor:pointer;
+}
+.picbox img{
+  width: 100%;
+  height: 100%;
+}
+.picname{
+  margin-left: 10px;
+  vertical-align:middle;
+  display: inline-block;
+  width: 100px;
+}

@@ -55,6 +55,7 @@ import {IncomingFormComponent} from './components/incoming/incoming-form/incomin
 import {AuthGuardService} from './services/auth-guard.service';
 import {HouseAccessComponent} from './components/house-access/house-access.component';
 import {HolidayComponent} from './components/holiday/holiday.component';
+import {HomingComponent} from './components/homing/homing.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -112,6 +113,7 @@ const routes: Routes = [
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'accommodations/:id/view', component: StudentViewComponent},
+      {path: 'homings', component: HomingComponent},
       {path: 'incomings', component: IncomingComponent},
       {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
