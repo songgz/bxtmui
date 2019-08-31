@@ -38,6 +38,9 @@ export class JwtAuthService {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(user.access);
     user.user_id = decodedToken.user_id;
+    if (user.refresh) {
+      localStorage.setItem('refreshToken', JSON.stringify({refresh: user.refresh, refresh_expires_at: user.refresh_expires_at}));
+    }
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
@@ -47,19 +50,10 @@ export class JwtAuthService {
     });
   }
 
-  // refresh() {
-  //   return this.rest.refresh('refreshs', {'X-Refresh-Token': this.getRefreshToken()}).pipe(
-  //     tap((data: any) => {
-  //       this.setToken(this.ACCESS_TOKEN, data.access);
-  //     })
-  //   );
-  // }
-
   refreshToken(): Observable<CurrentUser> {
-    // const currentUser = this.getCurrentUser();
     const token = this.getRefreshToken();
 
-    return this.rest.refresh('refreshs', {'X-Refresh-Token': token})
+    return this.rest.refresh('refreshs', {'X-Refresh-Token': token.refresh})
       .pipe(
         map((user: CurrentUser) => {
           if (user && user.access) {
@@ -81,12 +75,8 @@ export class JwtAuthService {
     return '';
   }
 
-  getRefreshToken(): string {
-    const currentUser = this.getCurrentUser();
-    if (currentUser != null) {
-      return currentUser.refresh;
-    }
-    return '';
+  getRefreshToken(): any {
+    return JSON.parse(localStorage.getItem('refreshToken'));
   }
 
   isAuthenticated(): boolean {
