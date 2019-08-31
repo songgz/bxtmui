@@ -1,3 +1,10 @@
+<mat-form-field class="sethouse">
+  <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" (selectionChange)="selectHouse()">
+    <mat-option *ngFor="let house of houses" [value]="house.id">
+      {{house.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
   <div fxFlex>
     <mat-card>
