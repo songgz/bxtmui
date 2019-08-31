@@ -6,4 +6,5 @@ export class CurrentUser {
   refresh_expires_at: string
   user_name: string;
   user_id: string;
+  error: string;
 }

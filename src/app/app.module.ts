@@ -76,6 +76,7 @@ import { PersonDialogComponent } from './components/person-dialog/person-dialog.
 import { ImportAvatarComponent } from './components/import-avatar/import-avatar.component';
 import { ImportStudentComponent } from './components/import-student/import-student.component';
 import {CommonModule} from '@angular/common';
+import { HolidayComponent } from './components/holiday/holiday.component';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import {CommonModule} from '@angular/common';
     PersonDialogComponent,
     ImportAvatarComponent,
     ImportStudentComponent,
+    HolidayComponent,
 
   ],
   entryComponents: [

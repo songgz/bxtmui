@@ -54,6 +54,7 @@ import {ExchangesComponent} from './components/exchanges/exchanges.component';
 import {IncomingFormComponent} from './components/incoming/incoming-form/incoming-form.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {HouseAccessComponent} from './components/house-access/house-access.component';
+import {HolidayComponent} from './components/holiday/holiday.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -115,6 +116,7 @@ const routes: Routes = [
       {path: 'incomings/:id/edit', component: IncomingFormComponent},
       {path: 'latecomers', component: LatecomerComponent},
       {path: 'attendances', component: AttendanceComponent},
+      {path: 'holidays', component: HolidayComponent},
       {path: 'trackers', component: TrackerComponent},
       {path: 'webcams', component: WebcamComponent},
       {path: 'webcams/new', component: WebcamFormComponent},

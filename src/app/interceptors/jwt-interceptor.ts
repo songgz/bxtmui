@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
               case 401:
                 return this.handle401Error(request, next);
               case 400:
-                return throwError(err);
+                return <any>this.auth.logout();
             }
           } else {
             return throwError(err);
@@ -51,9 +51,10 @@ export class JwtInterceptor implements HttpInterceptor {
               this.auth.setCurrentUser(user);
               return next.handle(this.addTokenToRequest(request, user.access));
             }
+            return <any>this.auth.logout();
           }),
           catchError(err => {
-            return throwError(err);
+            return <any>this.auth.logout();
           }),
           finalize(() => {
             this.isRefreshingToken = false;

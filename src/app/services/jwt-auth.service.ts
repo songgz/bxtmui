@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { RestService } from './rest.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {CurrentUser} from '../models/current-user';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,8 @@ export class JwtAuthService {
   // }
 
   refreshToken(): Observable<CurrentUser> {
-    const currentUser = this.getCurrentUser();
-    const token = currentUser.refresh;
+    // const currentUser = this.getCurrentUser();
+    const token = this.getRefreshToken();
 
     return this.rest.refresh('refreshs', {'X-Refresh-Token': token})
       .pipe(
@@ -66,7 +66,11 @@ export class JwtAuthService {
             this.setCurrentUser(user);
           }
           return <CurrentUser>user;
-        }));
+        }),
+        catchError(err => {
+          return throwError(err);
+        })
+      );
   }
 
   getAuthToken(): string {
