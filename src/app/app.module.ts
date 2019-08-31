@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -176,6 +176,7 @@ import { HolidayComponent } from './components/holiday/holiday.component';
     CommonModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'zh-Hans' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

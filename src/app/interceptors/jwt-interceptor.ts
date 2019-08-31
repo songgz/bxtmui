@@ -46,7 +46,7 @@ export class JwtInterceptor implements HttpInterceptor {
       return this.auth.refreshToken()
         .pipe(
           switchMap((user: CurrentUser) => {
-            if (user) {
+            if (user.access) {
               this.tokenSubject.next(user.access);;
               this.auth.setCurrentUser(user);
               return next.handle(this.addTokenToRequest(request, user.access));
