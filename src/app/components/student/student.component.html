@@ -1,6 +1,7 @@
 <div class="searchbox">
   <mat-form-field>
     <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter()">
+      <mat-option>空</mat-option>
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
         {{org.full_title}}
       </mat-option>

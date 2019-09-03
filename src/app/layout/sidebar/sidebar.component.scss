@@ -17,7 +17,11 @@
       display: block;
     }
   }
-
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -ms-transition: all 500ms;
+  -o-transition: all 500ms;
+  transition: all 500ms;
 }
 .nested-menu {
   .nested {
@@ -42,12 +46,7 @@
     }
   }
 }
-@media screen and (max-width: 992px) {
-  #sidebar {
-    left: -250px;
-    background-color: white;
-  }
-}
+
 .active {
   //border-right: 5px solid #3f51b5;
   //font-weight: bolder;
@@ -104,10 +103,10 @@ ul li {
 }
 
 .sidebar-background{
-  position: absolute;
+  position: fixed;
   z-index: -1;
   height: 100%;
-  width: 100%;
+  width: 250px;
   display: block;
   top: 0;
   left: 0;
@@ -120,4 +119,14 @@ ul li {
   -ms-transition: all 500ms;
   -o-transition: all 500ms;
   transition: all 500ms;
+}
+@media screen and (max-width: 992px) {
+  #sidebar {
+    left: -250px;
+    background-color: white;
+  }
+  .sidebar-background {
+    left: -250px;
+    //background-color: white;
+  }
 }

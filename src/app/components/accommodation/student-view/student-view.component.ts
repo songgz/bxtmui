@@ -5,8 +5,10 @@ import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
 import {OrgService} from '../../../services/org.service';
 import {environment} from '../../../../environments/environment';
+import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../student/student.component';
 
 @Component({
   selector: 'app-student-view',
@@ -26,7 +28,8 @@ export class StudentViewComponent implements OnInit {
   constructor(private rest: RestService,
               private route: ActivatedRoute,
               private  dict: DictService,
-              public org: OrgService
+              public org: OrgService,
+              public dialog: MatDialog
               ) {
   }
 
@@ -89,6 +92,13 @@ export class StudentViewComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.inspection();
+  }
+  openDialog() {
+    this.dialog.open(ImgDialogStudentComponent, {
+      data: {
+        dataid: this.imgsrc
+      }
+    });
   }
 
   goBack() {

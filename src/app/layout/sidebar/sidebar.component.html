@@ -7,7 +7,10 @@
       </a>
       <ul class="nested submenu" [class.expand]="showMenu === mainItem.id" *ngIf="hasChild(mainItem.id)">
         <li *ngFor="let submenuItem of findChildren(mainItem.id)">
-          <a href="javascript:void(0)" [routerLinkActive]="'active'" [routerLink]="[submenuItem.path]"><span>{{ submenuItem.title }}</span></a>
+          <a href="javascript:void(0)" [routerLinkActive]="'active'"
+             [routerLink]="[submenuItem.path]" (click)="delSessionStorage()">
+            <span>{{ submenuItem.title }}</span>
+          </a>
         </li>
       </ul>
     </div>

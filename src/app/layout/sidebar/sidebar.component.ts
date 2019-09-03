@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   public showMenu: string;
   public menuItems: any[] = [];
   menustyle: string;
+  sidebarHeight: any;
 
   constructor(private rest: RestService) {
     this.loadMenuItems();
@@ -53,5 +54,8 @@ export class SidebarComponent implements OnInit {
       }
     }
     return false;
+  }
+  delSessionStorage() {
+    sessionStorage.removeItem('query');
   }
 }

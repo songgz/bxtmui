@@ -30,9 +30,15 @@ export class RoomComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    if ( sessionStorage.getItem('query') ) {
+      this.query = JSON.parse(sessionStorage.getItem('query'));
+      this.pageSize = this.query.pre;
+      this.pageIndex = this.query.page - 1;
+    }
     // this.loadRooms();
     this.getHouses();
     // this.getFloors();
+    this.getHouseId();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -59,6 +65,14 @@ export class RoomComponent implements OnInit, AfterViewInit {
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
+
+  getHouseId() {
+    this.houses.subscribe( data => {
+      this.query.house_id = data[0].id;
+      this.applyFilter();
+    })
+  }
+
   getFloors(houseId: string) {
     const options = {};
     options['parent_id'] = houseId;
@@ -83,6 +97,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
 
 
   public update (id: string)  {
+    sessionStorage.setItem('query', JSON.stringify(this.query));
     this.rest.navigate(['/bxt/rooms/', id, 'edit']);
   }
 

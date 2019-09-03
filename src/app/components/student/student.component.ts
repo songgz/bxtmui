@@ -65,11 +65,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.pageIndex = this.query.page - 1;
     }
     this.baseUrl = environment.baseUrl;
-    if ( this.query ) {
-      this.loadStudents(this.query);
-    }
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
+    this.getHouseId();
   }
 
   ngAfterViewInit() {
@@ -102,6 +100,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (filterValue.length !== 0) {
       this.query['key'] = filterValue;
     }
+    if (this.query.org_id == null) {
+      delete this.query.org_id;
+    }
     if (this.house_id) {
       this.query.facility_id = this.house_id;
       this.dorm_id = null;
@@ -129,7 +130,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
   getHouses() {
     this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
   }
-
+  getHouseId() {
+    this.houses.subscribe( data => {
+      this.house_id = data[0].id;
+      this.applyFilter();
+    })
+  }
   getFloors(houseId: string) {
     // console.log(houseId);
     const options = {};

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../services/rest.service';
 import { MatTableDataSource } from '@angular/material/table';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-accommodation',
@@ -9,10 +10,11 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class AccommodationComponent implements OnInit {
 
-  houses: any[] = [];
+  houses: Observable<any[]>;
   house: any = {id: null};
   rooms: any = {};
-  floors: any[] = []
+  floors: any[] = [];
+  floor: any = {id: null};
   bed_stats: any = {};
 
   constructor(private rest: RestService) { }
@@ -27,8 +29,8 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
-  loadRooms() {
-    this.rest.index('rooms', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
+  loadRooms( options = {}) {
+    this.rest.index('rooms', options).subscribe((data: any) => {
       this.rooms = data.result;
       this.bed_stats = data.bed_stats;
       this.loadFloors();
@@ -37,6 +39,8 @@ export class AccommodationComponent implements OnInit {
   getHouse() {
     this.rest.index('houses', {pre: 999}).subscribe((data: any) => {
       this.houses = data.result;
+      this.house.id = this.houses[0].id;
+      this.selectHouse();
     });
   }
 
@@ -45,15 +49,13 @@ export class AccommodationComponent implements OnInit {
   }
 
   selectHouse() {
-    // for (const h of this.houses) {
-    //   if (h.id === this.house.id) {
-    //     this.house = h;
-    //     break;
-    //   }
-    // }
-    // console.log(this.house)
-    this.loadRooms();
+    const options = {house_id: this.house.id, pre: 9999};
+    this.loadRooms(options);
   }
+  // selectFloor() {
+  //   const options = {parent_id: this.floor.id, pre: 9999};
+  //   this.loadRooms(options);
+  // }
 
 
 }

@@ -1,11 +1,10 @@
 <div class="room-box">
   <div class="header">{{room.title}}</div>
   <div class="bedbox">
-  <span class="bed" *ngFor="let bed of room.beds" matTooltip="{{bed.owner_name}} " (click)="selfHref(bed)">
-    <mat-icon   color="{{gendercolor?'primary':'warn'}}">{{bed.owner_id != null? 'person':'person_outline' }}</mat-icon>
+  <div class="bed" *ngFor="let bed of room.beds" matTooltip="{{bed.owner_name}} " (click)="selfHref(bed)">
+    <!--<mat-icon color="{{gendercolor?'primary':'warn'}}">{{bed.owner_id != null? 'person':'person_outline' }}</mat-icon>-->
 <!--    <span class="{{bed.owner_name != null? 'inHouse':'outHouse' }}">{{bed.owner_name != null? bed.owner_name:'空床'}}</span>-->
-        <span >{{bed.owner_name != null? bed.owner_name:'（空床）'}}</span>
-
-  </span>
+    <div>{{bed.owner_name != null? bed.owner_name:'（空床）'}}</div>
+  </div>
   </div>
 </div>
