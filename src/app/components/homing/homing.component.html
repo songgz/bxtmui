@@ -1,9 +1,23 @@
 <div class="searchbox">
   <mat-form-field>
-    <mat-select placeholder="所属楼栋"  [(value)]="query.facility_id" (selectionChange)="applyFilter()"  name="facility_id">
-      <mat-option value="">（全部）</mat-option>
+    <mat-select placeholder="所属楼栋"  [(ngModel)]="house_id" (selectionChange)="applyFilter()"  name="facility_id">
+      <!--<mat-option value="">（全部）</mat-option>-->
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="楼层" [(ngModel)]="floor_id" name="floor_id" (selectionChange)="setFloor()">
+      <mat-option *ngFor="let floor of floors" [value]="floor.id">
+        {{floor.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="房间" [(ngModel)]="dorm_id" (selectionChange)="setRoom()">
+      <mat-option *ngFor="let room of rooms " [value]="room.id">
+        {{room.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -12,7 +26,7 @@
   </mat-form-field>
   <br [ngClass]="{ 'moreserch' : moreserch === false}">
   <mat-form-field [ngClass]="{ 'moreserch' : moreserch === false}" style="width: 540px">
-    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="所属组织"  [(ngModel)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
       <mat-option value="">（全部）</mat-option>
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
         {{org.full_title}}
@@ -36,6 +50,9 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="'140px'">学生</th>
       <td mat-cell *matCellDef="let row">
+        <div class="picbox">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.avatar_url)" [src]="baseUrl + row.avatar_url">
+        </div>
         <div class="picname">{{row.name}}</div>
       </td>
     </ng-container>
@@ -62,5 +79,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="pageLength"  [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginate($event)"></mat-paginator>
+  <mat-paginator
+    [length]="pageLength"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="paginate($event)">
+  </mat-paginator>
 </div>
