@@ -14,6 +14,10 @@ import {environment} from '../../../environments/environment';
 import {ImportStudentComponent} from '../import-student/import-student.component';
 import {ImportAvatarComponent} from '../import-avatar/import-avatar.component';
 import {of} from 'rxjs/internal/observable/of';
+import {mergeMap} from 'rxjs/internal/operators/mergeMap';
+import {switchMap} from 'rxjs/internal/operators/switchMap';
+import {from} from 'rxjs/internal/observable/from';
+import {last} from 'rxjs/internal/operators/last';
 
 export interface DialogData {
   dataid: string;
@@ -134,7 +138,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.houses.subscribe( data => {
       this.house_id = data[0].id;
       this.applyFilter();
-    })
+    });
   }
   getFloors(houseId: string) {
     // console.log(houseId);
@@ -197,8 +201,15 @@ export class StudentComponent implements OnInit, AfterViewInit {
     } else {
       this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
         if (res) {
-          this.student_ids.forEach(row => {
-            this.delete(row);
+          from(this.student_ids).pipe(switchMap((id: any) => {
+            console.log(id);
+           return this.rest.destory('students/' + id);
+          })).pipe(last()).subscribe(data => {
+            console.log(data);
+            this.loadStudents(this.query);
+            this.student_ids = [];
+          }, error => {
+            this.rest.errorHandle(error);
           });
         }
       });
