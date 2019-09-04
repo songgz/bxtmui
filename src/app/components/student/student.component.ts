@@ -13,11 +13,9 @@ import {OrgService} from '../../services/org.service';
 import {environment} from '../../../environments/environment';
 import {ImportStudentComponent} from '../import-student/import-student.component';
 import {ImportAvatarComponent} from '../import-avatar/import-avatar.component';
-import {of} from 'rxjs/internal/observable/of';
-import {mergeMap} from 'rxjs/internal/operators/mergeMap';
-import {switchMap} from 'rxjs/internal/operators/switchMap';
 import {from} from 'rxjs/internal/observable/from';
 import {last} from 'rxjs/internal/operators/last';
+import {concatMap} from 'rxjs/internal/operators/concatMap';
 
 export interface DialogData {
   dataid: string;
@@ -193,7 +191,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   allDel() {
     if (this.student_ids.length === 0) {
-      // console.log(this.teacher_ids);
       this.snackBar.open('请选择数据', '', {
         duration: 2000,
         verticalPosition: 'top',
@@ -201,11 +198,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     } else {
       this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
         if (res) {
-          from(this.student_ids).pipe(switchMap((id: any) => {
-            console.log(id);
+          from(this.student_ids).pipe(concatMap((id: any) => {
            return this.rest.destory('students/' + id);
           })).pipe(last()).subscribe(data => {
-            console.log(data);
             this.loadStudents(this.query);
             this.student_ids = [];
           }, error => {
