@@ -42,8 +42,8 @@ export class RestService {
     return this.http.get(this.baseUrl + path + '.json');
   }
 
-  navigate(path: any[]) {
-    this.router.navigate(path);
+  navigate(path: any[], params = {}) {
+    this.router.navigate(path, params);
   }
 
   goBack() {

@@ -1,6 +1,6 @@
 <div class="searchbox">
   <mat-form-field>
-    <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter($event)">
       <mat-option>空</mat-option>
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
         {{org.full_title}}
@@ -8,21 +8,21 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼栋" [(ngModel)]="temp.house_id" name="house_id" (selectionChange)="applyFilter()">
-      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+    <mat-select placeholder="楼栋" [(ngModel)]="house_id" name="house_id" (selectionChange)="changeHouse()">
+      <mat-option *ngFor="let house of houses" [value]="house.id">
         {{house.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼层" [(ngModel)]="temp.floor_id" name="floor_id" (selectionChange)="setFloor()">
+    <mat-select placeholder="楼层" [(ngModel)]="floor_id" name="floor_id" (selectionChange)="changeFloor()">
       <mat-option *ngFor="let floor of floors" [value]="floor.id">
         {{floor.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="房间" [(ngModel)]="temp.dorm_id" (selectionChange)="setRoom()">
+    <mat-select placeholder="房间" [(ngModel)]="room_id" (selectionChange)="changeRoom()">
       <mat-option *ngFor="let room of rooms " [value]="room.id">
         {{room.title}}
       </mat-option>
@@ -30,7 +30,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput  [(ngModel)]="query.key" (keyup)="applyFilter($event.target.value)" placeholder="输入名或学号">
+    <input matInput  [(ngModel)]="query.key" (keyup)="applyFilter($event)" placeholder="输入名或学号">
   </mat-form-field>
 </div>
 

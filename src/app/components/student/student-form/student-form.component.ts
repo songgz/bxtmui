@@ -7,6 +7,7 @@ import {DictService} from '../../../services/dict.service';
 import {NgForm} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import {OrgService} from '../../../services/org.service';
+import {Location} from '@angular/common';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -31,7 +32,8 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute,
               private  dict: DictService,
               public org: OrgService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -136,6 +138,7 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
 
 
   goBack() {
+    // this.location.back();
     this.rest.navigate(['/bxt/students']);
   }
 

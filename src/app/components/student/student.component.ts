@@ -35,9 +35,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
   query: any = {};
   moreserch  = false;
   genders: Observable<any[]>;
-  houses: Observable<any[]>;
-  floors:  Observable<any[]>;
-  rooms: Observable<any[]>;
+  houses: any[] = [];
+  floors: any[] = [];
+  rooms: any[] = [];
+  house_id = null;
+  floor_id = null;
+  room_id = null;
   baseUrl: any;
   temp: any = {};
 
@@ -61,31 +64,16 @@ export class StudentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
     this.genders = this.dict.getItems('gender_type');
+    if (sessionStorage.getItem('students')) {
+      this.query = JSON.parse(sessionStorage.getItem('students'));
+    }
     this.getHouses();
-    if ( sessionStorage.getItem('temp')) {
-      this.temp = JSON.parse(sessionStorage.getItem('temp'));
-      this.houses.subscribe( any => {
-        this.getFloors(this.temp.house_id);
-      });
-      if (this.temp.floor_id) {
-        this.getRooms(this.temp.floor_id);
-      }
-    } else {
-      this.temp = {};
-    }
-    if ( sessionStorage.getItem('query') ) {
-      this.query = JSON.parse(sessionStorage.getItem('query'));
-      this.pageSize = this.query.pre;
-      this.pageIndex = this.query.page - 1;
-      this.loadStudents(this.query);
-    } else {
-      this.getHouseId();
-    }
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.loadStudents(this.query);
   }
   paginate(event) {
     this.pageIndex = event.pageIndex;
@@ -101,6 +89,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
       this.pageIndex = data.paginate_meta.current_page - 1;
+      sessionStorage.setItem('students', JSON.stringify(this.query));
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -108,43 +97,16 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
 
 
-  applyFilter(filterValue: string = '') {
-    filterValue = filterValue.trim();
-    if (filterValue.length !== 0) {
+  applyFilter(filterValue: any) {
+    filterValue = filterValue.target.value.trim();
+    if (filterValue.length > 0) {
       this.query['key'] = filterValue;
     }
-    if (this.query.org_id == null) {
-      delete this.query.org_id;
-    }
-    if (this.temp.house_id) {
-      this.getFloors(this.temp.house_id);
-      this.query.facility_id = this.temp.house_id;
-      this.temp.dorm_id = null;
-      this.temp.floor_id = null;
-    }
-    sessionStorage.setItem('temp', JSON.stringify(this.temp));
-    sessionStorage.setItem('query', JSON.stringify(this.query));
     this.loadStudents(this.query);
   }
-  setFloor() {
-    this.pageIndex = 0;
-    this.query.facility_id = this.temp.floor_id;
-    this.getRooms(this.temp.floor_id);
-    this.temp.dorm_id = null;
-    sessionStorage.setItem('temp', JSON.stringify(this.temp));
-    sessionStorage.setItem('query', JSON.stringify(this.query));
 
-    this.loadStudents(this.query);
-  }
-  setRoom() {
-    this.pageIndex = 0;
-    this.query.facility_id = this.temp.dorm_id;
-    sessionStorage.setItem('temp', JSON.stringify(this.temp));
-    sessionStorage.setItem('query', JSON.stringify(this.query));
-    this.loadStudents(this.query);
-  }
   update(id: string) {
-    this.rest.navigate(['/bxt/students/', id, 'edit']);
+    this.rest.navigate(['/bxt/students/', id, 'edit'], { queryParamsHandling: 'preserve' });
   }
 
   delete(id: string) {
@@ -156,35 +118,64 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   getHouses() {
-    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
-  }
-  getHouseId() {
-    this.houses.subscribe( data => {
-      this.query.house_id = data[0].id;
-      this.loadStudents(this.query);
+    this.rest.index('houses').subscribe((data: any) => {
+      this.houses = data.result;
+      if (this.houses.length > 0) {
+        this.house_id = sessionStorage.getItem('house_id') || this.houses[0].id;
+        this.getFloors();
+      }
     });
   }
-  getFloors(houseId: string) {
-    // console.log(houseId);
+
+  getFloors() {
     const options = {};
     options['pre'] = 999;
-    options['parent_id'] = houseId;
+    options['parent_id'] = this.house_id;
     this.rest.index('floors', options ).subscribe((data: any) => {
       this.floors = data.result;
+      if (this.floors.length > 0) {
+        this.floor_id = sessionStorage.getItem('floor_id') || this.floors[0].id;
+        this.getRooms();
+      }
     });
   }
 
-  getRooms(floorId: string) {
+  getRooms() {
+    this.rooms = [];
     const options = {};
     options['pre'] = 9999;
-    options['parent_id'] = floorId;
+    options['parent_id'] = this.floor_id;
     this.rest.index('rooms', options ).subscribe((data: any) => {
-      // console.log(data.result);
       this.rooms = data.result;
+      if (this.rooms.length > 0) {
+        this.room_id = sessionStorage.getItem('room_id') || this.rooms[0].id;
+      }
     });
   }
 
+  changeHouse() {
+    this.query.facility_id = this.house_id;
+    sessionStorage.setItem('house_id', this.house_id);
+    this.loadStudents(this.query);
+    this.getFloors();
+    this.floor_id = null;
+    this.room_id = null;
+    sessionStorage.setItem('floor_id', null);
+    sessionStorage.setItem('room_id', null);
+  }
 
+  changeFloor() {
+    this.query.facility_id = this.floor_id;
+    sessionStorage.setItem('floor_id', this.floor_id);
+    this.loadStudents(this.query);
+    this.getRooms();
+  }
+
+  changeRoom() {
+    this.query.facility_id = this.room_id;
+    sessionStorage.setItem('room_id', this.room_id);
+    this.loadStudents(this.query);
+  }
 
   student_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
