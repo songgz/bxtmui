@@ -62,15 +62,25 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.baseUrl = environment.baseUrl;
     this.genders = this.dict.getItems('gender_type');
     this.getHouses();
+    if ( sessionStorage.getItem('temp')) {
+      this.temp = JSON.parse(sessionStorage.getItem('temp'));
+      this.houses.subscribe( any => {
+        this.getFloors(this.temp.house_id);
+      });
+      if (this.temp.floor_id) {
+        this.getRooms(this.temp.floor_id);
+      }
+    } else {
+      this.temp = {};
+    }
     if ( sessionStorage.getItem('query') ) {
       this.query = JSON.parse(sessionStorage.getItem('query'));
       this.pageSize = this.query.pre;
       this.pageIndex = this.query.page - 1;
-      this.applyFilter();
+      this.loadStudents(this.query);
     } else {
       this.getHouseId();
     }
-    this.temp = JSON.parse(sessionStorage.getItem('temp'));
   }
 
   ngAfterViewInit() {
@@ -80,7 +90,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.applyFilter();
+    this.loadStudents(this.query);
   }
 
   loadStudents(options = {}) {
@@ -106,15 +116,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (this.query.org_id == null) {
       delete this.query.org_id;
     }
-    if (this.query.house_id) {
-      this.getFloors(this.query.house_id);
-      this.query.facility_id = this.query.house_id;
-      this.query.dorm_id = null;
-      this.query.floor_id = null;
-      this.temp.house_id = this.query.house_id;
-      delete this.query.house_id;
-      delete this.query.floor_id;
-      delete this.query.dorm_id;
+    if (this.temp.house_id) {
+      this.getFloors(this.temp.house_id);
+      this.query.facility_id = this.temp.house_id;
+      this.temp.dorm_id = null;
+      this.temp.floor_id = null;
     }
     sessionStorage.setItem('temp', JSON.stringify(this.temp));
     sessionStorage.setItem('query', JSON.stringify(this.query));
@@ -122,10 +128,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
   setFloor() {
     this.pageIndex = 0;
-    this.query.facility_id = this.query.floor_id;
-    this.getRooms(this.query.floor_id);
-    this.temp.floor_id = this.query.floor_id;
-    delete this.query.floor_id;
+    this.query.facility_id = this.temp.floor_id;
+    this.getRooms(this.temp.floor_id);
+    this.temp.dorm_id = null;
     sessionStorage.setItem('temp', JSON.stringify(this.temp));
     sessionStorage.setItem('query', JSON.stringify(this.query));
 
@@ -133,12 +138,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
   setRoom() {
     this.pageIndex = 0;
-    this.query.facility_id = this.query.dorm_id;
-    this.temp.dorm_id = this.query.dorm_id;
-    delete this.query.dorm_id;
+    this.query.facility_id = this.temp.dorm_id;
     sessionStorage.setItem('temp', JSON.stringify(this.temp));
     sessionStorage.setItem('query', JSON.stringify(this.query));
-
     this.loadStudents(this.query);
   }
   update(id: string) {

@@ -8,21 +8,21 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼栋" [(ngModel)]="query.house_id" name="house_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="楼栋" [(ngModel)]="temp.house_id" name="house_id" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let house of houses | async" [value]="house.id">
         {{house.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="楼层" [(ngModel)]="query.floor_id" name="floor_id" (selectionChange)="setFloor()">
+    <mat-select placeholder="楼层" [(ngModel)]="temp.floor_id" name="floor_id" (selectionChange)="setFloor()">
       <mat-option *ngFor="let floor of floors" [value]="floor.id">
         {{floor.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="房间" [(ngModel)]="query.dorm_id" (selectionChange)="setRoom()">
+    <mat-select placeholder="房间" [(ngModel)]="temp.dorm_id" (selectionChange)="setRoom()">
       <mat-option *ngFor="let room of rooms " [value]="room.id">
         {{room.title}}
       </mat-option>
