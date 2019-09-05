@@ -64,16 +64,14 @@ export class StudentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
     this.genders = this.dict.getItems('gender_type');
-    if (sessionStorage.getItem('students')) {
-      this.query = JSON.parse(sessionStorage.getItem('students'));
-    }
     this.getHouses();
+    this.loadStudents({facility_id: sessionStorage.getItem('room_id') ||
+        sessionStorage.getItem('floor_id') || sessionStorage.getItem('house_id') });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.loadStudents(this.query);
   }
   paginate(event) {
     this.pageIndex = event.pageIndex;
@@ -89,7 +87,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
       this.pageIndex = data.paginate_meta.current_page - 1;
-      sessionStorage.setItem('students', JSON.stringify(this.query));
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -160,8 +157,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getFloors();
     this.floor_id = null;
     this.room_id = null;
-    sessionStorage.setItem('floor_id', null);
-    sessionStorage.setItem('room_id', null);
+    sessionStorage.removeItem('floor_id');
+    sessionStorage.removeItem('room_id');
   }
 
   changeFloor() {
