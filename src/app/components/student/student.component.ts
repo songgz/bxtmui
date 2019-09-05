@@ -39,6 +39,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   floors:  Observable<any[]>;
   rooms: Observable<any[]>;
   baseUrl: any;
+  temp: any = {};
 
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
@@ -47,9 +48,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-  house_id = null;
-  floor_id = null;
-  dorm_id = null;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -61,15 +59,18 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
+    this.genders = this.dict.getItems('gender_type');
+    this.getHouses();
     if ( sessionStorage.getItem('query') ) {
       this.query = JSON.parse(sessionStorage.getItem('query'));
       this.pageSize = this.query.pre;
       this.pageIndex = this.query.page - 1;
+      this.applyFilter();
+    } else {
+      this.getHouseId();
     }
-    this.baseUrl = environment.baseUrl;
-    this.genders = this.dict.getItems('gender_type');
-    this.getHouses();
-    this.getHouseId();
+    this.temp = JSON.parse(sessionStorage.getItem('temp'));
   }
 
   ngAfterViewInit() {
@@ -79,7 +80,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadStudents(this.query);
+    this.applyFilter();
   }
 
   loadStudents(options = {}) {
@@ -105,19 +106,42 @@ export class StudentComponent implements OnInit, AfterViewInit {
     if (this.query.org_id == null) {
       delete this.query.org_id;
     }
-    if (this.house_id) {
-      this.query.facility_id = this.house_id;
-      this.dorm_id = null;
-      this.floor_id = null;
-      this.getFloors(this.house_id);
+    if (this.query.house_id) {
+      this.getFloors(this.query.house_id);
+      this.query.facility_id = this.query.house_id;
+      this.query.dorm_id = null;
+      this.query.floor_id = null;
+      this.temp.house_id = this.query.house_id;
+      delete this.query.house_id;
+      delete this.query.floor_id;
+      delete this.query.dorm_id;
     }
-    // this.getRooms(this.floor_id);
+    sessionStorage.setItem('temp', JSON.stringify(this.temp));
+    sessionStorage.setItem('query', JSON.stringify(this.query));
     this.loadStudents(this.query);
   }
-
-  update(id: string) {
-    // this.query.facility_id
+  setFloor() {
+    this.pageIndex = 0;
+    this.query.facility_id = this.query.floor_id;
+    this.getRooms(this.query.floor_id);
+    this.temp.floor_id = this.query.floor_id;
+    delete this.query.floor_id;
+    sessionStorage.setItem('temp', JSON.stringify(this.temp));
     sessionStorage.setItem('query', JSON.stringify(this.query));
+
+    this.loadStudents(this.query);
+  }
+  setRoom() {
+    this.pageIndex = 0;
+    this.query.facility_id = this.query.dorm_id;
+    this.temp.dorm_id = this.query.dorm_id;
+    delete this.query.dorm_id;
+    sessionStorage.setItem('temp', JSON.stringify(this.temp));
+    sessionStorage.setItem('query', JSON.stringify(this.query));
+
+    this.loadStudents(this.query);
+  }
+  update(id: string) {
     this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
 
@@ -134,8 +158,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
   getHouseId() {
     this.houses.subscribe( data => {
-      this.house_id = data[0].id;
-      this.applyFilter();
+      this.query.house_id = data[0].id;
+      this.loadStudents(this.query);
     });
   }
   getFloors(houseId: string) {
@@ -157,15 +181,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.rooms = data.result;
     });
   }
-  setFloor() {
-    this.query.facility_id = this.floor_id;
-    this.getRooms(this.floor_id);
-    this.loadStudents(this.query);
-  }
-  setRoom() {
-    this.query.facility_id = this.dorm_id;
-    this.loadStudents(this.query);
-  }
+
 
 
   student_selected(teacher_id) {
