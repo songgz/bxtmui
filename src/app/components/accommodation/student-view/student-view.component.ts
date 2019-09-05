@@ -17,6 +17,7 @@ import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../stude
 })
 export class StudentViewComponent implements OnInit {
   disabled: boolean = true;
+  readOnly: boolean = true;
   student: any = { };
   genders: Observable<any[]>;
   floors: any[];

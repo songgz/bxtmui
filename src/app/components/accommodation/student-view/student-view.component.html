@@ -19,7 +19,7 @@
     <br>
     <div>宿舍信息</div>
     <mat-form-field>
-      <mat-select placeholder="所属楼层" [disabled]="disabled" [(value)]="student.dorm_parent_id"  name="dorm_parent_id" (selectionChange)="selectFloor()">
+      <mat-select placeholder="所属楼层" [disabled]="disabled" [(value)]="student.dorm_parent_id"  name="dorm_parent_id" >
         <mat-option *ngFor="let floor of floors" [value]="floor.id">
           {{floor.full_title}}
         </mat-option>
@@ -33,24 +33,24 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="床号" [disabled]="disabled"  [(ngModel)]="student.bed_mark" name="bed_mark" >
+      <input matInput placeholder="床号"  [readonly]="readOnly"  [(ngModel)]="student.bed_mark" name="bed_mark" >
     </mat-form-field>
     <br>
     <div>个人信息</div>
     <mat-form-field>
-      <input matInput placeholder="学生姓名" [disabled]="disabled"  [(ngModel)]="student.name" name="name" >
+      <input matInput placeholder="学生姓名"  [readonly]="readOnly" [(ngModel)]="student.name" name="name" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="电话" [disabled]="disabled"  [(ngModel)]="student.tel" name="tel" >
+      <input matInput placeholder="电话"  [readonly]="readOnly"  [(ngModel)]="student.tel" name="tel" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="身份证号" [disabled]="disabled"  [(ngModel)]="student.id_card" name="id_card" >
+      <input matInput placeholder="身份证号" [readonly]="readOnly"  [(ngModel)]="student.id_card" name="id_card" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="卡号" [disabled]="disabled"  [(ngModel)]="student.ic_card" name="ic_card" >
+      <input matInput placeholder="卡号" [readonly]="readOnly"  [(ngModel)]="student.ic_card" name="ic_card" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="学号" [disabled]="disabled"  [(ngModel)]="student.sno" name="sno" >
+      <input matInput placeholder="学号" [readonly]="readOnly"  [(ngModel)]="student.sno" name="sno" >
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="性别" [disabled]="disabled"  [(ngModel)]="student.gender_mark" name="gender_mark">
