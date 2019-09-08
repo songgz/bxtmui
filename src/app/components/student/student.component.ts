@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
-import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
 import {OrgService} from '../../services/org.service';
@@ -41,8 +40,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   house_id = null;
   floor_id = null;
   room_id = null;
+  facility_id = null;
   baseUrl: any;
-  temp: any = {};
 
   @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
@@ -63,26 +62,27 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
-    this.genders = this.dict.getItems('gender_type');
+    this.getSession();
     this.getHouses();
-    this.loadStudents({facility_id: sessionStorage.getItem('room_id') ||
-        sessionStorage.getItem('floor_id') || sessionStorage.getItem('house_id') });
+    this.genders = this.dict.getItems('gender_type');
+    this.loadStudents(this.query);
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
   paginate(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
+    this.query['page'] =  this.pageIndex + 1;
+    this.query['pre'] = this.pageSize;
     this.loadStudents(this.query);
   }
 
   loadStudents(options = {}) {
-    options['page'] = this.pageIndex + 1;
-    options['pre'] = this.pageSize;
-    this.rest.index('students', options).subscribe((data: any) => {
+    this.rest.index('students', this.query).subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data.result);
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
@@ -92,8 +92,6 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
-
-
   applyFilter(filterValue: any) {
     filterValue = filterValue.target.value.trim();
     if (filterValue.length > 0) {
@@ -102,7 +100,33 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.loadStudents(this.query);
   }
 
+  getSession() {
+    this.house_id = sessionStorage.getItem('house_id');
+    this.floor_id = sessionStorage.getItem('floor_id');
+    this.room_id = sessionStorage.getItem('room_id');
+    this.query = JSON.parse(sessionStorage.getItem('student_query')) || this.query;
+    sessionStorage.removeItem('house_id');
+    sessionStorage.removeItem('floor_id');
+    sessionStorage.removeItem('room_id');
+    sessionStorage.removeItem('student_query');
+  }
+
+  setSession() {
+    if (this.house_id) {
+      sessionStorage.setItem('house_id', this.house_id);
+    }
+    if (this.floor_id) {
+      sessionStorage.setItem('floor_id', this.floor_id);
+    }
+    if (this.room_id) {
+      sessionStorage.setItem('room_id', this.room_id);
+    }
+    sessionStorage.setItem('student_query', JSON.stringify(this.query));
+  }
+
   update(id: string) {
+    this.query.facility_id = this.room_id || this.floor_id || this.house_id;
+    this.setSession();
     this.rest.navigate(['/bxt/students/', id, 'edit'], { queryParamsHandling: 'preserve' });
   }
 
@@ -118,8 +142,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.rest.index('houses').subscribe((data: any) => {
       this.houses = data.result;
       if (this.houses.length > 0) {
-        this.house_id = sessionStorage.getItem('house_id') || this.houses[0].id;
+        this.house_id = this.house_id || this.houses[0].id;
         this.getFloors();
+        if (this.query.facility_id == null) {
+          this.query.facility_id = this.house_id;
+          this.loadStudents(this.query);
+        }
       }
     });
   }
@@ -130,47 +158,39 @@ export class StudentComponent implements OnInit, AfterViewInit {
     options['parent_id'] = this.house_id;
     this.rest.index('floors', options ).subscribe((data: any) => {
       this.floors = data.result;
-      if (this.floors.length > 0) {
-        this.floor_id = sessionStorage.getItem('floor_id') || this.floors[0].id;
+      if (this.floors.length > 0 && this.floor_id) {
         this.getRooms();
       }
     });
   }
 
   getRooms() {
-    this.rooms = [];
     const options = {};
     options['pre'] = 9999;
     options['parent_id'] = this.floor_id;
     this.rest.index('rooms', options ).subscribe((data: any) => {
       this.rooms = data.result;
-      if (this.rooms.length > 0) {
-        this.room_id = sessionStorage.getItem('room_id') || this.rooms[0].id;
-      }
     });
   }
 
   changeHouse() {
     this.query.facility_id = this.house_id;
-    sessionStorage.setItem('house_id', this.house_id);
     this.loadStudents(this.query);
     this.getFloors();
     this.floor_id = null;
     this.room_id = null;
-    sessionStorage.removeItem('floor_id');
-    sessionStorage.removeItem('room_id');
+    this.rooms = [];
   }
 
   changeFloor() {
     this.query.facility_id = this.floor_id;
-    sessionStorage.setItem('floor_id', this.floor_id);
     this.loadStudents(this.query);
     this.getRooms();
+    this.room_id = null;
   }
 
   changeRoom() {
     this.query.facility_id = this.room_id;
-    sessionStorage.setItem('room_id', this.room_id);
     this.loadStudents(this.query);
   }
 
