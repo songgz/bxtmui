@@ -65,7 +65,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.getSession();
     this.getHouses();
     this.genders = this.dict.getItems('gender_type');
-    this.loadStudents(this.query);
+    if (this.query.facility_id) {
+      this.loadStudents(this.query);
+    }
   }
 
   ngAfterViewInit() {
@@ -174,6 +176,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   changeHouse() {
+    this.query['page'] = 1;
     this.query.facility_id = this.house_id;
     this.loadStudents(this.query);
     this.getFloors();
@@ -183,6 +186,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   changeFloor() {
+    this.query['page'] = 1;
     this.query.facility_id = this.floor_id;
     this.loadStudents(this.query);
     this.getRooms();
@@ -190,6 +194,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   changeRoom() {
+    this.query['page'] = 1;
     this.query.facility_id = this.room_id;
     this.loadStudents(this.query);
   }
