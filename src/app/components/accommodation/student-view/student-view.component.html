@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>学生信息</mat-card-title>
+    <mat-card-title>学生信息查看</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="fileupdata">
@@ -18,6 +18,14 @@
     </mat-form-field>
     <br>
     <div>宿舍信息</div>
+    <mat-form-field>
+      <mat-select placeholder="归寝状态" [disabled]="disabled" [(ngModel)]="student.direction_at_last" name="direction_at_last">
+        <mat-option *ngFor="let direction of directions | async" [value]="direction.mark" >
+          {{direction.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
     <mat-form-field>
       <mat-select placeholder="所属楼层" [disabled]="disabled" [(value)]="student.dorm_parent_id"  name="dorm_parent_id" >
         <mat-option *ngFor="let floor of floors" [value]="floor.id">
@@ -37,6 +45,7 @@
     </mat-form-field>
     <br>
     <div>个人信息</div>
+
     <mat-form-field>
       <input matInput placeholder="学生姓名"  [readonly]="readOnly" [(ngModel)]="student.name" name="name" >
     </mat-form-field>

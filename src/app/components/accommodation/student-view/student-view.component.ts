@@ -20,6 +20,7 @@ export class StudentViewComponent implements OnInit {
   readOnly: boolean = true;
   student: any = { };
   genders: Observable<any[]>;
+  directions: Observable<any[]>;
   floors: any[];
   rooms: any[];
   groups: Observable<any[]>;
@@ -43,6 +44,7 @@ export class StudentViewComponent implements OnInit {
       }
     });
     this.genders = this.dict.getItems('gender_type');
+    this.directions = this.dict.getItems('direction_type');
     this.getGroups();
     this.getRoles();
     this.getFloors();

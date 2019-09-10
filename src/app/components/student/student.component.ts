@@ -95,8 +95,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: any) {
-    filterValue = filterValue.target.value.trim();
     if (filterValue.length > 0) {
+      filterValue = filterValue.target.value.trim();
       this.query['key'] = filterValue;
     }
     this.loadStudents(this.query);
