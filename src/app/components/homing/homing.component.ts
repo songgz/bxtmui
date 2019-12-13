@@ -38,6 +38,8 @@ export class HomingComponent implements OnInit, AfterViewInit {
   pageLength = 0;
   progressbar = 0;
   direction_type: any = {};
+  private dataMap: any = [];
+  private show = false;
 
   constructor(
     private rest: RestService,
@@ -79,6 +81,10 @@ export class HomingComponent implements OnInit, AfterViewInit {
   }
 
   loadHomings(options = {}) {
+    this.progressbar = 0;
+    if (this.show) {
+      this.show = !this.show;
+    }
     options['page'] = this.pageIndex + 1;
     options['pre'] = this.pageSize;
     this.rest.index('homings', options).subscribe((data: any) => {
@@ -139,7 +145,7 @@ export class HomingComponent implements OnInit, AfterViewInit {
     this.houses.subscribe( data => {
       this.house_id = data[0].id;
       this.applyFilter();
-    })
+    });
   }
 
   moreserchbtn() {
@@ -156,5 +162,29 @@ export class HomingComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  test () {
+    this.show = !this.show;
+    this.dataMap = [];
+    if (this.show) {
+      this.progressbar = 10;
+    const testData = [];
+    const options = this.query;
+    options['pre'] = 999;
+    console.log(options);
+    this.rest.index('homings', options).subscribe((data: any) => {
+      this.progressbar = 50;
+      data.result.forEach( p => {
+        console.log(p);
+        this.dataMap.push(p);
+        this.progressbar = (this.dataMap.length / data.result.length * 100 - 50) + 50;
+      });
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+  } else {
+      this.progressbar = 0;
+    }
+  }
+
 
 }

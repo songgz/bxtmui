@@ -78,6 +78,9 @@ import { ImportStudentComponent } from './components/import-student/import-stude
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
 import { ChartsModule } from 'ng2-charts';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
+import { UpdataComponent } from './components/updata/updata.component';
+
 
 @NgModule({
   declarations: [
@@ -151,6 +154,7 @@ import { ChartsModule } from 'ng2-charts';
     ImportStudentComponent,
     HolidayComponent,
     HomingComponent,
+    UpdataComponent,
 
   ],
   entryComponents: [
@@ -174,7 +178,9 @@ import { ChartsModule } from 'ng2-charts';
     TranslateModule.forRoot(),
     FormsModule,
     FileUploadModule,
-    ChartsModule
+    ChartsModule,
+    DlDateTimeDateModule,  // <--- Determines the data type of the model
+    DlDateTimePickerModule,
   ],
   providers: [
     {

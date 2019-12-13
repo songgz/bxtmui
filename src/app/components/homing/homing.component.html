@@ -42,10 +42,25 @@
 <mat-toolbar class="mat-elevation-z8">
   <span>归寝统计</span>
   <span class="bxt-toolbar-spacer"></span>
+  <button mat-icon-button (click)="test()"  matTooltip="列表">
+    <mat-icon>list</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-progress-bar mode="determinate" [value]="progressbar"></mat-progress-bar>
 
-<div class="mat-elevation-z8" id="export_excel">
+
+<div class="mat-elevation-z8"*ngIf="show">
+  <div class="flex">
+    <div class="box" >房间号：</div>
+    <div  class="box" *ngFor="let row of dataMap">
+      <div >
+        <span [style.color]="color_direction[row.direction_at_last]">●</span>
+        {{row.name}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mat-elevation-z8" id="export_excel" *ngIf="!show">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="'140px'">学生</th>

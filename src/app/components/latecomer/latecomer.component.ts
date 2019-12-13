@@ -24,12 +24,17 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   direction_type: any = {};
   color_status: any = {};
   color_direction: any = {};
-  houses: Observable<any[]>;
+  // houses: Observable<any[]>;
+  houses: any[] = [];
+  floors: any[] = [];
+  rooms: any[] = [];
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
   file: ExcelFileService = null;
   progressbar: number;
+  selectedDate: any;
+
   constructor(private rest: RestService, private  dict: DictService, public org: OrgService,
               private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
@@ -46,11 +51,11 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
       }
     });
     this.org.getOrgs();
-    this.getHouses();
   }
 
   ngOnInit() {
     // this.loadLatecomers(this.query);
+    this.getHouses();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -64,9 +69,65 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
   applyFilter() {
     this.loadLatecomers(this.query);
   }
+  changeHouse() {
+    this.query['page'] = 1;
+    this.query.facility_id = this.query.house_id;
+    this.loadLatecomers(this.query);
+    this.getFloors();
+    this.query.floor_id = null;
+    this.query.room_id = null;
+    this.query.rooms = [];
+  }
+
+  changeFloor() {
+    this.query['page'] = 1;
+    this.query.facility_id = this.query.floor_id;
+    this.loadLatecomers(this.query);
+    this.getRooms();
+    this.query.room_id = null;
+  }
+
+  changeRoom() {
+    this.query['page'] = 1;
+    this.query.facility_id = this.query.room_id;
+    this.loadLatecomers(this.query);
+  }
+  // getHouses() {
+  //   this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  // }
 
   getHouses() {
-    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+    this.rest.index('houses').subscribe((data: any) => {
+      this.houses = data.result;
+      if (this.houses.length > 0) {
+        this.query.facility_access_id = this.query.facility_access_id || this.houses[0].id;
+        // this.getFloors();
+        if (this.query.facility_access_id == null) {
+          this.query.facility_access_id = this.query.facility_access_id;
+          // this.loadStudents(this.query);
+        }
+      }
+    });
+  }
+
+  getFloors() {
+    const options = {};
+    options['pre'] = 999;
+    options['parent_id'] = this.query.house_id;
+    this.rest.index('floors', options ).subscribe((data: any) => {
+      this.floors = data.result;
+      if (this.floors.length > 0 && this.query.floor_id) {
+        this.getRooms();
+      }
+    });
+  }
+  getRooms() {
+    const options = {};
+    options['pre'] = 9999;
+    options['parent_id'] = this.query.floor_id;
+    this.rest.index('rooms', options ).subscribe((data: any) => {
+      this.rooms = data.result;
+    });
   }
 
   loadLatecomers(options = {}) {

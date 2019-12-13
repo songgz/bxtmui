@@ -1,3 +1,4 @@
+<div class="chartBox">
 <mat-form-field class="sethouse">
   <mat-select placeholder="楼栋" [(ngModel)]="query.facility_id" (selectionChange)="selectHouse()">
     <mat-option *ngFor="let house of houses" [value]="house.id">
@@ -28,4 +29,5 @@
       </mat-card-content>
     </mat-card>
   </div>
+</div>
 </div>

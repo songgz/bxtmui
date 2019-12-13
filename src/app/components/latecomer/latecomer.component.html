@@ -1,33 +1,62 @@
 <div class="mat-card pb20 pl20 pr20 pt20 mb-20 searchbox">
   <mat-form-field >
-    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id" (selectionChange)="applyFilter()">
+    <mat-select placeholder="所属组织"  [(value)]="query.org_id" name="org_id">
       <mat-option *ngFor="let org of org.orgs" [value]="org.id">
         {{org.full_title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<mat-select placeholder="出入楼栋"  [(ngModel)]="query.facility_access_id" name="facility_access_id">-->
+      <!--<mat-option *ngFor="let house of houses | async" [value]="house.id">-->
+        <!--{{house.title}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
   <mat-form-field>
-    <mat-select placeholder="出入楼栋"  [(value)]="query.facility_access_id" (selectionChange)="applyFilter()"  name="facility_access_id">
-      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+    <mat-select placeholder="出入楼栋"  [(ngModel)]="query.facility_access_id" name="facility_access_id">
+      <mat-option *ngFor="let house of houses" [value]="house.id">
         {{house.title}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<mat-select placeholder="楼栋" [(ngModel)]="query.facility_access_id" (selectionChange)="changeHouse()"  name="facility_access_id">-->
+      <!--<mat-option *ngFor="let house of houses" [value]="house.id">-->
+        <!--{{house.title}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--<mat-form-field>-->
+    <!--<mat-select placeholder="楼层" [(ngModel)]="query.floor_id" name="floor_id" (selectionChange)="changeFloor()">-->
+      <!--<mat-option *ngFor="let floor of floors" [value]="floor.id">-->
+        <!--{{floor.title}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--<mat-form-field>-->
+    <!--<mat-select placeholder="房间" [(ngModel)]="query.room_id" (selectionChange)="changeRoom()">-->
+      <!--<mat-option *ngFor="let room of rooms " [value]="room.id">-->
+        <!--{{room.title}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
+
   <mat-form-field>
-    <mat-select placeholder="状态"  [(value)]="query.status" (selectionChange)="applyFilter()"  name="status">
+    <mat-select placeholder="状态"  [(value)]="query.status" name="status">
       <mat-option *ngFor="let status of sleep_status | keyvalue" [value]="status.key">
         {{status.value}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="query.key" (keyup)="applyFilter()" placeholder="输入姓名">
+    <input matInput [(ngModel)]="query.key" placeholder="输入姓名或学号">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="query.start_at" (change)="applyFilter()" placeholder="开始日期">
+    <input matInput type="date" [(ngModel)]="query.start_at" placeholder="开始日期">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="query.end_at" (change)="applyFilter()" placeholder="结束日期">
+    <input matInput type="date" [(ngModel)]="query.end_at" placeholder="结束日期">
   </mat-form-field>
   <!--<mat-form-field>-->
     <!--<input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (dateChange)="applyFilter()" placeholder="开始日期">-->
@@ -39,7 +68,10 @@
     <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
     <!--<mat-datepicker #picker2></mat-datepicker>-->
   <!--</mat-form-field>-->
+
+      <button mat-raised-button color="primary" class="searchBtn" (click)="applyFilter()">查询</button>
 </div>
+
 <mat-toolbar class="mat-elevation-z8">
   <span>异常记录</span>
   <span class="bxt-toolbar-spacer"></span>
