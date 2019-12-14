@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./face.component.scss']
 })
 export class FaceComponent implements OnInit {
-  displayedColumns = [ 'title', 'action'];
+  displayedColumns = [ 'title', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
   query: any = {};
