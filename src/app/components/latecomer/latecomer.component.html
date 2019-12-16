@@ -53,10 +53,10 @@
     <input matInput [(ngModel)]="query.key" placeholder="输入姓名或学号">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="date" [(ngModel)]="query.start_at" placeholder="开始日期">
+    <input matInput type="datetime-local" [(ngModel)]="query.start_at" placeholder="开始日期">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="date" [(ngModel)]="query.end_at" placeholder="结束日期">
+    <input matInput type="datetime-local" [(ngModel)]="query.end_at" placeholder="结束日期">
   </mat-form-field>
   <!--<mat-form-field>-->
     <!--<input matInput [matDatepicker]="picker" [(ngModel)]="query.start_at" (dateChange)="applyFilter()" placeholder="开始日期">-->
