@@ -39,7 +39,7 @@ export class HomingComponent implements OnInit, AfterViewInit {
   progressbar = 0;
   direction_type: any = {};
   private dataMap: any = [];
-  private show = false;
+  show = false;
 
   constructor(
     private rest: RestService,

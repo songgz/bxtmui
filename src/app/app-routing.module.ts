@@ -57,6 +57,7 @@ import {HouseAccessComponent} from './components/house-access/house-access.compo
 import {HolidayComponent} from './components/holiday/holiday.component';
 import {HomingComponent} from './components/homing/homing.component';
 import {FaceComponent} from './components/face/face.component';
+import {UpdataComponent} from './components/updata/updata.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -113,6 +114,8 @@ const routes: Routes = [
       {path: 'accesses', component: AccessComponent},
       {path: 'accesses/new', component: AccessFormComponent},
       {path: 'accesses/:id/edit', component: AccessFormComponent},
+      {path: 'updata', component: UpdataComponent},
+
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'accommodations/:id/view', component: StudentViewComponent},
       {path: 'homings', component: HomingComponent},

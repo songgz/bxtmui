@@ -1,1 +1,32 @@
-<p>updata works!</p>
+
+<mat-card>
+  <mat-card-title>
+    <mat-card-subtitle>客户端升级</mat-card-subtitle>
+  </mat-card-title>
+  <div>
+    <!--进度条-->
+    <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar>
+  </div>
+  <br>
+  <mat-card-content>
+    <label>版本号：</label>
+    <input type="text" [(ngModel)]="version_number" placeholder="请输入版本号">
+  </mat-card-content>
+  <mat-toolbar>
+    <!--<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />-->
+    <input type="file" ng2FileSelect [uploader]="uploader" />
+
+  </mat-toolbar>
+
+  <mat-card-footer>
+    <div class="jus">
+      <span>
+    <button mat-raised-button color="primary" type="button"
+            (click)="uploader.uploadAll()" [disabled]= "uploader.progress > 1">
+      <span class="glyphicon glyphicon-upload"></span> 上传
+    </button>
+        </span>
+    </div>
+    <br>
+  </mat-card-footer>
+</mat-card>

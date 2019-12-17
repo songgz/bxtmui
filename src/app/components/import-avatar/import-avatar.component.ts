@@ -75,9 +75,9 @@ export class ImportAvatarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  fileOverBase(event) {
-    this.hasBaseDropZoneOver = event;
-  }
+  // fileOverBase(event) {
+  //   this.hasBaseDropZoneOver = event;
+  // }
   fileDropOver(event) {
     // 文件拖拽完成的回调函数
   }

@@ -20,13 +20,17 @@ export class FaceComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-
   constructor(private rest: RestService) {
     this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
     this.loadFaces();
+  }
+  paginate(event) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadFaces(this.query);
   }
   loadFaces(options = {}) {
     options['page'] = this.pageIndex + 1;

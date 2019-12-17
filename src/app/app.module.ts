@@ -78,7 +78,6 @@ import { ImportStudentComponent } from './components/import-student/import-stude
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
 import { ChartsModule } from 'ng2-charts';
-import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 import { UpdataComponent } from './components/updata/updata.component';
 
 
@@ -179,8 +178,6 @@ import { UpdataComponent } from './components/updata/updata.component';
     FormsModule,
     FileUploadModule,
     ChartsModule,
-    DlDateTimeDateModule,  // <--- Determines the data type of the model
-    DlDateTimePickerModule,
   ],
   providers: [
     {
