@@ -11,6 +11,7 @@ export class UpdataComponent implements OnInit {
   uploader: FileUploader;
   baseUrl: string;
   version_number: any;
+  disabled_upBtn = true;
   constructor() {
     this.baseUrl = environment.baseUrl;
   }
@@ -38,5 +39,13 @@ export class UpdataComponent implements OnInit {
       };
       this.uploader.queue[0].upload();
     });
+  }
+  printF() {
+    console.log(this.uploader);
+    if (this.version_number && this.uploader.queue.length === 1) {
+      this.disabled_upBtn = false;
+    } else {
+      this.disabled_upBtn = true;
+    }
   }
 }

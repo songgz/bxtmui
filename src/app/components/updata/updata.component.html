@@ -10,11 +10,11 @@
   <br>
   <mat-card-content>
     <label>版本号：</label>
-    <input type="text" [(ngModel)]="version_number" placeholder="请输入版本号">
+    <input type="text" [(ngModel)]="version_number" placeholder="请输入版本号" (keyup)="printF()" />
   </mat-card-content>
   <mat-toolbar>
     <!--<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />-->
-    <input type="file" ng2FileSelect [uploader]="uploader" />
+    <input type="file" ng2FileSelect [uploader]="uploader" (change)="printF()" />
 
   </mat-toolbar>
 
@@ -22,7 +22,7 @@
     <div class="jus">
       <span>
     <button mat-raised-button color="primary" type="button"
-            (click)="uploader.uploadAll()" [disabled]= "uploader.progress > 1">
+            (click)="uploader.uploadAll()" [disabled]= "disabled_upBtn">
       <span class="glyphicon glyphicon-upload"></span> 上传
     </button>
         </span>
