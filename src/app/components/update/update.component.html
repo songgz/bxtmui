@@ -10,11 +10,11 @@
   <br>
   <mat-card-content>
     <label>版本号：</label>
-    <input type="text" [(ngModel)]="version_number" placeholder="请输入版本号" (keyup)="printF()" />
+    <input type="text" [(ngModel)]="ver" placeholder="请输入版本号" (keyup)="printF()" />
   </mat-card-content>
   <mat-toolbar>
     <!--<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" multiple />-->
-    <input type="file" ng2FileSelect [uploader]="uploader" (change)="printF()" />
+    <input type="file" ng2FileSelect [uploader]="uploader" />
 
   </mat-toolbar>
 

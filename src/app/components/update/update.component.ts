@@ -3,14 +3,14 @@ import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {environment} from '../../../environments/environment';
 
 @Component({
-  selector: 'app-updata',
-  templateUrl: './updata.component.html',
-  styleUrls: ['./updata.component.scss']
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.scss']
 })
-export class UpdataComponent implements OnInit {
+export class UpdateComponent implements OnInit {
   uploader: FileUploader;
   baseUrl: string;
-  version_number: any;
+  ver: any;
   disabled_upBtn = true;
   constructor() {
     this.baseUrl = environment.baseUrl;
@@ -18,14 +18,17 @@ export class UpdataComponent implements OnInit {
 
   ngOnInit() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'up_data',
+      url: this.baseUrl + 'packages',
       // headers: [{name: 'Accept', value: 'application/json'}],
       autoUpload: false,
       method: 'POST',
-      itemAlias: this.version_number
+      itemAlias: 'package[patch]'
     });
-    this.uploader.onBeforeUploadItem = (item) => {
+    this.uploader.onBeforeUploadItem = (item: FileItem) => {
       item.withCredentials = false;
+      this.uploader.options.additionalParameter = {
+        'package[ver]': this.ver
+      };
     };
   }
   selectedFileOnChanged() {
@@ -42,7 +45,7 @@ export class UpdataComponent implements OnInit {
   }
   printF() {
     console.log(this.uploader);
-    if (this.version_number && this.uploader.queue.length === 1) {
+    if (this.ver && this.uploader.queue.length === 1) {
       this.disabled_upBtn = false;
     } else {
       this.disabled_upBtn = true;

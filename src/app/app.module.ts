@@ -78,7 +78,7 @@ import { ImportStudentComponent } from './components/import-student/import-stude
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
 import { ChartsModule } from 'ng2-charts';
-import { UpdataComponent } from './components/updata/updata.component';
+import { UpdateComponent } from './components/update/update.component';
 
 
 @NgModule({
@@ -153,7 +153,7 @@ import { UpdataComponent } from './components/updata/updata.component';
     ImportStudentComponent,
     HolidayComponent,
     HomingComponent,
-    UpdataComponent,
+    UpdateComponent,
 
   ],
   entryComponents: [
