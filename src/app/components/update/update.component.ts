@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {environment} from '../../../environments/environment';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-update',
@@ -34,10 +35,11 @@ export class UpdateComponent implements OnInit {
   selectedFileOnChanged() {
     this.uploader.queue.forEach((val, i, array) => {
       this.uploader.queue[0].onSuccess = (response, status, headers) => {
-        if (status === 200) {
+        if (status === 201) {
+          console.log('upload success');
 
         } else {
-
+          console.log('upload fail');
         }
       };
       this.uploader.queue[0].upload();
@@ -51,4 +53,5 @@ export class UpdateComponent implements OnInit {
       this.disabled_upBtn = true;
     }
   }
+
 }
