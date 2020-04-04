@@ -17,8 +17,8 @@ import {ExcelFileService} from '../../services/excel-file.service';
 export class LatecomerComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'user_name', 'user_sno', 'dept_title', 'dorm_title', 'pass_time', 'direction', 'status', 'reside'];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   query: any = {};
   sleep_status: any = {};
   direction_type: any = {};

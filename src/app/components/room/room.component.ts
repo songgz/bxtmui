@@ -19,8 +19,8 @@ export class RoomComponent implements OnInit, AfterViewInit {
   houses: Observable<any[]>;
   floors: Observable<any[]>;
   bed_stats: any = {};
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;

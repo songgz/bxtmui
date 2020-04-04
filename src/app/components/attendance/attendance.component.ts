@@ -19,8 +19,8 @@ export class AttendanceComponent implements OnInit {
   ];
   displayedColumns: string[] = ['title', 'date', 'action'];
   dataSource: any;
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   status: any[];
 
   constructor(private rest: RestService, private dict: DictService) {

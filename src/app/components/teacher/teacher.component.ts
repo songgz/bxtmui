@@ -19,8 +19,8 @@ export interface DialogData {
 export class TeacherComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'select', 'name', 'dept', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   teacher_ids: any[] = [];
   baseUrl: any;
   query: any = {};

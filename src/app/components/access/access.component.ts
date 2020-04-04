@@ -13,8 +13,8 @@ import {DictService} from '../../services/dict.service';
 export class AccessComponent implements OnInit, AfterViewInit {
   displayedColumns = [ 'title', 'ip', 'direction', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   direction_types = {};
   pageIndex = 0;
   pageSize = 10;

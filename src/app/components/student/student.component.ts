@@ -43,8 +43,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
   facility_id = null;
   baseUrl: any;
 
-  @ViewChild(MatPaginator, { read: true, static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { read: true }) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
   student_ids: any[] = [];
   pageIndex = 0;
