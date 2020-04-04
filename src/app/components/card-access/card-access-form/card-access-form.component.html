@@ -1,0 +1,37 @@
+<form #accessForm="ngForm" (ngSubmit)="save()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>CARD门禁管理</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput placeholder="名称"  [(ngModel)]="access.title" name="title" >
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="ip"  [(ngModel)]="access.ip" name="ip" >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="方向" [(ngModel)]="access.direction" name="direction">
+            <mat-option *ngFor="let direction of direction_types | async" [value]="direction.mark" >
+              {{direction.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="关寝"  [(ngModel)]="access.closing_at" name="closing_at" >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="楼栋" [(ngModel)]="access.parent_id" name="parent_id">
+            <mat-option *ngFor="let house of houses" [value]="house.id" >
+              {{house.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" [disabled]="accessForm.pristine || accessForm.invalid">提交</button>
+        <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  

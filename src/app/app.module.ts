@@ -79,6 +79,8 @@ import { HolidayComponent } from './components/holiday/holiday.component';
 import { HomingComponent } from './components/homing/homing.component';
 import { ChartsModule } from 'ng2-charts';
 import { UpdateComponent } from './components/update/update.component';
+import { CardAccessComponent } from './components/card-access/card-access.component';
+import { CardAccessFormComponent } from './components/card-access/card-access-form/card-access-form.component';
 
 
 @NgModule({
@@ -154,6 +156,8 @@ import { UpdateComponent } from './components/update/update.component';
     HolidayComponent,
     HomingComponent,
     UpdateComponent,
+    CardAccessComponent,
+    CardAccessFormComponent,
 
   ],
   entryComponents: [

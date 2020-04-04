@@ -242,6 +242,29 @@ export class StudentComponent implements OnInit, AfterViewInit {
       });
     }
   }
+  allAddDel() {
+    console.log('下发删除');
+    if (this.student_ids.length === 0) {
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: 'OK?'}).afterClosed().subscribe(res => {
+        if (res) {
+          from(this.student_ids).pipe(concatMap((id: any) => {
+            console.log(id);
+            return this.rest.create('faces', {  face: { user_id: id , status: 'delete'}  });
+          })).pipe(last()).subscribe(data => {
+            this.loadStudents(this.query);
+            this.student_ids = [];
+          }, error => {
+            this.rest.errorHandle(error);
+          });
+        }
+      });
+    }
+  }
 
   allDel() {
     if (this.student_ids.length === 0) {

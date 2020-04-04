@@ -58,6 +58,8 @@ import {HolidayComponent} from './components/holiday/holiday.component';
 import {HomingComponent} from './components/homing/homing.component';
 import {FaceComponent} from './components/face/face.component';
 import {UpdateComponent} from './components/update/update.component';
+import {CardAccessComponent} from './components/card-access/card-access.component';
+import {CardAccessFormComponent} from './components/card-access/card-access-form/card-access-form.component'
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -115,6 +117,10 @@ const routes: Routes = [
       {path: 'accesses/new', component: AccessFormComponent},
       {path: 'accesses/:id/edit', component: AccessFormComponent},
       {path: 'update', component: UpdateComponent},
+
+      {path: 'card-accesses', component: CardAccessComponent},
+      {path: 'card-accesses/new', component: CardAccessFormComponent},
+      {path: 'card-accesses/:id/edit', component: CardAccessFormComponent},
 
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'accommodations/:id/view', component: StudentViewComponent},
