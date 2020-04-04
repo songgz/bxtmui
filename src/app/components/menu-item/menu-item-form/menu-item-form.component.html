@@ -1,4 +1,4 @@
-<form #menuItemForm="ngForm" (ngSubmit)="save()">
+<form #menuItemForm="ngForm" (ngSubmit)="save(menuItemForm)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>菜单项信息</mat-card-title>
@@ -17,11 +17,11 @@
         <textarea matInput placeholder="描述" [(ngModel)]="menuItem.desc" name="desc"></textarea>
       </mat-form-field>
       <mat-form-field>
-        <input readonly matInput placeholder="上级名称" [(ngModel)]="menuItem.parent_title" name="parent_title">
+        <input readonly matInput placeholder="上级名称" [value]="menuItem.parent_title" >
       </mat-form-field>
       <div [hidden]="true">
         <mat-form-field *ngIf="true">
-          <input readonly matInput type="number" min="0" placeholder="depth" [(ngModel)]="menuItem.depth" name="depth">
+          <input readonly matInput type="number" min="0" placeholder="depth" [value]="menuItem.depth" >
         </mat-form-field>
         <mat-form-field *ngIf="true">
           <input readonly matInput placeholder="parent_id" [(ngModel)]="menuItem.parent_id" name="parent_id">
