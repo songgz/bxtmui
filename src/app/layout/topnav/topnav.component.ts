@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {PasswordDialogComponent} from '../../components/password-dialog/password-dialog.component';
 import {JwtAuthService} from '../../services/jwt-auth.service';
 import {PersonDialogComponent} from '../../components/person-dialog/person-dialog.component';

@@ -143,5 +143,8 @@
       }
     }
   },
-  "defaultProject": "bxtmui"
+  "defaultProject": "bxtmui",
+  "cli": {
+    "analytics": "af1e9842-0bae-46e2-8bf9-365753db295d"
+  }
 }

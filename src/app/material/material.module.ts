@@ -27,7 +27,7 @@ import {MatPaginatorIntlChinese} from './MatPaginatorIntlChinese';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonToggleModule} from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],

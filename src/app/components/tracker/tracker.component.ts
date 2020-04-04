@@ -11,7 +11,7 @@ import {ImgDialogStudentComponent} from "../student/student.component";
 import { MatDialog } from '@angular/material/dialog';
 import {environment} from '../../../environments/environment';
 import {ExcelFileService} from '../../services/excel-file.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tracker',
