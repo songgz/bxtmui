@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-menu-item-form',
@@ -15,7 +16,6 @@ export class MenuItemFormComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.menuItem.id = params.get('id');
-      console.log(params);
       if (this.menuItem.id != null) {this.edit(); }
     });
     const data1 = JSON.parse(sessionStorage.getItem('key'));
@@ -24,16 +24,16 @@ export class MenuItemFormComponent implements OnInit {
     this.menuItem.parent_title = data1.title;
   }
 
-  save() {
+  save(f: NgForm) {
     if (this.menuItem.id != null) {
-      this.update();
+      this.update(f);
     } else {
-      this.create();
+      this.create(f);
     }
   }
 
-  create() {
-    this.rest.create('menu_items', {menu_item: this.menuItem}).subscribe((data: any) => {
+  create(f: NgForm) {
+    this.rest.create('menu_items', {menu_item: f.value}).subscribe((data: any) => {
       this.menuItem = data;
       this.goBack();
     }, error => {
@@ -47,8 +47,8 @@ export class MenuItemFormComponent implements OnInit {
     });
   }
 
-  update() {
-    this.rest.update('menu_items/' + this.menuItem.id, {menu_item: this.menuItem}).subscribe((data: any) => {
+  update(f: NgForm) {
+    this.rest.update('menu_items/' + this.menuItem.id, {menu_item: f.value}).subscribe((data: any) => {
       this.menuItem = data;
       this.goBack();
     }, error => {
