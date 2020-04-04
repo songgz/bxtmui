@@ -57,7 +57,7 @@ export class CardAccessComponent implements OnInit, AfterViewInit {
   delete (id: string) {
     this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
       if (res) {
-        this.rest.destory('card-accesses/' + id).subscribe(data => {
+        this.rest.destory('card_accesses/' + id).subscribe(data => {
           this.loadAccess();
         }, error => {
           this.rest.errorHandle(error);
