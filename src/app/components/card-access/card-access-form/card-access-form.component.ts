@@ -42,7 +42,7 @@ export class CardAccessFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('card-accesses', {access: this.access}).subscribe((data: any) => {
+    this.rest.create('card_accesses', {card_access: this.access}).subscribe((data: any) => {
       this.access = data;
       this.goBack();
     }, error => {
@@ -51,13 +51,13 @@ export class CardAccessFormComponent implements OnInit {
   }
 
   edit() {
-    this.rest.show('card-accesses/' + this.access.id).subscribe((data: any) => {
+    this.rest.show('card_accesses/' + this.access.id).subscribe((data: any) => {
       this.access = data;
     });
   }
 
   update() {
-    this.rest.update('card-accesses/' + this.access.id, {access: this.access}).subscribe((data: any) => {
+    this.rest.update('card_accesses/' + this.access.id, {card_access: this.access}).subscribe((data: any) => {
       this.access = data;
       this.goBack();
     }, error => {
