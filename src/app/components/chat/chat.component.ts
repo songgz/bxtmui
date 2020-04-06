@@ -20,10 +20,19 @@ export class ChatComponent implements OnInit, OnDestroy  {
     this.ng2cable.subscribe('http://127.0.0.1:3000/cable', 'ChatChannel', { chat_id: '1' });
     this.broadcaster.on<string>('ChatChannel').subscribe(
       message => {
+        this.messages.push(JSON.stringify(message));
         console.log(message);
       }
     );
 
+  }
+
+  send(ms) {
+    this.cable = this.ng2cable.actionCable.createConsumer('ws://127.0.0.1:3000/cable');
+    this.cable.subscriptions.create('ChatChannel', {
+      speak: (data) => {this.cable.perform('speak', data); }
+    });
+    this.cable.speak('gggg');
   }
 
   ngOnDestroy() {

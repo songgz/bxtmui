@@ -22,7 +22,7 @@ export class Ng2BroadcasterService {
 
   on<T>(key: any): Observable<T> {
     return this.eventBus.asObservable().pipe(
-      filter(event => event.key === key)).pipe(
+      filter(event => event.key === key),
       map(event => <T>event.data)
     );
   }
