@@ -3,7 +3,6 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -81,6 +80,7 @@ import { ChartsModule } from 'ng2-charts';
 import { UpdateComponent } from './components/update/update.component';
 import { CardAccessComponent } from './components/card-access/card-access.component';
 import { CardAccessFormComponent } from './components/card-access/card-access-form/card-access-form.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -158,6 +158,7 @@ import { CardAccessFormComponent } from './components/card-access/card-access-fo
     UpdateComponent,
     CardAccessComponent,
     CardAccessFormComponent,
+    ChatComponent,
 
   ],
   entryComponents: [
@@ -178,7 +179,6 @@ import { CardAccessFormComponent } from './components/card-access/card-access-fo
     MaterialModule,
     FlexLayoutModule.withConfig({addFlexToParent: false}),
     HttpClientModule,
-    TranslateModule.forRoot(),
     FormsModule,
     FileUploadModule,
     ChartsModule,
