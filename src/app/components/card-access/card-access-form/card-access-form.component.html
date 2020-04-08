@@ -17,6 +17,17 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        
+        <mat-form-field>
+          <mat-select placeholder="mark标记值" [(ngModel)]="access.mark" name="mark">
+            <mat-option [value]="1" >
+              1
+            </mat-option>
+            <mat-option [value]="2" >
+              2
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="关寝"  [(ngModel)]="access.closing_at" name="closing_at" >
         </mat-form-field>

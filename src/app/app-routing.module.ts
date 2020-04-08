@@ -59,7 +59,8 @@ import {HomingComponent} from './components/homing/homing.component';
 import {FaceComponent} from './components/face/face.component';
 import {UpdateComponent} from './components/update/update.component';
 import {CardAccessComponent} from './components/card-access/card-access.component';
-import {CardAccessFormComponent} from './components/card-access/card-access-form/card-access-form.component'
+import {CardAccessFormComponent} from './components/card-access/card-access-form/card-access-form.component';
+import {CardComponent} from './components/card/card.component'
 import {ChatComponent} from './components/chat/chat.component';
 
 const routes: Routes = [
@@ -122,6 +123,7 @@ const routes: Routes = [
       {path: 'card-accesses', component: CardAccessComponent},
       {path: 'card-accesses/new', component: CardAccessFormComponent},
       {path: 'card-accesses/:id/edit', component: CardAccessFormComponent},
+      {path: 'cards', component: CardComponent},
 
       {path: 'accommodations', component: AccommodationComponent},
       {path: 'accommodations/:id/view', component: StudentViewComponent},
