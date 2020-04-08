@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {RestService} from '../../services/rest.service';
+import { Component, OnInit, ViewChild ,Inject} from '@angular/core';
+import { RestService } from '../../services/rest.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {DictService} from '../../services/dict.service';
+import { DictService } from '../../services/dict.service';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-attendance',
@@ -11,59 +12,72 @@ import {DictService} from '../../services/dict.service';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
-
-  days: any[] = [
-    {title: '国庆节', date: '2019-10-01' , date2: '2019-10-07'},
-    {title: '劳动节', date: '2019-05-01' , date2: '2019-05-03'},
-    {title: '儿童节', date: '2019-06-01' , date2: '2019-06-01'}
-  ];
-  displayedColumns: string[] = ['title', 'date', 'action'];
-  dataSource: any;
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
-  status: any[];
-
-  constructor(private rest: RestService, private dict: DictService) {
-    this.dataSource = new MatTableDataSource(this.days);
+  data:any = {}
+  displayedColumns = [ 'day', 'user_name', 'on_duty_time','off_duty_time','action'];
+  dataSource: MatTableDataSource<any[]>;
+  pageIndex = 0;
+  pageSize = 10;
+  pageLength = 0;
+  query: any = {};
+  constructor(private rest: RestService, public dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource([]);
   }
-
   ngOnInit() {
-    // this.paginator.pageSize = 10;
-    // this.paginator.pageIndex = 0;
-    // this.loadAttendances();
-  }
 
-  // loadAttendances() {
-  //   this.rest.index('attendances', {page: this.paginator.pageIndex + 1, pre: this.paginator.pageSize}).subscribe((data: any) => {
-  //     this.dataSource = new MatTableDataSource(data.result);
-  //     this.paginator.length = data.paginate_meta.total_count;
-  //     this.paginator.pageSize = data.paginate_meta.current_per_page;
-  //     this.paginator.pageIndex = data.paginate_meta.current_page - 1;
-  //   }, error => {
-  //     this.rest.errorHandle(error);
-  //   });
-  // }
-  //
-  // applyFilter(filterValue: string) {
-  //   filterValue = filterValue.trim(); // Remove whitespace
-  //   filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-  //   this.dataSource.filter = filterValue;
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+    this.data = [
+      { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
+      { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
+      { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
+      
+      { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
+      { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" }
+  
+    ];
+    this.dataSource = new MatTableDataSource(this.data);
+    console.log(this.dataSource)
+      // this.loadAttendances();
 
-  add(name: string , date: string, data2: string): void {
-    this.days.push({title: name, date: date, date2: data2});
-    this.dataSource = new MatTableDataSource(this.days);
+  };
+
+  loadAttendances(options = {}){
+    options['page'] = this.pageIndex + 1;
+    options['pre'] = this.pageSize;
+    this.rest.index('attendances',options).subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data.result);
+      this.pageLength = data.paginate_meta.total_count;
+      this.pageSize = data.paginate_meta.current_per_page;
+      this.pageIndex = data.paginate_meta.current_page - 1;
+    }, error => {
+      this.rest.errorHandle(error);
+    });
   }
-  delete (i: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
-      if (res) {
-        this.days.splice(1 , 1);
-        this.dataSource = new MatTableDataSource(this.days);
+  paginate(event) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadAttendances(this.query);
+  }
+  
+  openDialog(row: any) {
+    this.dialog.open(DialogData, {
+      data: {
+       data: row
       }
     });
   }
+  
+}
+export interface DialogData {
+  dataid: string;
+}
+@Component({
+  selector: 'app-data-dialog',
+  templateUrl: './DialogData.html',
+})
 
+export class DialogData {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
+  ngOnInit() {
+    console.log(this.data);
+  }
 }
