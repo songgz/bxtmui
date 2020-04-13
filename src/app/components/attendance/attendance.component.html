@@ -1,6 +1,25 @@
 <div>
   {{data | json}}
 </div>
+<div class="searchbox">
+  <mat-form-field>
+    <mat-select placeholder="楼栋" [(ngModel)]="house_id" name="house_id" (selectionChange)="changeHouse()">
+      <mat-option *ngFor="let house of houses" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput  [(ngModel)]="query.key" (keyup)="applyFilter($event)" placeholder="输入名或工号">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="datetime-local" [(ngModel)]="query.start_at" placeholder="开始日期">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="datetime-local" [(ngModel)]="query.end_at" placeholder="结束日期">
+  </mat-form-field>
+</div>
 <mat-toolbar class="mat-elevation-z8">
   <span>考勤管理</span>
   <span class="bxt-toolbar-spacer"></span>

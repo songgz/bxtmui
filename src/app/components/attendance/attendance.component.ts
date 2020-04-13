@@ -19,11 +19,13 @@ export class AttendanceComponent implements OnInit {
   pageSize = 10;
   pageLength = 0;
   query: any = {};
+  houses: any[] = [];
+  house_id = null;
   constructor(private rest: RestService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource([]);
   }
   ngOnInit() {
-
+    this.getHouses();
     this.data = [
       { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
       { "id": "5e51d25788dba0d9d4c3c6c4", "day": "2020-02-23", "user_name": "18", "status": "normal", "on_duty_time": "2020-02-23T09:16:07.349+08:00", "off_duty_time": null, "created_at": "2020-02-23T09:16:07.350+08:00", "updated_at": "2020-02-23T09:16:07.350+08:00" },
@@ -61,6 +63,31 @@ export class AttendanceComponent implements OnInit {
     this.dialog.open(DialogData, {
       data: {
        data: row
+      }
+    });
+  }
+  changeHouse() {
+    this.query['page'] = 1;
+    this.query.facility_id = this.house_id;
+    this.loadAttendances(this.query);
+  }
+  applyFilter(filterValue: any) {
+    if (filterValue.length > 0) {
+      filterValue = filterValue.target.value.trim();
+      this.query['key'] = filterValue;
+    }
+    this.loadAttendances(this.query);
+  }
+  getHouses() {
+    this.rest.index('houses').subscribe((data: any) => {
+      this.houses = data.result;
+      if (this.houses.length > 0) {
+        this.house_id = this.house_id || this.houses[0].id;
+        
+        if (this.query.facility_id == null) {
+          this.query.facility_id = this.house_id;
+          this.loadAttendances(this.query);
+        }
       }
     });
   }
