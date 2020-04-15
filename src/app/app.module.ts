@@ -82,6 +82,8 @@ import { CardAccessComponent } from './components/card-access/card-access.compon
 import { CardAccessFormComponent } from './components/card-access/card-access-form/card-access-form.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CardComponent } from './components/card/card.component';
+import { FaceAccessComponent } from './components/face-access/face-access.component';
+import { FaceAccessFormComponent } from './components/face-access/face-access-form/face-access-form.component';
 
 
 @NgModule({
@@ -161,6 +163,8 @@ import { CardComponent } from './components/card/card.component';
     CardAccessFormComponent,
     ChatComponent,
     CardComponent,
+    FaceAccessComponent,
+    FaceAccessFormComponent,
 
   ],
   entryComponents: [

@@ -60,7 +60,10 @@ import {FaceComponent} from './components/face/face.component';
 import {UpdateComponent} from './components/update/update.component';
 import {CardAccessComponent} from './components/card-access/card-access.component';
 import {CardAccessFormComponent} from './components/card-access/card-access-form/card-access-form.component';
-import {CardComponent} from './components/card/card.component'
+import {CardComponent} from './components/card/card.component';
+import {FaceAccessComponent} from './components/face-access/face-access.component';
+import {FaceAccessFormComponent} from './components/face-access/face-access-form/face-access-form.component';
+
 import {ChatComponent} from './components/chat/chat.component';
 
 const routes: Routes = [
@@ -123,6 +126,9 @@ const routes: Routes = [
       {path: 'card-accesses', component: CardAccessComponent},
       {path: 'card-accesses/new', component: CardAccessFormComponent},
       {path: 'card-accesses/:id/edit', component: CardAccessFormComponent},
+      {path: 'face-accesses', component: FaceAccessComponent},
+      {path: 'face-accesses/new', component: FaceAccessFormComponent},
+      {path: 'face-accesses/:id/edit', component: FaceAccessFormComponent},
       {path: 'cards', component: CardComponent},
 
       {path: 'accommodations', component: AccommodationComponent},
