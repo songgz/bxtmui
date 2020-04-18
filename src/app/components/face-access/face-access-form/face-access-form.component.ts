@@ -41,7 +41,7 @@ export class FaceAccessFormComponent implements OnInit {
   }
 
   create() {
-    this.rest.create('face-accesses', {access: this.access}).subscribe((data: any) => {
+    this.rest.create('face_accesses', {face_access: this.access}).subscribe((data: any) => {
       this.access = data;
       this.goBack();
     }, error => {
@@ -50,13 +50,13 @@ export class FaceAccessFormComponent implements OnInit {
   }
 
   edit() {
-    this.rest.show('face-accesses/' + this.access.id).subscribe((data: any) => {
+    this.rest.show('face_accesses/' + this.access.id).subscribe((data: any) => {
       this.access = data;
     });
   }
 
   update() {
-    this.rest.update('face-accesses/' + this.access.id, {access: this.access}).subscribe((data: any) => {
+    this.rest.update('face_accesses/' + this.access.id, {face_access: this.access}).subscribe((data: any) => {
       this.access = data;
       this.goBack();
     }, error => {
