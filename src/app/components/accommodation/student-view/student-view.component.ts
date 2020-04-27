@@ -78,11 +78,11 @@ export class StudentViewComponent implements OnInit {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
       this.getRooms();
-      this.inspection();
+      this.inspection( data );
     });
   }
-  inspection() {
-    this.rest.show('students/' + this.student.id).subscribe((data: any) => {
+  inspection( data:any ) {
+    
       // 判断图片是否存在
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
@@ -91,11 +91,11 @@ export class StudentViewComponent implements OnInit {
       } else {
         this.imgsrc = '/assets/img/imghead.png';
       }
-    });
+    
   }
-  ngAfterViewInit() {
-    this.inspection();
-  }
+  // ngAfterViewInit() {
+  //   this.inspection( );
+  // }
   openDialog() {
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
