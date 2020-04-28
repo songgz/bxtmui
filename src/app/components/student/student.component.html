@@ -55,11 +55,17 @@
   <button mat-icon-button style="color: green" matTooltip="下载模板">
     <mat-icon class="mat-18">cloud_download</mat-icon>
   </button>
-  <button mat-icon-button color="warn" (click)="allAdd()" matTooltip="批量添加">
-    <mat-icon class="mat-18">add</mat-icon>
+  <button mat-icon-button color="warn" (click)="AddFaces()" matTooltip="人脸权限下发">
+    <mat-icon class="mat-18">add_circle</mat-icon>
   </button>
-  <button mat-icon-button color="primary" (click)="allAddDel()" matTooltip="批量添加">
-    <mat-icon class="mat-18">add</mat-icon>
+  <button mat-icon-button color="warn" (click)="DelFaces()" matTooltip="人脸权限删除">
+    <mat-icon class="mat-18">remove_circle</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" (click)="AddCards()" matTooltip="Card权限下发">
+    <mat-icon class="mat-18">add_circle</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" (click)="DelCards()" matTooltip="Card权限删除">
+    <mat-icon class="mat-18">remove_circle</mat-icon>
   </button>
   <button mat-icon-button color="warn" (click)="allDel()" matTooltip="批量删除">
     <mat-icon class="mat-18">delete</mat-icon>

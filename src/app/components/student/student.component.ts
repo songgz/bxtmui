@@ -219,10 +219,10 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  allAdd() {
-    console.log('添加人员');
+  AddFaces() {
+    // console.log('添加人脸人员');
     if (this.student_ids.length === 0) {
-      this.snackBar.open('请选择数据', '', {
+      this.snackBar.open('请选下发人脸权限', '', {
         duration: 2000,
         verticalPosition: 'top',
       });
@@ -242,19 +242,65 @@ export class StudentComponent implements OnInit, AfterViewInit {
       });
     }
   }
-  allAddDel() {
+  DelFaces() {
     console.log('下发删除');
     if (this.student_ids.length === 0) {
-      this.snackBar.open('请选择数据', '', {
+      this.snackBar.open('请选择删除人脸权限', '', {
         duration: 2000,
         verticalPosition: 'top',
       });
     } else {
-      this.rest.confirm({title: 'OK?'}).afterClosed().subscribe(res => {
+      this.rest.confirm({title: '你确定要删除权限?'}).afterClosed().subscribe(res => {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
             console.log(id);
             return this.rest.create('faces', {  face: { user_id: id , status: 'delete'}  });
+          })).pipe(last()).subscribe(data => {
+            this.loadStudents(this.query);
+            this.student_ids = [];
+          }, error => {
+            this.rest.errorHandle(error);
+          });
+        }
+      });
+    }
+  }
+  AddCards() {
+    console.log('下发删除');
+    if (this.student_ids.length === 0) {
+      this.snackBar.open('请选择删除card权限', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要添加card权限?'}).afterClosed().subscribe(res => {
+        if (res) {
+          from(this.student_ids).pipe(concatMap((id: any) => {
+            console.log(id);
+            return this.rest.create('cards', {  card: { user_id: id }  });
+          })).pipe(last()).subscribe(data => {
+            this.loadStudents(this.query);
+            this.student_ids = [];
+          }, error => {
+            this.rest.errorHandle(error);
+          });
+        }
+      });
+    }
+  }
+  DelCards() {
+    console.log('下发删除');
+    if (this.student_ids.length === 0) {
+      this.snackBar.open('请选择删除Card权限', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要删除card权限?'}).afterClosed().subscribe(res => {
+        if (res) {
+          from(this.student_ids).pipe(concatMap((id: any) => {
+            console.log(id);
+            return this.rest.create('cards', {  card: { user_id: id , status: 'delete'}  });
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
