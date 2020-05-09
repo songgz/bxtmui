@@ -17,6 +17,8 @@ import {environment} from '../../../../environments/environment';
 })
 export class StudentFormComponent implements OnInit, AfterViewInit {
   student: any = { };
+  houses: any[];
+  houseId: any;
   floors: any[];
   rooms: any[];
   room: any;
@@ -48,7 +50,7 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
     this.getGroups();
     this.getRoles();
     this.getFloors();
-
+    this.getHouses();
   }
 
   getGroups() {
@@ -57,6 +59,12 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
 
   getRoles() {
     this.roles = this.rest.index('roles').pipe(map((res: any) =>  res.result ));
+  }
+
+  getHouses() {
+    this.rest.index('houses', {pre: 9999}).subscribe((data: any) => {
+      this.houses = data.result;
+    });
   }
 
   getFloors() {
@@ -133,6 +141,15 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
       console.log("update:",data);
       this.student = data;
       this.goBack();
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+  }
+  PostHouse() {
+    console.log(this.houseId);
+    this.rest.create('cards', {  card: { user_id: this.student.id , house_id: this.houseId}  }).subscribe((data: any) => {
+      console.log('user_id:', this.student.id);
+      console.log('house_id:', this.houseId);
     }, error => {
       this.rest.errorHandle(error);
     });
