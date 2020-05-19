@@ -138,7 +138,7 @@ export class StudentFormComponent implements OnInit, AfterViewInit {
   update(f: NgForm) {
     // console.log("update");
     this.rest.update('students/' + this.student.id, {student: f.value}).subscribe((data: any) => {
-      console.log("update:",data);
+      console.log( 'update:' + data);
       this.student = data;
       this.goBack();
     }, error => {

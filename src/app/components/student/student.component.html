@@ -81,7 +81,7 @@
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
-        <mat-checkbox (change)="student_selected(row.id)" [value]="row.id" [checked]="student_ids.indexOf(row.id) > -1">
+        <mat-checkbox (change)="student_selected(row.id , row.ic_card)" [value]="row.id" [checked]="student_ids.indexOf(row.id) > -1">
         </mat-checkbox>
       </td>
     </ng-container>

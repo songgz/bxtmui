@@ -47,6 +47,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { read: true }) sort: MatSort;
   selection = new SelectionModel<any[]>(true, []);
   student_ids: any[] = [];
+  student_cards: any[] = [];
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
@@ -199,13 +200,16 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.loadStudents(this.query);
   }
 
-  student_selected(teacher_id) {
+  student_selected(teacher_id, IcCard) {
     const i = this.student_ids.indexOf(teacher_id);
     if (i > -1) {
       this.student_ids.splice(i, 1);
+      this.student_cards.splice(i, 1);
     } else {
       this.student_ids.push(teacher_id);
+      this.student_cards.push(IcCard);
     }
+    console.log(this.student_cards);
   }
 
   allSelect(e) {
@@ -213,14 +217,17 @@ export class StudentComponent implements OnInit, AfterViewInit {
       if (e.checked) {
         if (this.student_ids.indexOf(row['id']) < 0) {
           this.student_ids.push(row['id']);
+          this.student_cards.push(row['ic_card']);
         }
       } else {
         this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
+        this.student_cards.splice(this.student_cards.indexOf(row['ic_card']), 1);
       }
     });
+    console.log(this.student_cards);
   }
   AddFaces() {
-    // console.log('添加人脸人员');
+    console.log('添加人脸人员');
     if (this.student_ids.length === 0) {
       this.snackBar.open('请选下发人脸权限', '', {
         duration: 2000,
@@ -266,7 +273,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     }
   }
   AddCards() {
-    console.log('下发删除');
+    console.log('添加卡号');
     if (this.student_ids.length === 0) {
       this.snackBar.open('请选择删除card权限', '', {
         duration: 2000,
@@ -276,6 +283,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.rest.confirm({title: '你确定要添加card权限?'}).afterClosed().subscribe(res => {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
+            console.log(this.student_ids);
             console.log(id);
             return this.rest.create('cards', {  card: { user_id: id }  });
           })).pipe(last()).subscribe(data => {

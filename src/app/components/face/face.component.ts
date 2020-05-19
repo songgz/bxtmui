@@ -3,6 +3,10 @@ import {RestService} from '../../services/rest.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {from} from 'rxjs/internal/observable/from';
+import {last} from 'rxjs/internal/operators/last';
+import {concatMap} from 'rxjs/internal/operators/concatMap';
 
 @Component({
   selector: 'app-face',
@@ -10,9 +14,9 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./face.component.scss']
 })
 export class FaceComponent implements OnInit {
-  displayedColumns = [ 'title', 'status', 'action'];
+  displayedColumns = [ 'select', 'title', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
-
+  student_ids: any[] = [];
   query: any = {};
 
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
@@ -20,7 +24,10 @@ export class FaceComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-  constructor(private rest: RestService) {
+  constructor(
+    private rest: RestService,
+    private snackBar: MatSnackBar
+    ) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -44,6 +51,49 @@ export class FaceComponent implements OnInit {
       this.rest.errorHandle(error);
     });
   }
+
+  student_selected(teacher_id) {
+    const i = this.student_ids.indexOf(teacher_id);
+    if (i > -1) {
+      this.student_ids.splice(i, 1);
+    } else {
+      this.student_ids.push(teacher_id);
+    }
+  }
+
+  allSelect(e) {
+    this.dataSource.data.forEach(row => {
+      if (e.checked) {
+        if (this.student_ids.indexOf(row['id']) < 0) {
+          this.student_ids.push(row['id']);
+        }
+      } else {
+        this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
+      }
+    });
+  }
+  allDel() {
+    if (this.student_ids.length === 0) {
+      this.snackBar.open('请选择数据', '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          from(this.student_ids).pipe(concatMap((id: any) => {
+           return this.rest.destory('faces/' + id);
+          })).pipe(last()).subscribe(data => {
+            this.loadFaces(this.query);
+            this.student_ids = [];
+          }, error => {
+            this.rest.errorHandle(error);
+          });
+        }
+      });
+    }
+  }
+
   public update (id: string)  {
     this.rest.navigate(['/bxt/faces/', id, 'edit']);
   }
