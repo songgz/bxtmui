@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {RestService} from '../../services/rest.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { RestService } from '../../services/rest.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-floor',
@@ -12,7 +12,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./floor.component.scss']
 })
 export class FloorComponent implements OnInit, AfterViewInit {
-  displayedColumns = [ 'title', 'updated_at', 'action'];
+  displayedColumns = ['title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
   query: any = {};
@@ -66,12 +66,12 @@ export class FloorComponent implements OnInit, AfterViewInit {
     this.loadFloors(this.query);
   }
 
-  public update (id: string)  {
+  public update(id: string) {
     this.rest.navigate(['/bxt/floors/', id, 'edit']);
   }
 
-  public delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+  public delete(id: string) {
+    this.rest.confirm({ title: '你确定要删除这条数据?' }).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('floors/' + id).subscribe(data => {
           this.loadFloors(this.query);
@@ -79,6 +79,13 @@ export class FloorComponent implements OnInit, AfterViewInit {
           this.rest.errorHandle(error);
         });
       }
+    });
+  }
+  public autorenew(id: string, mark: any, parent_id: any) {
+    this.rest.update('floors/' + id, { floor: { 'parent_id': parent_id, 'mark': mark, 'title': mark , 'desc': mark }}).subscribe(data => {
+      this.loadFloors(this.query);
+    }, error => {
+      this.rest.errorHandle(error);
     });
   }
 }

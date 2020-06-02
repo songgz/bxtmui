@@ -112,5 +112,12 @@ export class RoomComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  public autorenew(id: string, mark: any, parent_id: any) {
+    this.rest.update('rooms/' + id, { rooms: { 'parent_id': parent_id, 'mark': mark, 'title': mark , 'desc': mark }}).subscribe(data => {
+      this.loadRooms(this.query);
+    }, error => {
+      this.rest.errorHandle(error);
+    });
+  }
 
 }

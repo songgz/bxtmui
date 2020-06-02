@@ -56,6 +56,9 @@
         <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">
           <mat-icon class="mat-18">delete</mat-icon>
         </button>
+        <button mat-icon-button color="warn" (click)="autorenew(row.id, row.mark, row.parent_id)" matTooltip="更新">
+          <mat-icon class="mat-18">autorenew</mat-icon>
+        </button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
