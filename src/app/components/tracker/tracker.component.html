@@ -68,7 +68,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
       <td mat-cell *matCellDef="let row">
         <div class="picbox">
-          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.user_avatar_url)" [src]="baseUrl + row.user_avatar_url">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(row.user_avatar_url)" [src]="row.user_avatar_url">
         </div>
         <div class="picname">{{row.user_name}}</div>
       </td>
