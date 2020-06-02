@@ -70,7 +70,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
     this.houses.subscribe( data => {
       this.query.house_id = data[0].id;
       this.applyFilter();
-    })
+    });
   }
 
   getFloors(houseId: string) {
