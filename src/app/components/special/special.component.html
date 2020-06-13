@@ -1,0 +1,76 @@
+<div class="searchbox">
+    <mat-form-field>
+        <mat-select placeholder="组织" [(ngModel)]="query.org_id" name="dept_id" (selectionChange)="applyFilter($event)">
+            <mat-option>空</mat-option>
+            <mat-option *ngFor="let org of org.orgs" [value]="org.id">
+                {{org.full_title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="楼栋" [(ngModel)]="house_id" name="house_id" (selectionChange)="changeHouse()">
+            <mat-option *ngFor="let house of houses" [value]="house.id">
+                {{house.title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="楼层" [(ngModel)]="floor_id" name="floor_id" (selectionChange)="changeFloor()">
+            <mat-option *ngFor="let floor of floors" [value]="floor.id">
+                {{floor.title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="房间" [(ngModel)]="room_id" (selectionChange)="changeRoom()">
+            <mat-option *ngFor="let room of rooms " [value]="room.id">
+                {{room.title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [(ngModel)]="query.key" (keyup)="applyFilter($event)" placeholder="输入名或学号">
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 姓名 </th>
+                <td mat-cell *matCellDef="let row">
+                    <div class="picname">{{row.name}}</div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 学号 </th>
+                <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dept">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 班级 </th>
+                <td mat-cell *matCellDef="let row"> {{row.dept_full_title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="bedroom">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 寝室 </th>
+                <td mat-cell *matCellDef="let row"> {{row.dorm_full_title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="updated_at">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 最后更新 </th>
+                <td mat-cell *matCellDef="let row"> {{row.updated_at | date:'yyyy-MM-dd'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> 操作 </th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button color="accent" (click)="update(row.id)" matTooltip="修改">
+                        <mat-icon class="mat-18">launch</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <mat-paginator [length]="pageLength" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginate($event)">
+    </mat-paginator>
+</div>

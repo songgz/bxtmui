@@ -63,7 +63,8 @@ import {CardAccessFormComponent} from './components/card-access/card-access-form
 import {CardComponent} from './components/card/card.component';
 import {FaceAccessComponent} from './components/face-access/face-access.component';
 import {FaceAccessFormComponent} from './components/face-access/face-access-form/face-access-form.component';
-
+import {SpecialComponent} from './components/special/special.component';
+import {SpecialFormComponent} from './components/special/special-form/special-form.component';
 import {ChatComponent} from './components/chat/chat.component';
 
 const routes: Routes = [
@@ -152,6 +153,8 @@ const routes: Routes = [
       {path: 'video-recorders/:id/edit', component: VideoRecorderFormComponent},
       {path: 'setdorms', component: SetdormComponent },
       {path: 'exchanges', component: ExchangesComponent},
+      {path: 'special', component: SpecialComponent},
+      {path: 'special/:id/edit', component: SpecialFormComponent},
       {path: 'error', component: ErrorComponent},
       {path: '**', component: BlankPageComponent}
     ]},

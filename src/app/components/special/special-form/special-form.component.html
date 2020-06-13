@@ -1,0 +1,119 @@
+<form #studentForm="ngForm">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>学生信息编辑</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div>学籍信息</div>
+        <mat-form-field>
+          <mat-select placeholder="所属组织"  [(ngModel)]="student.dept_id"  name="dept_id" [disabled]='disabledvalue'>
+            <mat-option *ngFor="let org of this.org.orgs" [value]="org.id">
+              {{org.full_title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <div>宿舍信息</div>
+        <mat-form-field>
+          <mat-select placeholder="所属楼层"  [(value)]="student.dorm_parent_id"  name="dorm_parent_id" (selectionChange)="selectFloor()" [disabled]='disabledvalue'>
+            <mat-option *ngFor="let floor of floors" [value]="floor.id">
+              {{floor.full_title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="所属房间"  [(ngModel)]="student.dorm_id"  name="dorm_id" (selectionChange)="selectRoom($event.value)" [disabled]='disabledvalue'>
+            <mat-option *ngFor="let room of rooms" [value]="room.id">
+              {{room.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="床号"  [(ngModel)]="student.bed_mark"  name="bed_mark" [disabled]='disabledvalue'>
+            <mat-option *ngFor="let bed of beds" [value]="bed.mark">
+              {{bed.mark}}----{{bed.owner_name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <br>
+        <div>个人信息</div>
+  
+        <mat-form-field>
+          <input matInput placeholder="学生姓名" [(ngModel)]="student.name" name="name" [readonly]="readonlyvalue">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="电话" [(ngModel)]="student.tel" name="tel" [readonly]="readonlyvalue">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="身份证号" [(ngModel)]="student.id_card" name="id_card" [readonly]="readonlyvalue">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" [readonly]="readonlyvalue">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="学号" [(ngModel)]="student.sno" name="sno" required [readonly]="readonlyvalue">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="性别" [(ngModel)]="student.gender_mark" name="gender_mark" [disabled]='disabledvalue'>
+            <mat-option *ngFor="let gender of genders | async" [value]="gender.mark" >
+              {{gender.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="国籍" [(ngModel)]="student.nationality" name="nationality" readonly>
+        </mat-form-field>
+        <br>
+        <!--<div>分组角色</div>-->
+        <!--<mat-form-field>-->
+          <!--<mat-select multiple placeholder="所属分组" [(ngModel)]="student.group_ids"  name="group_ids">-->
+            <!--<mat-option *ngFor="let group of groups | async" [value]="group.id">-->
+              <!--{{group.title}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+          <!--<mat-select multiple placeholder="所属角色" [(ngModel)]="student.role_ids"  name="role_ids">-->
+            <!--<mat-option *ngFor="let role of roles | async" [value]="role.id">-->
+              <!--{{role.title}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
+  
+        <!-- 下发卡权限 -->
+        
+        <mat-card-subtitle>权限管理</mat-card-subtitle>
+          
+        <mat-form-field>
+          <mat-select placeholder="权限楼栋" [(value)]="houseId" >
+            <mat-option *ngFor="let house of houses" [value]="house.id">
+              {{house.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+      </mat-card-content>
+      <mat-card-actions align="center" >
+        <button mat-raised-button color="warn" type="button" (click)="PostHouse()">添加人脸权限</button>
+        <button mat-raised-button color="warn" type="button" (click)="PostHouse()">删除人脸权限</button>
+        <button mat-raised-button color="primary" type="button" (click)="PostHouse()">添加card权限</button>
+        <button mat-raised-button color="primary" type="button" (click)="PostHouse()">删除card权限</button>
+        <!-- <button mat-raised-button color="primary" [disabled]="studentForm.pristine || studentForm.invalid">提交</button> -->
+        <button mat-raised-button color="warn" (click)="goBack()">返回</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <br>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>权限下发历史记录</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+    <mat-action-list>
+
+    </mat-action-list>
+  </mat-card-actions>
+  </mat-card>
+  
