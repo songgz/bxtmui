@@ -26,7 +26,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   floors: Observable<any[]>;
   bed_stats: any = {};
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
@@ -48,7 +48,6 @@ export class RoomComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
   paginate(event) {
     this.pageIndex = event.pageIndex;
@@ -61,6 +60,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
     this.rest.index("rooms", options).subscribe(
       (data: any) => {
         this.dataSource = new MatTableDataSource(data.result);
+        this.dataSource.sort = this.sort;
         this.pageLength = data.paginate_meta.total_count;
         this.pageSize = data.paginate_meta.current_per_page;
         this.pageIndex = data.paginate_meta.current_page - 1;
