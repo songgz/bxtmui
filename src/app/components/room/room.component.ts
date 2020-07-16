@@ -85,6 +85,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   getFloors(houseId: string) {
     const options = {};
     options["parent_id"] = houseId;
+    options['pre'] = 999;
     this.rest.index("floors", options).subscribe((data: any) => {
       this.floors = data.result;
     });
