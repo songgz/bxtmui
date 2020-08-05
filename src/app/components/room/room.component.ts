@@ -154,7 +154,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
           // console.log(item);
           this.rest
             .update("rooms/" + item.id, {
-              room: { parent_id: item.parent_id, mark: item.mark, title: item.mark, desc: item.mark, seq: parseInt(item.mark) },
+              room: { parent_id: item.parent_id, mark: item.mark, title: item.mark, desc: item.mark, seq: Number(item.mark) },
             })
             .subscribe(
               (data) => {

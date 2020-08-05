@@ -82,7 +82,10 @@ export class FloorComponent implements OnInit, AfterViewInit {
     });
   }
   public autorenew(id: string, mark: any, parent_id: any) {
-    this.rest.update('floors/' + id, { floor: { 'parent_id': parent_id, 'mark': mark, 'title': mark , 'desc': mark }}).subscribe(data => {
+    const seq = Number(mark);
+    this.rest.update('floors/' + id,
+    { floor: { 'parent_id': parent_id, 'mark': mark, 'title': mark , 'desc': mark , 'seq': seq}})
+    .subscribe(data => {
       this.loadFloors(this.query);
     }, error => {
       this.rest.errorHandle(error);
