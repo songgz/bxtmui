@@ -130,7 +130,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   public autorenew(id: string, mark: any, parent_id: any) {
     this.rest
       .update("rooms/" + id, {
-        rooms: { parent_id: parent_id, mark: mark, title: mark, desc: mark },
+        room: { parent_id: parent_id, mark: mark, title: mark, desc: mark, seq: Number(mark) },
       })
       .subscribe(
         (data) => {
@@ -151,10 +151,10 @@ export class RoomComponent implements OnInit, AfterViewInit {
         // this.floors = data.result;
         // console.log(data.result);
         data.result.map(item => {
-          console.log(item);
+          // console.log(item);
           this.rest
             .update("rooms/" + item.id, {
-              rooms: { parent_id: item.parent_id, mark: item.mark, title: item.mark, desc: item.mark, seq: parseInt(item.mark) },
+              room: { parent_id: item.parent_id, mark: item.mark, title: item.mark, desc: item.mark, seq: parseInt(item.mark) },
             })
             .subscribe(
               (data) => {

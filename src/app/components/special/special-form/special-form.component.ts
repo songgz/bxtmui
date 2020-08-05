@@ -129,13 +129,37 @@ export class SpecialFormComponent implements OnInit {
     });
   }
   PostHouse() {
-    console.log(this.houseId);
-    this.rest.create('cards', {  card: { user_id: this.student.id , house_id: this.houseId}  }).subscribe((data: any) => {
-      console.log('user_id:', this.student.id);
-      console.log('house_id:', this.houseId);
-    }, error => {
-      this.rest.errorHandle(error);
-    });
+    // console.log(this.houseId);
+    console.log(this.houses.find(  date => {
+      // console.log(date.id);
+      return date.id === this.houseId;
+    }));
+    console.log(this.student);
+    // this.rest.create('cards', {  card: { user_id: this.student.id , house_id: this.houseId}  }).subscribe((data: any) => {
+    //   console.log('user_id:', this.student.id);
+    //   console.log('house_id:', this.houseId);
+    // }, error => {
+    //   this.rest.errorHandle(error);
+    // });
+    const DBOpenRequest = window.indexedDB.open('specialDB', 1);
+    DBOpenRequest.onsuccess = function(event) {
+      // 存储数据结果
+      let db;
+      db = DBOpenRequest.result;
+      // 做其他事情...
+      // console.log(db);
+    };
+    // DBOpenRequest.onupgradeneeded = function(event) {
+    //   // 保存 IDBDataBase 接口
+    //   console.log(event.target);
+    //   const db: any = event.target.result;
+    //   // 为该数据库创建一个对象仓库
+    //   const objectStore = db.createObjectStore('record', { keyPath: 'id' });
+    //   objectStore.createIndex('students', 'student', { unique: true });
+
+    //    // 使用邮箱建立索引，我们向确保客户的邮箱不会重复，所以我们使用 unique 索引
+    //    objectStore.createIndex('houses', 'house', { unique: false });
+    // };
   }
 
 
