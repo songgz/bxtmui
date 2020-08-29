@@ -15,6 +15,7 @@ import {ImportAvatarComponent} from '../import-avatar/import-avatar.component';
 import {from} from 'rxjs/internal/observable/from';
 import {last} from 'rxjs/internal/operators/last';
 import {concatMap} from 'rxjs/internal/operators/concatMap';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 export interface DialogData {
   dataid: string;
@@ -51,6 +52,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
+  progressbar = 0;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -90,6 +92,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.pageLength = data.paginate_meta.total_count;
       this.pageSize = data.paginate_meta.current_per_page;
       this.pageIndex = data.paginate_meta.current_page - 1;
+      this.progressbar = 0;
     }, error => {
       this.rest.errorHandle(error);
     });
@@ -337,6 +340,47 @@ export class StudentComponent implements OnInit, AfterViewInit {
           }, error => {
             this.rest.errorHandle(error);
           });
+        }
+      });
+    }
+  }
+  Format() {
+    // alert(this.house_id);
+    if (this.house_id  === null) {
+      this.snackBar.open('请选择楼栋' , '', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else {
+      this.rest.confirm({title: '你确定要格式化人员数据?'}).afterClosed().subscribe(res => {
+        if (res) {
+          this.snackBar.open('由于数据量较大，执行过程中请勿关闭程序' , '', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          let options = {};
+          options['pre'] = 9999;
+          options = Object.assign(options , this.query);
+          // alert(JSON.stringify(options));
+          this.rest.index('students', options).subscribe( data => {
+            localStorage.removeItem('FormatData');
+            localStorage.setItem( 'FormatData' ,  JSON.stringify(data.result) );
+          }, error => {
+            this.rest.errorHandle(error);
+          });
+          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+          // console.log (Format_data);
+          let i = 0;
+          from(Format_data).pipe(concatMap((student: any) => {
+            console.log(Format_data.length + ': ' + i++ );
+            this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+            return this.rest.destory('students/' + student.id);
+           })).pipe(last()).subscribe(data => {
+            localStorage.removeItem('FormatData');
+             this.loadStudents(this.query);
+           }, error => {
+             this.rest.errorHandle(error);
+           });
         }
       });
     }
