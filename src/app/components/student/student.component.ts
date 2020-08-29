@@ -362,8 +362,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
           options['pre'] = 9999;
           options = Object.assign(options , this.query);
           // alert(JSON.stringify(options));
-          this.rest.index('students', options).subscribe( data => {
+          this.rest.index('students', options).subscribe( e => {
             localStorage.removeItem('FormatData');
+            let data: any;
+            data.result = {};
+            data = e;
             localStorage.setItem( 'FormatData' ,  JSON.stringify(data.result) );
           }, error => {
             this.rest.errorHandle(error);
