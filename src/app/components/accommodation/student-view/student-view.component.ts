@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
@@ -15,9 +15,9 @@ import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../stude
   templateUrl: './student-view.component.html',
   styleUrls: ['./student-view.component.scss']
 })
-export class StudentViewComponent implements OnInit {
-  disabled: boolean = true;
-  readOnly: boolean = true;
+export class StudentViewComponent implements OnInit , AfterViewInit {
+  disabled = true;
+  readOnly = true;
   student: any = { };
   genders: Observable<any[]>;
   directions: Observable<any[]>;
@@ -81,8 +81,7 @@ export class StudentViewComponent implements OnInit {
       this.inspection( data );
     });
   }
-  inspection( data:any ) {
-    
+  inspection(data) {
       // 判断图片是否存在
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
@@ -91,7 +90,6 @@ export class StudentViewComponent implements OnInit {
       } else {
         this.imgsrc = '/assets/img/imghead.png';
       }
-    
   }
   // ngAfterViewInit() {
   //   this.inspection( );
@@ -102,6 +100,9 @@ export class StudentViewComponent implements OnInit {
         dataid: this.imgsrc
       }
     });
+  }
+  ngAfterViewInit() {
+    this.inspection( this.student );
   }
 
   goBack() {

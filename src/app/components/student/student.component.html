@@ -81,11 +81,13 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="allSelect($event)">
+        <mat-checkbox (change)="allSelect($event)"
+        [checked]="checked"
+        [indeterminate]="indeterminate">
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
-        <mat-checkbox (change)="student_selected(row.id , row.ic_card)" [value]="row.id" [checked]="student_ids.indexOf(row.id) > -1">
+        <mat-checkbox (change)="student_selected(row.id , row.ic_card , row.avatar_url)" [value]="row.id" [checked]="student_ids.indexOf(row.id) > -1">
         </mat-checkbox>
       </td>
     </ng-container>

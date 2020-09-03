@@ -49,10 +49,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<any[]>(true, []);
   student_ids: any[] = [];
   student_cards: any[] = [];
+  student_faces: any[] = [];
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
   progressbar = 0;
+  checked = false;
+  indeterminate = false;
 
   constructor(private rest: RestService,
               public dialog: MatDialog,
@@ -96,6 +99,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
     }, error => {
       this.rest.errorHandle(error);
     });
+    this.indeterminate = false;
+    this.checked = false;
+    this.student_ids = [];
+    this.student_faces = [];
+    this.student_cards = [];
   }
 
   applyFilter(filterValue: any) {
@@ -203,16 +211,19 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.loadStudents(this.query);
   }
 
-  student_selected(teacher_id, IcCard) {
+  student_selected(teacher_id, IcCard, faceUrl) {
     const i = this.student_ids.indexOf(teacher_id);
     if (i > -1) {
       this.student_ids.splice(i, 1);
       this.student_cards.splice(i, 1);
+      this.student_faces.splice(i, 1);
     } else {
       this.student_ids.push(teacher_id);
       this.student_cards.push(IcCard);
+      this.student_faces.push(faceUrl);
     }
-    console.log(this.student_cards);
+    // console.log(this.student_cards);
+    // this.indeterminate = true;
   }
 
   allSelect(e) {
@@ -221,19 +232,26 @@ export class StudentComponent implements OnInit, AfterViewInit {
         if (this.student_ids.indexOf(row['id']) < 0) {
           this.student_ids.push(row['id']);
           this.student_cards.push(row['ic_card']);
+          this.student_cards.push(row['avatar_url']);
         }
       } else {
         this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
         this.student_cards.splice(this.student_cards.indexOf(row['ic_card']), 1);
+        this.student_cards.splice(this.student_cards.indexOf(row['avatar_url']), 1);
       }
     });
-    console.log(this.student_cards);
+    // console.log(this.student_cards);
   }
   AddFaces() {
     console.log('添加人脸人员');
     if (this.student_ids.length === 0) {
       this.snackBar.open('请选下发人脸权限', '', {
         duration: 2000,
+        verticalPosition: 'top',
+      });
+    } else if (this.student_cards.indexOf('null') !== -1) {
+      this.snackBar.open('选中数据中存在没照片人员', '', {
+        duration: 5000,
         verticalPosition: 'top',
       });
     } else {
@@ -245,6 +263,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
+            this.student_faces = [];
           }, error => {
             this.rest.errorHandle(error);
           });
@@ -282,6 +301,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
         duration: 2000,
         verticalPosition: 'top',
       });
+    } else if (this.student_cards.indexOf(null) !== -1) {
+      this.snackBar.open('选中数据中存在没卡号人员', '', {
+        duration: 5000,
+        verticalPosition: 'top',
+      });
     } else {
       this.rest.confirm({title: '你确定要添加card权限?'}).afterClosed().subscribe(res => {
         if (res) {
@@ -292,6 +316,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
+            this.student_cards = [];
           }, error => {
             this.rest.errorHandle(error);
           });
@@ -332,7 +357,10 @@ export class StudentComponent implements OnInit, AfterViewInit {
     } else {
       this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
         if (res) {
+          let i = 0;
           from(this.student_ids).pipe(concatMap((id: any) => {
+            i++;
+            this.progressbar = Math.ceil ( i / this.student_ids.length * 100 );
            return this.rest.destory('students/' + id);
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
@@ -359,31 +387,28 @@ export class StudentComponent implements OnInit, AfterViewInit {
             verticalPosition: 'top',
           });
           let options = {};
-          options['pre'] = 9999;
           options = Object.assign(options , this.query);
+          options['pre'] = 9999;
           // alert(JSON.stringify(options));
-          this.rest.index('students', options).subscribe( e => {
-            localStorage.removeItem('FormatData');
-            let data: any;
-            data.result = {};
-            data = e;
-            localStorage.setItem( 'FormatData' ,  JSON.stringify(data.result) );
+          // console.log (options);
+          this.rest.index('students', options).subscribe( (e: any) => {
+            localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
+            const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+            let i = 0;
+            from(Format_data).pipe(concatMap((student: any) => {
+              // console.log(Format_data.length + ': ' + i++ );
+              i++;
+              this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+              return this.rest.destory('students/' + student.id);
+             })).pipe(last()).subscribe(data => {
+              localStorage.removeItem('FormatData');
+               this.loadStudents(this.query);
+             }, error => {
+               this.rest.errorHandle(error);
+             });
           }, error => {
             this.rest.errorHandle(error);
           });
-          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
-          // console.log (Format_data);
-          let i = 0;
-          from(Format_data).pipe(concatMap((student: any) => {
-            console.log(Format_data.length + ': ' + i++ );
-            this.progressbar = Math.ceil ( i / Format_data.length * 100 );
-            return this.rest.destory('students/' + student.id);
-           })).pipe(last()).subscribe(data => {
-            localStorage.removeItem('FormatData');
-             this.loadStudents(this.query);
-           }, error => {
-             this.rest.errorHandle(error);
-           });
         }
       });
     }
