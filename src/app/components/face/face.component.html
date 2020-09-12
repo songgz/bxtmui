@@ -4,6 +4,12 @@
   <button mat-icon-button color="warn" (click)="allDel()" matTooltip="批量删除">
     <mat-icon class="mat-18">delete</mat-icon>
   </button>
+  <button mat-icon-button color="warn" (click)="Claer()" matTooltip="格式化数据">
+    <mat-icon class="mat-18">clear</mat-icon>
+  </button>
+  <button mat-icon-button color="black" (click)="Format()" matTooltip="格式化数据">
+    <mat-icon class="mat-18">delete_forever</mat-icon>
+  </button>
 </mat-toolbar>
 <div class="mat-elevation-z8">
   <div class="table-container">
@@ -36,6 +42,7 @@
           <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">
             <mat-icon class="mat-18">delete</mat-icon>
           </button>
+
         </td>
       </ng-container>
 

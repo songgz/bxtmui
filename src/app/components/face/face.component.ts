@@ -93,6 +93,65 @@ export class FaceComponent implements OnInit {
       });
     }
   }
+  Claer () {
+    this.rest.confirm({title: '确定清除图片为空的数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        let options = {};
+        options = Object.assign(options , this.query);
+        options['pre'] = 9999;
+        // alert(JSON.stringify(options));
+        // console.log (options);
+        this.rest.index('faces', options).subscribe( (e: any) => {
+          localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
+          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+          // let i = 0;
+          from(Format_data).pipe(concatMap((faces: any) => {
+            if (faces.face_url === null) {
+              return this.rest.destory('faces/' + faces.id);
+            } else {
+              return ;
+            }
+           })).pipe(last()).subscribe(data => {
+            localStorage.removeItem('FormatData');
+             this.loadFaces(this.query);
+           }, error => {
+             this.rest.errorHandle(error);
+           });
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
+  Format () {
+    this.rest.confirm({title: '确定格式化数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        let options = {};
+        options = Object.assign(options , this.query);
+        options['pre'] = 9999;
+        // alert(JSON.stringify(options));
+        // console.log (options);
+        this.rest.index('faces', options).subscribe( (e: any) => {
+          localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
+          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+          // let i = 0;
+          from(Format_data).pipe(concatMap((faces: any) => {
+            // console.log(Format_data.length + ': ' + i++ );
+            // i++;
+            // this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+            return this.rest.destory('faces/' + faces.id);
+           })).pipe(last()).subscribe(data => {
+            localStorage.removeItem('FormatData');
+             this.loadFaces(this.query);
+           }, error => {
+             this.rest.errorHandle(error);
+           });
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
 
   public update (id: string)  {
     this.rest.navigate(['/bxt/faces/', id, 'edit']);
@@ -108,4 +167,5 @@ export class FaceComponent implements OnInit {
       }
     });
   }
+
 }
