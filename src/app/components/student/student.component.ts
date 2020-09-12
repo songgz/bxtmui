@@ -104,6 +104,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.student_ids = [];
     this.student_faces = [];
     this.student_cards = [];
+    this.student_faces = [];
   }
 
   applyFilter(filterValue: any) {
@@ -222,7 +223,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.student_cards.push(IcCard);
       this.student_faces.push(faceUrl);
     }
-    // console.log(this.student_cards);
+    console.log(this.student_faces);
     // this.indeterminate = true;
   }
 
@@ -232,15 +233,15 @@ export class StudentComponent implements OnInit, AfterViewInit {
         if (this.student_ids.indexOf(row['id']) < 0) {
           this.student_ids.push(row['id']);
           this.student_cards.push(row['ic_card']);
-          this.student_cards.push(row['avatar_url']);
+          this.student_faces.push(row['avatar_url']);
         }
       } else {
         this.student_ids.splice(this.student_ids.indexOf(row['id']), 1);
         this.student_cards.splice(this.student_cards.indexOf(row['ic_card']), 1);
-        this.student_cards.splice(this.student_cards.indexOf(row['avatar_url']), 1);
+        this.student_faces.splice(this.student_cards.indexOf(row['avatar_url']), 1);
       }
     });
-    // console.log(this.student_cards);
+    console.log(this.student_faces);
   }
   AddFaces() {
     console.log('添加人脸人员');
@@ -249,7 +250,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
         duration: 2000,
         verticalPosition: 'top',
       });
-    } else if (this.student_cards.indexOf('null') !== -1) {
+    } else if (this.student_faces.indexOf(null) !== -1) {
       this.snackBar.open('选中数据中存在没照片人员', '', {
         duration: 5000,
         verticalPosition: 'top',
