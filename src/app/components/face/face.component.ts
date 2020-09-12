@@ -105,10 +105,18 @@ export class FaceComponent implements OnInit {
           localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
           const Format_data = JSON.parse(localStorage.getItem('FormatData'));
           // let i = 0;
-          from(Format_data).pipe(concatMap((faces: any) => {
-            if (faces.face_url === null) {
-              return this.rest.destory('faces/' + faces.id);
+          const Claer_data = [];
+          Format_data.map( data => {
+            if (data.face_url === null ) {
+              Claer_data.push(data);
             }
+          });
+          console.log(Claer_data);
+          from(Claer_data).pipe(concatMap((faces: any) => {
+            // console.log(Format_data.length + ': ' + i++ );
+            // i++;
+            // this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+            return this.rest.destory('faces/' + faces.id);
            })).pipe(last()).subscribe(data => {
             localStorage.removeItem('FormatData');
              this.loadFaces(this.query);
