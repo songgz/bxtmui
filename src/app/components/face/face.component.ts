@@ -108,8 +108,6 @@ export class FaceComponent implements OnInit {
           from(Format_data).pipe(concatMap((faces: any) => {
             if (faces.face_url === null) {
               return this.rest.destory('faces/' + faces.id);
-            } else {
-              return ;
             }
            })).pipe(last()).subscribe(data => {
             localStorage.removeItem('FormatData');
