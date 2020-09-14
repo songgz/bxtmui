@@ -78,31 +78,28 @@ export class StudentViewComponent implements OnInit , AfterViewInit {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
       this.getRooms();
-      this.inspection( data );
+      this.inspection();
     });
   }
-  inspection(data) {
+  inspection() {
       // 判断图片是否存在
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
-      if ( data.avatar_url != null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
+      if ( this.student.avatar_url != null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
         this.imgsrc = environment.baseUrl + this.student.avatar_url;
       } else {
         this.imgsrc = '/assets/img/imghead.png';
       }
   }
-  // ngAfterViewInit() {
-  //   this.inspection( );
-  // }
+  ngAfterViewInit() {
+    this.inspection();
+  }
   openDialog() {
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
         dataid: this.imgsrc
       }
     });
-  }
-  ngAfterViewInit() {
-    this.inspection( this.student );
   }
 
   goBack() {

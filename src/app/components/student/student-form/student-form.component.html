@@ -60,7 +60,7 @@
         <input matInput placeholder="身份证号" [(ngModel)]="student.id_card" name="id_card" >
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="卡号" [(ngModel)]="student.ic_card" name="ic_card" >
+        <input matInput placeholder="卡号(读卡器或系统同步获取)" [readonly]=true [(ngModel)]="student.ic_card" name="ic_card" >
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="学号" [(ngModel)]="student.sno" name="sno" required >
