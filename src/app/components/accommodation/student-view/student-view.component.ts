@@ -15,7 +15,7 @@ import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../stude
   templateUrl: './student-view.component.html',
   styleUrls: ['./student-view.component.scss']
 })
-export class StudentViewComponent implements OnInit {
+export class StudentViewComponent implements OnInit, AfterViewInit {
   disabled = true;
   readOnly = true;
   student: any = { };
@@ -87,10 +87,16 @@ export class StudentViewComponent implements OnInit {
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
       if ( this.student.avatar_url !== null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
-        this.imgsrc = environment.baseUrl + this.student.avatar_url;
+        console.log('图片存在');
+        this.ngAfterViewInit();
       } else {
+        console.log('图片不存在');
         this.imgsrc = '/assets/img/imghead.png';
       }
+  }
+  ngAfterViewInit() {
+    console.log('图片替换');
+    this.imgsrc = environment.baseUrl + this.student.avatar_url;
   }
   openDialog() {
     this.dialog.open(ImgDialogStudentComponent, {
