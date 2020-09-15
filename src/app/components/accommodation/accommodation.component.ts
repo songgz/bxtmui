@@ -13,7 +13,7 @@ export class AccommodationComponent implements OnInit {
   houses: Observable<any[]>;
   floors: Observable<any[]>;
   house: any = {id: null};
-  rooms: any = {};
+  rooms:  Observable<any[]>;
   floor: any = {id: null};
   bed_stats: any = {};
 
@@ -46,9 +46,9 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
-  getRooms(parent_id) {
-    return this.rooms.filter(x => x.parent_id === parent_id);
-  }
+  // getRooms(parent_id) {
+  //   return this.rooms.filter(x => x.parent_id === parent_id);
+  // }
 
   selectHouse() {
     const options = {house_id: this.house.id, pre: 9999};

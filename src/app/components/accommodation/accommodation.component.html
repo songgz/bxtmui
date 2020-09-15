@@ -28,7 +28,7 @@
   <!-- <div class="floorbox" *ngFor="let floor of floors"> -->
     <!-- <div class="floortitle">{{floor.title}}</div> -->
     <div class="roombox">
-      <div class="roomitem" *ngFor="let room of getRooms(floor.id)">
+      <div class="roomitem" *ngFor="let room of rooms">
         <app-room-box [room]="room"></app-room-box>
       </div>
     </div>
