@@ -15,7 +15,7 @@ import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../stude
   templateUrl: './student-view.component.html',
   styleUrls: ['./student-view.component.scss']
 })
-export class StudentViewComponent implements OnInit  {
+export class StudentViewComponent implements OnInit , AfterViewInit {
   disabled = true;
   readOnly = true;
   student: any = { };
@@ -25,7 +25,7 @@ export class StudentViewComponent implements OnInit  {
   rooms: any[];
   groups: Observable<any[]>;
   roles: Observable<any[]>;
-  imgsrc: any = '/assets/img/imghead.png';
+  imgsrc: any;
 
   constructor(private rest: RestService,
               private route: ActivatedRoute,
@@ -78,7 +78,7 @@ export class StudentViewComponent implements OnInit  {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
       this.student = data;
       this.getRooms();
-      this.inspection();
+      // this.inspection();
     });
   }
   inspection() {
@@ -92,9 +92,9 @@ export class StudentViewComponent implements OnInit  {
         this.imgsrc = '/assets/img/imghead.png';
       }
   }
-  // ngAfterViewInit() {
-  //   this.inspection();
-  // }
+  ngAfterViewInit() {
+    this.inspection();
+  }
   openDialog() {
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
