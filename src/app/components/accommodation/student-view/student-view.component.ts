@@ -1,6 +1,6 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, observable} from 'rxjs';
 import {RestService} from '../../../services/rest.service';
 import {ActivatedRoute} from '@angular/router';
 import {DictService} from '../../../services/dict.service';
@@ -15,7 +15,7 @@ import {ImgDialogStudentComponent, ListDialogStudentComponent} from '../../stude
   templateUrl: './student-view.component.html',
   styleUrls: ['./student-view.component.scss']
 })
-export class StudentViewComponent implements OnInit, AfterViewInit {
+export class StudentViewComponent implements OnInit, AfterViewInit, AfterViewChecked  {
   disabled = true;
   readOnly = true;
   student: any = { };
@@ -38,6 +38,7 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.org.getOrgs();
     this.route.paramMap.subscribe((params: any) => {
+      // console.log(params);
       this.student.id = params.get('id');
       if (this.student.id != null) {
         this.view();
@@ -76,28 +77,32 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
 
   view() {
     this.rest.show('students/' + this.student.id).subscribe((data: any) => {
+      // console.log(data);
       this.student = data;
       this.getRooms();
-      this.inspection();
+      // this.ngAfterViewInit();
     });
   }
   inspection() {
-    console.log('判断图片是否存在');
+    // console.log('判断图片是否存在');
       // 判断图片是否存在
       const ImgObj = new Image();
       ImgObj.src = environment.baseUrl + this.student.avatar_url;
-      if ( this.student.avatar_url !== null && (ImgObj.width > 0 && ImgObj.height > 0) ) {
-        console.log('图片存在');
-        this.ngAfterViewInit();
+      if ( this.student.avatar_url !== null && ( ImgObj.height > 0 && ImgObj.width > 0 )) {
+        // console.log('图片存在');
+        this.imgsrc = environment.baseUrl + this.student.avatar_url;
       } else {
-        console.log('图片不存在');
+        // console.log('图片不存在');
         this.imgsrc = '/assets/img/imghead.png';
       }
   }
   ngAfterViewInit() {
-    console.log('图片替换');
-    this.imgsrc = environment.baseUrl + this.student.avatar_url;
+    // this.view();
   }
+  ngAfterViewChecked() {
+    this.inspection();
+  }
+
   openDialog() {
     this.dialog.open(ImgDialogStudentComponent, {
       data: {
