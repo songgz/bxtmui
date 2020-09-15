@@ -1,34 +1,36 @@
+<div class="searchbox">
+  <mat-form-field class="sethouse">
+    <mat-select placeholder="楼栋" [(ngModel)]="house.id" (selectionChange)="selectHouse()">
+      <mat-option *ngFor="let house of houses" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="sethouse">
+    <mat-select placeholder="楼层" [(ngModel)]="floor.id" (selectionChange)="selectFloor()">
+      <mat-option *ngFor="let floor of floors" [value]="floor.id">
+        {{floor.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="notes">
+  <div class="status-style" *ngIf="bed_stats">
+    <div>总床数：{{bed_stats.total}} </div>
+    <div>入住数：{{bed_stats.owners}} </div>
+    <div>空床数：{{bed_stats.total - bed_stats.owners}}</div>
+  </div>
+  <!--<span><mat-icon color="primary">person</mat-icon><span>男</span></span>-->
+  <!--<span><mat-icon color="warn">person</mat-icon><span>女</span></span>-->
+  <!--<span><mat-icon style="color: gray" >person_outline</mat-icon><span>空</span></span>-->
+</div>
 <div class="mat-elevation-z8">
-  <div>
-    <mat-form-field class="sethouse">
-      <mat-select placeholder="楼栋" [(ngModel)]="house.id" (selectionChange)="selectHouse()">
-        <mat-option *ngFor="let house of houses" [value]="house.id">
-          {{house.title}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!--<mat-form-field class="sethouse">-->
-      <!--<mat-select placeholder="楼层" [(ngModel)]="floor.id" (selectionChange)="selectFloor()">-->
-        <!--<mat-option *ngFor="let floor of floors" [value]="floor.id">-->
-          <!--{{floor.title}}-->
-        <!--</mat-option>-->
-      <!--</mat-select>-->
-    <!--</mat-form-field>-->
-  </div>
-  <div class="notes">
-    <div class="status-style" *ngIf="bed_stats">
-      <div>总床数：{{bed_stats.total}} </div><div>入住数：{{bed_stats.owners}} </div><div>空床数：{{bed_stats.total - bed_stats.owners}}</div>
-    </div>
-    <!--<span><mat-icon color="primary">person</mat-icon><span>男</span></span>-->
-    <!--<span><mat-icon color="warn">person</mat-icon><span>女</span></span>-->
-    <!--<span><mat-icon style="color: gray" >person_outline</mat-icon><span>空</span></span>-->
-  </div>
-  <div class="floorbox" *ngFor="let floor of floors" >
-    <div class="floortitle">{{floor.title}}</div>
+  <!-- <div class="floorbox" *ngFor="let floor of floors"> -->
+    <!-- <div class="floortitle">{{floor.title}}</div> -->
     <div class="roombox">
-      <div class="roomitem" *ngFor="let room of getRooms(floor.id)" >
+      <div class="roomitem" *ngFor="let room of getRooms(floor.id)">
         <app-room-box [room]="room"></app-room-box>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

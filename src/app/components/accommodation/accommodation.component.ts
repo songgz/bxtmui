@@ -11,9 +11,9 @@ import {Observable} from 'rxjs';
 export class AccommodationComponent implements OnInit {
 
   houses: Observable<any[]>;
+  floors: Observable<any[]>;
   house: any = {id: null};
   rooms: any = {};
-  floors: any[] = [];
   floor: any = {id: null};
   bed_stats: any = {};
 
@@ -26,6 +26,8 @@ export class AccommodationComponent implements OnInit {
   loadFloors() {
     this.rest.index('floors', {house_id: this.house.id, pre: 9999}).subscribe((data: any) => {
       this.floors = data.result;
+      this.floor.id = this.floors[0].id;
+      this.selectFloor();
     });
   }
 
@@ -33,7 +35,7 @@ export class AccommodationComponent implements OnInit {
     this.rest.index('rooms', options).subscribe((data: any) => {
       this.rooms = data.result;
       this.bed_stats = data.bed_stats;
-      this.loadFloors();
+      // this.loadFloors();
     });
   }
   getHouse() {
@@ -50,12 +52,12 @@ export class AccommodationComponent implements OnInit {
 
   selectHouse() {
     const options = {house_id: this.house.id, pre: 9999};
+    this.loadFloors();
+  }
+  selectFloor() {
+    const options = {parent_id: this.floor.id, pre: 9999};
     this.loadRooms(options);
   }
-  // selectFloor() {
-  //   const options = {parent_id: this.floor.id, pre: 9999};
-  //   this.loadRooms(options);
-  // }
 
 
 }
