@@ -93,11 +93,11 @@ export class CardComponent implements OnInit {
     }
   }
   Format () {
-    this.rest.confirm({title: '确定格式化数据?'}).afterClosed().subscribe(res => {
+    this.rest.confirm({title: '确定格式化1000条数据?'}).afterClosed().subscribe(res => {
       if (res) {
         let options = {};
         options = Object.assign(options , this.query);
-        options['pre'] = 99999;
+        options['pre'] = 1000;
         // alert(JSON.stringify(options));
         // console.log (options);
         this.rest.index('cards', options).subscribe( (e: any) => {
