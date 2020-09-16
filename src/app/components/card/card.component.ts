@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
-import {RestService} from '../../services/rest.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RestService } from '../../services/rest.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {from} from 'rxjs/internal/observable/from';
-import {last} from 'rxjs/internal/operators/last';
-import {concatMap} from 'rxjs/internal/operators/concatMap';
+import { from } from 'rxjs/internal/observable/from';
+import { last } from 'rxjs/internal/operators/last';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
 
 
 @Component({
@@ -16,7 +16,7 @@ import {concatMap} from 'rxjs/internal/operators/concatMap';
 })
 export class CardComponent implements OnInit {
 
-  displayedColumns = [ 'select', 'title', 'status', 'action'];
+  displayedColumns = ['select', 'title', 'status', 'action'];
   dataSource: MatTableDataSource<any[]>;
 
   query: any = {};
@@ -27,7 +27,7 @@ export class CardComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-  constructor(private rest: RestService,  private snackBar: MatSnackBar) {
+  constructor(private rest: RestService, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -78,10 +78,10 @@ export class CardComponent implements OnInit {
         verticalPosition: 'top',
       });
     } else {
-      this.rest.confirm({title: '你确定要删除数据?'}).afterClosed().subscribe(res => {
+      this.rest.confirm({ title: '你确定要删除数据?' }).afterClosed().subscribe(res => {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
-           return this.rest.destory('cards/' + id);
+            return this.rest.destory('cards/' + id);
           })).pipe(last()).subscribe(data => {
             this.loadFaces(this.query);
             this.student_ids = [];
@@ -92,11 +92,40 @@ export class CardComponent implements OnInit {
       });
     }
   }
-  public update (id: string)  {
+  Format () {
+    this.rest.confirm({title: '确定格式化数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        let options = {};
+        options = Object.assign(options , this.query);
+        options['pre'] = 99999;
+        // alert(JSON.stringify(options));
+        // console.log (options);
+        this.rest.index('cards', options).subscribe( (e: any) => {
+          localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
+          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+          // let i = 0;
+          from(Format_data).pipe(concatMap((card: any) => {
+            // console.log(Format_data.length + ': ' + i++ );
+            // i++;
+            // this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+            return this.rest.destory('cards/' + card.id);
+           })).pipe(last()).subscribe(data => {
+            localStorage.removeItem('FormatData');
+             this.loadFaces(this.query);
+           }, error => {
+             this.rest.errorHandle(error);
+           });
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
+  update(id: string) {
     this.rest.navigate(['/bxt/cards/', id, 'edit']);
   }
-  public delete (id: string) {
-    this.rest.confirm({title: '你确定要删除这条数据?'}).afterClosed().subscribe(res => {
+  delete(id: string) {
+    this.rest.confirm({ title: '你确定要删除这条数据?' }).afterClosed().subscribe(res => {
       if (res) {
         this.rest.destory('cards/' + id).subscribe(data => {
           this.loadFaces(this.query);
