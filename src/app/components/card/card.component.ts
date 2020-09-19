@@ -92,6 +92,42 @@ export class CardComponent implements OnInit {
       });
     }
   }
+  Clear () {
+    this.rest.confirm({title: '确定清除图片为空的数据?'}).afterClosed().subscribe(res => {
+      if (res) {
+        let options = {};
+        options = Object.assign(options , this.query);
+        options['pre'] = 9999;
+        // alert(JSON.stringify(options));
+        // console.log (options);
+        this.rest.index('cards', options).subscribe( (e: any) => {
+          localStorage.setItem( 'FormatData' ,  JSON.stringify(e.result) );
+          const Format_data = JSON.parse(localStorage.getItem('FormatData'));
+          // let i = 0;
+          const Claer_data = [];
+          Format_data.map( data => {
+            if (data.ic_card === null ) {
+              Claer_data.push(data);
+            }
+          });
+          console.log(Claer_data);
+          from(Claer_data).pipe(concatMap((card: any) => {
+            // console.log(Format_data.length + ': ' + i++ );
+            // i++;
+            // this.progressbar = Math.ceil ( i / Format_data.length * 100 );
+            return this.rest.destory('cards/' + card.id);
+           })).pipe(last()).subscribe(data => {
+            localStorage.removeItem('FormatData');
+             this.loadFaces(this.query);
+           }, error => {
+             this.rest.errorHandle(error);
+           });
+        }, error => {
+          this.rest.errorHandle(error);
+        });
+      }
+    });
+  }
   Format () {
     this.rest.confirm({title: '确定格式化1000条数据?'}).afterClosed().subscribe(res => {
       if (res) {

@@ -93,7 +93,7 @@ export class FaceComponent implements OnInit {
       });
     }
   }
-  Claer () {
+  Clear () {
     this.rest.confirm({title: '确定清除图片为空的数据?'}).afterClosed().subscribe(res => {
       if (res) {
         let options = {};
