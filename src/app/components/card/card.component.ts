@@ -7,6 +7,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { from } from 'rxjs/internal/observable/from';
 import { last } from 'rxjs/internal/operators/last';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { StringDecoder } from 'string_decoder';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
+import { stringify } from '@angular/compiler/src/util';
+import { isEmpty } from 'rxjs/operators';
+import { isNull } from 'util';
 
 
 @Component({
@@ -106,7 +111,7 @@ export class CardComponent implements OnInit {
           // let i = 0;
           const Claer_data = [];
           Format_data.map( data => {
-            if (data.ic_card === null ) {
+            if ( data.ic_card === null || data.ic_card.lengh() === 0 ) {
               Claer_data.push(data);
             }
           });
