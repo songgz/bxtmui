@@ -111,7 +111,7 @@ export class CardComponent implements OnInit {
           // let i = 0;
           const Claer_data = [];
           Format_data.map( data => {
-            if ( data.ic_card === null || data.ic_card.lengh() === 0 ) {
+            if ( data.ic_card === null || data.ic_card === '') {
               Claer_data.push(data);
             }
           });
