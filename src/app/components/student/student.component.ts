@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {RestService} from '../../services/rest.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 import {DictService} from '../../services/dict.service';
@@ -22,6 +22,10 @@ export interface DialogData {
 }
 export interface ListDialogData {
   list: any;
+}
+export interface MoreDialogData {
+  code: any;
+  recode: any;
 }
 
 @Component({
@@ -43,6 +47,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   room_id = null;
   facility_id = null;
   baseUrl: any;
+  moreConfig = false;
 
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -223,6 +228,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.student_cards.push(IcCard);
       this.student_faces.push(faceUrl);
     }
+    console.log(this.student_ids);
+    console.log(this.student_cards);
     console.log(this.student_faces);
     // this.indeterminate = true;
   }
@@ -243,6 +250,42 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
     console.log(this.student_faces);
   }
+  getId() {
+    const date = new Date().toLocaleDateString();
+    const id = Date.parse(date) / 100000;
+    // const id = date;
+    return id;
+  }
+  More(): void {
+    // const data: any;
+    const code = this.getId();
+    const recode: any = '';
+    // alert(code);
+    const dialogRef = this.dialog.open(MoreDialogStudentComponent, {
+      width: '250px',
+      data: {code: code , recode: recode}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      // alert(result);
+      const num = code.toString(16);
+      // console.log(code);
+      console.log(num);
+      if ( result === num ) {
+        this.moreConfig = !this.moreConfig;
+        this.snackBar.open('授权成功', '', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
+      } else {
+        this.snackBar.open('授权失败', '', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
+      }
+    });
+  }
   AddFaces() {
     console.log('添加人脸人员');
     if (this.student_ids.length === 0) {
@@ -260,7 +303,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
             console.log(id);
-            return this.rest.create('faces', { face: { user_id: id } });
+            return this.rest.create('faces', { face: { user_id: id , status: 'add'} });
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
@@ -298,11 +341,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
   AddCards() {
     console.log('添加卡号');
     if (this.student_ids.length === 0) {
-      this.snackBar.open('请选择删除card权限', '', {
+      this.snackBar.open('请选择添加card权限人员', '', {
         duration: 2000,
         verticalPosition: 'top',
       });
-    } else if (this.student_cards.indexOf(null) !== -1) {
+    } else if (this.student_cards.indexOf('') !== -1 || this.student_cards.indexOf(null) !== -1) {
       this.snackBar.open('选中数据中存在没卡号人员', '', {
         duration: 5000,
         verticalPosition: 'top',
@@ -311,9 +354,11 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.rest.confirm({title: '你确定要添加card权限?'}).afterClosed().subscribe(res => {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
-            console.log(this.student_ids);
-            console.log(id);
-            return this.rest.create('cards', {  card: { user_id: id }  });
+            // console.log(this.student_ids);
+            // console.log(id);
+            const IcCard = this.student_ids.indexOf(id);
+            // alert('IcCard:' + IcCard);
+            return this.rest.create('cards', {  card: { user_id: id , status: 'add' , ic_card: this.student_cards[IcCard]}  });
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
@@ -336,8 +381,9 @@ export class StudentComponent implements OnInit, AfterViewInit {
       this.rest.confirm({title: '你确定要删除card权限?'}).afterClosed().subscribe(res => {
         if (res) {
           from(this.student_ids).pipe(concatMap((id: any) => {
-            console.log(id);
-            return this.rest.create('cards', {  card: { user_id: id , status: 'delete'}  });
+            // console.log(id);
+            const IcCard = this.student_ids.indexOf(id);
+            return this.rest.create('cards', {  card: { user_id: id , status: 'delete', ic_card: this.student_cards[IcCard]}  });
           })).pipe(last()).subscribe(data => {
             this.loadStudents(this.query);
             this.student_ids = [];
@@ -506,4 +552,23 @@ export class ListDialogStudentComponent {
       this.data.list.splice(this.data.list.indexOf(str), 1);
     }
   }
+}
+
+@Component({
+  selector: 'app-student-moredialog',
+  templateUrl: './moredialog.html',
+})
+
+export class MoreDialogStudentComponent {
+  constructor(
+    public dialogRef: MatDialogRef<MoreDialogStudentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: MoreDialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  onClick(): void {
+    this.dialogRef.close();
+  }
+
 }

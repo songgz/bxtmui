@@ -1,0 +1,13 @@
+<div>
+  <h2>授权申请</h2>
+  <div mat-dialog-content>
+    <p>请输入授权码：{{data.code}}</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.recode">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">取消</button>
+    <button mat-button [mat-dialog-close]="data.recode">确定</button>
+  </div>
+</div>

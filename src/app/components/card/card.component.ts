@@ -98,7 +98,7 @@ export class CardComponent implements OnInit {
     }
   }
   Clear () {
-    this.rest.confirm({title: '确定清除图片为空的数据?'}).afterClosed().subscribe(res => {
+    this.rest.confirm({title: '确定清除卡号为空的数据?'}).afterClosed().subscribe(res => {
       if (res) {
         let options = {};
         options = Object.assign(options , this.query);
@@ -111,7 +111,7 @@ export class CardComponent implements OnInit {
           // let i = 0;
           const Claer_data = [];
           Format_data.map( data => {
-            if ( data.ic_card === null || data.ic_card === '') {
+            if ( data.ic_card === null || data.ic_card === '' || data.ic_card === 0 ) {
               Claer_data.push(data);
             }
           });
@@ -128,6 +128,7 @@ export class CardComponent implements OnInit {
              this.rest.errorHandle(error);
            });
         }, error => {
+          localStorage.removeItem('FormatData');
           this.rest.errorHandle(error);
         });
       }
