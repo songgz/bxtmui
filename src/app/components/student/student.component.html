@@ -55,13 +55,14 @@
   <button mat-icon-button style="color: green" matTooltip="下载模板">
     <mat-icon class="mat-18">cloud_download</mat-icon>
   </button>
+  <button mat-icon-button color="warn" (click)="AddFaces()" matTooltip="人脸权限下发">
+    <mat-icon class="mat-18">add_circle</mat-icon>
+  </button>
   <button *ngIf="!moreConfig" mat-icon-button style="color: gray" (click)="More()" matTooltip="更多功能">
     <mat-icon class="mat-18">more</mat-icon>
   </button>
+
   <span *ngIf="moreConfig">
-    <button mat-icon-button color="warn" (click)="AddFaces()" matTooltip="人脸权限下发">
-      <mat-icon class="mat-18">add_circle</mat-icon>
-    </button>
     <button mat-icon-button color="warn" (click)="DelFaces()" matTooltip="人脸权限删除">
       <mat-icon class="mat-18">remove_circle</mat-icon>
     </button>
@@ -128,9 +129,9 @@
           <mat-icon class="mat-18">launch</mat-icon>
         </button>
 
-<!--        <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">-->
-<!--          <mat-icon class="mat-18">delete</mat-icon>-->
-<!--        </button>-->
+       <button mat-icon-button color="warn" (click)="delete(row.id)" matTooltip="删除">
+         <mat-icon class="mat-18">delete</mat-icon>
+       </button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

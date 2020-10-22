@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { RestService } from '../../services/rest.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -12,8 +12,15 @@ import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/st
 import { stringify } from '@angular/compiler/src/util';
 import { isEmpty } from 'rxjs/operators';
 import { isNull } from 'util';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
+export interface MoreDialogData {
+  code: any;
+  recode: any;
+}
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -26,18 +33,23 @@ export class CardComponent implements OnInit {
 
   query: any = {};
   student_ids: any[] = [];
+  houses: Observable<any[]>;
+  moreConfig = false;
 
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true }) sort: MatSort;
   pageIndex = 0;
   pageSize = 10;
   pageLength = 0;
-  constructor(private rest: RestService, private snackBar: MatSnackBar) {
+  constructor(private rest: RestService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource([]);
   }
 
   ngOnInit() {
-    this.loadFaces();
+    this.getHouses();
+    // this.loadFaces();
   }
   paginate(event) {
     this.pageIndex = event.pageIndex;
@@ -56,6 +68,19 @@ export class CardComponent implements OnInit {
       this.rest.errorHandle(error);
     });
   }
+
+  applyFilter(filterValue: string = '') {
+    filterValue = filterValue.trim();
+    if (filterValue.length !== 0) {
+      this.query['key'] = filterValue;
+    }
+    this.loadFaces(this.query);
+  }
+
+  getHouses() {
+    this.houses = this.rest.index('houses').pipe(map((res: any) => res.result));
+  }
+
   student_selected(teacher_id) {
     const i = this.student_ids.indexOf(teacher_id);
     if (i > -1) {
@@ -163,8 +188,45 @@ export class CardComponent implements OnInit {
       }
     });
   }
+  getId() {
+    const date = new Date().toLocaleDateString();
+    const id = Date.parse(date) / 100000;
+    // const id = date;
+    return id;
+  }
+  More(): void {
+    // const data: any;
+    const code = this.getId();
+    const recode: any = '';
+    // alert(code);
+    const dialogRef = this.dialog.open(MoreDialogCardComponent, {
+      width: '250px',
+      data: {code: code , recode: recode}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      // alert(result);
+      const num = code.toString(16);
+      // console.log(code);
+      console.log(num);
+      if ( result === num ) {
+        this.moreConfig = !this.moreConfig;
+        this.snackBar.open('授权成功', '', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
+      } else {
+        this.snackBar.open('授权失败', '', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
+      }
+    });
+  }
+
   update(id: string) {
-    this.rest.navigate(['/bxt/cards/', id, 'edit']);
+    this.rest.navigate(['/bxt/students/', id, 'edit']);
   }
   delete(id: string) {
     this.rest.confirm({ title: '你确定要删除这条数据?' }).afterClosed().subscribe(res => {
@@ -177,4 +239,23 @@ export class CardComponent implements OnInit {
       }
     });
   }
+}
+
+@Component({
+  selector: 'app-card-moredialog',
+  templateUrl: './moredialog.html',
+})
+
+export class MoreDialogCardComponent {
+  constructor(
+    public dialogRef: MatDialogRef<MoreDialogCardComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: MoreDialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  onClick(): void {
+    this.dialogRef.close();
+  }
+
 }

@@ -1,6 +1,19 @@
+<div class="searchbox">
+  <mat-form-field>
+    <mat-select placeholder="楼栋" [(ngModel)]="query.house_id" name="house_id" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let house of houses | async" [value]="house.id">
+        {{house.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <mat-toolbar class="mat-elevation-z8">
     <span>下发CARD管理</span>
     <span class="bxt-toolbar-spacer"></span>
+    <button *ngIf="!moreConfig" mat-icon-button style="color: gray" (click)="More()" matTooltip="更多功能">
+      <mat-icon class="mat-18">more</mat-icon>
+    </button>
+    <span *ngIf="moreConfig">
     <button mat-icon-button color="warn" (click)="allDel()" matTooltip="批量删除">
       <mat-icon class="mat-18">delete</mat-icon>
     </button>
@@ -10,6 +23,7 @@
     <button mat-icon-button color="black" (click)="Format()" matTooltip="格式化数据">
       <mat-icon class="mat-18">delete_forever</mat-icon>
     </button>
+  </span>
   </mat-toolbar>
   <div class="mat-elevation-z8">
     <div class="table-container">

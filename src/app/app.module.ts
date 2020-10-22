@@ -68,7 +68,7 @@ import { ExchangesComponent } from './components/exchanges/exchanges.component';
 import { IncomingFormComponent } from './components/incoming/incoming-form/incoming-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import {JwtInterceptor} from './interceptors/jwt-interceptor';
-import { FaceComponent } from './components/face/face.component';
+import { FaceComponent, MoreDialogFaceComponent } from './components/face/face.component';
 import { HouseAccessComponent } from './components/house-access/house-access.component';
 import { StudentViewComponent } from './components/accommodation/student-view/student-view.component';
 import { PersonDialogComponent } from './components/person-dialog/person-dialog.component';
@@ -81,7 +81,7 @@ import { UpdateComponent } from './components/update/update.component';
 import { CardAccessComponent } from './components/card-access/card-access.component';
 import { CardAccessFormComponent } from './components/card-access/card-access-form/card-access-form.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { CardComponent } from './components/card/card.component';
+import { CardComponent, MoreDialogCardComponent } from './components/card/card.component';
 import { FaceAccessComponent } from './components/face-access/face-access.component';
 import { FaceAccessFormComponent } from './components/face-access/face-access-form/face-access-form.component';
 import { SpecialComponent } from './components/special/special.component';
@@ -170,12 +170,16 @@ import { SpecialFormComponent } from './components/special/special-form/special-
     FaceAccessFormComponent,
     SpecialComponent,
     SpecialFormComponent,
+    MoreDialogFaceComponent,
+    MoreDialogCardComponent
 
   ],
   entryComponents: [
     ImgDialogStudentComponent,
     ListDialogStudentComponent,
     MoreDialogStudentComponent,
+    MoreDialogFaceComponent,
+    MoreDialogCardComponent,
     ImgDialogTeacherComponent,
     AlertDialogComponent,
     ConfirmDialogComponent,
