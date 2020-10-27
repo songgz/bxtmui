@@ -113,7 +113,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 抓拍 </th>
       <td mat-cell *matCellDef="let row">
         <div class="snapbox">
-          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(baseUrl + row.user_snapshot_url)" [src]="baseUrl + row.user_snapshot_url">
+          <img onerror="javascript:this.src='/assets/img/imghead.png'" (click)="openDialog(row.user_snapshot_url)" [src]="row.user_snapshot_url">
         </div>
       </td>
     </ng-container>
