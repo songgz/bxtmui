@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExcelFileService} from '../../services/excel-file.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-latecomer',
   templateUrl: './latecomer.component.html',
@@ -162,7 +163,7 @@ export class LatecomerComponent implements OnInit, AfterViewInit {
           d.user_sno,
           d.user_dorm_title,
           d.user_dept_title,
-          new Date(d.pass_time).toLocaleString(),
+          new DatePipe('en-us').transform(d.pass_time, 'yyyy-MM-dd HH:mm:ss'),
           this.direction_type[d.direction],
           this.sleep_status[d.status],
           // d.overtime,

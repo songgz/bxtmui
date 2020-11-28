@@ -7,11 +7,12 @@ import {DictService} from '../../services/dict.service';
 import {Observable} from 'rxjs';
 import {OrgService} from '../../services/org.service';
 import {map} from 'rxjs/operators';
-import {ImgDialogStudentComponent} from "../student/student.component";
+import {ImgDialogStudentComponent} from '../student/student.component';
 import { MatDialog } from '@angular/material/dialog';
 import {environment} from '../../../environments/environment';
 import {ExcelFileService} from '../../services/excel-file.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tracker',
@@ -146,7 +147,7 @@ export class TrackerComponent implements OnInit, AfterViewInit {
           d.user_dorm_title,
           // d.pass_time,
           // d.status,
-          new Date(d.pass_time).toLocaleString(),
+          new DatePipe('en-us').transform(d.pass_time, 'yyyy-MM-dd HH:mm:ss'),
           this.direction_type[d.direction]
         ]);
       });

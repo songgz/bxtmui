@@ -45,9 +45,11 @@
   <!--<button mat-icon-button (click)="test()"  matTooltip="列表">-->
     <!--<mat-icon>list</mat-icon>-->
   <!--</button>-->
+  <button mat-icon-button style="color: green" matTooltip="批量导出" (click)="export_excel()">
+    <mat-icon class="mat-18">cloud_download</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-progress-bar mode="determinate" [value]="progressbar"></mat-progress-bar>
-
 
 <!--<div class="mat-elevation-z8"*ngIf="show">-->
   <!--<div class="flex">-->

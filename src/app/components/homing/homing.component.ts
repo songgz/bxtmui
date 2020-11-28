@@ -10,7 +10,8 @@ import {DictService} from '../../services/dict.service';
 import {RestService} from '../../services/rest.service';
 import {ImgDialogStudentComponent} from '../student/student.component';
 import {environment} from '../../../environments/environment';
-
+import {ExcelFileService} from '../../services/excel-file.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-homing',
   templateUrl: './homing.component.html',
@@ -43,6 +44,8 @@ export class HomingComponent implements OnInit, AfterViewInit {
   direction_type: any = {};
   private dataMap: any = [];
   show = false;
+  file: ExcelFileService = null;
+  statusDays = { days_in: '入侵', go_out: '出寝'};
 
   constructor(
     private rest: RestService,
@@ -60,6 +63,7 @@ export class HomingComponent implements OnInit, AfterViewInit {
         this.direction_type[item.mark] = item.title;
         this.color_direction[item.mark] = item.color;
       }
+      // console.log(this.direction_type);
     });
 
     this.org.getOrgs();
@@ -188,6 +192,34 @@ export class HomingComponent implements OnInit, AfterViewInit {
       this.progressbar = 0;
     }
   }
-
+  // async export_excel() {
+  //   alert('批量导出');
+  // }
+  async export_excel() {
+    this.progressbar = 1;
+    this.file = new ExcelFileService(['姓名', '学号', '公寓', '出入时间', '出入']);
+    this.query['pre'] = 100;
+    const len = this.pageLength / 100 ;
+    for (let i = 0; i <= len; i++ ) {
+      this.query['page'] = i + 1;
+      const data1: any = await this.rest.index('homings', this.query).toPromise();
+      data1.result.forEach(d => {
+        if (d.confirmed) {
+          d.confirmed = d.cause;
+        } else {
+          d.confirmed = '未确认';
+        }
+        this.file.addRow([
+          d.name,
+          d.sno,
+          d.dorm_full_title,
+          new DatePipe('en-us').transform(d.pass_time_at_last, 'yyyy-MM-dd HH:mm:ss'),
+          this.statusDays[d.status]
+        ]);
+      });
+      this.progressbar = (i + 1) / len * 100;
+    }
+    this.file.save('sheet1');
+  }
 
 }
