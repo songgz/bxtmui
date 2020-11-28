@@ -214,7 +214,7 @@ export class HomingComponent implements OnInit, AfterViewInit {
           d.sno,
           d.dorm_full_title,
           new DatePipe('en-us').transform(d.pass_time_at_last, 'yyyy-MM-dd HH:mm:ss'),
-          this.statusDays[d.status]
+          this.direction_type[d.direction_at_last]
         ]);
       });
       this.progressbar = (i + 1) / len * 100;
